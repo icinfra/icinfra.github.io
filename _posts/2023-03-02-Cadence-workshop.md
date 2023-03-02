@@ -38,10 +38,10 @@ Bug Hunting。
 语法检查，并行编译，所有的编译好的文件，做一个elaboration。
 
 
-## 10X Save/Restore and dynamic Text Load
+## 10X Save/Restore and dynamic Test Load
 所有人都从那个点开始，用**UVM的动态重载功能**。在run的时候可以override。
 base testcase，跑完save snapshot（非常大、复杂的状态集）。开始case的时候对base testcase考量，这样初始化只需要跑一些。
-如果case已经建好，再去拆就比较麻烦了。每个case都例化了一个UVM environment了。
+如果case已经建好，再去拆就比较麻烦了，因为每个case都例化了一个UVM environment了。
 
 
 # Full Power Solution
