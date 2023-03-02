@@ -20,7 +20,8 @@ ARM-Based or X86-based
 DFT可以考虑用MC做加速。
 
 
-## 5X Xcelium ML App  通过机器学习来提升回归吞吐。模型是自己训练还是厂家提供？
+## 5X Xcelium ML App
+通过机器学习来提升回归吞吐。模型是自己训练还是厂家提供？
 需要安装额外的ML安装包，依赖于vmanager做集成。正在做无vmnanager的集成，下半年推出。
 达到同样的效果，会做精简。降低回归时间。很多case是冗余的，随机种子很多是伪随机。随机空间更加优化。
 
@@ -31,7 +32,8 @@ Bug Hunting。
 
 通过随机的。如果是定向的则没有意义。
 
-## 5X Advanced Build Tech 并行编译、增量编译（改动不大的，做成snapshot）。
+## 5X Advanced Build Tech
+并行编译、增量编译（改动不大的，做成snapshot）。
 很多IP是固定的，没有必要每次都编译。 增量编译。编testcase，再花两分钟将它链到固定的部分。
 语法检查，并行编译，所有的编译好的文件，做一个elaboration。
 
@@ -40,4 +42,7 @@ Bug Hunting。
 所有人都从那个点开始，用**UVM的动态重载功能**。在run的时候可以override。
 base testcase，跑完save snapshot（非常大、复杂的状态集）。开始case的时候对base testcase考量，这样初始化只需要跑一些。
 如果case已经建好，再去拆就比较麻烦了。每个case都例化了一个UVM environment了。
+
+
+# Full Power Solution
 
