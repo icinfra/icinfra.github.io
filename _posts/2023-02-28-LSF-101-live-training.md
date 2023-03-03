@@ -9,10 +9,92 @@ categories: icenv-posts
 ---
 
 # 简介
-今天下午，IBM举办的LSF初级在线培训。
+今天下午，IBM举办的LSF初级在线培训。Agenda如下
+* Basic of LSF and architecture
+* Overview of LSF Family products
+* LSF and LSF Suite installation
+* LSF License Scheduler
+* Use PAC to submit and manager jobs
+* Use RTM to monitor LSF cluster
+* Q&A
 
-# 纪要
-## 版本介绍
+# 内容
+## IBM Spectrum LSF支持各种工作负载的调度
+* 传统的HPC/HTC（batch&Interactive）作业
+* 容器化作业
+* 大数据作业
+* 机器学习作业
+
+## IBM Spectrum LSF对（云上云下）各种共享（异构）资源的管理
+* Power
+* x86
+* Linux on z
+* SPARC
+* Arm
+* containers
+* 存储（Flash，Disk，and Tape）
+
+## LSF术语
+* Client
+说明：作为提交机，可以是Linux，或者是Windows
+
+* Master Host
+数量：有一个master host，一个或多个master cadidate host。
+说明：可以作为提交机与执行机。也可以CLOSED使得它不作为提交机、执行机，专机专用，避免工作负载影响了LSF master的调度。
+
+* Server Host
+说明：可以作为提交机与执行机。它也可以是一个master cadidate host。
+
+* Job
+提交：从提交机提交，到master host放到队列里
+调度：传递到调度器。随后被调度到执行机，通常占用一个slot。
+执行：执行机接收到job，开始执行。
+
+## LSF架构
+Master与Host的各种服务之间的联系。待补充图。
+
+* 所有机器有LIM进程
+host上的LIM进程会收集当前node的负载、资源使用情况，有哪些资源，比如CPU型号、OS版本等，定期发送给master的LIM。这样master就知道所有这些主机的情况。用户也可以通过elim（plugin module）来自定义监控，如温度等等。
+
+* 所有机器有SBD进程
+当作业提交到master时，会在MBD、MBSCHD里排队。MBD是集群里最重要的核心组件，它会把master LIM里收集到host的信息拿到，并且知道集群里排队作业的情况，进行作业与资源的匹配、派遣到执行机。host的SBD会根据用户指定的命令行，将作业运行起来，直到作业结束。
+
+* 守护进程异常处理
+当host的守护进程宕掉之后，master就无法收集host的信息，此时host将会被标为unavail的状态。在最新的RHEL里，有一个lsf的patch，它使用systemd来管理lsf的守护进程，当lsf守护进程宕掉后，systemd自动将它重启起来。
+
+* job
+LSF对job没有特殊要求，只要它能够在单机上运行，那么它就可以在LSF集群里执行，不需要做过多的集成。假设master与host没有共享文件系统的话，可以设置将job的输出拷贝回提交机。
+
+## IBM Spectrum LSF Family
+有很多add-on，如
+* Application Center
+web页面
+
+* Process Manager
+
+* License Scheduler
+EDA License是非常昂贵的，基于FlexLM或RLM的，结合License调度，达到License的最大化使用。
+
+* Data Manager
+在on-premise LSF资源不够时，将job弹到云上，此时借助Data Manager来决定哪些数据是需要传上去给job使用的。
+
+* Resource Connector
+多集群时使用。在on-premise LSF资源不够时，到客户指定的云上去动态申请机器并将其加到现有的LSF集群，用来跑作业。当作业跑完后释放资源。
+
+* Explorer
+监控集群的使用情况。定期产生报表，是否要扩缩容。
+
+## Editions
+### IBM Spectrum LSF Community Edition
+* Community Edition可扩展到10个节点，最大job数2,500个；
+
+### IBM Spectrum LSF Suite Editions
+商业有三个版本，功能越来越强大：
+* Workgroup可扩展到 128 个节点，最大job数25,000个；
+* HPC可扩展至 1,024 个节点，最大job数250,000个；
+* Enterprise没有节点限制，job数量没有限制。
+
+### 版本号介绍
 * 10.1.0.13 的10.1.0为major release，13为fix pack（每0.5~1年一次）。
 
 ## 标准版与Suit版的安装与配置
@@ -44,6 +126,11 @@ categories: icenv-posts
 * 自行安装社区版
 * 与代理商或者原厂联系，申请私有化部署测试环境
 * 在https://techzone.ibm.com/collection/ibm-spectrum-lsf-suite申请suite版本测试，自带少量Node，需注册。
+
+# Q&A
+* lsadmin与admin的区别是？
+The lsadmin command controls the operation of the lim and res daemons.
+The badmin command controls the operation of the mbatchd and sbatchd daemons.
 
 # 致谢
 感谢主办方以及IBM的分享。
