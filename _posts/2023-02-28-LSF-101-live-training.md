@@ -110,8 +110,46 @@ categories: icenv-posts
 
 * 10.1.0.13 的10.1.0为major release，13为fix pack（每0.5~1年一次）。
 
-## 标准版与Suit版的安装与配置
+## 安装与配置
 
+### 标准版安装与使用
+* 确定用于安装LSF的服务器是什么CPU架构，什么操作系统；
+* 在IBM passport advantage上面下载对应的安装包
+> - lsf10.1_lsfinstall.tar.Z(Passport Advantage)
+> - lsf10.1_OS-Spec.tar.Z(Passport Advantage)
+> - lsf10.1_OS-Spec-build-number.tar.Z(Fix Central)
+> - platform_lsf_std_entitlement.dat  \#许可证，如果无许可证，安装完之后是社区版。
+* 解压
+* 修改配置文件install.config
+* 开始安装，命令如下
+
+```bash
+$ ./lsfinstall -f install.config
+$ $LSF_ENVDIR/../10.1/install/patchinstall </path/to/fp>
+```
+
+* 安装最新的fix pack（截止至发稿，是FP13。于2022年中旬发布）。请注意，最新的fix pack已经包含当前major release的所有fix pack了，不需要将FP1...FP12都补上，直接打FP13即可。
+
+* 服务以及默认端口
+
+|LSF Master|LSF Server|Port|Desc|
+|-|-|-|-|
+|lim|lim|7869|Load Information Manager|
+|pim|pim||Process information Manager|
+|res|res|6878|Remote Execution Server|
+|sbatchd|sbatchd|6882|Slave Batch Daemon|
+|mbatchd||6881|Master Batch Daemon|
+|mbschd|||Master Batch Scheduler|
+
+* 用户初始化
+> `source /path/to/lsf/conf/cshrc.lsf #for csh`
+
+> `. /path/to/lsf/conf/profile.lsf # for bash`
+
+初始化完了之后，执行`which bsub`可以验证是否初始化成功。
+
+
+注意：
 * LSF安装后不支持cluster name修改。
 * 使用IBM certified的GPFS来安装LSF。也支持NFS，但性能稍差。也可以安装在local文件系统，但为了支持failover，建议Master安装在共享文件系统。
 * Master支持在物理机或者虚拟机安装，以满足客户对混合云的部署需求。
