@@ -35,7 +35,9 @@ layout: default
           <i class="fas fa-tag fa-sm"></i> {{ category }}</a> &nbsp;
           {% endfor -%}
       {% endif %}
-
+      <!-- 本页浏览数 added by wanlinwang 03-Mar-2023. -->
+      &nbsp; &middot; &nbsp;
+      <img src="https://visitor-badge.glitch.me/badge?page_id={{site.disqus_shortname}}{{page.id}}" alt="visitor badge"/>
     </p>
   </header>
 
