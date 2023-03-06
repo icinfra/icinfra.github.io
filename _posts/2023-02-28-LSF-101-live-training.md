@@ -121,7 +121,31 @@ $ ./lsfinstall -f install.config
 $ $LSF_ENVDIR/../10.1/install/patchinstall </path/to/fp>
 ```
 
-* 安装最新的fix pack（截止至发稿，是FP13。于2022年中旬发布）。请注意，最新的fix pack已经包含当前major release的所有fix pack了，不需要将FP1...FP12都补上，直接打FP13即可。
+* 安装最新的fix pack
+> -（截止至发稿，是FP13。于2022年中旬发布）。请注意，最新的fix pack已经包含当前major release的所有fix pack了，不需要将FP1...FP12都补上，直接打FP13即可。
+
+* 启动LSF
+> - 启动本机daemon
+```bash
+# lsadmin limstartup
+# lsadmin resstartup
+# badmin hstartup
+```
+
+> - 启动其他机器的daemon
+```bash
+# lsadmin limstartup host1 [host2 ... hostn]
+# lsadmin resstartup host1 [host2 ... hostn]
+# badmin hstartup host1 [host2 ... hostn]
+```
+
+> - 启动所有在lsf.cluster定义的主机的daemon
+```bash
+# lsadmin limstartup all
+# lsadmin resstartup all
+# badmin hstartup all
+# lsfstartup #或者一条命令
+```
 
 LSF启动的服务以及默认端口
 
@@ -134,13 +158,25 @@ LSF启动的服务以及默认端口
 |mbatchd||6881|Master Batch Daemon|
 |mbschd|||Master Batch Scheduler|
 
-* 用户初始化
+* 初始化
 > `source /path/to/lsf/conf/cshrc.lsf #for csh`
 
 > `. /path/to/lsf/conf/profile.lsf # for bash`
 
 初始化完了之后，执行`which bsub`可以验证是否初始化成功。
 
+* 常用命令
+|CLI|Desc|
+|-|-|
+|bsub|提交作业|
+|bjobs|查看作业|
+|bhist|查看作业的历史信息|
+|bbot/btop|将pending job移到最后/最前|
+|bkill|杀掉作业|
+|bmod|修改作业的提交选项|
+|bpeek|将未完成作业的stdout与stderr显示|
+|bstop/bresume|挂起/恢复作业|
+|bswitch|将未完成的作业，更换一个队列|
 
 注意：
 * LSF安装后不支持cluster name修改。
