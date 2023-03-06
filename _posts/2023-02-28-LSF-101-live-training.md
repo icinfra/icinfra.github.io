@@ -168,11 +168,11 @@ LSF启动的服务以及默认端口
 * 常用命令
 |CLI|Desc|
 |-|-|
-|bsub|提交作业|
-|bjobs|查看作业|
-|bhist|查看作业的历史信息|
+|bsub|提交作业。多个bsub并行跑|
+|bjobs|查看作业，从内存里找|
+|bhist|查看作业的历史信息，从lsf events文件里找|
 |bbot/btop|将pending job移到最后/最前|
-|bkill|杀掉作业|
+|bkill|杀掉作业，加上jobid杀掉指定job，或者加0kill掉当前用户的全部作业|
 |bmod|修改作业的提交选项|
 |bpeek|将未完成作业的stdout与stderr显示|
 |bstop/bresume|挂起/恢复作业|
@@ -186,6 +186,25 @@ LSF启动的服务以及默认端口
 * Suit版以.bin结尾，不需先安装基础包再安装fix pack包。而标准版则两步骤分开。
 * Entitlement File，标准版里需手动下载指定，而Suit版本已内置。
 * 最大Node数量：标准版里技术上不限制，通过合同限制。而Suit版技术上就限制了最大Node数量。
+
+### LSF Suite安装与使用
+LSF Suite安装与标准版安装不一样，它是累积型的，一个bin包就包含了之前所有的fix pack以及entitlement文件。
+* 确定用于安装LSF的服务器是什么CPU架构，什么操作系统；
+* 下载安装包：lsfswg10.2.0.13-x86_64.bin
+* 执行自解压：`./lsfswg10.2.0.13-x86_64.bin`
+* 切换目录到/opt/ibm/lsf_installer/playbook
+* 编辑主机列表文件lsf-inventory.yml，将作为master、server、client的机器加进来。
+* 编辑配置文件lsf-config.yml，设置集群名称、共享目录、JDBC连接串以及其他的一些设置。默认当前机器是GUI节点、数据库节点。
+* 测试配置文件以及主机的连通性：
+```bash
+ansible-playbook -i lsf-inventory lsf-config-test.yml
+ansible-playbook -i lsf-inventory lsf-predeploy-test.yml
+```
+* 上一步测试没问题时，则执行安装命令：
+```bash
+ansible-playbook -i lsf-inventory lsf-deploy.yml
+```
+
 
 ## 高级特性
 
