@@ -41,23 +41,16 @@ categories: icenv-posts
 
 ## LSF术语
 
-* Client
-> 说明：作为提交机，可以是Linux，或者是Windows
+|角色|数量|说明|
+|-|-|-|
+|Client|一个或多个|作为提交机，可以是Linux，或者是Windows|
+|master host|一个master host，一个或多个master candidate host|可以作为提交机与执行机。也可以CLOSED使得它不作为提交机、执行机，专机专用，避免工作负载影响了LSF master的调度|
+|server host|一个或多个|可以作为提交机与执行机。它也可以是一个master cadidate host|
+|job||提交：从提交机提交到master host放到Queue并PEND<br/>调度：被调度器调度到执行机，通常占用1个slot<br/>执行：执行机接收到job后开始执行|
 
-* Master Host
-> 数量：有一个master host，一个或多个master cadidate host。
-> 说明：可以作为提交机与执行机。也可以CLOSED使得它不作为提交机、执行机，专机专用，避免工作负载影响了LSF master的调度。
-
-* Server Host
-> 说明：可以作为提交机与执行机。它也可以是一个master cadidate host。
-
-* Job
-> 提交：从提交机提交，到master host放到队列里
-> 调度：传递到调度器。随后被调度到执行机，通常占用一个slot。
-> 执行：执行机接收到job，开始执行。
 
 ## LSF架构
-> Master与Host的各种服务之间的联系。待补充图。
+Master与Host的各种服务之间的联系。待补充图。
 
 * 所有机器有LIM进程
 > host上的LIM进程会收集当前node的负载、资源使用情况，有哪些资源，比如CPU型号、OS版本等，定期发送给master的LIM。这样master就知道所有这些主机的情况。用户也可以通过elim（plugin module）来自定义监控，如温度等等。
@@ -104,7 +97,7 @@ categories: icenv-posts
 
 * Workgroup可扩展到 128 个节点，最大job数25,000个；
 * HPC可扩展至 1,024 个节点，最大job数250,000个；
-* Enterprise没有节点限制，job数量没有限制。
+* Enterprise的节点与job数量没有限制。
 
 ### 版本号介绍
 
@@ -121,7 +114,7 @@ categories: icenv-posts
 > - platform_lsf_std_entitlement.dat  \#许可证，如果无许可证，安装完之后是社区版。
 * 解压
 * 修改配置文件install.config
-* 开始安装，命令如下
+* 安装，建议在共享文件系统（如Spectrum Scale，即原来的GPFS，可被深度集成的，如每作业占用文件系统大小；或NFS）下安装，命令如下
 
 ```bash
 $ ./lsfinstall -f install.config
@@ -130,10 +123,10 @@ $ $LSF_ENVDIR/../10.1/install/patchinstall </path/to/fp>
 
 * 安装最新的fix pack（截止至发稿，是FP13。于2022年中旬发布）。请注意，最新的fix pack已经包含当前major release的所有fix pack了，不需要将FP1...FP12都补上，直接打FP13即可。
 
-* 服务以及默认端口
+LSF启动的服务以及默认端口
 
 |LSF Master|LSF Server|Port|Desc|
-|-|-|-|-|
+|--|--|--|--|
 |lim|lim|7869|Load Information Manager|
 |pim|pim||Process information Manager|
 |res|res|6878|Remote Execution Server|
