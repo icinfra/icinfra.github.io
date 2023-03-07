@@ -147,7 +147,10 @@ $ $LSF_ENVDIR/../10.1/install/patchinstall </path/to/fp>
 # lsfstartup #或者一条命令
 ```
 
-LSF启动的服务以及默认端口
+* 新增机器
+编辑<CLUSTER_NAME>/conf/lsf.cluster.<CLUSTER_NAME>文件，将新增的机器加进来，然后执行`lsadmin reconfig; badmin mbdrestart`以及`lsadmin limstartup host1 [host2 ... hostn]; lsadmin resstartup host1 [host2 ... hostn]; badmin hstartup host1 [host2 ... hostn]`。
+
+* LSF启动的服务以及默认端口
 
 |LSF Master|LSF Server|Port|Desc|
 |--|--|--|--|
@@ -166,6 +169,7 @@ LSF启动的服务以及默认端口
 初始化完了之后，执行`which bsub`可以验证是否初始化成功。
 
 * 常用命令
+
 |CLI|Desc|
 |-|-|
 |bsub|提交作业。多个bsub并行跑|
@@ -188,12 +192,12 @@ LSF启动的服务以及默认端口
 * 最大Node数量：标准版里技术上不限制，通过合同限制。而Suit版技术上就限制了最大Node数量。
 
 ### LSF Suite安装与使用
-LSF Suite安装与标准版安装不一样，它是累积型的，一个bin包就包含了之前所有的fix pack以及entitlement文件。
+LSF Suite安装与标准版安装不一样，它是累积型的，一个bin包就包含了之前所有的fix pack以及entitlement文件。10.2.0.9以及之前是包含了ElasticSearch的，之后是不包含了，允许用户自己指定ElasticSearch。
 * 确定用于安装LSF的服务器是什么CPU架构，什么操作系统；
 * 下载安装包：lsfswg10.2.0.13-x86_64.bin
 * 执行自解压：`./lsfswg10.2.0.13-x86_64.bin`
 * 切换目录到/opt/ibm/lsf_installer/playbook
-* 编辑主机列表文件lsf-inventory.yml，将作为master、server、client的机器加进来。
+* 编辑主机列表文件lsf-inventory，将作为master、server、client、GUI_Host、DB_Host的机器加进来。
 * 编辑配置文件lsf-config.yml，设置集群名称、共享目录、JDBC连接串以及其他的一些设置。默认当前机器是GUI节点、数据库节点。
 * 测试配置文件以及主机的连通性：
 ```bash
@@ -204,6 +208,11 @@ ansible-playbook -i lsf-inventory lsf-predeploy-test.yml
 ```bash
 ansible-playbook -i lsf-inventory lsf-deploy.yml
 ```
+
+### 队列
+队列划分，根据不同的运行时间、交互类型等来划分队列。
+
+
 
 
 ## 高级特性
@@ -232,8 +241,20 @@ ansible-playbook -i lsf-inventory lsf-deploy.yml
 # Q&A
 
 * lsadmin与admin的区别是？
-> The lsadmin command controls the operation of the lim and res daemons.
-> The badmin command controls the operation of the mbatchd and sbatchd daemons.
+> The lsadmin command controls the operation of the lim and res daemons.（base部分，一般是修改了ls、lsf开头的配置文件后使用。）
+> The badmin command controls the operation of the mbatchd and sbatchd daemons.（batch部分，一般是修改了lsb开头的配置文件后使用。）
+
+* 机器可以跑多少任务，如何确定？
+> 默认是多少个core，就可以跑多少个任务，通过bhosts查看的MAX字段。但也可以修改<CLUSTER-NAME>/conf/lsbatch/<CLUSTER-NAME>/configdir/lsb.hosts文件来修改。参考(MXJ settings in lsb.hosts file)[https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=files-lsbhosts]
+
+* 如果将LSF宕掉了，作业还能恢复吗？
+> <CLUSTER_NAME>/work目录，存放作业的状态信息。当集群从异常恢复正常时，LSF会从这个目录读取信息，恢复作业的状态。
+
+* 如果需要绑定core，如何操作？
+> 设置LSF CPU affinity，利用control group将作业的所有进程绑定到某一个core上。这样不会被别的作业使用。
+
+
+
 
 # 致谢
 
