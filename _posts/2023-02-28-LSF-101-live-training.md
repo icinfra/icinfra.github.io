@@ -8,7 +8,7 @@ giscus_comments: true
 categories: icenv-posts
 ---
 
-# 简介
+# 1. 简介
 
 今天下午，IBM举办的LSF初级在线培训。Agenda如下
 
@@ -20,16 +20,16 @@ categories: icenv-posts
 * Use RTM to monitor LSF cluster
 * Q&A
 
-# 内容
+# 2. 内容
 
-## IBM Spectrum LSF支持各种工作负载的调度
+## 2.1 IBM Spectrum LSF支持各种工作负载的调度
 
 * 传统的HPC/HTC（batch&Interactive）作业
 * 容器化作业
 * 大数据作业
 * 机器学习作业
 
-## IBM Spectrum LSF对（云上云下）各种共享（异构）资源的管理
+## 2.2 IBM Spectrum LSF对（云上云下）各种共享（异构）资源的管理
 
 * Power
 * x86
@@ -39,7 +39,7 @@ categories: icenv-posts
 * containers
 * 存储（Flash，Disk，and Tape）
 
-## LSF术语
+## 2.3 LSF术语
 
 |角色|数量|说明|
 |-|-|-|
@@ -49,7 +49,7 @@ categories: icenv-posts
 |job||提交：从提交机提交到master host放到Queue并PEND<br/>调度：被调度器调度到执行机，通常占用1个slot<br/>执行：执行机接收到job后开始执行|
 
 
-## LSF架构
+## 2.4 LSF架构
 Master与Host的各种服务之间的联系。待补充图。
 
 * 所有机器有LIM进程
@@ -64,7 +64,7 @@ Master与Host的各种服务之间的联系。待补充图。
 * job
 > LSF对job没有特殊要求，只要它能够在单机上运行，那么它就可以在LSF集群里执行，不需要做过多的集成。假设master与host没有共享文件系统的话，可以设置将job的输出拷贝回提交机。
 
-## IBM Spectrum LSF Family
+## 2.5 IBM Spectrum LSF Family
 
 有很多add-on，如
 
@@ -85,13 +85,13 @@ Master与Host的各种服务之间的联系。待补充图。
 * Explorer
 > 监控集群的使用情况。定期产生报表，是否要扩缩容。
 
-## Editions
+## 2.6 Editions
 
-### IBM Spectrum LSF Community Edition
+### 2.6.1 IBM Spectrum LSF Community Edition
 
 * Community Edition可扩展到10个节点，最大job数2,500个；
 
-### IBM Spectrum LSF Suite Editions
+### 2.6.2 IBM Spectrum LSF Suite Editions
 
 商业有三个版本，功能越来越强大：
 
@@ -99,13 +99,13 @@ Master与Host的各种服务之间的联系。待补充图。
 * HPC可扩展至 1,024 个节点，最大job数250,000个；
 * Enterprise的节点与job数量没有限制。
 
-### 版本号介绍
+### 2.6.3 版本号介绍
 
 * 10.1.0.13 的10.1.0为major release，13为fix pack（每0.5~1年一次）。
 
-## 安装与配置
+## 2.7 安装与配置
 
-### 标准版安装与使用
+### 2.7.1 标准版安装与使用
 * 确定用于安装LSF的服务器是什么CPU架构，什么操作系统；
 * 在IBM passport advantage上面下载对应的安装包
 > - lsf10.1_lsfinstall.tar.Z(Passport Advantage)
@@ -193,7 +193,7 @@ $ $LSF_ENVDIR/../10.1/install/patchinstall </path/to/fp>
 * Entitlement File，标准版里需手动下载指定，而Suit版本已内置。
 * 最大Node数量：标准版里技术上不限制，通过合同限制。而Suit版技术上就限制了最大Node数量。
 
-### LSF Suite安装与使用
+### 2.7.2 LSF Suite安装与使用
 LSF Suite安装与标准版安装不一样，它是累积型的，一个bin包就包含了之前所有的fix pack以及entitlement文件。10.2.0.9以及之前是包含了ElasticSearch的，之后是不包含了，允许用户自己指定ElasticSearch。
 * 确定用于安装LSF的服务器是什么CPU架构，什么操作系统；
 * 下载安装包：lsfswg10.2.0.13-x86_64.bin
@@ -211,20 +211,20 @@ ansible-playbook -i lsf-inventory lsf-predeploy-test.yml
 ansible-playbook -i lsf-inventory lsf-deploy.yml
 ```
 
-### 队列
+### 2.7.3 队列
 队列划分，根据不同的运行时间、交互类型等来划分队列。
 
 
 
 
-## 高级特性
+## 2.8 高级特性
 
 * 从_？_版本开始，支持带lockid的badmin hclose，方便管理员做不同原因的hclose操作。
 * 有Workload Template功能，便于用户根据不同业务类型，快速上手LSF的使用。
 * 提供用户各种终端交互，包括cli，web，mobile以及api等。
 * process manager支持flow的定制
 
-## 周边组件支持
+## 2.9 周边组件支持
 
 * RTM（Report, Track, and Monitor）支持对两种License管理器使用情况的收集展示：FlexLM与RLM。
 * 一个RTM支持对多个LSF集群监控。
@@ -234,13 +234,13 @@ ansible-playbook -i lsf-inventory lsf-deploy.yml
 * Application Center的权限模型是RBAC的。
 * LSF管理数据存放在MeraiDB，作业日志存放在ElasticSearch里。
 
-## 如何试用？
+## 2.10 如何试用？
 
 * 自行安装社区版
 * 与代理商或者原厂联系，申请私有化部署测试环境
 * 在<https://techzone.ibm.com/collection/ibm-spectrum-lsf-suite>申请suite版本测试，自带少量Node，需注册。
 
-# Q&A
+# 3. Q&A
 
 * lsadmin与admin的区别是？
 > The lsadmin command controls the operation of the lim and res daemons.（base部分，一般是修改了ls、lsf开头的配置文件后使用。）
@@ -258,11 +258,11 @@ ansible-playbook -i lsf-inventory lsf-deploy.yml
 
 
 
-# 致谢
+# 4. 致谢
 
 感谢主办方以及IBM的分享。
 
-# 参考资料
+# 5. 参考资料
 
 1. <https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=linux-preparing-your-systems-installation> for Integrating LDAP with LSF.
 
