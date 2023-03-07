@@ -10,7 +10,7 @@ categories: icenv-posts
 
 # 1. 简介
 
-今天下午，IBM举办的LSF初级在线培训。Agenda如下
+今天下午，IBM举办的LSF初级在线培训。Agenda
 
 * Basic of LSF and architecture
 * Overview of LSF Family products
@@ -50,7 +50,9 @@ categories: icenv-posts
 
 
 ## 2.4 LSF架构
-Master与Host的各种服务之间的联系。待补充图。
+Master与Host的各种服务之间的联系。
+![LSF Architecture](/assets/img/LSF Architecture Snipaste_2023-03-08_07-42-06.png)
+
 
 * 所有机器有LIM进程
 > host上的LIM进程会收集当前node的负载、资源使用情况，有哪些资源，比如CPU型号、OS版本等，定期发送给master的LIM。这样master就知道所有这些主机的情况。用户也可以通过elim（plugin module）来自定义监控，如温度等等。
