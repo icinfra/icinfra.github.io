@@ -125,6 +125,7 @@ $ $LSF_ENVDIR/../10.1/install/patchinstall </path/to/fp>
 > -（截止至发稿，是FP13。于2022年中旬发布）。请注意，最新的fix pack已经包含当前major release的所有fix pack了，不需要将FP1...FP12都补上，直接打FP13即可。
 
 * 启动LSF
+
 > - 启动本机daemon
 ```bash
 # lsadmin limstartup
@@ -162,6 +163,7 @@ $ $LSF_ENVDIR/../10.1/install/patchinstall </path/to/fp>
 |mbschd|||Master Batch Scheduler|
 
 * 初始化
+
 > `source /path/to/lsf/conf/cshrc.lsf #for csh`
 
 > `. /path/to/lsf/conf/profile.lsf # for bash`
