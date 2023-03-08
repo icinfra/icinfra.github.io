@@ -22,5 +22,5 @@ categories: icenv-posts
 
 报错。经[google](https://bugs.freedesktop.org/show_bug.cgi?id=10369#c2)，说的是xrandr无法删除由X managed的mode。
 
-从X[REALVNC手册]侧删除。(https://help.realvnc.com/hc/en-us/articles/360016058212-How-do-I-adjust-the-screen-resolution-of-a-virtual-desktop-under-Linux-#realvnc-dummy-driver-0-3)里，说/etc/X11/vncserver-virtual-dummy.conf，如果是较早的版本则是/etc/X11/vncserver-virtual.conf文件。将有问题的配置，从这个文件里移除，可将冲突的那个1920x1080删除，问题解决。
+从X[REALVNC手册](https://help.realvnc.com/hc/en-us/articles/360016058212-How-do-I-adjust-the-screen-resolution-of-a-virtual-desktop-under-Linux-#realvnc-dummy-driver-0-3)侧删除，/etc/X11/vncserver-virtual-dummy.conf，如果是较早的版本则是/etc/X11/vncserver-virtual.conf文件。将有问题的配置，从这个文件里移除，可将冲突的那个1920x1080删除，问题解决。
 
