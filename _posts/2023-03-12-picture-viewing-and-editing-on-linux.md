@@ -16,6 +16,8 @@ categories: icenv
 
 ## gimp
 它是GNU图片操作程序，信息如下所示
+![gimp info](/assets/img/Pasted image 20230312203126.png)
+
 ![[/assets/img/Pasted image 20230312203126.png]]
 
 安装
