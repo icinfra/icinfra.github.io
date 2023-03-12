@@ -16,7 +16,9 @@ categories: icenv
 
 ## gimp
 它是GNU图片操作程序，信息如下所示
-![gimp info](../assets/img/Pasted%20image%2020230312203126.png)
+
+![](/assets/img/Pasted%20image%2020230312203126.png)
+
 
 
 安装
@@ -25,7 +27,7 @@ bash-4.2# yum install -y gimp
 ```
 
 运行
-![](../assets/img/Pasted%20image%2020230312204301.png)
+![](/assets/img/Pasted%20image%2020230312204301.png)
 
 ## draw.io
 简介
@@ -36,5 +38,5 @@ bash-4.2# yum install -y gimp
 
 运行
 赋予执行权限，如是root账户则加上--no-sandbox选项
-![](../assets/img/Pasted%20image%2020230312205809.png)
+![](/assets/img/Pasted%20image%2020230312205809.png)
 
