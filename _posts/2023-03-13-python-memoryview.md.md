@@ -8,10 +8,12 @@ giscus_comments: true
 categories: icenv
 ---
 
-## memoryview
+# memoryview
 根据 [MemoryView objects](https://docs.python.org/3/c-api/memoryview.html) 介绍，memoryview对象暴露了C层次的buffer interface作为Python对象，可以被传递到任何其它对象。
 
-## 实验
+# 实验
+
+## 一
 透过本实验，可以看到memoryview.cast()方法可以不修改位来改变读取与写入的单位，它返回另一个memoryview对象，但与原memoryview是共享内存的。
 ```bash
 [wanlinwang@computing-server-01 ~]$ python3
@@ -48,4 +50,27 @@ array('B', [0, 1, 2, 3, 4, 5])
 array('B', [0, 1, 2, 33, 22, 5])
 >>>
 ```
+
+
+## 二
+
+
+```bash
+[wanlinwang@computing-server-01 ~]$ python3
+Python 3.10.8 (main, Mar 12 2023, 22:29:09) [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import array
+>>> numbers = array.array('h', [-2,-1,0,1,2])
+>>> memv = memoryview(numbers)
+>>> len(memv)
+5
+>>> memv[0]
+-2
+>>> memv_oct = memv.cast('B')
+>>> memv_oct.tolist()
+[254, 255, 255, 255, 0, 0, 1, 0, 2, 0]
+>>> memv_oct[5] = 4
+>>> numbers
+array('h', [-2, -1, 1024, 1, 2])
+>>> ```
 
