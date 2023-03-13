@@ -13,7 +13,7 @@ categories: icenv
 
 # 实验
 
-## 一
+## 实验一
 透过本实验，可以看到memoryview.cast()方法可以不修改位来改变读取与写入的单位，它返回另一个memoryview对象，但与原memoryview是共享内存的。
 ```bash
 [wanlinwang@computing-server-01 ~]$ python3
@@ -52,7 +52,7 @@ array('B', [0, 1, 2, 33, 22, 5])
 ```
 
 
-## 二
+## 实验二
 
 
 ```bash
