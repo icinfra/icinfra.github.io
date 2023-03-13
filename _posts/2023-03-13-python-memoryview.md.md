@@ -75,3 +75,7 @@ array('h', [-2, -1, 1024, 1, 2])
 >>> 
 ```
 
+
+# 参考资料
+https://www.fluentpython.com/extra/parsing-binary-struct/#ex_metro_struct_c
+https://learning.oreilly.com/library/view/fluent-python-2nd/9781492056348/ch02.html#numpy_sec
