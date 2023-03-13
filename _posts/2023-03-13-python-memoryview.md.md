@@ -2,7 +2,7 @@
 layout: post
 title: Python Memoryview
 date: 2023-03-13 10:36:42+0800
-description: 什么是Python Memoryview，可以用在什么地方Z？
+description: 什么是Python Memoryview
 tags: python
 giscus_comments: true
 categories: icenv
