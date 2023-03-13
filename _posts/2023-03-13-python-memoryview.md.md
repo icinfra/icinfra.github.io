@@ -72,5 +72,6 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> memv_oct[5] = 4
 >>> numbers
 array('h', [-2, -1, 1024, 1, 2])
->>> ```
+>>> 
+```
 
