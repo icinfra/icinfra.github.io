@@ -61,7 +61,13 @@ TypeError: 'tuple' object does not support item assignment
 
 ```
 
+> DUP_TOP_TWO: 将栈顶的两个引用复制，保持顺序
+> BINARY_SUBSCR: TOS = TOS1[TOS]的实现
+> ROT_THREE：将栈顶的第二、第三个元素提升一个位置，将最顶的放到第三位置。
+> ROT_TWO: 将栈顶的两个元素对调
+
 
 # 参考资料
 https://docs.python.org/3/library/dis.html
 https://learning.oreilly.com/library/view/fluent-python-2nd/9781492056348/ch02.html#tuple_puzzler
+https://www.synopsys.com/blogs/software-security/understanding-python-bytecode/
