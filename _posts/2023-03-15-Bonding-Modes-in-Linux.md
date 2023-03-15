@@ -28,22 +28,31 @@ IEEE 802.3ad Dynamic link aggregation policy。创建聚合组，共享相同的
 对于outgoing流量的slave接口选举，是通过transmit hash policy来完成的。policy可以通过xmit_hash_policy更改。
 
 xmit_hash_policy的值
-* layer2 or 1
+* layer2 or 0
 > hash = source MAC XOR destination MAC XOR packet type ID
+>
 > slave number = hash modulo slave count
+
+* layer3+4 or 1
+> hash = source port, destination port (as in the header)
+> 
+> hash = hash XOR source IP XOR destination IP
+> 
+> hash = hash XOR (hash RSHIFT 16)
+> 
+> hash = hash XOR (hash RSHIFT 8)
+> 
+> And then hash is reduced modulo slave count.
 
 * layer2+3 or 2
 > hash = source MAC XOR destination MAC XOR packet type ID
+> 
 > hash = hash XOR source IP XOR destination IP
+> 
 > hash = hash XOR (hash RSHIFT 16)
+> 
 > hash = hash XOR (hash RSHIFT 8)
-> And then hash is reduced modulo slave count.
-
-* layer3+4 or 3
-> hash = source port, destination port (as in the header)
-> hash = hash XOR source IP XOR destination IP
-> hash = hash XOR (hash RSHIFT 16)
-> hash = hash XOR (hash RSHIFT 8)
+> 
 > And then hash is reduced modulo slave count.
 
 该模式对硬件的要求
