@@ -50,6 +50,9 @@ xmit_hash_policy的值
 1. ethtool支持基础驱动，取回每个slave的速率与单双工工作模式。
 2. 交换机虚支持IEEE 802.3ad Dynamic link aggregation。
 
+列子：
+![](/assets/img/Pasted%20image%2020230315230142.png)
+
 ## mode 5(balance-tlb)
 发送负载均衡。不需要交换机的任何特殊支持。outgoing的流量会分布到各个slave，incoming的流量会被当前的slave接收。如果当前slave失效了，其他的slave会接管它的MAC地址。
 
