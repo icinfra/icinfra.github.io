@@ -72,4 +72,16 @@ srec_info:
 这样，运行命令时就能够优先从其lib目录找共享库了。
 
 # 参考资料
-待补充，共享库查找顺序。
+
+共享库查找顺序，来自[The Linux Programming](https://learning.oreilly.com/library/view/the-linux-programming/9781593272203/xhtml/ch41.xhtml#ch41lev1sec11)
+> When resolving library dependencies, the dynamic linker first inspects each dependency string to see if it contains a slash (/), which can occur if we specified an explicit library pathname when linking the executable. If a slash is found, then the dependency string is interpreted as a pathname (either absolute or relative), and the library is loaded using that pathname. Otherwise, the dynamic linker searches for the shared library using the following rules:
+>
+>1. If the executable has any directories listed in its DT_RPATH run-time library path list (rpath) and the executable does not contain a DT_RUNPATH list, then these directories are searched (in the order that they were supplied when linking the program).
+>
+>2. If the LD_LIBRARY_PATH environment variable is defined, then each of the colon-separated directories listed in its value is searched in turn. If the executable is a set-user-ID or set-group-ID program, then LD_LIBRARY_PATH is ignored. This is a security measure to prevent users from tricking the dynamic linker into loading a private version of a library with the same name as a library required by the executable.
+>
+>3. If the executable has any directories listed in its DT_RUNPATH run-time library path list, then these directories are searched (in the order that they were supplied when linking the program).
+>
+>4. The file /etc/ld.so.cache is checked to see if it contains an entry for the library.
+>
+>5. The directories /lib and /usr/lib are searched (in that order).
