@@ -59,6 +59,7 @@ xmit_hash_policy的值
 
 
 # 不同的Bonding Mode对交换机的配置要求
+
 |Bonding Mode|Configuration on the Switch|
 |--|--|
 |0 - balance-rr|Requires static Etherchannel enabled(not LACP-negotiated)|
@@ -68,6 +69,7 @@ xmit_hash_policy的值
 |4 - 802.3ad|Requires LACP-negotiated Etherchannel enabled|
 |5 - balance-tlb|Requires autonomous ports|
 |6 - balance-alb|Requires autonomous ports|
+
 
 
 # 参考文献
