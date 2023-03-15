@@ -54,7 +54,7 @@ xmit_hash_policy的值
 发送负载均衡。不需要交换机的任何特殊支持。outgoing的流量会分布到各个slave，incoming的流量会被当前的slave接收。如果当前slave失效了，其他的slave会接管它的MAC地址。
 
 ## mode 6(balance-alb)
-它包括IPv4的发送负载均衡以及接收负载均衡。不需要交换机的任何特殊支持。接收负载均衡，是通过ARP协商实现。bonding驱动拦截本机发出的ARP reply，重写source MAC地址为bond中的其中一个slave的MAC地址。如此一来，不同的对端与本机连接，就使用不同的MAC地址进行通信了。
+它包括IPv4的发送负载均衡以及接收负载均衡。不需要交换机的任何特殊支持。接收负载均衡，是通过ARP协商实现。bonding驱动拦截本机发出的ARP reply，重写source MAC地址为bond中的其中一个slave的MAC地址。如此一来，不同的对端与本机不同的MAC地址进行通信，达到接收负载均衡的效果。
 
 
 
