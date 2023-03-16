@@ -28,32 +28,28 @@ IEEE 802.3ad Dynamic link aggregation policy。创建聚合组，共享相同的
 对于outgoing流量的slave接口选举，是通过transmit hash policy来完成的。policy可以通过xmit_hash_policy更改。
 
 xmit_hash_policy的值
-* layer2 or 0
-> hash = source MAC XOR destination MAC XOR packet type ID
->
-> slave number = hash modulo slave count
+* 0 or layer2
+    默认配置。它使用两个MAC地址做异或，再取模，获得hash。
+> ```bash
+> (source_MAC_address XOR destination_MAC) MODULO slave_count
+> ```
 
-* layer3+4 or 1
-> hash = source port, destination port (as in the header)
-> 
-> hash = hash XOR source IP XOR destination IP
-> 
-> hash = hash XOR (hash RSHIFT 16)
-> 
-> hash = hash XOR (hash RSHIFT 8)
-> 
-> And then hash is reduced modulo slave count.
+* 1 or layer3+4
+    使用第3层与第4层地址分别做异或运算，再取模，获得hash。
+> ```bash
+> ((source_port XOR dest_port) XOR
+>  ((source_IP XOR dest_IP) AND 0xffff)
+>   MODULO slave_count
+> ```
 
-* layer2+3 or 2
-> hash = source MAC XOR destination MAC XOR packet type ID
-> 
-> hash = hash XOR source IP XOR destination IP
-> 
-> hash = hash XOR (hash RSHIFT 16)
-> 
-> hash = hash XOR (hash RSHIFT 8)
-> 
-> And then hash is reduced modulo slave count.
+
+* 2 or layer2+3
+    使用第2层与第3层地址分别做异或运算，再取模，获得hash。
+> ```bash
+> (((source_IP XOR dest_IP) AND 0xffff) XOR
+>  ( source_MAC XOR destination_MAC ))
+>   MODULO slave_count
+> ```
 
 该模式对硬件的要求
 1. ethtool支持基础驱动，取回每个slave的速率与单双工工作模式。
@@ -88,3 +84,4 @@ xmit_hash_policy的值
 https://www.kernel.org/doc/Documentation/networking/bonding.txt
 https://www.ibm.com/docs/en/linux-on-systems?topic=recommendations-bonding-modes
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/ch-configure_network_bonding
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-using_channel_bonding?ssp=1&darkschemeovr=0&setlang=en-US&safesearch=moderate
