@@ -182,6 +182,7 @@ markdown: kramdown
 highlighter: rouge
 kramdown:
   input: GFM
+  footnote_backlink: "⤴"
   syntax_highlighter_opts:
     css_class: 'highlight'
     span:
