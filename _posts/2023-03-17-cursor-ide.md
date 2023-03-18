@@ -8,14 +8,12 @@ giscus_comments: true
 categories: icenv
 ---
 
-下载
+# 下载
 ![](/assets/img/Download%20cursor%20for%20MacOS%20Snipaste_2023-03-17_16-53-21.png)
 
-安装
+# 安装
 ![](/assets/img/cursor安装步骤%20Snipaste_2023-03-17_16-56-03.png)
 
-使用
+# 使用
 <!--%20![](/assets/img/cursor编写FlexLM日志解析并存储的Python程序.gif)%20-->
 {% include youtubePlayer.html id="T6KjDZvZcwM" %}
-
-![]({https://youtu.be/T6KjDZvZcwM})
