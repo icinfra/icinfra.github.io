@@ -15,8 +15,14 @@ categories: icenv
 ![](/assets/img/JOB_ACCEPT_INTERVAL等于0时，前后job都调度到同一台执行机上Snipaste_2023-03-19_22-01-10.png)
 
 
-# 解决
-经查看手册，可以通过设定往同一台机器调度job的时间间隔，来达到将job分散到集群中的执行机的需求。
+# 解决方案
+
+
+## 方案一：基于提交时间
+经查看手册[^1]，可以通过设定往同一台机器调度job的时间间隔，来达到将job分散到集群中的执行机的需求。
+
+[^1]: https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=lsbparams-job-accept-interval
+
 设置
 ```bash
 [lsfadmin@lsf-server-01 lsf]$ grep JOB_ACCEPT_INTERVAL /nfs/home/lsfadmin/lsf/lsf/conf/lsbatch/myCluster01/configdir/lsb.params
@@ -30,3 +36,42 @@ Reconfiguration initiated
 
 可以看到，再连续提交三个job，分散在了三台执行机器。
 ![](/assets/img/JOB_ACCEPT_INTERVAL等于15时，连续提交的作业不会调度到同一台机器上Snipaste_2023-03-19_22-04-41%201.png)
+
+## 方案二：基于主机指标
+经查看手册[^2]，RES_REQ的order string介绍如下，
+
+[^2]: https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=strings-order-string
+
+> The order string allows the selected hosts to be sorted according to the values of resources. The values of r15s, r1m, and r15m used for sorting are the normalized load indices that are returned by lsload -N.
+>
+> The order string is used for host sorting and selection. The ordering begins with the rightmost index in the order string and proceeds from right to left. The hosts are sorted into order based on each load index, and if more hosts are available than were requested, the LIM drops the least desirable hosts according to that index. The remaining hosts are then sorted by the next index.
+>
+> After the hosts are sorted by the leftmost index in the order string, the final phase of sorting orders the hosts according to their status, with hosts that are currently not available for load sharing (that is, not in the ok state) listed at the end.
+>
+> Because the hosts are sorted again for each load index, only the host status and the leftmost index in the order string actually affect the order in which hosts are listed. The other indices are only used to drop undesirable hosts from the list.
+>
+> When sorting is done on each index, the direction in which the hosts are sorted (increasing versus decreasing values) is determined by the default order returned by lsinfo for that index. This direction is chosen such that after sorting, by default, the hosts are ordered from best to worst on that index.
+>
+> When used with a cu string, the preferred compute unit order takes precedence. Within each compute unit hosts are ordered according to the order string requirements.
+
+如果order string里有多个指标，则**从右到左**依次处理，上一个指标排序后的输出成为下一个指标排序的输入，直到最左的指标排序完成，选出合适的执行机进行调度。
+
+LSF的RES_REQ order string默认是r15s:pg，如下图所示，
+
+![](/assets/img/Pasted%20image%2020230319225247.png)
+
+在pg指标排序完之后，再r15s排序，值高的胜出。
+
+**回到本文的需求**，想将job调度到slot可用数量多的，可以这样设置
+```bash
+[lsfadmin@lsf-server-01 lsf]$ grep DEFAULT_RESREQ_ORDER ./conf/lsbatch/myCluster01/configdir/lsb.params
+DEFAULT_RESREQ_ORDER = slots
+[lsfadmin@lsf-server-01 lsf]$ badmin reconfig
+Checking configuration files ...
+No errors found.
+Reconfiguration initiated
+```
+
+连续提交三个job上去，看下效果，
+
+![](/assets/img/Pasted%20image%2020230319231331.png)
