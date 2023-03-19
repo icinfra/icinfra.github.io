@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LSF的JOB_ACCEP_INTERVAL介绍与使用
+title: LSF的如何将job分散到集群运行
 date: 2023-03-19 22:06:56+0800
 description: 
 tags: lsf
