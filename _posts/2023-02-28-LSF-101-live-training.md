@@ -127,22 +127,19 @@ $ $LSF_ENVDIR/../10.1/install/patchinstall </path/to/fp>
 > -（截止至发稿，是FP13。于2022年中旬发布）。请注意，最新的fix pack已经包含当前major release的所有fix pack了，不需要将FP1...FP12都补上，直接打FP13即可。
 
 * 启动LSF
-
-> - 启动本机daemon
+1. 启动本机daemon
 ```bash
 # lsadmin limstartup
 # lsadmin resstartup
 # badmin hstartup
 ```
-
-> - 启动其他机器的daemon
+2. 启动其他机器的daemon
 ```bash
 # lsadmin limstartup host1 [host2 ... hostn]
 # lsadmin resstartup host1 [host2 ... hostn]
 # badmin hstartup host1 [host2 ... hostn]
 ```
-
-> - 启动所有在lsf.cluster定义的主机的daemon
+3. 启动所有在lsf.cluster定义的主机的daemon
 ```bash
 # lsadmin limstartup all
 # lsadmin resstartup all
@@ -166,9 +163,10 @@ $ $LSF_ENVDIR/../10.1/install/patchinstall </path/to/fp>
 
 * 初始化
 
-> `source /path/to/lsf/conf/cshrc.lsf #for csh`
-
-> `. /path/to/lsf/conf/profile.lsf # for bash`
+```bash
+source /path/to/lsf/conf/cshrc.lsf #for csh
+. /path/to/lsf/conf/profile.lsf # for bash
+```
 
 初始化完了之后，执行`which bsub`可以验证是否初始化成功。
 
