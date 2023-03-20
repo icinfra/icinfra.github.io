@@ -40,18 +40,18 @@ categories: icenv
 ```bash
 [lsfadmin@lsf-server-01 lsf]$ grep JOB_ACCEPT_INTERVAL /nfs/home/lsfadmin/lsf/lsf/conf/lsbatch/myCluster01/configdir/lsb.params
 #JOB_ACCEPT_INTERVAL = 0   # Interval for any host to accept a job 
-JOB_ACCEPT_INTERVAL = 1  # 语法：JOB_ACCEPT_INTERVAL=integer[ S | s | M | m ]。 如果未指定单位，则该时间等于该数值乘以MBD_SLEEP_TIME，而MBD_SLEEP_TIME默认是60秒。
+JOB_ACCEPT_INTERVAL = 1  # 语法：JOB_ACCEPT_INTERVAL=integer[ S | s | M | m ]。 如果未指定单位，则该时间等于该数值乘以MBD_SLEEP_TIME，而MBD_SLEEP_TIME缺省值是60秒，在安装时会被设定为10秒。
 [lsfadmin@lsf-server-01 lsf]$ badmin reconfig
 Checking configuration files ...
 No errors found.
 Reconfiguration initiated
 [lsfadmin@lsf-server-01 ~]$ bparams -l| grep MBD_SLEEP_TIME
-    MBD_SLEEP_TIME = 60 (seconds)
+    MBD_SLEEP_TIME = 10 (seconds)
     JOB_ACCEPT_INTERVAL = 1 (* MBD_SLEEP_TIME)
 ```
 
 
-在60秒内，连续提交三个job，可以看到它们分散在了三台执行机器。
+在10秒内，连续提交三个job，可以看到它们分散在了三台执行机器。
 ![](/assets/img/JOB_ACCEPT_INTERVAL等于15时，连续提交的作业不会调度到同一台机器上Snipaste_2023-03-19_22-04-41%201.png)
 
 ## 方案二：基于主机指标
