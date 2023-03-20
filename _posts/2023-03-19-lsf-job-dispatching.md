@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LSF的如何将job分散到集群运行
+title: LSF如何将job分散到集群运行
 date: 2023-03-19 22:06:56+0800
 description: 
 tags: lsf
@@ -18,8 +18,21 @@ categories: icenv
 # 解决方案
 
 
-## 方案一：基于提交时间
-经查看手册[^1]，可以通过设定往同一台机器调度job的时间间隔，来达到将job分散到集群中的执行机的需求。
+## 方案一：基于执行机接收时间间隔
+经查看手册[^1]，
+
+> JOB_ACCEPT_INTERVAL=integer[ S | s | M | m ]
+> 
+> where S | s indicates that the value is in seconds and M | m indicates that the value is in minutes.
+> If you set a unit (seconds or minutes), the value that you specify determines how long to wait after dispatching a job to a host before dispatching a second job to the same host.
+> 
+> If you do not set a unit, the value you specify is multiplied by the value of lsb.params MBD_SLEEP_TIME (60 seconds by default). The result of the calculation is the number of seconds to wait after dispatching a job to a host, before dispatching a second job to the same host.
+> 
+> If 0 (zero), a host may accept more than one job. By default, there is no limit to the total number of jobs that can run on a host, so if this parameter is set to 0, a very large number of jobs might be dispatched to a host all at once. This can overload your system to the point that it will be unable to create any more processes. It is not recommended to set this parameter to 0.
+> 
+> JOB_ACCEPT_INTERVAL set at the queue level (lsb.queues) overrides JOB_ACCEPT_INTERVAL set at the cluster level (lsb.params).
+
+可以通过调整同一台执行机接收job的时间间隔，来达到将job分散到集群中的执行机的需求。
 
 [^1]: https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=lsbparams-job-accept-interval
 
@@ -27,14 +40,18 @@ categories: icenv
 ```bash
 [lsfadmin@lsf-server-01 lsf]$ grep JOB_ACCEPT_INTERVAL /nfs/home/lsfadmin/lsf/lsf/conf/lsbatch/myCluster01/configdir/lsb.params
 #JOB_ACCEPT_INTERVAL = 0   # Interval for any host to accept a job 
-JOB_ACCEPT_INTERVAL = 15  # Interval for any host to accept a job 
+JOB_ACCEPT_INTERVAL = 1  # 语法：JOB_ACCEPT_INTERVAL=integer[ S | s | M | m ]。 如果未指定单位，则该时间等于该数值乘以MBD_SLEEP_TIME，而MBD_SLEEP_TIME默认是60秒。
 [lsfadmin@lsf-server-01 lsf]$ badmin reconfig
 Checking configuration files ...
 No errors found.
 Reconfiguration initiated
+[lsfadmin@lsf-server-01 ~]$ bparams -l| grep MBD_SLEEP_TIME
+    MBD_SLEEP_TIME = 60 (seconds)
+    JOB_ACCEPT_INTERVAL = 1 (* MBD_SLEEP_TIME)
 ```
 
-可以看到，再连续提交三个job，分散在了三台执行机器。
+
+在60秒内，连续提交三个job，可以看到它们分散在了三台执行机器。
 ![](/assets/img/JOB_ACCEPT_INTERVAL等于15时，连续提交的作业不会调度到同一台机器上Snipaste_2023-03-19_22-04-41%201.png)
 
 ## 方案二：基于主机指标
@@ -60,7 +77,7 @@ LSF的RES_REQ order string默认是r15s:pg，如下图所示，
 
 ![](/assets/img/Pasted%20image%2020230319225247.png)
 
-在pg指标排序完之后，再r15s排序，值高的胜出。
+在pg指标排序完之后，再r15s排序，最优的胜出。
 
 **回到本文的需求**，想将job调度到slot可用数量多的，可以这样设置
 ```bash
