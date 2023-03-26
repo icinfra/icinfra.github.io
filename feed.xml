@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2023-03-22T11:04:06+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">限制用户直接访问lsf执行机</title><link href="https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts/" rel="alternate" type="text/html" title="限制用户直接访问lsf执行机"/><published>2023-03-22T01:57:58+00:00</published><updated>2023-03-22T01:57:58+00:00</updated><id>https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts/"><![CDATA[<h1 id="需求">需求</h1> <p>禁止用户直接访问LSF执行机，以实现LSF执行机的用户进程都来自于LSF的调度，确保使用的公平性，以及方便管理员管理。</p> <h1 id="实现">实现</h1> <ol> <li>https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=bsub-about-interactive-jobs //将队列配置为batch-only，以禁止用户提交interactive的job</li> <li>https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=cluster-restrict-user-access-remote-hosts //禁止普通用户执行lsrun, lsgrun与lsmake</li> <li>每台机器的sshd配置，禁止普通用户登录。</li> </ol> <p>三个步骤组合起来，可以满足需求。但interactive往往是必须的，因此可以细化队列的管理，允许个别队列的interactive。</p>]]></content><author><name></name></author><category term="icenv"/><category term="lsf"/><summary type="html"><![CDATA[需求 禁止用户直接访问LSF执行机，以实现LSF执行机的用户进程都来自于LSF的调度，确保使用的公平性，以及方便管理员管理。]]></summary></entry><entry><title type="html">Python bytes的单个元素与slice</title><link href="https://www.icinfra.cn/blog/2023/python-bytes/" rel="alternate" type="text/html" title="Python bytes的单个元素与slice"/><published>2023-03-21T13:59:32+00:00</published><updated>2023-03-21T13:59:32+00:00</updated><id>https://www.icinfra.cn/blog/2023/python-bytes</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/python-bytes/"><![CDATA[<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">wanlinwang</span><span class="nd">@MacBook</span><span class="o">-</span><span class="n">Pro</span> <span class="o">~</span> <span class="o">%</span> <span class="n">python3</span> 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-03-26T02:23:54+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">限制用户直接访问lsf执行机</title><link href="https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts/" rel="alternate" type="text/html" title="限制用户直接访问lsf执行机" /><published>2023-03-22T01:57:58+00:00</published><updated>2023-03-22T01:57:58+00:00</updated><id>https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts/"><![CDATA[<h1 id="需求">需求</h1>
+<p>禁止用户直接访问LSF执行机，以实现LSF执行机的用户进程都来自于LSF的调度，确保使用的公平性，以及方便管理员管理。</p>
+
+<h1 id="实现">实现</h1>
+<ol>
+  <li>https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=bsub-about-interactive-jobs  //将队列配置为batch-only，以禁止用户提交interactive的job</li>
+  <li>https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=cluster-restrict-user-access-remote-hosts  //禁止普通用户执行lsrun, lsgrun与lsmake</li>
+  <li>每台机器的sshd配置，禁止普通用户登录。</li>
+</ol>
+
+<p>三个步骤组合起来，可以满足需求。但interactive往往是必须的，因此可以细化队列的管理，允许个别队列的interactive。</p>]]></content><author><name></name></author><category term="icenv" /><category term="lsf" /><summary type="html"><![CDATA[需求 禁止用户直接访问LSF执行机，以实现LSF执行机的用户进程都来自于LSF的调度，确保使用的公平性，以及方便管理员管理。]]></summary></entry><entry><title type="html">Python bytes的单个元素与slice</title><link href="https://www.icinfra.cn/blog/2023/python-bytes/" rel="alternate" type="text/html" title="Python bytes的单个元素与slice" /><published>2023-03-21T13:59:32+00:00</published><updated>2023-03-21T13:59:32+00:00</updated><id>https://www.icinfra.cn/blog/2023/python-bytes</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/python-bytes/"><![CDATA[<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">wanlinwang</span><span class="nd">@MacBook</span><span class="o">-</span><span class="n">Pro</span> <span class="o">~</span> <span class="o">%</span> <span class="n">python3</span> 
 <span class="n">Python</span> <span class="mf">3.10</span><span class="p">.</span><span class="mi">8</span> <span class="p">(</span><span class="n">main</span><span class="p">,</span> <span class="n">Mar</span> <span class="mi">17</span> <span class="mi">2023</span><span class="p">,</span> <span class="mi">21</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">21</span><span class="p">)</span> <span class="p">[</span><span class="n">Clang</span> <span class="mf">14.0</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="n">clang</span><span class="o">-</span><span class="mf">1400.0</span><span class="p">.</span><span class="mf">29.202</span><span class="p">)]</span> <span class="n">on</span> <span class="n">darwin</span>
 <span class="n">Type</span> <span class="s">"help"</span><span class="p">,</span> <span class="s">"copyright"</span><span class="p">,</span> <span class="s">"credits"</span> <span class="ow">or</span> <span class="s">"license"</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="p">.</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">cafe</span> <span class="o">=</span> <span class="nf">bytes</span><span class="p">(</span><span class="s">'café'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf_8'</span><span class="p">)</span>
@@ -13,7 +24,49 @@
 &gt;&gt;&gt; type(cafe[:1])
 &lt;class '</span><span class="nb">bytes</span><span class="s">'&gt;
 &gt;&gt;&gt; 
-</span></code></pre></div></div> <p>Python bytes的单个元素与slice，不是同一种类型。bytes的单个元素，是一个范围是0到255的整数；而bytes的slice同样是bytes，即使slice的长度是1。</p>]]></content><author><name></name></author><category term="icenv"/><category term="python"/><summary type="html"><![CDATA[wanlinwang@MacBook-Pro ~ % python3 Python 3.10.8 (main, Mar 17 2023, 21:21:21) [Clang 14.0.0 (clang-1400.0.29.202)] on darwin Type "help", "copyright", "credits" or "license" for more information. &gt;&gt;&gt; cafe=bytes('café', encoding='utf_8') &gt;&gt;&gt; cafe b'caf\xc3\xa9' &gt;&gt;&gt; cafe[0] 99 &gt;&gt;&gt; cafe[:1] b'c' &gt;&gt;&gt; type(cafe[0]) &lt;class 'int'&gt; &gt;&gt;&gt; type(cafe[:1]) &lt;class 'bytes'&gt; &gt;&gt;&gt;]]></summary></entry><entry><title type="html">lsf运行问题</title><link href="https://www.icinfra.cn/blog/2023/lsf-problems/" rel="alternate" type="text/html" title="lsf运行问题"/><published>2023-03-20T12:08:15+00:00</published><updated>2023-03-20T12:08:15+00:00</updated><id>https://www.icinfra.cn/blog/2023/lsf-problems</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/lsf-problems/"><![CDATA[<p><img src="/assets/img/Pasted%20image%2020230320200849.png" alt=""/> master到执行机的udp端口不通导致问题（在执行机的input方向，开了来自于master的tcp连接，没开udp连接）。</p> <p><img src="/assets/img/Pasted%20image%2020230320200840.png" alt=""/> 从执行机到master通信失败导致的问题（在执行机的output方向，禁止掉了去往master的连接）。</p>]]></content><author><name></name></author><category term="icenv"/><category term="lsf"/><summary type="html"><![CDATA[master到执行机的udp端口不通导致问题（在执行机的input方向，开了来自于master的tcp连接，没开udp连接）。]]></summary></entry><entry><title type="html">LSF如何将job分散到集群运行</title><link href="https://www.icinfra.cn/blog/2023/lsf-job-dispatching/" rel="alternate" type="text/html" title="LSF如何将job分散到集群运行"/><published>2023-03-19T14:06:56+00:00</published><updated>2023-03-19T14:06:56+00:00</updated><id>https://www.icinfra.cn/blog/2023/lsf-job-dispatching</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/lsf-job-dispatching/"><![CDATA[<h1 id="需求">需求</h1> <p>研发想将job尽可能地均匀分散在集群中的执行机上，将负载均匀地分散到集群中，而不是默认的往一台调度，这台满了再往下一台调度。 如图，是默认的调度情况，连续提交的job都调度到了同一台机器，</p> <p><img src="/assets/img/JOB_ACCEPT_INTERVAL等于0时，前后job都调度到同一台执行机上Snipaste_2023-03-19_22-01-10.png" alt=""/></p> <h1 id="解决方案">解决方案</h1> <h2 id="方案一基于执行机接收时间间隔">方案一：基于执行机接收时间间隔</h2> <p>经查看手册<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>，</p> <blockquote> <table> <tbody> <tr> <td>JOB_ACCEPT_INTERVAL=integer[ S </td> <td> s </td> <td> M </td> <td> m ]</td> </tr> </tbody> </table> <p>where S | s indicates that the value is in seconds and M | m indicates that the value is in minutes. If you set a unit (seconds or minutes), the value that you specify determines how long to wait after dispatching a job to a host before dispatching a second job to the same host.</p> <p>If you do not set a unit, the value you specify is multiplied by the value of lsb.params MBD_SLEEP_TIME (60 seconds by default). The result of the calculation is the number of seconds to wait after dispatching a job to a host, before dispatching a second job to the same host.</p> <p>If 0 (zero), a host may accept more than one job. By default, there is no limit to the total number of jobs that can run on a host, so if this parameter is set to 0, a very large number of jobs might be dispatched to a host all at once. This can overload your system to the point that it will be unable to create any more processes. It is not recommended to set this parameter to 0.</p> <p>JOB_ACCEPT_INTERVAL set at the queue level (lsb.queues) overrides JOB_ACCEPT_INTERVAL set at the cluster level (lsb.params).</p> </blockquote> <p>可以通过调整同一台执行机接收job的时间间隔，来达到将job分散到集群中的执行机的需求。</p> <p>设置</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>lsfadmin@lsf-server-01 lsf]<span class="nv">$ </span><span class="nb">grep </span>JOB_ACCEPT_INTERVAL /nfs/home/lsfadmin/lsf/lsf/conf/lsbatch/myCluster01/configdir/lsb.params
+</span></code></pre></div></div>
+
+<p>Python bytes的单个元素与slice，不是同一种类型。bytes的单个元素，是一个范围是0到255的整数；而bytes的slice同样是bytes，即使slice的长度是1。</p>]]></content><author><name></name></author><category term="icenv" /><category term="python" /><summary type="html"><![CDATA[wanlinwang@MacBook-Pro ~ % python3 Python 3.10.8 (main, Mar 17 2023, 21:21:21) [Clang 14.0.0 (clang-1400.0.29.202)] on darwin Type "help", "copyright", "credits" or "license" for more information. &gt;&gt;&gt; cafe = bytes('café', encoding='utf_8') &gt;&gt;&gt; cafe b'caf\xc3\xa9' &gt;&gt;&gt; cafe[0] 99 &gt;&gt;&gt; cafe[:1] b'c' &gt;&gt;&gt; type(cafe[0]) &lt;class 'int'&gt; &gt;&gt;&gt; type(cafe[:1]) &lt;class 'bytes'&gt; &gt;&gt;&gt;]]></summary></entry><entry><title type="html">lsf运行问题</title><link href="https://www.icinfra.cn/blog/2023/lsf-problems/" rel="alternate" type="text/html" title="lsf运行问题" /><published>2023-03-20T12:08:15+00:00</published><updated>2023-03-20T12:08:15+00:00</updated><id>https://www.icinfra.cn/blog/2023/lsf-problems</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/lsf-problems/"><![CDATA[<p><img src="/assets/img/Pasted%20image%2020230320200849.png" alt="" />
+master到执行机的udp端口不通导致问题（在执行机的input方向，开了来自于master的tcp连接，没开udp连接）。</p>
+
+<p><img src="/assets/img/Pasted%20image%2020230320200840.png" alt="" />
+从执行机到master通信失败导致的问题（在执行机的output方向，禁止掉了去往master的连接）。</p>]]></content><author><name></name></author><category term="icenv" /><category term="lsf" /><summary type="html"><![CDATA[master到执行机的udp端口不通导致问题（在执行机的input方向，开了来自于master的tcp连接，没开udp连接）。]]></summary></entry><entry><title type="html">LSF如何将job分散到集群运行</title><link href="https://www.icinfra.cn/blog/2023/lsf-job-dispatching/" rel="alternate" type="text/html" title="LSF如何将job分散到集群运行" /><published>2023-03-19T14:06:56+00:00</published><updated>2023-03-19T14:06:56+00:00</updated><id>https://www.icinfra.cn/blog/2023/lsf-job-dispatching</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/lsf-job-dispatching/"><![CDATA[<h1 id="需求">需求</h1>
+<p>研发想将job尽可能地均匀分散在集群中的执行机上，将负载均匀地分散到集群中，而不是默认的往一台调度，这台满了再往下一台调度。
+如图，是默认的调度情况，连续提交的job都调度到了同一台机器，</p>
+
+<p><img src="/assets/img/JOB_ACCEPT_INTERVAL等于0时，前后job都调度到同一台执行机上Snipaste_2023-03-19_22-01-10.png" alt="" /></p>
+
+<h1 id="解决方案">解决方案</h1>
+
+<h2 id="方案一基于执行机接收时间间隔">方案一：基于执行机接收时间间隔</h2>
+<p>经查看手册<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>，</p>
+
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>JOB_ACCEPT_INTERVAL=integer[ S </td>
+        <td> s </td>
+        <td> M </td>
+        <td> m ]</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>where S | s indicates that the value is in seconds and M | m indicates that the value is in minutes.
+If you set a unit (seconds or minutes), the value that you specify determines how long to wait after dispatching a job to a host before dispatching a second job to the same host.</p>
+
+  <p>If you do not set a unit, the value you specify is multiplied by the value of lsb.params MBD_SLEEP_TIME (60 seconds by default). The result of the calculation is the number of seconds to wait after dispatching a job to a host, before dispatching a second job to the same host.</p>
+
+  <p>If 0 (zero), a host may accept more than one job. By default, there is no limit to the total number of jobs that can run on a host, so if this parameter is set to 0, a very large number of jobs might be dispatched to a host all at once. This can overload your system to the point that it will be unable to create any more processes. It is not recommended to set this parameter to 0.</p>
+
+  <p>JOB_ACCEPT_INTERVAL set at the queue level (lsb.queues) overrides JOB_ACCEPT_INTERVAL set at the cluster level (lsb.params).</p>
+</blockquote>
+
+<p>可以通过调整同一台执行机接收job的时间间隔，来达到将job分散到集群中的执行机的需求。</p>
+
+<p>设置</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>lsfadmin@lsf-server-01 lsf]<span class="nv">$ </span><span class="nb">grep </span>JOB_ACCEPT_INTERVAL /nfs/home/lsfadmin/lsf/lsf/conf/lsbatch/myCluster01/configdir/lsb.params
 <span class="c">#JOB_ACCEPT_INTERVAL = 0   # Interval for any host to accept a job </span>
 JOB_ACCEPT_INTERVAL <span class="o">=</span> 1  <span class="c"># 语法：JOB_ACCEPT_INTERVAL=integer[ S | s | M | m ]。 如果未指定单位，则该时间等于该数值乘以MBD_SLEEP_TIME，而MBD_SLEEP_TIME缺省值是60秒，在安装时会被设定为10秒。</span>
 <span class="o">[</span>lsfadmin@lsf-server-01 lsf]<span class="nv">$ </span>badmin reconfig
@@ -23,21 +76,229 @@ Reconfiguration initiated
 <span class="o">[</span>lsfadmin@lsf-server-01 ~]<span class="nv">$ </span>bparams <span class="nt">-l</span>| <span class="nb">grep </span>MBD_SLEEP_TIME
     MBD_SLEEP_TIME <span class="o">=</span> 10 <span class="o">(</span>seconds<span class="o">)</span>
     JOB_ACCEPT_INTERVAL <span class="o">=</span> 1 <span class="o">(</span><span class="k">*</span> MBD_SLEEP_TIME<span class="o">)</span>
-</code></pre></div></div> <p>在10秒内，连续提交三个job，可以看到它们分散在了三台执行机器。 <img src="/assets/img/JOB_ACCEPT_INTERVAL等于15时，连续提交的作业不会调度到同一台机器上Snipaste_2023-03-19_22-04-41%201.png" alt=""/></p> <h2 id="方案二基于主机指标">方案二：基于主机指标</h2> <p>经查看手册<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>，RES_REQ的order string介绍如下，</p> <blockquote> <p>The order string allows the selected hosts to be sorted according to the values of resources. The values of r15s, r1m, and r15m used for sorting are the normalized load indices that are returned by lsload -N.</p> <p>The order string is used for host sorting and selection. The ordering begins with the rightmost index in the order string and proceeds from right to left. The hosts are sorted into order based on each load index, and if more hosts are available than were requested, the LIM drops the least desirable hosts according to that index. The remaining hosts are then sorted by the next index.</p> <p>After the hosts are sorted by the leftmost index in the order string, the final phase of sorting orders the hosts according to their status, with hosts that are currently not available for load sharing (that is, not in the ok state) listed at the end.</p> <p>Because the hosts are sorted again for each load index, only the host status and the leftmost index in the order string actually affect the order in which hosts are listed. The other indices are only used to drop undesirable hosts from the list.</p> <p>When sorting is done on each index, the direction in which the hosts are sorted (increasing versus decreasing values) is determined by the default order returned by lsinfo for that index. This direction is chosen such that after sorting, by default, the hosts are ordered from best to worst on that index.</p> <p>When used with a cu string, the preferred compute unit order takes precedence. Within each compute unit hosts are ordered according to the order string requirements.</p> </blockquote> <p>如果order string里有多个指标，则<strong>从右到左</strong>依次处理，上一个指标排序后的输出成为下一个指标排序的输入，直到最左的指标排序完成，选出合适的执行机进行调度。</p> <p>LSF的RES_REQ order string默认是r15s:pg，如下图所示，</p> <p><img src="/assets/img/Pasted%20image%2020230319225247.png" alt=""/></p> <p>在pg指标排序完之后，再r15s排序，最优的胜出。</p> <p><strong>回到本文的需求</strong>，想将job调度到slot可用数量多的，可以这样设置</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>lsfadmin@lsf-server-01 lsf]<span class="nv">$ </span><span class="nb">grep </span>DEFAULT_RESREQ_ORDER ./conf/lsbatch/myCluster01/configdir/lsb.params
+</code></pre></div></div>
+
+<p>在10秒内，连续提交三个job，可以看到它们分散在了三台执行机器。
+<img src="/assets/img/JOB_ACCEPT_INTERVAL等于15时，连续提交的作业不会调度到同一台机器上Snipaste_2023-03-19_22-04-41%201.png" alt="" /></p>
+
+<h2 id="方案二基于主机指标">方案二：基于主机指标</h2>
+<p>经查看手册<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>，RES_REQ的order string介绍如下，</p>
+
+<blockquote>
+  <p>The order string allows the selected hosts to be sorted according to the values of resources. The values of r15s, r1m, and r15m used for sorting are the normalized load indices that are returned by lsload -N.</p>
+
+  <p>The order string is used for host sorting and selection. The ordering begins with the rightmost index in the order string and proceeds from right to left. The hosts are sorted into order based on each load index, and if more hosts are available than were requested, the LIM drops the least desirable hosts according to that index. The remaining hosts are then sorted by the next index.</p>
+
+  <p>After the hosts are sorted by the leftmost index in the order string, the final phase of sorting orders the hosts according to their status, with hosts that are currently not available for load sharing (that is, not in the ok state) listed at the end.</p>
+
+  <p>Because the hosts are sorted again for each load index, only the host status and the leftmost index in the order string actually affect the order in which hosts are listed. The other indices are only used to drop undesirable hosts from the list.</p>
+
+  <p>When sorting is done on each index, the direction in which the hosts are sorted (increasing versus decreasing values) is determined by the default order returned by lsinfo for that index. This direction is chosen such that after sorting, by default, the hosts are ordered from best to worst on that index.</p>
+
+  <p>When used with a cu string, the preferred compute unit order takes precedence. Within each compute unit hosts are ordered according to the order string requirements.</p>
+</blockquote>
+
+<p>如果order string里有多个指标，则<strong>从右到左</strong>依次处理，上一个指标排序后的输出成为下一个指标排序的输入，直到最左的指标排序完成，选出合适的执行机进行调度。</p>
+
+<p>LSF的RES_REQ order string默认是r15s:pg，如下图所示，</p>
+
+<p><img src="/assets/img/Pasted%20image%2020230319225247.png" alt="" /></p>
+
+<p>在pg指标排序完之后，再r15s排序，最优的胜出。</p>
+
+<p><strong>回到本文的需求</strong>，想将job调度到slot可用数量多的，可以这样设置</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>lsfadmin@lsf-server-01 lsf]<span class="nv">$ </span><span class="nb">grep </span>DEFAULT_RESREQ_ORDER ./conf/lsbatch/myCluster01/configdir/lsb.params
 DEFAULT_RESREQ_ORDER <span class="o">=</span> slots
 <span class="o">[</span>lsfadmin@lsf-server-01 lsf]<span class="nv">$ </span>badmin reconfig
 Checking configuration files ...
 No errors found.
 Reconfiguration initiated
-</code></pre></div></div> <p>连续提交三个job上去，看下效果，</p> <p><img src="/assets/img/Pasted%20image%2020230319231331.png" alt=""/></p> <div class="footnotes" role="doc-endnotes"> <ol> <li id="fn:1" role="doc-endnote"> <p>https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=lsbparams-job-accept-interval <a href="#fnref:1" class="reversefootnote" role="doc-backlink">⤴</a></p> </li> <li id="fn:2" role="doc-endnote"> <p>https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=strings-order-string <a href="#fnref:2" class="reversefootnote" role="doc-backlink">⤴</a></p> </li> </ol> </div>]]></content><author><name></name></author><category term="icenv"/><category term="lsf"/><summary type="html"><![CDATA[需求 研发想将job尽可能地均匀分散在集群中的执行机上，将负载均匀地分散到集群中，而不是默认的往一台调度，这台满了再往下一台调度。 如图，是默认的调度情况，连续提交的job都调度到了同一台机器，]]></summary></entry><entry><title type="html">cursor IDE使用</title><link href="https://www.icinfra.cn/blog/2023/cursor-ide/" rel="alternate" type="text/html" title="cursor IDE使用"/><published>2023-03-17T13:47:45+00:00</published><updated>2023-03-17T13:47:45+00:00</updated><id>https://www.icinfra.cn/blog/2023/cursor-ide</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/cursor-ide/"><![CDATA[<h1 id="下载">下载</h1> <p><img src="/assets/img/Download%20cursor%20for%20MacOS%20Snipaste_2023-03-17_16-53-21.png" alt=""/></p> <h1 id="安装">安装</h1> <p><img src="/assets/img/cursor安装步骤%20Snipaste_2023-03-17_16-56-03.png" alt=""/></p> <h1 id="使用">使用</h1> <div class="embed-container"> <iframe src="https://www.youtube.com/embed/T6KjDZvZcwM" width="700" height="480" frameborder="0" allowfullscreen="true"> </iframe> </div>]]></content><author><name></name></author><category term="icenv"/><category term="ide"/><summary type="html"><![CDATA[下载]]></summary></entry><entry><title type="html">sequence图设置消息的id</title><link href="https://www.icinfra.cn/blog/2023/how-to-apply-numbering-for-message-in-sequence-diagram/" rel="alternate" type="text/html" title="sequence图设置消息的id"/><published>2023-03-17T06:55:37+00:00</published><updated>2023-03-17T06:55:37+00:00</updated><id>https://www.icinfra.cn/blog/2023/how-to-apply-numbering-for-message-in-sequence-diagram</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/how-to-apply-numbering-for-message-in-sequence-diagram/"><![CDATA[<h1 id="diagram-based-numbering">Diagram-based Numbering</h1> <h2 id="single-level">Single Level</h2> <p>在UML时序图的背景处，右键选择Sequence Number -&gt; Single Level。</p> <p><img src="/assets/img/Pasted%20image%2020230317150009.png" alt=""/></p> <p>只要在同一个图中，编号就是连续的。</p> <p><img src="/assets/img/Pasted%20image%2020230317150053.png" alt=""/></p> <h2 id="nested-level">Nested Level</h2> <p>在UML时序图的背景处，右键选择Sequence Number -&gt; Nested Level。效果如下， <img src="/assets/img/Pasted%20image%2020230317150204.png" alt=""/></p> <h1 id="frame-based-numbering">Frame-based Numbering</h1> <h2 id="single-level-1">Single Level</h2> <p>在UML时序图的背景处，右键选择Sequence Number -&gt; Frame-based Single Level。效果如下， <img src="/assets/img/Pasted%20image%2020230317150245.png" alt=""/></p> <h2 id="nested-level-1">Nested Level</h2> <p>在UML时序图的背景处，右键选择Sequence Number -&gt; Frame-based Nested Level。效果如下， <img src="/assets/img/Pasted%20image%2020230317150419.png" alt=""/></p> <h1 id="参考文献">参考文献</h1> <p><a href="https://www.visual-paradigm.com/tutorials/numberingmessage.jsp">How to Apply Numbering for Messages in Sequence Diagram? (visual-paradigm.com)</a></p>]]></content><author><name></name></author><category term="icenv"/><category term="uml"/><summary type="html"><![CDATA[Diagram-based Numbering Single Level 在UML时序图的背景处，右键选择Sequence Number -&gt; Single Level。]]></summary></entry><entry><title type="html">Welcome to the UML</title><link href="https://www.icinfra.cn/blog/2023/welcome-to-the-uml/" rel="alternate" type="text/html" title="Welcome to the UML"/><published>2023-03-17T01:05:26+00:00</published><updated>2023-03-17T01:05:26+00:00</updated><id>https://www.icinfra.cn/blog/2023/welcome-to-the-uml</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/welcome-to-the-uml/"><![CDATA[<h1 id="uml历史">UML历史</h1>]]></content><author><name></name></author><category term="icenv"/><category term="uml"/><summary type="html"><![CDATA[UML历史]]></summary></entry><entry><title type="html">Linux的网卡bonding模式</title><link href="https://www.icinfra.cn/blog/2023/Bonding-Modes-in-Linux/" rel="alternate" type="text/html" title="Linux的网卡bonding模式"/><published>2023-03-15T13:39:18+00:00</published><updated>2023-03-15T13:39:18+00:00</updated><id>https://www.icinfra.cn/blog/2023/Bonding-Modes-in-Linux</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/Bonding-Modes-in-Linux/"><![CDATA[<h1 id="不同的bonding-mode区别">不同的Bonding Mode区别</h1> <p>网卡Bonding是一项在操作系统层面上实现的网络冗余技术。设置网卡Bonding后，内核会将多条物理链路组成一条逻辑虚拟链路，在网络层上实现高可用。</p> <h2 id="mode-0balance-rr">mode 0(balance-rr)</h2> <p>Round-robin policy。从组内的第一个Slave接口开始，以轮询的方式将数据按顺序依次发放。该模式提供load balancing以及fault tolerance。</p> <h2 id="mode-1active-backup">mode 1(active-backup)</h2> <p>Active-backup policy。只有一个slave是active的。当且仅当active slave失效了，另一个slave就会变成active。bond的MAC地址只在一个端口上对外可见，避免了交换机混淆。该模式提供fault tolerance。</p> <h2 id="mode-2balance-xor">mode 2(balance-xor)</h2> <p>基于选择的transmit hash policy传输。policy可以通过xmit_hash_policy更改。该模式提供load balancing以及fault tolerance。</p> <h2 id="mode-3broadcast">mode 3(broadcast)</h2> <p>在所有slave接口上都传输。该模式提供fault tolerance。</p> <h2 id="mode-48023ad">mode 4(802.3ad)</h2> <p>IEEE 802.3ad Dynamic link aggregation policy。创建聚合组，共享相同的速率与工作模式。根据802.3ad规范，充分利用active aggregator里的所有slave。 对于outgoing流量的slave接口选举，是通过transmit hash policy来完成的。policy可以通过xmit_hash_policy更改。</p> <p>xmit_hash_policy的值<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></p> <ul> <li>0 or layer2 默认配置。它使用两个MAC地址做异或，再取模，获得hash。 <blockquote> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span>source_MAC_address XOR destination_MAC<span class="o">)</span> MODULO slave_count
-</code></pre></div> </div> </blockquote> </li> <li>1 or layer3+4 使用第3层与第4层地址分别做异或运算，再取模，获得hash。 <blockquote> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">((</span>source_port XOR dest_port<span class="o">)</span> XOR
+</code></pre></div></div>
+
+<p>连续提交三个job上去，看下效果，</p>
+
+<p><img src="/assets/img/Pasted%20image%2020230319231331.png" alt="" /></p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=lsbparams-job-accept-interval <a href="#fnref:1" class="reversefootnote" role="doc-backlink">⤴</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=strings-order-string <a href="#fnref:2" class="reversefootnote" role="doc-backlink">⤴</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name></name></author><category term="icenv" /><category term="lsf" /><summary type="html"><![CDATA[需求 研发想将job尽可能地均匀分散在集群中的执行机上，将负载均匀地分散到集群中，而不是默认的往一台调度，这台满了再往下一台调度。 如图，是默认的调度情况，连续提交的job都调度到了同一台机器，]]></summary></entry><entry><title type="html">cursor IDE使用</title><link href="https://www.icinfra.cn/blog/2023/cursor-ide/" rel="alternate" type="text/html" title="cursor IDE使用" /><published>2023-03-17T13:47:45+00:00</published><updated>2023-03-17T13:47:45+00:00</updated><id>https://www.icinfra.cn/blog/2023/cursor-ide</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/cursor-ide/"><![CDATA[<h1 id="下载">下载</h1>
+<p><img src="/assets/img/Download%20cursor%20for%20MacOS%20Snipaste_2023-03-17_16-53-21.png" alt="" /></p>
+
+<h1 id="安装">安装</h1>
+<p><img src="/assets/img/cursor安装步骤%20Snipaste_2023-03-17_16-56-03.png" alt="" /></p>
+
+<h1 id="使用">使用</h1>
+<div class="embed-container">
+    <iframe src="https://www.youtube.com/embed/T6KjDZvZcwM" width="700" height="480" frameborder="0" allowfullscreen="true">
+    </iframe>
+</div>]]></content><author><name></name></author><category term="icenv" /><category term="ide" /><summary type="html"><![CDATA[下载]]></summary></entry><entry><title type="html">sequence图设置消息的id</title><link href="https://www.icinfra.cn/blog/2023/how-to-apply-numbering-for-message-in-sequence-diagram/" rel="alternate" type="text/html" title="sequence图设置消息的id" /><published>2023-03-17T06:55:37+00:00</published><updated>2023-03-17T06:55:37+00:00</updated><id>https://www.icinfra.cn/blog/2023/how-to-apply-numbering-for-message-in-sequence-diagram</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/how-to-apply-numbering-for-message-in-sequence-diagram/"><![CDATA[<h1 id="diagram-based-numbering">Diagram-based Numbering</h1>
+<h2 id="single-level">Single Level</h2>
+<p>在UML时序图的背景处，右键选择Sequence Number -&gt; Single Level。</p>
+
+<p><img src="/assets/img/Pasted%20image%2020230317150009.png" alt="" /></p>
+
+<p>只要在同一个图中，编号就是连续的。</p>
+
+<p><img src="/assets/img/Pasted%20image%2020230317150053.png" alt="" /></p>
+
+<h2 id="nested-level">Nested Level</h2>
+<p>在UML时序图的背景处，右键选择Sequence Number -&gt; Nested Level。效果如下，
+<img src="/assets/img/Pasted%20image%2020230317150204.png" alt="" /></p>
+
+<h1 id="frame-based-numbering">Frame-based Numbering</h1>
+<h2 id="single-level-1">Single Level</h2>
+<p>在UML时序图的背景处，右键选择Sequence Number -&gt; Frame-based Single Level。效果如下，
+<img src="/assets/img/Pasted%20image%2020230317150245.png" alt="" /></p>
+
+<h2 id="nested-level-1">Nested Level</h2>
+<p>在UML时序图的背景处，右键选择Sequence Number -&gt; Frame-based Nested Level。效果如下，
+<img src="/assets/img/Pasted%20image%2020230317150419.png" alt="" /></p>
+
+<h1 id="参考文献">参考文献</h1>
+<p><a href="https://www.visual-paradigm.com/tutorials/numberingmessage.jsp">How to Apply Numbering for Messages in Sequence Diagram? (visual-paradigm.com)</a></p>]]></content><author><name></name></author><category term="icenv" /><category term="uml" /><summary type="html"><![CDATA[Diagram-based Numbering Single Level 在UML时序图的背景处，右键选择Sequence Number -&gt; Single Level。]]></summary></entry><entry><title type="html">Welcome to the UML</title><link href="https://www.icinfra.cn/blog/2023/welcome-to-the-uml/" rel="alternate" type="text/html" title="Welcome to the UML" /><published>2023-03-17T01:05:26+00:00</published><updated>2023-03-17T01:05:26+00:00</updated><id>https://www.icinfra.cn/blog/2023/welcome-to-the-uml</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/welcome-to-the-uml/"><![CDATA[<h1 id="uml历史">UML历史</h1>]]></content><author><name></name></author><category term="icenv" /><category term="uml" /><summary type="html"><![CDATA[UML历史]]></summary></entry><entry><title type="html">Linux的网卡bonding模式</title><link href="https://www.icinfra.cn/blog/2023/Bonding-Modes-in-Linux/" rel="alternate" type="text/html" title="Linux的网卡bonding模式" /><published>2023-03-15T13:39:18+00:00</published><updated>2023-03-15T13:39:18+00:00</updated><id>https://www.icinfra.cn/blog/2023/Bonding-Modes-in-Linux</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/Bonding-Modes-in-Linux/"><![CDATA[<h1 id="不同的bonding-mode区别">不同的Bonding Mode区别</h1>
+<p>网卡Bonding是一项在操作系统层面上实现的网络冗余技术。设置网卡Bonding后，内核会将多条物理链路组成一条逻辑虚拟链路，在网络层上实现高可用。</p>
+
+<h2 id="mode-0balance-rr">mode 0(balance-rr)</h2>
+<p>Round-robin policy。从组内的第一个Slave接口开始，以轮询的方式将数据按顺序依次发放。该模式提供load balancing以及fault tolerance。</p>
+
+<h2 id="mode-1active-backup">mode 1(active-backup)</h2>
+<p>Active-backup policy。只有一个slave是active的。当且仅当active slave失效了，另一个slave就会变成active。bond的MAC地址只在一个端口上对外可见，避免了交换机混淆。该模式提供fault tolerance。</p>
+
+<h2 id="mode-2balance-xor">mode 2(balance-xor)</h2>
+<p>基于选择的transmit hash policy传输。policy可以通过xmit_hash_policy更改。该模式提供load balancing以及fault tolerance。</p>
+
+<h2 id="mode-3broadcast">mode 3(broadcast)</h2>
+<p>在所有slave接口上都传输。该模式提供fault tolerance。</p>
+
+<h2 id="mode-48023ad">mode 4(802.3ad)</h2>
+<p>IEEE 802.3ad Dynamic link aggregation policy。创建聚合组，共享相同的速率与工作模式。根据802.3ad规范，充分利用active aggregator里的所有slave。
+对于outgoing流量的slave接口选举，是通过transmit hash policy来完成的。policy可以通过xmit_hash_policy更改。</p>
+
+<p>xmit_hash_policy的值<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></p>
+
+<ul>
+  <li>0 or layer2
+  默认配置。它使用两个MAC地址做异或，再取模，获得hash。
+    <blockquote>
+      <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span>source_MAC_address XOR destination_MAC<span class="o">)</span> MODULO slave_count
+</code></pre></div>      </div>
+    </blockquote>
+  </li>
+  <li>1 or layer3+4
+  使用第3层与第4层地址分别做异或运算，再取模，获得hash。
+    <blockquote>
+      <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">((</span>source_port XOR dest_port<span class="o">)</span> XOR
  <span class="o">((</span>source_IP XOR dest_IP<span class="o">)</span> AND 0xffff<span class="o">)</span>
   MODULO slave_count
-</code></pre></div> </div> </blockquote> </li> <li>2 or layer2+3 使用第2层与第3层地址分别做异或运算，再取模，获得hash。 <blockquote> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(((</span>source_IP XOR dest_IP<span class="o">)</span> AND 0xffff<span class="o">)</span> XOR
+</code></pre></div>      </div>
+    </blockquote>
+  </li>
+  <li>2 or layer2+3
+  使用第2层与第3层地址分别做异或运算，再取模，获得hash。
+    <blockquote>
+      <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(((</span>source_IP XOR dest_IP<span class="o">)</span> AND 0xffff<span class="o">)</span> XOR
  <span class="o">(</span> source_MAC XOR destination_MAC <span class="o">))</span>
   MODULO slave_count
-</code></pre></div> </div> </blockquote> </li> </ul> <p>该模式对硬件的要求</p> <ol> <li>ethtool支持基础驱动，取回每个slave的速率与单双工工作模式。</li> <li>交换机虚支持IEEE 802.3ad Dynamic link aggregation。</li> </ol> <p>列子： <img src="/assets/img/Pasted%20image%2020230315230142.png" alt=""/></p> <h2 id="mode-5balance-tlb">mode 5(balance-tlb)</h2> <p>发送负载均衡。不需要交换机的任何特殊支持。outgoing的流量会分布到各个slave，incoming的流量会被当前的slave接收。如果当前slave失效了，其他的slave会接管它的MAC地址。</p> <h2 id="mode-6balance-alb">mode 6(balance-alb)</h2> <p>它包括IPv4的发送负载均衡以及接收负载均衡。不需要交换机的任何特殊支持。接收负载均衡，是通过ARP协商实现。bonding驱动拦截本机发出的ARP reply，重写source MAC地址为bond中的其中一个slave的MAC地址。如此一来，不同的对端与本机不同的MAC地址进行通信，达到接收负载均衡的效果。</p> <p>更多信息请访问Linux内核官网<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>。</p> <h1 id="不同的bonding-mode对交换机的配置要求">不同的Bonding Mode对交换机的配置要求</h1> <table> <thead> <tr> <th>Bonding Mode</th> <th>Configuration on the Switch</th> </tr> </thead> <tbody> <tr> <td>0 - balance-rr</td> <td>Requires static Etherchannel enabled(not LACP-negotiated)</td> </tr> <tr> <td>1 - active-backup</td> <td>Requires autonomous ports</td> </tr> <tr> <td>2 - balance-xor</td> <td>Requires static Etherchannel enabled(not LACP-negotiated)</td> </tr> <tr> <td>3 - broadcast</td> <td>Requires static Etherchannel enabled(not LACP-negotiated)</td> </tr> <tr> <td>4 - 802.3ad</td> <td>Requires LACP-negotiated Etherchannel enabled</td> </tr> <tr> <td>5 - balance-tlb</td> <td>Requires autonomous ports</td> </tr> <tr> <td>6 - balance-alb</td> <td>Requires autonomous ports</td> </tr> </tbody> </table> <div class="footnotes" role="doc-endnotes"> <ol> <li id="fn:1" role="doc-endnote"> <p>xmit_hash_policy常用的三个值，引用自 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-using_channel_bonding?ssp=1&amp;darkschemeovr=0&amp;setlang=en-US&amp;safesearch=moderate <a href="#fnref:1" class="reversefootnote" role="doc-backlink">⤴</a></p> </li> <li id="fn:2" role="doc-endnote"> <p>Linux内核官网 https://www.kernel.org/doc/Documentation/networking/bonding.txt <a href="#fnref:2" class="reversefootnote" role="doc-backlink">⤴</a></p> </li> </ol> </div>]]></content><author><name></name></author><category term="icenv"/><category term="network"/><summary type="html"><![CDATA[不同的Bonding Mode区别 网卡Bonding是一项在操作系统层面上实现的网络冗余技术。设置网卡Bonding后，内核会将多条物理链路组成一条逻辑虚拟链路，在网络层上实现高可用。]]></summary></entry><entry><title type="html">使用spack安装gcc 4.6.4失败</title><link href="https://www.icinfra.cn/blog/2023/gcc-4.6.4-failed-installed-with-spack/" rel="alternate" type="text/html" title="使用spack安装gcc 4.6.4失败"/><published>2023-03-15T09:55:09+00:00</published><updated>2023-03-15T09:55:09+00:00</updated><id>https://www.icinfra.cn/blog/2023/gcc-4.6.4-failed-installed-with-spack</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/gcc-4.6.4-failed-installed-with-spack/"><![CDATA[<h1 id="问题">问题</h1> <p>因定位问题，供应商建议xrun尝试一下gcc 4.6版本。我用spack info gcc查到gcc 4.6.4。安装时报错，</p> <p><img src="/assets/img/Pasted%20image%2020230315181311.png" alt=""/></p> <p>上述报错与texinfo有关，查看了 https://github.com/esden/summon-arm-toolchain/issues/60</p> <p>https://github.com/esden/summon-arm-toolchain/issues/60#issuecomment-55583716</p> <p>与texinfo的bug有关，将texinfo包降级即可解决问题。</p> <h1 id="解决">解决</h1> <p>spack info texinfo查看到有5.0版本，于是使用它</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spack <span class="nb">install </span>gcc@4.6.4 ^texinfo@5.0
-</code></pre></div></div> <p>问题解决。</p>]]></content><author><name></name></author><category term="icenv"/><category term="gcc"/><summary type="html"><![CDATA[问题 因定位问题，供应商建议xrun尝试一下gcc 4.6版本。我用spack info gcc查到gcc 4.6.4。安装时报错，]]></summary></entry><entry><title type="html">使用patchelf修改rpath</title><link href="https://www.icinfra.cn/blog/2023/patchelf-modify-rpath/" rel="alternate" type="text/html" title="使用patchelf修改rpath"/><published>2023-03-15T03:30:48+00:00</published><updated>2023-03-15T03:30:48+00:00</updated><id>https://www.icinfra.cn/blog/2023/patchelf-modify-rpath</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/patchelf-modify-rpath/"><![CDATA[<h1 id="需求">需求</h1> <p>很多时候拿到一个软件包，需要设置LD_LIBRARY_PATH才能够正确链接到共享库来运行。如何让软件能够自动找到其软件包里的共享库，而不需要用户做太多的运行前设置？</p> <p>如从 https://sourceforge.net/projects/srecord/files/srecord/1.65/srecord-1.65.0-Linux.rpm 下载的rpm包，解压之后是这样的目录结构</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>wanlinwang@computing-server-01 usr]<span class="nv">$ </span><span class="nb">ls</span> <span class="k">*</span>
+</code></pre></div>      </div>
+    </blockquote>
+  </li>
+</ul>
+
+<p>该模式对硬件的要求</p>
+<ol>
+  <li>ethtool支持基础驱动，取回每个slave的速率与单双工工作模式。</li>
+  <li>交换机虚支持IEEE 802.3ad Dynamic link aggregation。</li>
+</ol>
+
+<p>列子：
+<img src="/assets/img/Pasted%20image%2020230315230142.png" alt="" /></p>
+
+<h2 id="mode-5balance-tlb">mode 5(balance-tlb)</h2>
+<p>发送负载均衡。不需要交换机的任何特殊支持。outgoing的流量会分布到各个slave，incoming的流量会被当前的slave接收。如果当前slave失效了，其他的slave会接管它的MAC地址。</p>
+
+<h2 id="mode-6balance-alb">mode 6(balance-alb)</h2>
+<p>它包括IPv4的发送负载均衡以及接收负载均衡。不需要交换机的任何特殊支持。接收负载均衡，是通过ARP协商实现。bonding驱动拦截本机发出的ARP reply，重写source MAC地址为bond中的其中一个slave的MAC地址。如此一来，不同的对端与本机不同的MAC地址进行通信，达到接收负载均衡的效果。</p>
+
+<p>更多信息请访问Linux内核官网<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>。</p>
+
+<h1 id="不同的bonding-mode对交换机的配置要求">不同的Bonding Mode对交换机的配置要求</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bonding Mode</th>
+      <th>Configuration on the Switch</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0 - balance-rr</td>
+      <td>Requires static Etherchannel enabled(not LACP-negotiated)</td>
+    </tr>
+    <tr>
+      <td>1 - active-backup</td>
+      <td>Requires autonomous ports</td>
+    </tr>
+    <tr>
+      <td>2 - balance-xor</td>
+      <td>Requires static Etherchannel enabled(not LACP-negotiated)</td>
+    </tr>
+    <tr>
+      <td>3 - broadcast</td>
+      <td>Requires static Etherchannel enabled(not LACP-negotiated)</td>
+    </tr>
+    <tr>
+      <td>4 - 802.3ad</td>
+      <td>Requires LACP-negotiated Etherchannel enabled</td>
+    </tr>
+    <tr>
+      <td>5 - balance-tlb</td>
+      <td>Requires autonomous ports</td>
+    </tr>
+    <tr>
+      <td>6 - balance-alb</td>
+      <td>Requires autonomous ports</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>xmit_hash_policy常用的三个值，引用自 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-using_channel_bonding?ssp=1&amp;darkschemeovr=0&amp;setlang=en-US&amp;safesearch=moderate <a href="#fnref:1" class="reversefootnote" role="doc-backlink">⤴</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>Linux内核官网 https://www.kernel.org/doc/Documentation/networking/bonding.txt <a href="#fnref:2" class="reversefootnote" role="doc-backlink">⤴</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name></name></author><category term="icenv" /><category term="network" /><summary type="html"><![CDATA[不同的Bonding Mode区别 网卡Bonding是一项在操作系统层面上实现的网络冗余技术。设置网卡Bonding后，内核会将多条物理链路组成一条逻辑虚拟链路，在网络层上实现高可用。]]></summary></entry><entry><title type="html">使用spack安装gcc 4.6.4失败</title><link href="https://www.icinfra.cn/blog/2023/gcc-4.6.4-failed-installed-with-spack/" rel="alternate" type="text/html" title="使用spack安装gcc 4.6.4失败" /><published>2023-03-15T09:55:09+00:00</published><updated>2023-03-15T09:55:09+00:00</updated><id>https://www.icinfra.cn/blog/2023/gcc-4.6.4-failed-installed-with-spack</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/gcc-4.6.4-failed-installed-with-spack/"><![CDATA[<h1 id="问题">问题</h1>
+<p>因定位问题，供应商建议xrun尝试一下gcc 4.6版本。我用spack info gcc查到gcc 4.6.4。安装时报错，</p>
+
+<p><img src="/assets/img/Pasted%20image%2020230315181311.png" alt="" /></p>
+
+<p>上述报错与texinfo有关，查看了 
+https://github.com/esden/summon-arm-toolchain/issues/60</p>
+
+<p>https://github.com/esden/summon-arm-toolchain/issues/60#issuecomment-55583716</p>
+
+<p>与texinfo的bug有关，将texinfo包降级即可解决问题。</p>
+
+<h1 id="解决">解决</h1>
+
+<p>spack info texinfo查看到有5.0版本，于是使用它</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spack <span class="nb">install </span>gcc@4.6.4 ^texinfo@5.0
+</code></pre></div></div>
+<p>问题解决。</p>]]></content><author><name></name></author><category term="icenv" /><category term="gcc" /><summary type="html"><![CDATA[问题 因定位问题，供应商建议xrun尝试一下gcc 4.6版本。我用spack info gcc查到gcc 4.6.4。安装时报错，]]></summary></entry><entry><title type="html">使用patchelf修改rpath</title><link href="https://www.icinfra.cn/blog/2023/patchelf-modify-rpath/" rel="alternate" type="text/html" title="使用patchelf修改rpath" /><published>2023-03-15T03:30:48+00:00</published><updated>2023-03-15T03:30:48+00:00</updated><id>https://www.icinfra.cn/blog/2023/patchelf-modify-rpath</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/patchelf-modify-rpath/"><![CDATA[<h1 id="需求">需求</h1>
+<p>很多时候拿到一个软件包，需要设置LD_LIBRARY_PATH才能够正确链接到共享库来运行。如何让软件能够自动找到其软件包里的共享库，而不需要用户做太多的运行前设置？</p>
+
+<p>如从 https://sourceforge.net/projects/srecord/files/srecord/1.65/srecord-1.65.0-Linux.rpm 下载的rpm包，解压之后是这样的目录结构</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>wanlinwang@computing-server-01 usr]<span class="nv">$ </span><span class="nb">ls</span> <span class="k">*</span>
 bin:
 srec_cat  srec_cmp  srec_info
 
@@ -50,7 +311,13 @@ libc.so.6             libgcrypt.so.20  libgpg-error.so.0    liblib_srecord.a    
 
 share:
 doc  man
-</code></pre></div></div> <p>并且直接运行会包共享库找不到。</p> <h1 id="方案">方案</h1> <p>根据需求，可以对ELF设置RPATH。</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>wanlinwang@computing-server-01 bin]<span class="nv">$ </span>patchelf <span class="nt">--set-rpath</span> <span class="s1">'$ORIGIN/../lib'</span> <span class="nt">--force-rpath</span> <span class="k">*</span>
+</code></pre></div></div>
+
+<p>并且直接运行会包共享库找不到。</p>
+
+<h1 id="方案">方案</h1>
+<p>根据需求，可以对ELF设置RPATH。</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>wanlinwang@computing-server-01 bin]<span class="nv">$ </span>patchelf <span class="nt">--set-rpath</span> <span class="s1">'$ORIGIN/../lib'</span> <span class="nt">--force-rpath</span> <span class="k">*</span>
 <span class="o">[</span>wanlinwang@computing-server-01 bin]<span class="nv">$ </span>readelf <span class="nt">-d</span> <span class="k">*</span> | <span class="nb">grep</span> <span class="nt">-i</span> rpath
  0x000000000000000f <span class="o">(</span>RPATH<span class="o">)</span>              Library rpath: <span class="o">[</span><span class="nv">$ORIGIN</span>/../lib]
  0x000000000000000f <span class="o">(</span>RPATH<span class="o">)</span>              Library rpath: <span class="o">[</span><span class="nv">$ORIGIN</span>/../lib]
@@ -83,4 +350,31 @@ srec_info:
 	libgpg-error.so.0 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libgpg-error.so.0 <span class="o">(</span>0x00007f97bdf2e000<span class="o">)</span>
 	libm.so.6 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libm.so.6 <span class="o">(</span>0x00007f97bde47000<span class="o">)</span>
 	/lib64/ld-linux-x86-64.so.2 <span class="o">(</span>0x00007f97be3c6000<span class="o">)</span>
-</code></pre></div></div> <p>这样，运行命令时就能够优先从其lib目录找共享库了。</p> <h1 id="参考资料">参考资料</h1> <p>共享库查找顺序，来自<a href="https://learning.oreilly.com/library/view/the-linux-programming/9781593272203/xhtml/ch41.xhtml#ch41lev1sec11">The Linux Programming</a></p> <blockquote> <p>When resolving library dependencies, the dynamic linker first inspects each dependency string to see if it contains a slash (/), which can occur if we specified an explicit library pathname when linking the executable. If a slash is found, then the dependency string is interpreted as a pathname (either absolute or relative), and the library is loaded using that pathname. Otherwise, the dynamic linker searches for the shared library using the following rules:</p> <ol> <li> <p>If the executable has any directories listed in its DT_RPATH run-time library path list (rpath) and the executable does not contain a DT_RUNPATH list, then these directories are searched (in the order that they were supplied when linking the program).</p> </li> <li> <p>If the LD_LIBRARY_PATH environment variable is defined, then each of the colon-separated directories listed in its value is searched in turn. If the executable is a set-user-ID or set-group-ID program, then LD_LIBRARY_PATH is ignored. This is a security measure to prevent users from tricking the dynamic linker into loading a private version of a library with the same name as a library required by the executable.</p> </li> <li> <p>If the executable has any directories listed in its DT_RUNPATH run-time library path list, then these directories are searched (in the order that they were supplied when linking the program).</p> </li> <li> <p>The file /etc/ld.so.cache is checked to see if it contains an entry for the library.</p> </li> <li> <p>The directories /lib and /usr/lib are searched (in that order).</p> </li> </ol> </blockquote>]]></content><author><name></name></author><category term="linux"/><category term="elf"/><summary type="html"><![CDATA[需求 很多时候拿到一个软件包，需要设置LD_LIBRARY_PATH才能够正确链接到共享库来运行。如何让软件能够自动找到其软件包里的共享库，而不需要用户做太多的运行前设置？]]></summary></entry></feed>
+</code></pre></div></div>
+
+<p>这样，运行命令时就能够优先从其lib目录找共享库了。</p>
+
+<h1 id="参考资料">参考资料</h1>
+
+<p>共享库查找顺序，来自<a href="https://learning.oreilly.com/library/view/the-linux-programming/9781593272203/xhtml/ch41.xhtml#ch41lev1sec11">The Linux Programming</a></p>
+<blockquote>
+  <p>When resolving library dependencies, the dynamic linker first inspects each dependency string to see if it contains a slash (/), which can occur if we specified an explicit library pathname when linking the executable. If a slash is found, then the dependency string is interpreted as a pathname (either absolute or relative), and the library is loaded using that pathname. Otherwise, the dynamic linker searches for the shared library using the following rules:</p>
+
+  <ol>
+    <li>
+      <p>If the executable has any directories listed in its DT_RPATH run-time library path list (rpath) and the executable does not contain a DT_RUNPATH list, then these directories are searched (in the order that they were supplied when linking the program).</p>
+    </li>
+    <li>
+      <p>If the LD_LIBRARY_PATH environment variable is defined, then each of the colon-separated directories listed in its value is searched in turn. If the executable is a set-user-ID or set-group-ID program, then LD_LIBRARY_PATH is ignored. This is a security measure to prevent users from tricking the dynamic linker into loading a private version of a library with the same name as a library required by the executable.</p>
+    </li>
+    <li>
+      <p>If the executable has any directories listed in its DT_RUNPATH run-time library path list, then these directories are searched (in the order that they were supplied when linking the program).</p>
+    </li>
+    <li>
+      <p>The file /etc/ld.so.cache is checked to see if it contains an entry for the library.</p>
+    </li>
+    <li>
+      <p>The directories /lib and /usr/lib are searched (in that order).</p>
+    </li>
+  </ol>
+</blockquote>]]></content><author><name></name></author><category term="linux" /><category term="elf" /><summary type="html"><![CDATA[需求 很多时候拿到一个软件包，需要设置LD_LIBRARY_PATH才能够正确链接到共享库来运行。如何让软件能够自动找到其软件包里的共享库，而不需要用户做太多的运行前设置？]]></summary></entry></feed>
