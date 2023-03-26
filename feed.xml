@@ -1,5 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-03-26T02:23:54+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">限制用户直接访问lsf执行机</title><link href="https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts/" rel="alternate" type="text/html" title="限制用户直接访问lsf执行机" /><published>2023-03-22T01:57:58+00:00</published><updated>2023-03-22T01:57:58+00:00</updated><id>https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts/"><![CDATA[<h1 id="需求">需求</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-03-26T02:49:51+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">离线自动化安装开源工具的方案探索</title><link href="https://www.icinfra.cn/blog/2023/offline-packages-installing/" rel="alternate" type="text/html" title="离线自动化安装开源工具的方案探索" /><published>2023-03-26T00:50:22+00:00</published><updated>2023-03-26T00:50:22+00:00</updated><id>https://www.icinfra.cn/blog/2023/offline-packages-installing</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/offline-packages-installing/"><![CDATA[<h1 id="背景">背景</h1>
+<p>包括芯片设计公司在内，许多研发型公司为了数据安全与网络安全，会将其研发环境与互联网隔绝开来，从物理上禁止了数据在内外部自由流通，也禁止了来自外部的网络攻击。
+安全与效率总是不能够双双完美的，这种架构保证了安全，在很多需要数据传输、访问在线服务的场景上，这种架构就给效率打了折扣。研发环境开源工具的安装与管理，就是场景之一。</p>
+
+<h1 id="设计方案">设计方案</h1>
+
+<h2 id="spack">Spack</h2>
+
+<p>离线安装与使用的Use Case
+<img src="/assets/img/Spack%20Use%20Case.jpg" alt="" /></p>
+
+<p>在线安装与使用的活动图
+<img src="/assets/img/在线Spack安装流程.jpg" alt="" /></p>
+
+<p>离线安装与使用的活动图
+<img src="/assets/img/离线Spack安装流程.jpg" alt="" /></p>
+
+<h1 id="实施方案">实施方案</h1>
+<p>todo</p>]]></content><author><name></name></author><category term="icenv" /><category term="linux" /><summary type="html"><![CDATA[背景 包括芯片设计公司在内，许多研发型公司为了数据安全与网络安全，会将其研发环境与互联网隔绝开来，从物理上禁止了数据在内外部自由流通，也禁止了来自外部的网络攻击。 安全与效率总是不能够双双完美的，这种架构保证了安全，在很多需要数据传输、访问在线服务的场景上，这种架构就给效率打了折扣。研发环境开源工具的安装与管理，就是场景之一。]]></summary></entry><entry><title type="html">限制用户直接访问lsf执行机</title><link href="https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts/" rel="alternate" type="text/html" title="限制用户直接访问lsf执行机" /><published>2023-03-22T01:57:58+00:00</published><updated>2023-03-22T01:57:58+00:00</updated><id>https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts/"><![CDATA[<h1 id="需求">需求</h1>
 <p>禁止用户直接访问LSF执行机，以实现LSF执行机的用户进程都来自于LSF的调度，确保使用的公平性，以及方便管理员管理。</p>
 
 <h1 id="实现">实现</h1>
@@ -294,87 +312,4 @@ https://github.com/esden/summon-arm-toolchain/issues/60</p>
 <p>spack info texinfo查看到有5.0版本，于是使用它</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spack <span class="nb">install </span>gcc@4.6.4 ^texinfo@5.0
 </code></pre></div></div>
-<p>问题解决。</p>]]></content><author><name></name></author><category term="icenv" /><category term="gcc" /><summary type="html"><![CDATA[问题 因定位问题，供应商建议xrun尝试一下gcc 4.6版本。我用spack info gcc查到gcc 4.6.4。安装时报错，]]></summary></entry><entry><title type="html">使用patchelf修改rpath</title><link href="https://www.icinfra.cn/blog/2023/patchelf-modify-rpath/" rel="alternate" type="text/html" title="使用patchelf修改rpath" /><published>2023-03-15T03:30:48+00:00</published><updated>2023-03-15T03:30:48+00:00</updated><id>https://www.icinfra.cn/blog/2023/patchelf-modify-rpath</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/patchelf-modify-rpath/"><![CDATA[<h1 id="需求">需求</h1>
-<p>很多时候拿到一个软件包，需要设置LD_LIBRARY_PATH才能够正确链接到共享库来运行。如何让软件能够自动找到其软件包里的共享库，而不需要用户做太多的运行前设置？</p>
-
-<p>如从 https://sourceforge.net/projects/srecord/files/srecord/1.65/srecord-1.65.0-Linux.rpm 下载的rpm包，解压之后是这样的目录结构</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>wanlinwang@computing-server-01 usr]<span class="nv">$ </span><span class="nb">ls</span> <span class="k">*</span>
-bin:
-srec_cat  srec_cmp  srec_info
-
-include:
-srecord
-
-lib:
-ld-linux-x86-64.so.2  libgcc_s.so.1    libgcrypt.so.20.3.4  libgpg-error.so.0.32.1  libm.so.6       libstdc++.so.6.0.30
-libc.so.6             libgcrypt.so.20  libgpg-error.so.0    liblib_srecord.a        libstdc++.so.6
-
-share:
-doc  man
-</code></pre></div></div>
-
-<p>并且直接运行会包共享库找不到。</p>
-
-<h1 id="方案">方案</h1>
-<p>根据需求，可以对ELF设置RPATH。</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>wanlinwang@computing-server-01 bin]<span class="nv">$ </span>patchelf <span class="nt">--set-rpath</span> <span class="s1">'$ORIGIN/../lib'</span> <span class="nt">--force-rpath</span> <span class="k">*</span>
-<span class="o">[</span>wanlinwang@computing-server-01 bin]<span class="nv">$ </span>readelf <span class="nt">-d</span> <span class="k">*</span> | <span class="nb">grep</span> <span class="nt">-i</span> rpath
- 0x000000000000000f <span class="o">(</span>RPATH<span class="o">)</span>              Library rpath: <span class="o">[</span><span class="nv">$ORIGIN</span>/../lib]
- 0x000000000000000f <span class="o">(</span>RPATH<span class="o">)</span>              Library rpath: <span class="o">[</span><span class="nv">$ORIGIN</span>/../lib]
- 0x000000000000000f <span class="o">(</span>RPATH<span class="o">)</span>              Library rpath: <span class="o">[</span><span class="nv">$ORIGIN</span>/../lib]
-<span class="o">[</span>wanlinwang@computing-server-01 bin]<span class="nv">$ </span>ldd <span class="k">*</span>
-srec_cat:
-	linux-vdso.so.1 <span class="o">=&gt;</span>  <span class="o">(</span>0x00007fff02d8d000<span class="o">)</span>
-	libgcrypt.so.20 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libgcrypt.so.20 <span class="o">(</span>0x00007f9b740a0000<span class="o">)</span>
-	libstdc++.so.6 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libstdc++.so.6 <span class="o">(</span>0x00007f9b73e76000<span class="o">)</span>
-	libgcc_s.so.1 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libgcc_s.so.1 <span class="o">(</span>0x00007f9b742d3000<span class="o">)</span>
-	libc.so.6 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libc.so.6 <span class="o">(</span>0x00007f9b73c4e000<span class="o">)</span>
-	libgpg-error.so.0 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libgpg-error.so.0 <span class="o">(</span>0x00007f9b742ac000<span class="o">)</span>
-	libm.so.6 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libm.so.6 <span class="o">(</span>0x00007f9b73b67000<span class="o">)</span>
-	/lib64/ld-linux-x86-64.so.2 <span class="o">(</span>0x00007f9b741de000<span class="o">)</span>
-srec_cmp:
-	linux-vdso.so.1 <span class="o">=&gt;</span>  <span class="o">(</span>0x00007fffa639e000<span class="o">)</span>
-	libgcrypt.so.20 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libgcrypt.so.20 <span class="o">(</span>0x00007f5fd42ca000<span class="o">)</span>
-	libstdc++.so.6 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libstdc++.so.6 <span class="o">(</span>0x00007f5fd4067000<span class="o">)</span>
-	libgcc_s.so.1 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libgcc_s.so.1 <span class="o">(</span>0x00007f5fd4047000<span class="o">)</span>
-	libc.so.6 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libc.so.6 <span class="o">(</span>0x00007f5fd3e1f000<span class="o">)</span>
-	libgpg-error.so.0 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libgpg-error.so.0 <span class="o">(</span>0x00007f5fd3df9000<span class="o">)</span>
-	libm.so.6 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libm.so.6 <span class="o">(</span>0x00007f5fd3d12000<span class="o">)</span>
-	/lib64/ld-linux-x86-64.so.2 <span class="o">(</span>0x00007f5fd4291000<span class="o">)</span>
-srec_info:
-	linux-vdso.so.1 <span class="o">=&gt;</span>  <span class="o">(</span>0x00007ffe78da2000<span class="o">)</span>
-	libgcrypt.so.20 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libgcrypt.so.20 <span class="o">(</span>0x00007f97be3fc000<span class="o">)</span>
-	libstdc++.so.6 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libstdc++.so.6 <span class="o">(</span>0x00007f97be19c000<span class="o">)</span>
-	libgcc_s.so.1 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libgcc_s.so.1 <span class="o">(</span>0x00007f97be17c000<span class="o">)</span>
-	libc.so.6 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libc.so.6 <span class="o">(</span>0x00007f97bdf54000<span class="o">)</span>
-	libgpg-error.so.0 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libgpg-error.so.0 <span class="o">(</span>0x00007f97bdf2e000<span class="o">)</span>
-	libm.so.6 <span class="o">=&gt;</span> /nfs/home/wanlinwang/usr/bin/./../lib/libm.so.6 <span class="o">(</span>0x00007f97bde47000<span class="o">)</span>
-	/lib64/ld-linux-x86-64.so.2 <span class="o">(</span>0x00007f97be3c6000<span class="o">)</span>
-</code></pre></div></div>
-
-<p>这样，运行命令时就能够优先从其lib目录找共享库了。</p>
-
-<h1 id="参考资料">参考资料</h1>
-
-<p>共享库查找顺序，来自<a href="https://learning.oreilly.com/library/view/the-linux-programming/9781593272203/xhtml/ch41.xhtml#ch41lev1sec11">The Linux Programming</a></p>
-<blockquote>
-  <p>When resolving library dependencies, the dynamic linker first inspects each dependency string to see if it contains a slash (/), which can occur if we specified an explicit library pathname when linking the executable. If a slash is found, then the dependency string is interpreted as a pathname (either absolute or relative), and the library is loaded using that pathname. Otherwise, the dynamic linker searches for the shared library using the following rules:</p>
-
-  <ol>
-    <li>
-      <p>If the executable has any directories listed in its DT_RPATH run-time library path list (rpath) and the executable does not contain a DT_RUNPATH list, then these directories are searched (in the order that they were supplied when linking the program).</p>
-    </li>
-    <li>
-      <p>If the LD_LIBRARY_PATH environment variable is defined, then each of the colon-separated directories listed in its value is searched in turn. If the executable is a set-user-ID or set-group-ID program, then LD_LIBRARY_PATH is ignored. This is a security measure to prevent users from tricking the dynamic linker into loading a private version of a library with the same name as a library required by the executable.</p>
-    </li>
-    <li>
-      <p>If the executable has any directories listed in its DT_RUNPATH run-time library path list, then these directories are searched (in the order that they were supplied when linking the program).</p>
-    </li>
-    <li>
-      <p>The file /etc/ld.so.cache is checked to see if it contains an entry for the library.</p>
-    </li>
-    <li>
-      <p>The directories /lib and /usr/lib are searched (in that order).</p>
-    </li>
-  </ol>
-</blockquote>]]></content><author><name></name></author><category term="linux" /><category term="elf" /><summary type="html"><![CDATA[需求 很多时候拿到一个软件包，需要设置LD_LIBRARY_PATH才能够正确链接到共享库来运行。如何让软件能够自动找到其软件包里的共享库，而不需要用户做太多的运行前设置？]]></summary></entry></feed>
+<p>问题解决。</p>]]></content><author><name></name></author><category term="icenv" /><category term="gcc" /><summary type="html"><![CDATA[问题 因定位问题，供应商建议xrun尝试一下gcc 4.6版本。我用spack info gcc查到gcc 4.6.4。安装时报错，]]></summary></entry></feed>
