@@ -184,20 +184,21 @@ Resolving deltas: 100% <span class="o">(</span>182172/182172<span class="o">)</s
 <span class="o">[</span>centos@localhost os]<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">". </span><span class="sb">`</span><span class="nb">readlink</span> <span class="nt">-f</span> spack/share/spack/setup-env.sh<span class="sb">`</span><span class="s2">"</span> <span class="o">&gt;&gt;</span>  ~/.bashrc
 </code></pre></div></div>
 <p>将spack目录拷贝到离线环境CentOS 7.9的<code class="language-plaintext highlighter-rouge">/tools/os/</code>目录，并配置其初始化</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@computing-server-01 <span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">". /tools/os/spack/share/spack/setup-env.sh"</span> <span class="o">&gt;&gt;</span>  ~/.bashrc
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@centos7-9-offline <span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">". /tools/os/spack/share/spack/setup-env.sh"</span> <span class="o">&gt;&gt;</span>  ~/.bashrc
 </code></pre></div></div>
 
 <h2 id="安装与配置编译器">安装与配置编译器</h2>
 <p>分别于centos7-9-online、centos7-9-offline的机器执行</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@centos7-9-online ~]<span class="nv">$ </span><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> gcc gcc-c++ gcc-gfortran <span class="c">#安装编译器</span>
-<span class="o">[</span>centos@centos7-9-online ~]<span class="nv">$ </span><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> patch lbzip2 <span class="c">#spack install时需要用到其它包</span>
+<span class="o">[</span>centos@centos7-9-online ~]<span class="nv">$ </span><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> patch bzip2 lbzip2 readline-devel unzip <span class="c">#spack install时，有些基础的会被常见的包依赖。</span>
 <span class="o">[</span>centos@centos7-9-online ~]<span class="nv">$ </span>spack compiler find
 <span class="o">==&gt;</span> Added 1 new compiler to /home/centos/.spack/linux/compilers.yaml
     gcc@4.8.5
+    gcc@12.2.0
 <span class="o">==&gt;</span> Compilers are defined <span class="k">in </span>the following files:
     /home/centos/.spack/linux/compilers.yaml
-<span class="o">[</span>centos@localhost ~]<span class="nv">$ </span><span class="nb">cat</span> /home/centos/.spack/linux/compilers.yaml
+<span class="o">[</span>centos@centos7-9-online ~]<span class="nv">$ </span><span class="nb">cat</span> /home/centos/.spack/linux/compilers.yaml
 compilers:
 - compiler:
     spec: gcc@4.8.5
@@ -206,6 +207,19 @@ compilers:
       cxx: /usr/bin/g++
       f77: /usr/bin/gfortran
       <span class="nb">fc</span>: /usr/bin/gfortran
+    flags: <span class="o">{}</span>
+    operating_system: centos7
+    target: x86_64
+    modules: <span class="o">[]</span>
+    environment: <span class="o">{}</span>
+    extra_rpaths: <span class="o">[]</span>
+- compiler:
+    spec: gcc@12.2.0
+    paths:
+      cc: /nfs/tools/os/gcc/12.2.0/bin/gcc
+      cxx: /nfs/tools/os/gcc/12.2.0/bin/g++
+      f77: /nfs/tools/os/gcc/12.2.0/bin/gfortran
+      <span class="nb">fc</span>: /nfs/tools/os/gcc/12.2.0/bin/gfortran
     flags: <span class="o">{}</span>
     operating_system: centos7
     target: x86_64
@@ -676,10 +690,12 @@ mirrors:
 </code></pre></div></div>
 
 <p>这样，spack在离线环境就可以使用mirror过来的目录安装了</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@centos7-9-offline ~]<span class="nv">$ </span>spack <span class="nb">install </span>vim +gtk +gui +lua +perl +python +ruby +x +cscope
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@centos7-9-offline ~]<span class="nv">$ </span>spack <span class="nb">install </span>vim %gcc@12.2.0 +gtk +gui +lua +perl +python +ruby +x +cscope
 </code></pre></div></div>
 
-<p><a href="https://spack.readthedocs.io/en/latest/mirrors.html" rel="external nofollow noopener" target="_blank">Mirrors</a></p>
+<p>验证</p>
+
+<p><a href="https://spack.readthedocs.io/en/latest/mirrors.html" rel="external nofollow noopener" target="_blank">Spack Mirrors</a></p>
 
   </article>
 
@@ -703,6 +719,12 @@ mirrors:
   
 
   <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/new-bing-create/">new bing绘画</a>
+  </li>
+
+  
+
+  <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts/">限制用户直接访问lsf执行机</a>
   </li>
 
@@ -716,12 +738,6 @@ mirrors:
 
   <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/lsf-problems/">lsf运行问题</a>
-  </li>
-
-  
-
-  <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/lsf-job-dispatching/">LSF如何将job分散到集群运行</a>
   </li>
 
 <div id="giscus_thread" style="max-width: 800px; margin: 0 auto;">
@@ -760,7 +776,7 @@ mirrors:
     <footer class="fixed-bottom">
       <div class="container mt-0">
         © Copyright 2023 Wanlin  Wang. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>.
-Last updated: March 26, 2023.
+Last updated: March 29, 2023.
       </div>
     </footer>
 

@@ -1,5 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-03-26T05:57:24+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">离线自动化安装开源工具的方案探索</title><link href="https://www.icinfra.cn/blog/2023/offline-packages-installing/" rel="alternate" type="text/html" title="离线自动化安装开源工具的方案探索" /><published>2023-03-26T00:50:22+00:00</published><updated>2023-03-26T00:50:22+00:00</updated><id>https://www.icinfra.cn/blog/2023/offline-packages-installing</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/offline-packages-installing/"><![CDATA[<h1 id="背景">背景</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-03-29T00:01:31+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">new bing绘画</title><link href="https://www.icinfra.cn/blog/2023/new-bing-create/" rel="alternate" type="text/html" title="new bing绘画" /><published>2023-03-28T23:51:00+00:00</published><updated>2023-03-28T23:51:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/new-bing-create</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/new-bing-create/"><![CDATA[<p>new bing推出了图片生成，<a href="https://www.bing.com/create">地址</a></p>
+
+<p>请它画：一副很美的春天景色，微风细雨，苔痕上阶绿草色入帘青，油纸伞，柳絮飘飘，三两只鸟飞过。</p>
+
+<p><img src="/assets/img/Pasted%20image%2020230329075258.png" alt="" /></p>
+
+<p>原图如下</p>
+
+<p><img src="/assets/img/Pasted%20image%2020230329075132.png" alt="" /></p>
+
+<p><img src="/assets/img/Pasted%20image%2020230329075145.png" alt="" /></p>
+
+<p><img src="/assets/img/Pasted%20image%2020230329075151.png" alt="" /></p>
+
+<p><img src="/assets/img/Pasted%20image%2020230329075158.png" alt="" /></p>]]></content><author><name></name></author><category term="aigc" /><summary type="html"><![CDATA[new bing推出了图片生成，地址]]></summary></entry><entry><title type="html">离线自动化安装开源工具的方案探索</title><link href="https://www.icinfra.cn/blog/2023/offline-packages-installing/" rel="alternate" type="text/html" title="离线自动化安装开源工具的方案探索" /><published>2023-03-26T00:50:22+00:00</published><updated>2023-03-26T00:50:22+00:00</updated><id>https://www.icinfra.cn/blog/2023/offline-packages-installing</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/offline-packages-installing/"><![CDATA[<h1 id="背景">背景</h1>
 <p>包括芯片设计公司在内，许多研发型公司为了数据安全与网络安全，会将其研发环境与互联网隔绝开来，从物理上禁止了数据在内外部自由流通，也禁止了来自外部的网络攻击。
 安全与效率总是不能够双双完美的，这种架构保证了安全，在很多需要数据传输、访问在线服务的场景上，这种架构就给效率打了折扣。研发环境开源工具的安装与管理，就是场景之一。</p>
 
@@ -34,20 +48,21 @@ Resolving deltas: 100% <span class="o">(</span>182172/182172<span class="o">)</s
 <span class="o">[</span>centos@localhost os]<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">". </span><span class="sb">`</span><span class="nb">readlink</span> <span class="nt">-f</span> spack/share/spack/setup-env.sh<span class="sb">`</span><span class="s2">"</span> <span class="o">&gt;&gt;</span>  ~/.bashrc
 </code></pre></div></div>
 <p>将spack目录拷贝到离线环境CentOS 7.9的<code class="language-plaintext highlighter-rouge">/tools/os/</code>目录，并配置其初始化</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@computing-server-01 <span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">". /tools/os/spack/share/spack/setup-env.sh"</span> <span class="o">&gt;&gt;</span>  ~/.bashrc
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@centos7-9-offline <span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">". /tools/os/spack/share/spack/setup-env.sh"</span> <span class="o">&gt;&gt;</span>  ~/.bashrc
 </code></pre></div></div>
 
 <h2 id="安装与配置编译器">安装与配置编译器</h2>
 <p>分别于centos7-9-online、centos7-9-offline的机器执行</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@centos7-9-online ~]<span class="nv">$ </span><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> gcc gcc-c++ gcc-gfortran <span class="c">#安装编译器</span>
-<span class="o">[</span>centos@centos7-9-online ~]<span class="nv">$ </span><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> patch lbzip2 <span class="c">#spack install时需要用到其它包</span>
+<span class="o">[</span>centos@centos7-9-online ~]<span class="nv">$ </span><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> patch bzip2 lbzip2 readline-devel unzip <span class="c">#spack install时，有些基础的会被常见的包依赖。</span>
 <span class="o">[</span>centos@centos7-9-online ~]<span class="nv">$ </span>spack compiler find
 <span class="o">==&gt;</span> Added 1 new compiler to /home/centos/.spack/linux/compilers.yaml
     gcc@4.8.5
+    gcc@12.2.0
 <span class="o">==&gt;</span> Compilers are defined <span class="k">in </span>the following files:
     /home/centos/.spack/linux/compilers.yaml
-<span class="o">[</span>centos@localhost ~]<span class="nv">$ </span><span class="nb">cat</span> /home/centos/.spack/linux/compilers.yaml
+<span class="o">[</span>centos@centos7-9-online ~]<span class="nv">$ </span><span class="nb">cat</span> /home/centos/.spack/linux/compilers.yaml
 compilers:
 - compiler:
     spec: gcc@4.8.5
@@ -56,6 +71,19 @@ compilers:
       cxx: /usr/bin/g++
       f77: /usr/bin/gfortran
       <span class="nb">fc</span>: /usr/bin/gfortran
+    flags: <span class="o">{}</span>
+    operating_system: centos7
+    target: x86_64
+    modules: <span class="o">[]</span>
+    environment: <span class="o">{}</span>
+    extra_rpaths: <span class="o">[]</span>
+- compiler:
+    spec: gcc@12.2.0
+    paths:
+      cc: /nfs/tools/os/gcc/12.2.0/bin/gcc
+      cxx: /nfs/tools/os/gcc/12.2.0/bin/g++
+      f77: /nfs/tools/os/gcc/12.2.0/bin/gfortran
+      <span class="nb">fc</span>: /nfs/tools/os/gcc/12.2.0/bin/gfortran
     flags: <span class="o">{}</span>
     operating_system: centos7
     target: x86_64
@@ -526,10 +554,12 @@ mirrors:
 </code></pre></div></div>
 
 <p>这样，spack在离线环境就可以使用mirror过来的目录安装了</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@centos7-9-offline ~]<span class="nv">$ </span>spack <span class="nb">install </span>vim +gtk +gui +lua +perl +python +ruby +x +cscope
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@centos7-9-offline ~]<span class="nv">$ </span>spack <span class="nb">install </span>vim %gcc@12.2.0 +gtk +gui +lua +perl +python +ruby +x +cscope
 </code></pre></div></div>
 
-<p><a href="https://spack.readthedocs.io/en/latest/mirrors.html">Mirrors</a></p>]]></content><author><name></name></author><category term="icenv" /><category term="linux" /><summary type="html"><![CDATA[背景 包括芯片设计公司在内，许多研发型公司为了数据安全与网络安全，会将其研发环境与互联网隔绝开来，从物理上禁止了数据在内外部自由流通，也禁止了来自外部的网络攻击。 安全与效率总是不能够双双完美的，这种架构保证了安全，在很多需要数据传输、访问在线服务的场景上，这种架构就给效率打了折扣。研发环境开源工具的安装与管理，就是场景之一。]]></summary></entry><entry><title type="html">限制用户直接访问lsf执行机</title><link href="https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts/" rel="alternate" type="text/html" title="限制用户直接访问lsf执行机" /><published>2023-03-22T01:57:58+00:00</published><updated>2023-03-22T01:57:58+00:00</updated><id>https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts/"><![CDATA[<h1 id="需求">需求</h1>
+<p>验证</p>
+
+<p><a href="https://spack.readthedocs.io/en/latest/mirrors.html">Spack Mirrors</a></p>]]></content><author><name></name></author><category term="icenv" /><category term="linux" /><summary type="html"><![CDATA[背景 包括芯片设计公司在内，许多研发型公司为了数据安全与网络安全，会将其研发环境与互联网隔绝开来，从物理上禁止了数据在内外部自由流通，也禁止了来自外部的网络攻击。 安全与效率总是不能够双双完美的，这种架构保证了安全，在很多需要数据传输、访问在线服务的场景上，这种架构就给效率打了折扣。研发环境开源工具的安装与管理，就是场景之一。]]></summary></entry><entry><title type="html">限制用户直接访问lsf执行机</title><link href="https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts/" rel="alternate" type="text/html" title="限制用户直接访问lsf执行机" /><published>2023-03-22T01:57:58+00:00</published><updated>2023-03-22T01:57:58+00:00</updated><id>https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts/"><![CDATA[<h1 id="需求">需求</h1>
 <p>禁止用户直接访问LSF执行机，以实现LSF执行机的用户进程都来自于LSF的调度，确保使用的公平性，以及方便管理员管理。</p>
 
 <h1 id="实现">实现</h1>
@@ -807,21 +837,4 @@ Reconfiguration initiated
       <p>Linux内核官网 https://www.kernel.org/doc/Documentation/networking/bonding.txt <a href="#fnref:2" class="reversefootnote" role="doc-backlink">⤴</a></p>
     </li>
   </ol>
-</div>]]></content><author><name></name></author><category term="icenv" /><category term="network" /><summary type="html"><![CDATA[不同的Bonding Mode区别 网卡Bonding是一项在操作系统层面上实现的网络冗余技术。设置网卡Bonding后，内核会将多条物理链路组成一条逻辑虚拟链路，在网络层上实现高可用。]]></summary></entry><entry><title type="html">使用spack安装gcc 4.6.4失败</title><link href="https://www.icinfra.cn/blog/2023/gcc-4.6.4-failed-installed-with-spack/" rel="alternate" type="text/html" title="使用spack安装gcc 4.6.4失败" /><published>2023-03-15T09:55:09+00:00</published><updated>2023-03-15T09:55:09+00:00</updated><id>https://www.icinfra.cn/blog/2023/gcc-4.6.4-failed-installed-with-spack</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/gcc-4.6.4-failed-installed-with-spack/"><![CDATA[<h1 id="问题">问题</h1>
-<p>因定位问题，供应商建议xrun尝试一下gcc 4.6版本。我用spack info gcc查到gcc 4.6.4。安装时报错，</p>
-
-<p><img src="/assets/img/Pasted%20image%2020230315181311.png" alt="" /></p>
-
-<p>上述报错与texinfo有关，查看了 
-https://github.com/esden/summon-arm-toolchain/issues/60</p>
-
-<p>https://github.com/esden/summon-arm-toolchain/issues/60#issuecomment-55583716</p>
-
-<p>与texinfo的bug有关，将texinfo包降级即可解决问题。</p>
-
-<h1 id="解决">解决</h1>
-
-<p>spack info texinfo查看到有5.0版本，于是使用它</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spack <span class="nb">install </span>gcc@4.6.4 ^texinfo@5.0
-</code></pre></div></div>
-<p>问题解决。</p>]]></content><author><name></name></author><category term="icenv" /><category term="gcc" /><summary type="html"><![CDATA[问题 因定位问题，供应商建议xrun尝试一下gcc 4.6版本。我用spack info gcc查到gcc 4.6.4。安装时报错，]]></summary></entry></feed>
+</div>]]></content><author><name></name></author><category term="icenv" /><category term="network" /><summary type="html"><![CDATA[不同的Bonding Mode区别 网卡Bonding是一项在操作系统层面上实现的网络冗余技术。设置网卡Bonding后，内核会将多条物理链路组成一条逻辑虚拟链路，在网络层上实现高可用。]]></summary></entry></feed>
