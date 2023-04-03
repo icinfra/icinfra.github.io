@@ -1,5 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-03-29T00:01:31+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">new bing绘画</title><link href="https://www.icinfra.cn/blog/2023/new-bing-create/" rel="alternate" type="text/html" title="new bing绘画" /><published>2023-03-28T23:51:00+00:00</published><updated>2023-03-28T23:51:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/new-bing-create</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/new-bing-create/"><![CDATA[<p>new bing推出了图片生成，<a href="https://www.bing.com/create">地址</a></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-04-03T02:13:48+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">解锁new bing在中国的使用</title><link href="https://www.icinfra.cn/blog/2023/new-bing-unlocking-in-cn/" rel="alternate" type="text/html" title="解锁new bing在中国的使用" /><published>2023-03-30T02:47:25+00:00</published><updated>2023-03-30T02:47:25+00:00</updated><id>https://www.icinfra.cn/blog/2023/new-bing-unlocking-in-cn</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/new-bing-unlocking-in-cn/"><![CDATA[<h1 id="new-bing的注册">New Bing的注册</h1>
+
+<h1 id="new-bing的访问">New Bing的访问</h1>
+
+<h2 id="问题一未看到聊天按钮">问题一：未看到“聊天”按钮</h2>
+<p>在中国访问 https://www.bing.com/new 没有“聊天”按钮出现，如何打开New Bing的chat进行对话呢？如下图所示</p>
+
+<p><img src="/assets/img/Pasted%20image%2020230330104807.png" alt="" /></p>
+
+<p>如下两图所示，将Country/Region设置为United States
+<img src="/assets/img/Pasted%20image%2020230330105110.png" alt="" />
+<img src="/assets/img/Pasted%20image%2020230330105205.png" alt="" /></p>
+
+<p>回到 https://www.bing.com/new 可以看到“聊天”现身
+<img src="/assets/img/Pasted%20image%2020230330110356.png" alt="" /></p>
+
+<p><img src="/assets/img/Pasted%20image%2020230330110503.png" alt="" /></p>
+
+<h2 id="问题二提示sorry-looks-like-your-network-settings-are-preventing-access-to-this-feature">问题二：提示Sorry, looks like your network settings are preventing access to this feature.</h2>
+
+<p><img src="/assets/img/Pasted%20image%2020230403093848.png" alt="" /></p>
+
+<p>配置 X-Forwarded-For  1.1.1.1
+<img src="/assets/img/Pasted%20image%2020230403093949.png" alt="" /></p>
+
+<p><img src="/assets/img/Pasted%20image%2020230403100926.png" alt="" /></p>]]></content><author><name></name></author><category term="aigc" /><summary type="html"><![CDATA[New Bing的注册]]></summary></entry><entry><title type="html">new bing绘画</title><link href="https://www.icinfra.cn/blog/2023/new-bing-create/" rel="alternate" type="text/html" title="new bing绘画" /><published>2023-03-28T23:51:00+00:00</published><updated>2023-03-28T23:51:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/new-bing-create</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/new-bing-create/"><![CDATA[<p>new bing推出了图片生成，<a href="https://www.bing.com/create">地址</a></p>
 
 <p>请它画：一副很美的春天景色，微风细雨，苔痕上阶绿草色入帘青，油纸伞，柳絮飘飘，三两只鸟飞过。</p>
 
@@ -721,120 +746,4 @@ Reconfiguration initiated
 <img src="/assets/img/Pasted%20image%2020230317150419.png" alt="" /></p>
 
 <h1 id="参考文献">参考文献</h1>
-<p><a href="https://www.visual-paradigm.com/tutorials/numberingmessage.jsp">How to Apply Numbering for Messages in Sequence Diagram? (visual-paradigm.com)</a></p>]]></content><author><name></name></author><category term="icenv" /><category term="uml" /><summary type="html"><![CDATA[Diagram-based Numbering Single Level 在UML时序图的背景处，右键选择Sequence Number -&gt; Single Level。]]></summary></entry><entry><title type="html">Welcome to the UML</title><link href="https://www.icinfra.cn/blog/2023/welcome-to-the-uml/" rel="alternate" type="text/html" title="Welcome to the UML" /><published>2023-03-17T01:05:26+00:00</published><updated>2023-03-17T01:05:26+00:00</updated><id>https://www.icinfra.cn/blog/2023/welcome-to-the-uml</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/welcome-to-the-uml/"><![CDATA[<h1 id="uml历史">UML历史</h1>]]></content><author><name></name></author><category term="icenv" /><category term="uml" /><summary type="html"><![CDATA[UML历史]]></summary></entry><entry><title type="html">Linux的网卡bonding模式</title><link href="https://www.icinfra.cn/blog/2023/Bonding-Modes-in-Linux/" rel="alternate" type="text/html" title="Linux的网卡bonding模式" /><published>2023-03-15T13:39:18+00:00</published><updated>2023-03-15T13:39:18+00:00</updated><id>https://www.icinfra.cn/blog/2023/Bonding-Modes-in-Linux</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/Bonding-Modes-in-Linux/"><![CDATA[<h1 id="不同的bonding-mode区别">不同的Bonding Mode区别</h1>
-<p>网卡Bonding是一项在操作系统层面上实现的网络冗余技术。设置网卡Bonding后，内核会将多条物理链路组成一条逻辑虚拟链路，在网络层上实现高可用。</p>
-
-<h2 id="mode-0balance-rr">mode 0(balance-rr)</h2>
-<p>Round-robin policy。从组内的第一个Slave接口开始，以轮询的方式将数据按顺序依次发放。该模式提供load balancing以及fault tolerance。</p>
-
-<h2 id="mode-1active-backup">mode 1(active-backup)</h2>
-<p>Active-backup policy。只有一个slave是active的。当且仅当active slave失效了，另一个slave就会变成active。bond的MAC地址只在一个端口上对外可见，避免了交换机混淆。该模式提供fault tolerance。</p>
-
-<h2 id="mode-2balance-xor">mode 2(balance-xor)</h2>
-<p>基于选择的transmit hash policy传输。policy可以通过xmit_hash_policy更改。该模式提供load balancing以及fault tolerance。</p>
-
-<h2 id="mode-3broadcast">mode 3(broadcast)</h2>
-<p>在所有slave接口上都传输。该模式提供fault tolerance。</p>
-
-<h2 id="mode-48023ad">mode 4(802.3ad)</h2>
-<p>IEEE 802.3ad Dynamic link aggregation policy。创建聚合组，共享相同的速率与工作模式。根据802.3ad规范，充分利用active aggregator里的所有slave。
-对于outgoing流量的slave接口选举，是通过transmit hash policy来完成的。policy可以通过xmit_hash_policy更改。</p>
-
-<p>xmit_hash_policy的值<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></p>
-
-<ul>
-  <li>0 or layer2
-  默认配置。它使用两个MAC地址做异或，再取模，获得hash。
-    <blockquote>
-      <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span>source_MAC_address XOR destination_MAC<span class="o">)</span> MODULO slave_count
-</code></pre></div>      </div>
-    </blockquote>
-  </li>
-  <li>1 or layer3+4
-  使用第3层与第4层地址分别做异或运算，再取模，获得hash。
-    <blockquote>
-      <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">((</span>source_port XOR dest_port<span class="o">)</span> XOR
- <span class="o">((</span>source_IP XOR dest_IP<span class="o">)</span> AND 0xffff<span class="o">)</span>
-  MODULO slave_count
-</code></pre></div>      </div>
-    </blockquote>
-  </li>
-  <li>2 or layer2+3
-  使用第2层与第3层地址分别做异或运算，再取模，获得hash。
-    <blockquote>
-      <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(((</span>source_IP XOR dest_IP<span class="o">)</span> AND 0xffff<span class="o">)</span> XOR
- <span class="o">(</span> source_MAC XOR destination_MAC <span class="o">))</span>
-  MODULO slave_count
-</code></pre></div>      </div>
-    </blockquote>
-  </li>
-</ul>
-
-<p>该模式对硬件的要求</p>
-<ol>
-  <li>ethtool支持基础驱动，取回每个slave的速率与单双工工作模式。</li>
-  <li>交换机虚支持IEEE 802.3ad Dynamic link aggregation。</li>
-</ol>
-
-<p>列子：
-<img src="/assets/img/Pasted%20image%2020230315230142.png" alt="" /></p>
-
-<h2 id="mode-5balance-tlb">mode 5(balance-tlb)</h2>
-<p>发送负载均衡。不需要交换机的任何特殊支持。outgoing的流量会分布到各个slave，incoming的流量会被当前的slave接收。如果当前slave失效了，其他的slave会接管它的MAC地址。</p>
-
-<h2 id="mode-6balance-alb">mode 6(balance-alb)</h2>
-<p>它包括IPv4的发送负载均衡以及接收负载均衡。不需要交换机的任何特殊支持。接收负载均衡，是通过ARP协商实现。bonding驱动拦截本机发出的ARP reply，重写source MAC地址为bond中的其中一个slave的MAC地址。如此一来，不同的对端与本机不同的MAC地址进行通信，达到接收负载均衡的效果。</p>
-
-<p>更多信息请访问Linux内核官网<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>。</p>
-
-<h1 id="不同的bonding-mode对交换机的配置要求">不同的Bonding Mode对交换机的配置要求</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Bonding Mode</th>
-      <th>Configuration on the Switch</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>0 - balance-rr</td>
-      <td>Requires static Etherchannel enabled(not LACP-negotiated)</td>
-    </tr>
-    <tr>
-      <td>1 - active-backup</td>
-      <td>Requires autonomous ports</td>
-    </tr>
-    <tr>
-      <td>2 - balance-xor</td>
-      <td>Requires static Etherchannel enabled(not LACP-negotiated)</td>
-    </tr>
-    <tr>
-      <td>3 - broadcast</td>
-      <td>Requires static Etherchannel enabled(not LACP-negotiated)</td>
-    </tr>
-    <tr>
-      <td>4 - 802.3ad</td>
-      <td>Requires LACP-negotiated Etherchannel enabled</td>
-    </tr>
-    <tr>
-      <td>5 - balance-tlb</td>
-      <td>Requires autonomous ports</td>
-    </tr>
-    <tr>
-      <td>6 - balance-alb</td>
-      <td>Requires autonomous ports</td>
-    </tr>
-  </tbody>
-</table>
-
-<div class="footnotes" role="doc-endnotes">
-  <ol>
-    <li id="fn:1" role="doc-endnote">
-      <p>xmit_hash_policy常用的三个值，引用自 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-using_channel_bonding?ssp=1&amp;darkschemeovr=0&amp;setlang=en-US&amp;safesearch=moderate <a href="#fnref:1" class="reversefootnote" role="doc-backlink">⤴</a></p>
-    </li>
-    <li id="fn:2" role="doc-endnote">
-      <p>Linux内核官网 https://www.kernel.org/doc/Documentation/networking/bonding.txt <a href="#fnref:2" class="reversefootnote" role="doc-backlink">⤴</a></p>
-    </li>
-  </ol>
-</div>]]></content><author><name></name></author><category term="icenv" /><category term="network" /><summary type="html"><![CDATA[不同的Bonding Mode区别 网卡Bonding是一项在操作系统层面上实现的网络冗余技术。设置网卡Bonding后，内核会将多条物理链路组成一条逻辑虚拟链路，在网络层上实现高可用。]]></summary></entry></feed>
+<p><a href="https://www.visual-paradigm.com/tutorials/numberingmessage.jsp">How to Apply Numbering for Messages in Sequence Diagram? (visual-paradigm.com)</a></p>]]></content><author><name></name></author><category term="icenv" /><category term="uml" /><summary type="html"><![CDATA[Diagram-based Numbering Single Level 在UML时序图的背景处，右键选择Sequence Number -&gt; Single Level。]]></summary></entry><entry><title type="html">Welcome to the UML</title><link href="https://www.icinfra.cn/blog/2023/welcome-to-the-uml/" rel="alternate" type="text/html" title="Welcome to the UML" /><published>2023-03-17T01:05:26+00:00</published><updated>2023-03-17T01:05:26+00:00</updated><id>https://www.icinfra.cn/blog/2023/welcome-to-the-uml</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/welcome-to-the-uml/"><![CDATA[<h1 id="uml历史">UML历史</h1>]]></content><author><name></name></author><category term="icenv" /><category term="uml" /><summary type="html"><![CDATA[UML历史]]></summary></entry></feed>
