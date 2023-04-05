@@ -308,7 +308,8 @@
 
     <p>常见的yum，pip包管理器，每平台上源码与二进制是1:1关系，二进制要尽可能地可移植，整个生态系统用相同的工具链（编译器与运行时共享库）。不是对每个CPU微架构做优化的，性能优化让步于可移植性。</p>
 
-    <p>相比之下，Spack与EasyBuild这两款开源包管理器有什么优势？后者可以支持在同一个目录下，多CPU架构，多操作系统，多编译器，多工具版本共存，并且使用Python为用户提供了易用的框架来增加自己想要管理的包。</p>
+    <p>相比之下，Spack与EasyBuild这两款开源包管理器有什么优势？后者可以支持在同一个目录下，多CPU架构，多操作系统，多编译器，多工具版本共存，并且使用Python为用户提供了易用的框架来增加自己想要管理的包。
+%20%20%20%20%20<img src="/assets/img/Pasted%20image%2020230405221952.png" alt=""></p>
 
     <p>我个人在工作做使用Spack，对Spack的基础功能，<a href="https://www.icinfra.cn/blog/2023/offline-packages-installing/">离线使用</a>等有经验积累。Spack安装的开源包，它自动做了依赖包的DAG生成、安装与设置，并且通过<a href="https://spack.readthedocs.io/en/latest/packaging_guide.html#handling-rpaths" rel="external nofollow noopener" target="_blank">rpath</a>设置了共享库路径。Spack还可以enable <a href="https://spack.readthedocs.io/en/latest/module_file_support.html#write-a-configuration-file" rel="external nofollow noopener" target="_blank">Environment Modules</a>的TCL and/or Lua实现，通过其一的方式来加载。Spack除了可管理开源社区的包，还可以将自己开发的<a href="https://spack.readthedocs.io/en/latest/packaging_guide.html#packaging-guide" rel="external nofollow noopener" target="_blank">包用Spack管理</a>。</p>
   </li>
