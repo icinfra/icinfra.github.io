@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>strace与perf trace | IC Infra</title>
+    <title>Linux下的rc file是什么？ | IC Infra</title>
     <meta name="author" content="Wanlin  Wang">
     <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 ">
@@ -34,7 +34,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://www.icinfra.cn/blog/2022/tracing-dd-commnd/">
+    <link rel="canonical" href="https://www.icinfra.cn/blog/2023/what-are-rc-files-on-linux/">
     
     <!-- Dark Mode -->
     
@@ -130,35 +130,34 @@
 <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">strace与perf trace</h1>
-    <p class="post-meta">September 5, 2022</p>
+    <h1 class="post-title">Linux下的rc file是什么？</h1>
+    <p class="post-meta">April 11, 2023</p>
     <p class="post-tags">
-      <a href="/blog/2022"> <i class="fas fa-calendar fa-sm"></i> 2022 </a>
+      <a href="/blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
         ·  
-        <a href="/blog/tag/post">
-          <i class="fas fa-hashtag fa-sm"></i> post</a>  
+        <a href="/blog/tag/linux">
+          <i class="fas fa-hashtag fa-sm"></i> linux</a>  
           
         ·  
-        <a href="/blog/category/linux">
-          <i class="fas fa-tag fa-sm"></i> linux</a>  
+        <a href="/blog/category/icenv">
+          <i class="fas fa-tag fa-sm"></i> icenv</a>  
           
       <!-- 本页浏览数 added by wanlinwang 03-Mar-2023. -->
         ·  
-      <img src="https://visitor-badge.glitch.me/badge?page_id=al-folio/blog/2022/tracing-dd-commnd" alt="visitor badge">
+      <img src="https://visitor-badge.glitch.me/badge?page_id=al-folio/blog/2023/what-are-rc-files-on-linux" alt="visitor badge">
     </p>
   </header>
 
   <article class="post-content">
-    <h2 id="strace">Strace</h2>
-<p>strace是众所周知的系统调用追踪工具。由于它依赖于ptrace暂停应用来获取系统调用的相关信息，这导致在使用strace过程中非常差的性能。在strace过程中，每个系统调用会暂停两次：一次是进入系统调用、一次是离开系统调用。</p>
+    <h1 id="问题">问题</h1>
+<p>我们经常看到.cshrc，.bashrc这些“rc file”，它们为什么被称为“rc file”？</p>
 
-<h2 id="perf-trace">perf trace</h2>
-<p>perf trace使用trace points来收集系统调用信息，在tracing过程中，应用无需被暂停。</p>
+<h1 id="介绍">介绍</h1>
+<p>在类 Unix 系统中，rc 文件代表“run command”，用于包含命令的启动信息的任何文件。据信它起源于 1965 年左右的 MIT 兼容时间共享系统 (CTSS) 的 runcom 工具。</p>
 
-<p>此外，perf trace还扩展到使用eBPF程序来做syscall参数追踪。</p>
+<p>rc 文件是各种程序使用的配置文件。它们通常以 .rc 文件扩展名命名。例如，程序可以使用 rc 文件存储诸如文件位置或应用于显示的颜色等设置。</p>
 
-<h2 id="案例">案例</h2>
-<p><img src="/assets/img/Snipaste_2022-09-06_11-56-44_trace-dd-command.png" alt="syscall%20tracing"></p>
+<p>回到日常接触的.cshrc 和 .bashrc 文件，他们是 rc 文件的例子。.bashrc 文件是一个脚本文件，在用户登录时执行。它包含一系列终端会话的配置，例如设置或启用着色、完成、shell 历史、命令别名等。.cshrc 文件与 .bashrc 类似，但用于 C Shell。</p>
 
   </article>
 
@@ -182,12 +181,6 @@
   
 
   <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/what-are-rc-files-on-linux/">Linux下的rc file是什么？</a>
-  </li>
-
-  
-
-  <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/how-does-environment-modules-work/">Environment Modules是如何工作的？</a>
   </li>
 
@@ -203,6 +196,40 @@
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/new-bing-unlocking-in-cn/">解锁new bing在中国的使用</a>
   </li>
 
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/new-bing-create/">new bing绘画</a>
+  </li>
+
+<div id="giscus_thread" style="max-width: 800px; margin: 0 auto;">
+  <script>
+    let giscusTheme = localStorage.getItem("theme");
+    let giscusAttributes = {
+        "src": "https://giscus.app/client.js",
+        "data-repo": "icinfra/icinfra.github.io",
+        "data-repo-id": "R_kgDOJCjOsg",
+        "data-category": "Q&A",
+        "data-category-id": "DIC_kwDOJCjOss4CUimo",
+        "data-mapping": "pathname",
+        "data-strict": "1",
+        "data-reactions-enabled": "1",
+        "data-emit-metadata": "0",
+        "data-input-position": "bottom",
+        "data-theme": giscusTheme,
+        "data-lang": "en",
+        "crossorigin": "anonymous",
+        "async": "",
+    };
+
+
+    let giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
+    document.getElementById("giscus_thread").appendChild(giscusScript);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript" rel="external nofollow noopener" target="_blank">comments powered by giscus.</a>
+</noscript>
+</div>
 </div>
 
     </div>
