@@ -1,5 +1,144 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-04-05T14:21:33+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">EDA工具与开源工具的管理</title><link href="https://www.icinfra.cn/blog/2023/tools-managment-in-icenv/" rel="alternate" type="text/html" title="EDA工具与开源工具的管理" /><published>2023-04-03T12:20:25+00:00</published><updated>2023-04-03T12:20:25+00:00</updated><id>https://www.icinfra.cn/blog/2023/tools-managment-in-icenv</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/tools-managment-in-icenv/"><![CDATA[<h2 id="介绍">介绍</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-04-11T05:03:54+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">Environment Modules是如何工作的？</title><link href="https://www.icinfra.cn/blog/2023/how-does-environment-modules-work/" rel="alternate" type="text/html" title="Environment Modules是如何工作的？" /><published>2023-04-11T04:35:20+00:00</published><updated>2023-04-11T04:35:20+00:00</updated><id>https://www.icinfra.cn/blog/2023/how-does-environment-modules-work</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/how-does-environment-modules-work/"><![CDATA[<h1 id="前言">前言</h1>
+<p>Environment Modules在我们芯片研发已经耳熟能详了，那，它是如何工作的呢？
+很多人对这个比较陌生，说为什么我一个.cshrc只能够在c shell里source，而一个modulefile modulename能够在多种shell环境中使用。</p>
+
+<h1 id="目的">目的</h1>
+<p>本文通过对一个已经初始化好的Environment Modules环境的<strong>module load</strong>步骤分析，来看它是如何工作的。</p>
+
+<h1 id="解析">解析</h1>
+
+<h2 id="bash环境">bash环境</h2>
+<p>我们拿一个初始化好的环境，从命令开始，一步一步扒。</p>
+
+<p>首先来看module命令，它是一个bash函数，它调用了bash函数_module_raw：</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$0</span>
+<span class="nt">-bash</span>
+<span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span><span class="nb">type </span>module
+module is a <span class="k">function
+</span>module <span class="o">()</span> 
+<span class="o">{</span> 
+    <span class="nb">local </span><span class="nv">_mlredir</span><span class="o">=</span>1<span class="p">;</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">MODULES_REDIRECT_OUTPUT</span><span class="p">+x</span><span class="k">}</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+        if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$MODULES_REDIRECT_OUTPUT</span><span class="s2">"</span> <span class="o">=</span> <span class="s1">'0'</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+            </span><span class="nv">_mlredir</span><span class="o">=</span>0<span class="p">;</span>
+        <span class="k">else
+            if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$MODULES_REDIRECT_OUTPUT</span><span class="s2">"</span> <span class="o">=</span> <span class="s1">'1'</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+                </span><span class="nv">_mlredir</span><span class="o">=</span>1<span class="p">;</span>
+            <span class="k">fi</span><span class="p">;</span>
+        <span class="k">fi</span><span class="p">;</span>
+    <span class="k">fi</span><span class="p">;</span>
+    <span class="k">case</span> <span class="s2">" </span><span class="nv">$@</span><span class="s2"> "</span> <span class="k">in</span> 
+        <span class="k">*</span><span class="s1">' --no-redirect '</span><span class="k">*</span><span class="p">)</span>
+            <span class="nv">_mlredir</span><span class="o">=</span>0
+        <span class="p">;;</span>
+        <span class="k">*</span><span class="s1">' --redirect '</span><span class="k">*</span><span class="p">)</span>
+            <span class="nv">_mlredir</span><span class="o">=</span>1
+        <span class="p">;;</span>
+    <span class="k">esac</span><span class="p">;</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="nv">$_mlredir</span> <span class="nt">-eq</span> 0 <span class="o">]</span><span class="p">;</span> <span class="k">then
+        </span>_module_raw <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span><span class="p">;</span>
+    <span class="k">else
+        </span>_module_raw <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span> 2&gt;&amp;1<span class="p">;</span>
+    <span class="k">fi</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>_module_raw也是bash函数，它调用了tclsh程序，读入tcl脚本以及参数，生成了<strong>更改环境</strong>的语句，再将其作为eval的参数，对当前shell做出更改。</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span><span class="nb">type </span>_module_raw
+_module_raw is a <span class="k">function
+</span>_module_raw <span class="o">()</span> 
+<span class="o">{</span> 
+    <span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin/tclsh <span class="s1">'/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/environment-modules-5.2.0-upsh6wzxsg7airzqpjayrvoapfrtgttp/libexec/modulecmd.tcl'</span> bash <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span><span class="si">)</span><span class="s2">"</span><span class="p">;</span>
+    <span class="nv">_mlstatus</span><span class="o">=</span><span class="nv">$?</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nv">$_mlstatus</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>我们以load tcl-8.6.12-gcc-12.2.0-5rkwrb3这个modulefile试下，</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>ml show tcl-8.6.12-gcc-12.2.0-5rkwrb3
+<span class="nt">-------------------------------------------------------------------</span>
+/nfs/tools/os/spack/share/spack/modules/linux-centos7-x86_64_v4/tcl-8.6.12-gcc-12.2.0-5rkwrb3:
+
+module-whatis   <span class="o">{</span>Tcl <span class="o">(</span>Tool Command Language<span class="o">)</span> is a very powerful but easy to learn dynamic programming language, suitable <span class="k">for </span>a very wide range of uses, including web and desktop applications, networking, administration, testing and many more. Open <span class="nb">source </span>and business-friendly, Tcl is a mature yet evolving language that is truly cross platform, easily deployed and highly extensible.<span class="o">}</span>
+module          load zlib-1.2.13-gcc-12.2.0-pobtkn4
+prepend-path    <span class="nt">--delim</span> : PATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin
+prepend-path    <span class="nt">--delim</span> : MANPATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/man
+prepend-path    <span class="nt">--delim</span> : MANPATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/share/man
+prepend-path    <span class="nt">--delim</span> : PKG_CONFIG_PATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/lib/pkgconfig
+prepend-path    <span class="nt">--delim</span> : CMAKE_PREFIX_PATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/.
+setenv          TCL_LIBRARY /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/lib/tcl8.6
+<span class="nt">-------------------------------------------------------------------</span><span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>ml
+No Modulefiles Currently Loaded.
+<span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin/tclsh <span class="s1">'/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/environment-modules-5.2.0-upsh6wzxsg7airzqpjayrvoapfrtgttp/libexec/modulecmd.tcl'</span> bash load tcl-8.6.12-gcc-12.2.0-5rkwrb3
+<span class="nv">PATH</span><span class="o">=</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/environment-modules-5.2.0-upsh6wzxsg7airzqpjayrvoapfrtgttp/bin:/nfs/tools/os/spack/bin:/opt/ibm/lsfsuite/lsf/10.1/linux2.6-glibc2.3-x86_64/etc:/opt/ibm/lsfsuite/lsf/10.1/linux2.6-glibc2.3-x86_64/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/centos/.local/bin:/home/centos/bin<span class="p">;</span> <span class="nb">export </span>PATH<span class="p">;</span>
+<span class="nv">__MODULES_SHARE_MANPATH</span><span class="o">=</span>:1<span class="p">;</span> <span class="nb">export </span>__MODULES_SHARE_MANPATH<span class="p">;</span>
+<span class="nv">MANPATH</span><span class="o">=</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/share/man:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/man:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/zlib-1.2.13-pobtkn4lnv467woi4cerdauysxm42mn2/share/man:/opt/ibm/lsfsuite/lsf/10.1/man:<span class="p">;</span> <span class="nb">export </span>MANPATH<span class="p">;</span>
+<span class="nv">__MODULES_LMPREREQ</span><span class="o">=</span>tcl-8.6.12-gcc-12.2.0-5rkwrb3<span class="se">\&amp;</span>zlib-1.2.13-gcc-12.2.0-pobtkn4<span class="p">;</span> <span class="nb">export </span>__MODULES_LMPREREQ<span class="p">;</span>
+<span class="nv">_LMFILES_</span><span class="o">=</span>/nfs/tools/os/spack/share/spack/modules/linux-centos7-x86_64_v4/zlib-1.2.13-gcc-12.2.0-pobtkn4:/nfs/tools/os/spack/share/spack/modules/linux-centos7-x86_64_v4/tcl-8.6.12-gcc-12.2.0-5rkwrb3<span class="p">;</span> <span class="nb">export </span>_LMFILES_<span class="p">;</span>
+<span class="nv">LOADEDMODULES</span><span class="o">=</span>zlib-1.2.13-gcc-12.2.0-pobtkn4:tcl-8.6.12-gcc-12.2.0-5rkwrb3<span class="p">;</span> <span class="nb">export </span>LOADEDMODULES<span class="p">;</span>
+<span class="nv">CMAKE_PREFIX_PATH</span><span class="o">=</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/.:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/zlib-1.2.13-pobtkn4lnv467woi4cerdauysxm42mn2/.<span class="p">;</span> <span class="nb">export </span>CMAKE_PREFIX_PATH<span class="p">;</span>
+<span class="nv">TCL_LIBRARY</span><span class="o">=</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/lib/tcl8.6<span class="p">;</span> <span class="nb">export </span>TCL_LIBRARY<span class="p">;</span>
+<span class="nv">__MODULES_LMTAG</span><span class="o">=</span>zlib-1.2.13-gcc-12.2.0-pobtkn4<span class="se">\&amp;</span>auto-loaded<span class="p">;</span> <span class="nb">export </span>__MODULES_LMTAG<span class="p">;</span>
+<span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/lib/pkgconfig:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/zlib-1.2.13-pobtkn4lnv467woi4cerdauysxm42mn2/lib/pkgconfig<span class="p">;</span> <span class="nb">export </span>PKG_CONFIG_PATH<span class="p">;</span>
+<span class="nb">test </span>0<span class="p">;</span>
+<span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>which tclsh
+/usr/bin/tclsh
+</code></pre></div></div>
+<p>可以看到它生成了的语句，包括了modulefile里显式对PATH、MANPATH、PKG_CONFIG_PATH、CMAKE_PREFIX_PATH等环境变量的修改，还包括了用户未定义的，对Environment Modules工具自身使用的变量做了修改。
+执行完查询后，tclsh并没有被加载上。需要将这些语句传入eval，才能在当前shell环境生效，</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span><span class="nb">eval</span> <span class="sb">`</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin/tclsh <span class="s1">'/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/environment-modules-5.2.0-upsh6wzxsg7airzqpjayrvoapfrtgttp/libexec/modulecmd.tcl'</span> bash load tcl-8.6.12-gcc-12.2.0-5rkwrb3<span class="sb">`</span>
+Loading tcl-8.6.12-gcc-12.2.0-5rkwrb3
+  Loading requirement: zlib-1.2.13-gcc-12.2.0-pobtkn4
+<span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>which tclsh
+/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin/tclsh
+</code></pre></div></div>
+
+<h2 id="c-shell环境">c shell环境</h2>
+
+<p>module是一个alias，同样地，它将生成的更改环境的语句传入eval，使得环境修改，</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$0</span>
+csh
+<span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>which module
+module: 	 aliased to <span class="nb">set </span><span class="nv">_prompt</span><span class="o">=</span><span class="nv">$prompt</span>:q<span class="p">;</span> <span class="nb">set </span><span class="nv">prompt</span><span class="o">=</span><span class="s2">""</span><span class="p">;</span> <span class="nb">eval</span> <span class="s2">"</span><span class="sb">`</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin/tclsh <span class="s1">'/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/environment-modules-5.2.0-upsh6wzxsg7airzqpjayrvoapfrtgttp/libexec/modulecmd.tcl'</span> csh <span class="o">!</span><span class="k">*</span>:q<span class="sb">`</span><span class="s2">"</span><span class="p">;</span> <span class="nb">set </span><span class="nv">_exit</span><span class="o">=</span><span class="s2">"</span><span class="nv">$status</span><span class="s2">"</span><span class="p">;</span> <span class="nb">set </span><span class="nv">prompt</span><span class="o">=</span><span class="nv">$_prompt</span>:q<span class="p">;</span> <span class="nb">unset </span>_prompt<span class="p">;</span> <span class="nb">test </span>0 <span class="o">=</span> <span class="nv">$_exit</span>
+</code></pre></div></div>
+
+<p>我们以load tcl-8.6.12-gcc-12.2.0-5rkwrb3这个modulefile试下，</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin/tclsh <span class="s1">'/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/environment-modules-5.2.0-upsh6wzxsg7airzqpjayrvoapfrtgttp/libexec/modulecmd.tcl'</span> csh load tcl-8.6.12-gcc-12.2.0-5rkwrb3
+setenv PATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin:/opt/ibm/lsfsuite/lsf/10.1/linux2.6-glibc2.3-x86_64/etc:/opt/ibm/lsfsuite/lsf/10.1/linux2.6-glibc2.3-x86_64/bin:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/environment-modules-5.2.0-upsh6wzxsg7airzqpjayrvoapfrtgttp/bin:/nfs/tools/os/spack/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/centos/.local/bin:/home/centos/bin<span class="p">;</span>
+setenv __MODULES_SHARE_MANPATH :1<span class="p">;</span>
+setenv MANPATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/share/man:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/man:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/zlib-1.2.13-pobtkn4lnv467woi4cerdauysxm42mn2/share/man:/opt/ibm/lsfsuite/lsf/10.1/man:<span class="p">;</span>
+setenv __MODULES_LMPREREQ tcl-8.6.12-gcc-12.2.0-5rkwrb3<span class="se">\&amp;</span>zlib-1.2.13-gcc-12.2.0-pobtkn4<span class="p">;</span>
+setenv _LMFILES_ /nfs/tools/os/spack/share/spack/modules/linux-centos7-x86_64_v4/zlib-1.2.13-gcc-12.2.0-pobtkn4:/nfs/tools/os/spack/share/spack/modules/linux-centos7-x86_64_v4/tcl-8.6.12-gcc-12.2.0-5rkwrb3<span class="p">;</span>
+setenv LOADEDMODULES zlib-1.2.13-gcc-12.2.0-pobtkn4:tcl-8.6.12-gcc-12.2.0-5rkwrb3<span class="p">;</span>
+setenv CMAKE_PREFIX_PATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/.:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/zlib-1.2.13-pobtkn4lnv467woi4cerdauysxm42mn2/.<span class="p">;</span>
+setenv TCL_LIBRARY /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/lib/tcl8.6<span class="p">;</span>
+setenv __MODULES_LMTAG zlib-1.2.13-gcc-12.2.0-pobtkn4<span class="se">\&amp;</span>auto-loaded<span class="p">;</span>
+setenv PKG_CONFIG_PATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/lib/pkgconfig:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/zlib-1.2.13-pobtkn4lnv467woi4cerdauysxm42mn2/lib/pkgconfig<span class="p">;</span>
+<span class="nb">test </span>0<span class="p">;</span>
+Loading tcl-8.6.12-gcc-12.2.0-5rkwrb3
+  Loading requirement: zlib-1.2.13-gcc-12.2.0-pobtkn4
+<span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>which tclsh
+/usr/bin/tclsh
+</code></pre></div></div>
+
+<p>可以看到它生成了的语句，包括了modulefile里显式对PATH、MANPATH、PKG_CONFIG_PATH、CMAKE_PREFIX_PATH等环境变量的修改，还包括了用户未定义的，对Environment Modules工具自身使用的变量做了修改。
+执行完查询后，tclsh并没有被加载上。需要将这些语句传入eval，才能在当前shell环境生效，</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span><span class="nb">eval</span> <span class="sb">`</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin/tclsh <span class="s1">'/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/environment-modules-5.2.0-upsh6wzxsg7airzqpjayrvoapfrtgttp/libexec/modulecmd.tcl'</span> csh load tcl-8.6.12-gcc-12.2.0-5rkwrb3<span class="sb">`</span>
+Loading tcl-8.6.12-gcc-12.2.0-5rkwrb3
+  Loading requirement: zlib-1.2.13-gcc-12.2.0-pobtkn4
+<span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>which tclsh
+/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin/tclsh
+</code></pre></div></div>
+
+<h1 id="总结">总结</h1>
+<p>上述介绍了Environment Modules对环境的修改的原理，主要是先对tcl语句的modulefile解析，生成对应shell类型的修改语句，再通过eval语句来完成对当前shell的环境修改。</p>
+
+<p>真正难得是它如何生成对环境修改的语句。后续有时间再深入探讨下。</p>
+
+<h1 id="todo">TODO</h1>
+<p>如何解析modulefile并生成环境更改语句。</p>]]></content><author><name></name></author><category term="icenv" /><category term="modules" /><summary type="html"><![CDATA[前言 Environment Modules在我们芯片研发已经耳熟能详了，那，它是如何工作的呢？ 很多人对这个比较陌生，说为什么我一个.cshrc只能够在c shell里source，而一个modulefile modulename能够在多种shell环境中使用。]]></summary></entry><entry><title type="html">EDA工具与开源工具的管理</title><link href="https://www.icinfra.cn/blog/2023/tools-managment-in-icenv/" rel="alternate" type="text/html" title="EDA工具与开源工具的管理" /><published>2023-04-03T12:20:25+00:00</published><updated>2023-04-03T12:20:25+00:00</updated><id>https://www.icinfra.cn/blog/2023/tools-managment-in-icenv</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/tools-managment-in-icenv/"><![CDATA[<h2 id="介绍">介绍</h2>
 
 <p>在IC设计中，常用的商业EDA厂商包括Cadence、Synopsys和Mentor Graphics等，常见的工具包括：</p>
 
@@ -900,28 +1039,4 @@ Reconfiguration initiated
 <div class="embed-container">
     <iframe src="https://www.youtube.com/embed/T6KjDZvZcwM" width="700" height="480" frameborder="0" allowfullscreen="true">
     </iframe>
-</div>]]></content><author><name></name></author><category term="icenv" /><category term="ide" /><summary type="html"><![CDATA[下载]]></summary></entry><entry><title type="html">sequence图设置消息的id</title><link href="https://www.icinfra.cn/blog/2023/how-to-apply-numbering-for-message-in-sequence-diagram/" rel="alternate" type="text/html" title="sequence图设置消息的id" /><published>2023-03-17T06:55:37+00:00</published><updated>2023-03-17T06:55:37+00:00</updated><id>https://www.icinfra.cn/blog/2023/how-to-apply-numbering-for-message-in-sequence-diagram</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/how-to-apply-numbering-for-message-in-sequence-diagram/"><![CDATA[<h1 id="diagram-based-numbering">Diagram-based Numbering</h1>
-<h2 id="single-level">Single Level</h2>
-<p>在UML时序图的背景处，右键选择Sequence Number -&gt; Single Level。</p>
-
-<p><img src="/assets/img/Pasted%20image%2020230317150009.png" alt="" /></p>
-
-<p>只要在同一个图中，编号就是连续的。</p>
-
-<p><img src="/assets/img/Pasted%20image%2020230317150053.png" alt="" /></p>
-
-<h2 id="nested-level">Nested Level</h2>
-<p>在UML时序图的背景处，右键选择Sequence Number -&gt; Nested Level。效果如下，
-<img src="/assets/img/Pasted%20image%2020230317150204.png" alt="" /></p>
-
-<h1 id="frame-based-numbering">Frame-based Numbering</h1>
-<h2 id="single-level-1">Single Level</h2>
-<p>在UML时序图的背景处，右键选择Sequence Number -&gt; Frame-based Single Level。效果如下，
-<img src="/assets/img/Pasted%20image%2020230317150245.png" alt="" /></p>
-
-<h2 id="nested-level-1">Nested Level</h2>
-<p>在UML时序图的背景处，右键选择Sequence Number -&gt; Frame-based Nested Level。效果如下，
-<img src="/assets/img/Pasted%20image%2020230317150419.png" alt="" /></p>
-
-<h1 id="参考文献">参考文献</h1>
-<p><a href="https://www.visual-paradigm.com/tutorials/numberingmessage.jsp">How to Apply Numbering for Messages in Sequence Diagram? (visual-paradigm.com)</a></p>]]></content><author><name></name></author><category term="icenv" /><category term="uml" /><summary type="html"><![CDATA[Diagram-based Numbering Single Level 在UML时序图的背景处，右键选择Sequence Number -&gt; Single Level。]]></summary></entry></feed>
+</div>]]></content><author><name></name></author><category term="icenv" /><category term="ide" /><summary type="html"><![CDATA[下载]]></summary></entry></feed>
