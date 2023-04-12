@@ -150,7 +150,7 @@
 
   <article class="post-content">
     <h1 id="背景">背景</h1>
-<p>前司在全球拥有多个数据中心，每个数据中心有多个集群。其中，单个集群的运算机达2000多台物理机的规模。</p>
+<p>前司在全球拥有多个数据中心，每个数据中心有多个集群。其中，单个集群的运算机达4位数台物理机的规模。</p>
 
 <p>在大量的验证任务跑起来时，经常会遇到NFS卡死的问题，用户敲一个ls命令会卡个几十秒或者根本就无响应。
 问题从业务部门爆发之后，CAD与IT部门之间，互相丢锅——</p>
@@ -184,16 +184,31 @@
 <h2 id="在现在20230412">在现在（2023.04.12）</h2>
 <p>开源社区的Environment Modules TCL版实现，性能也被关注了。从官网可以看到有几种I/O Load的优化：</p>
 <ul>
-  <li>Modules Tcl extension library
-  使用针对与Modules优化的Tcl扩展库，它可以减少不需要的<code class="language-plaintext highlighter-rouge">ioctl</code>, <code class="language-plaintext highlighter-rouge">fcntl</code>与<code class="language-plaintext highlighter-rouge">readlink</code>系统调用；<code class="language-plaintext highlighter-rouge">getents</code>的数量也被降到了50%；因为在尝试打开文件前不检查文件，<code class="language-plaintext highlighter-rouge">stat</code>数量也大幅降低。</li>
-  <li>rc文件往根层级迁移
-  这里讲到，将每个深层次的.modulerc与.version文件，全部提取到MODULEPATH的根层级来。这样它能够大大降低<code class="language-plaintext highlighter-rouge">access</code>, <code class="language-plaintext highlighter-rouge">stat</code>, <code class="language-plaintext highlighter-rouge">open</code>, <code class="language-plaintext highlighter-rouge">read</code> and <code class="language-plaintext highlighter-rouge">close</code>的数量。</li>
-  <li>不检查Magic Cookie
-  前面我们提到，它为了识别文件是否是有效的modulefile，会读取第一行来判断。而实际上我们生产环境在MODULEPATH路径下放的，基本上都是modulefile。因此为了性能提升，我们可以将Magic Cookie的检查去掉，以此来减少open，read与close等系统调用的数量。</li>
-  <li>虚拟modules
-  这是一种缓存方案，将modulefile的路径，以指定的命令缓存到.modulerc文件里。在执行module av时读取到.modulerc就能够知道该目录下所有的modulefile路径了，因此节省了遍历与读取的那些操作。</li>
-  <li>Module cache
-  这也是一种缓存方案，使用module cachebuild命令在MODULEPATH的每个路径下分别创建缓存文件。在执行module av时看到该缓存文件，直接读取该文件。因此节省了遍历与读取的那些操作。不过这个方案是在MODULEPATH的每个路径下生成缓存文件，与我之前只产生一个缓存文件的方案相比——它仍然需要读取多个文件，不过性能已经非常接近了。</li>
+  <li>
+    <p>Modules Tcl extension library</p>
+
+    <p>使用针对与Modules优化的Tcl扩展库，它可以减少不需要的<code class="language-plaintext highlighter-rouge">ioctl</code>, <code class="language-plaintext highlighter-rouge">fcntl</code>与<code class="language-plaintext highlighter-rouge">readlink</code>系统调用；<code class="language-plaintext highlighter-rouge">getents</code>的数量也被降到了50%；因为在尝试打开文件前不检查文件，<code class="language-plaintext highlighter-rouge">stat</code>数量也大幅降低。</p>
+  </li>
+  <li>
+    <p>rc文件往根层级迁移</p>
+
+    <p>这里讲到，将每个深层次的.modulerc与.version文件，全部提取到MODULEPATH的根层级来。这样它能够大大降低<code class="language-plaintext highlighter-rouge">access</code>, <code class="language-plaintext highlighter-rouge">stat</code>, <code class="language-plaintext highlighter-rouge">open</code>, <code class="language-plaintext highlighter-rouge">read</code> and <code class="language-plaintext highlighter-rouge">close</code>的数量。</p>
+  </li>
+  <li>
+    <p>不检查Magic Cookie</p>
+
+    <p>前面我们提到，它为了识别文件是否是有效的modulefile，会读取第一行来判断。而实际上我们生产环境在MODULEPATH路径下放的，基本上都是modulefile。因此为了性能提升，我们可以将Magic Cookie的检查去掉，以此来减少open，read与close等系统调用的数量。</p>
+  </li>
+  <li>
+    <p>虚拟modules</p>
+
+    <p>这是一种缓存方案，将modulefile的路径，以指定的命令缓存到.modulerc文件里。在执行module av时读取到.modulerc就能够知道该目录下所有的modulefile路径了，因此节省了遍历与读取的那些操作。</p>
+  </li>
+  <li>
+    <p>Module cache</p>
+
+    <p>这也是一种缓存方案，使用module cachebuild命令在MODULEPATH的每个路径下分别创建缓存文件。在执行module av时看到该缓存文件，直接读取该文件。因此节省了遍历与读取的那些操作。不过这个方案是在MODULEPATH的每个路径下生成缓存文件，与我之前只产生一个缓存文件的方案相比——它仍然需要读取多个文件，不过性能已经非常接近了。</p>
+  </li>
 </ul>
 
 <h1 id="总结">总结</h1>
