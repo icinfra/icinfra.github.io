@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-04-12T05:34:35+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-04-15T23:02:13+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 </subtitle><entry><title type="html">降低Environment Modules的I/O Load</title><link href="https://www.icinfra.cn/blog/2023/reduce-io-load/" rel="alternate" type="text/html" title="降低Environment Modules的I/O Load" /><published>2023-04-12T04:34:10+00:00</published><updated>2023-04-12T04:34:10+00:00</updated><id>https://www.icinfra.cn/blog/2023/reduce-io-load</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/reduce-io-load/"><![CDATA[<h1 id="背景">背景</h1>
 <p>前司在全球拥有多个数据中心，每个数据中心有多个集群。其中，单个集群的运算机达4位数台物理机的规模。</p>
 
@@ -66,11 +66,24 @@
 <p>我们经常看到.cshrc，.bashrc这些“rc file”，它们为什么被称为“rc file”？</p>
 
 <h1 id="介绍">介绍</h1>
-<p>在类 Unix 系统中，rc 文件代表“run command”，用于包含命令的启动信息的任何文件。据信它起源于 1965 年左右的 MIT 兼容时间共享系统 (CTSS) 的 runcom 工具。</p>
 
-<p>rc 文件是各种程序使用的配置文件。它们通常以 .rc 文件扩展名命名。例如，程序可以使用 rc 文件存储诸如文件位置或应用于显示的颜色等设置。</p>
+<p>在Linux系统中，rc file是一个用于配置shell环境的文件。”rc”通常代表”run commands”或”resource configuration”，因此rc文件也称为运行命令或资源配置文件。据信它起源于 1965 年左右的 MIT 兼容时间共享系统 (CTSS) 的 runcom 工具。</p>
 
-<p>回到日常接触的.cshrc 和 .bashrc 文件，他们是 rc 文件的例子。.bashrc 文件是一个脚本文件，在用户登录时执行。它包含一系列终端会话的配置，例如设置或启用着色、完成、shell 历史、命令别名等。.cshrc 文件与 .bashrc 类似，但用于 C Shell。</p>]]></content><author><name></name></author><category term="icenv" /><category term="linux" /><summary type="html"><![CDATA[问题 我们经常看到.cshrc，.bashrc这些“rc file”，它们为什么被称为“rc file”？]]></summary></entry><entry><title type="html">Environment Modules是如何工作的？</title><link href="https://www.icinfra.cn/blog/2023/how-does-environment-modules-work/" rel="alternate" type="text/html" title="Environment Modules是如何工作的？" /><published>2023-04-11T04:35:20+00:00</published><updated>2023-04-11T04:35:20+00:00</updated><id>https://www.icinfra.cn/blog/2023/how-does-environment-modules-work</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/how-does-environment-modules-work/"><![CDATA[<h1 id="前言">前言</h1>
+<p>不同的shell可能有不同的rc文件名和位置。以下是一些常见的Linux shell及其对应的rc文件：</p>
+
+<ul>
+  <li>Bash shell：<code class="language-plaintext highlighter-rouge">~/.bashrc</code></li>
+  <li>Zsh shell：<code class="language-plaintext highlighter-rouge">~/.zshrc</code></li>
+  <li>Ksh shell：<code class="language-plaintext highlighter-rouge">~/.kshrc</code></li>
+  <li>Csh shell：<code class="language-plaintext highlighter-rouge">~/.cshrc</code></li>
+  <li>Tcsh shell：<code class="language-plaintext highlighter-rouge">~/.tcshrc</code></li>
+</ul>
+
+<p>当用户登录Linux系统时，shell会读取其对应的rc文件，并执行其中包含的命令和配置。这些命令和配置可以包括设置环境变量、定义别名、加载模块、设置提示符等。</p>
+
+<p>用户可以编辑其rc文件来自定义其shell环境。例如，可以添加自定义的别名，以便更快速地执行常用的命令，或者添加环境变量以定制其工作环境。</p>
+
+<p>需要注意的是，rc文件是shell启动时自动执行的，因此在编辑rc文件时要小心，确保不会意外地执行危险的命令或配置。</p>]]></content><author><name></name></author><category term="icenv" /><category term="linux" /><summary type="html"><![CDATA[问题 我们经常看到.cshrc，.bashrc这些“rc file”，它们为什么被称为“rc file”？]]></summary></entry><entry><title type="html">Environment Modules是如何工作的？</title><link href="https://www.icinfra.cn/blog/2023/how-does-environment-modules-work/" rel="alternate" type="text/html" title="Environment Modules是如何工作的？" /><published>2023-04-11T04:35:20+00:00</published><updated>2023-04-11T04:35:20+00:00</updated><id>https://www.icinfra.cn/blog/2023/how-does-environment-modules-work</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/how-does-environment-modules-work/"><![CDATA[<h1 id="前言">前言</h1>
 <p>Environment Modules在我们芯片研发已经耳熟能详了，那，它是如何工作的呢？
 很多人对这个比较陌生，说为什么我一个.cshrc只能够在c shell里source，而一个modulefile modulename能够在多种shell环境中使用。</p>
 

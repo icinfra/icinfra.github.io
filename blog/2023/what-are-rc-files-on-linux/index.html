@@ -153,11 +153,29 @@
 <p>我们经常看到.cshrc，.bashrc这些“rc file”，它们为什么被称为“rc file”？</p>
 
 <h1 id="介绍">介绍</h1>
-<p>在类 Unix 系统中，rc 文件代表“run command”，用于包含命令的启动信息的任何文件。据信它起源于 1965 年左右的 MIT 兼容时间共享系统 (CTSS) 的 runcom 工具。</p>
 
-<p>rc 文件是各种程序使用的配置文件。它们通常以 .rc 文件扩展名命名。例如，程序可以使用 rc 文件存储诸如文件位置或应用于显示的颜色等设置。</p>
+<p>在Linux系统中，rc file是一个用于配置shell环境的文件。”rc”通常代表”run commands”或”resource configuration”，因此rc文件也称为运行命令或资源配置文件。据信它起源于 1965 年左右的 MIT 兼容时间共享系统 (CTSS) 的 runcom 工具。</p>
 
-<p>回到日常接触的.cshrc 和 .bashrc 文件，他们是 rc 文件的例子。.bashrc 文件是一个脚本文件，在用户登录时执行。它包含一系列终端会话的配置，例如设置或启用着色、完成、shell 历史、命令别名等。.cshrc 文件与 .bashrc 类似，但用于 C Shell。</p>
+<p>不同的shell可能有不同的rc文件名和位置。以下是一些常见的Linux shell及其对应的rc文件：</p>
+
+<ul>
+  <li>Bash shell：<code class="language-plaintext highlighter-rouge">~/.bashrc</code>
+</li>
+  <li>Zsh shell：<code class="language-plaintext highlighter-rouge">~/.zshrc</code>
+</li>
+  <li>Ksh shell：<code class="language-plaintext highlighter-rouge">~/.kshrc</code>
+</li>
+  <li>Csh shell：<code class="language-plaintext highlighter-rouge">~/.cshrc</code>
+</li>
+  <li>Tcsh shell：<code class="language-plaintext highlighter-rouge">~/.tcshrc</code>
+</li>
+</ul>
+
+<p>当用户登录Linux系统时，shell会读取其对应的rc文件，并执行其中包含的命令和配置。这些命令和配置可以包括设置环境变量、定义别名、加载模块、设置提示符等。</p>
+
+<p>用户可以编辑其rc文件来自定义其shell环境。例如，可以添加自定义的别名，以便更快速地执行常用的命令，或者添加环境变量以定制其工作环境。</p>
+
+<p>需要注意的是，rc文件是shell启动时自动执行的，因此在编辑rc文件时要小心，确保不会意外地执行危险的命令或配置。</p>
 
   </article>
 
@@ -238,7 +256,7 @@
     <footer class="fixed-bottom">
       <div class="container mt-0">
         © Copyright 2023 Wanlin  Wang. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>.
-Last updated: April 12, 2023.
+Last updated: April 15, 2023.
       </div>
     </footer>
 
