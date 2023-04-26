@@ -1,1019 +1,406 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-04-15T23:02:13+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">降低Environment Modules的I/O Load</title><link href="https://www.icinfra.cn/blog/2023/reduce-io-load/" rel="alternate" type="text/html" title="降低Environment Modules的I/O Load" /><published>2023-04-12T04:34:10+00:00</published><updated>2023-04-12T04:34:10+00:00</updated><id>https://www.icinfra.cn/blog/2023/reduce-io-load</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/reduce-io-load/"><![CDATA[<h1 id="背景">背景</h1>
-<p>前司在全球拥有多个数据中心，每个数据中心有多个集群。其中，单个集群的运算机达4位数台物理机的规模。</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://alshedivat.github.io/al-folio/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alshedivat.github.io/al-folio/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-04-26T13:57:12+00:00</updated><id>https://alshedivat.github.io/al-folio/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">a post with table of contents</title><link href="https://alshedivat.github.io/al-folio/blog/2023/table-of-contents/" rel="alternate" type="text/html" title="a post with table of contents" /><published>2023-03-20T15:59:00+00:00</published><updated>2023-03-20T15:59:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2023/table-of-contents</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2023/table-of-contents/"><![CDATA[<p>This post shows how to add a table of contents.</p>
 
-<p>在大量的验证任务跑起来时，经常会遇到NFS卡死的问题，用户敲一个ls命令会卡个几十秒或者根本就无响应。
-问题从业务部门爆发之后，CAD与IT部门之间，互相丢锅——</p>
+<h2 id="adding-a-table-of-contents">Adding a Table of Contents</h2>
+
+<p>To add a table of contents to a post, simply add <code class="language-plaintext highlighter-rouge">toc: true</code> to the front matter of the post. The table of contents will be automatically generated from the headings in the post.</p>
+
+<h3 id="example-of-sub-heading-1">Example of Sub-Heading 1</h3>
+
+<p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>
+
+<h3 id="example-of-another-sub-heading-1">Example of another Sub-Heading 1</h3>
+
+<p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>
+
+<h2 id="table-of-contents-options">Table of Contents Options</h2>
+
+<p>If you want to learn more about how to customize the table of contents, you can check the <a href="https://github.com/toshimaru/jekyll-toc">jekyll-toc</a> repository.</p>
+
+<h3 id="example-of-sub-heading-2">Example of Sub-Heading 2</h3>
+
+<p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>
+
+<h3 id="example-of-another-sub-heading-2">Example of another Sub-Heading 2</h3>
+
+<p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>]]></content><author><name></name></author><category term="sample-posts" /><category term="toc" /><summary type="html"><![CDATA[an example of a blog post with table of contents]]></summary></entry><entry><title type="html">a post with giscus comments</title><link href="https://alshedivat.github.io/al-folio/blog/2022/giscus-comments/" rel="alternate" type="text/html" title="a post with giscus comments" /><published>2022-12-10T15:59:00+00:00</published><updated>2022-12-10T15:59:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2022/giscus-comments</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2022/giscus-comments/"><![CDATA[<p>This post shows how to add GISCUS comments.</p>]]></content><author><name></name></author><category term="sample-posts" /><category term="external-services" /><summary type="html"><![CDATA[an example of a blog post with giscus comments]]></summary></entry><entry><title type="html">Displaying External Posts on Your al-folio Blog</title><link href="https://alshedivat.github.io/al-folio/blog/2022/displaying-external-posts-on-your-al-folio-blog/" rel="alternate" type="text/html" title="Displaying External Posts on Your al-folio Blog" /><published>2022-04-23T23:20:09+00:00</published><updated>2022-04-23T23:20:09+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2022/displaying-external-posts-on-your-al-folio-blog</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2022/displaying-external-posts-on-your-al-folio-blog/"><![CDATA[]]></content><author><name></name></author></entry><entry><title type="html">a post with redirect</title><link href="https://alshedivat.github.io/al-folio/blog/2022/redirect/" rel="alternate" type="text/html" title="a post with redirect" /><published>2022-02-01T17:39:00+00:00</published><updated>2022-02-01T17:39:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2022/redirect</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2022/redirect/"><![CDATA[<p>Redirecting to another page.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[you can also redirect to assets like pdf]]></summary></entry><entry><title type="html">a post with diagrams</title><link href="https://alshedivat.github.io/al-folio/blog/2021/diagrams/" rel="alternate" type="text/html" title="a post with diagrams" /><published>2021-07-04T17:39:00+00:00</published><updated>2021-07-04T17:39:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2021/diagrams</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2021/diagrams/"><![CDATA[<p>This theme supports generating various diagrams from a text description using <a href="https://github.com/zhustec/jekyll-diagrams" target="\_blank">jekyll-diagrams</a> plugin.
+Below, we generate a few examples of such diagrams using languages such as <a href="https://mermaid-js.github.io/mermaid/" target="\_blank">mermaid</a>, <a href="https://plantuml.com/" target="\_blank">plantuml</a>, <a href="https://vega.github.io/vega-lite/" target="\_blank">vega-lite</a>, etc.</p>
+
+<p><strong>Note:</strong> different diagram-generation packages require external dependencies to be installed on your machine.
+Also, be mindful of that because of diagram generation the fist time you build your Jekyll website after adding new diagrams will be SLOW.
+For any other details, please refer to <a href="https://github.com/zhustec/jekyll-diagrams" target="\_blank">jekyll-diagrams</a> README.</p>
+
+<h2 id="mermaid">Mermaid</h2>
+
+<p>Install mermaid using <code class="language-plaintext highlighter-rouge">node.js</code> package manager <code class="language-plaintext highlighter-rouge">npm</code> by running the following command:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">-g</span> mermaid.cli
+</code></pre></div></div>
+
+<p>The diagram below was generated by the following code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% mermaid %}
+sequenceDiagram
+    participant John
+    participant Alice
+    Alice-&gt;&gt;John: Hello John, how are you?
+    John--&gt;&gt;Alice: Great!
+{% endmermaid %}
+</code></pre></div></div>
+
+<div class="jekyll-diagrams diagrams mermaid">
+  <svg id="mermaid-1682517442261" width="100%" xmlns="http://www.w3.org/2000/svg" height="100%" style="max-width:450px;" viewBox="-50 -10 450 231"><style>#mermaid-1682517442261 .label{font-family:trebuchet ms,verdana,arial;color:#333}#mermaid-1682517442261 .node circle,#mermaid-1682517442261 .node ellipse,#mermaid-1682517442261 .node polygon,#mermaid-1682517442261 .node rect{fill:#ececff;stroke:#9370db;stroke-width:1px}#mermaid-1682517442261 .node.clickable{cursor:pointer}#mermaid-1682517442261 .arrowheadPath{fill:#333}#mermaid-1682517442261 .edgePath .path{stroke:#333;stroke-width:1.5px}#mermaid-1682517442261 .edgeLabel{background-color:#e8e8e8}#mermaid-1682517442261 .cluster rect{fill:#ffffde!important;stroke:#aa3!important;stroke-width:1px!important}#mermaid-1682517442261 .cluster text{fill:#333}#mermaid-1682517442261 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:trebuchet ms,verdana,arial;font-size:12px;background:#ffffde;border:1px solid #aa3;border-radius:2px;pointer-events:none;z-index:100}#mermaid-1682517442261 .actor{stroke:#ccf;fill:#ececff}#mermaid-1682517442261 text.actor{fill:#000;stroke:none}#mermaid-1682517442261 .actor-line{stroke:grey}#mermaid-1682517442261 .messageLine0{marker-end:"url(#arrowhead)"}#mermaid-1682517442261 .messageLine0,#mermaid-1682517442261 .messageLine1{stroke-width:1.5;stroke-dasharray:"2 2";stroke:#333}#mermaid-1682517442261 #arrowhead{fill:#333}#mermaid-1682517442261 #crosshead path{fill:#333!important;stroke:#333!important}#mermaid-1682517442261 .messageText{fill:#333;stroke:none}#mermaid-1682517442261 .labelBox{stroke:#ccf;fill:#ececff}#mermaid-1682517442261 .labelText,#mermaid-1682517442261 .loopText{fill:#000;stroke:none}#mermaid-1682517442261 .loopLine{stroke-width:2;stroke-dasharray:"2 2";marker-end:"url(#arrowhead)";stroke:#ccf}#mermaid-1682517442261 .note{stroke:#aa3;fill:#fff5ad}#mermaid-1682517442261 .noteText{fill:#000;stroke:none;font-family:trebuchet ms,verdana,arial;font-size:14px}#mermaid-1682517442261 .section{stroke:none;opacity:.2}#mermaid-1682517442261 .section0{fill:rgba(102,102,255,.49)}#mermaid-1682517442261 .section2{fill:#fff400}#mermaid-1682517442261 .section1,#mermaid-1682517442261 .section3{fill:#fff;opacity:.2}#mermaid-1682517442261 .sectionTitle0,#mermaid-1682517442261 .sectionTitle1,#mermaid-1682517442261 .sectionTitle2,#mermaid-1682517442261 .sectionTitle3{fill:#333}#mermaid-1682517442261 .sectionTitle{text-anchor:start;font-size:11px;text-height:14px}#mermaid-1682517442261 .grid .tick{stroke:#d3d3d3;opacity:.3;shape-rendering:crispEdges}#mermaid-1682517442261 .grid path{stroke-width:0}#mermaid-1682517442261 .today{fill:none;stroke:red;stroke-width:2px}#mermaid-1682517442261 .task{stroke-width:2}#mermaid-1682517442261 .taskText{text-anchor:middle;font-size:11px}#mermaid-1682517442261 .taskTextOutsideRight{fill:#000;text-anchor:start;font-size:11px}#mermaid-1682517442261 .taskTextOutsideLeft{fill:#000;text-anchor:end;font-size:11px}#mermaid-1682517442261 .taskText0,#mermaid-1682517442261 .taskText1,#mermaid-1682517442261 .taskText2,#mermaid-1682517442261 .taskText3{fill:#fff}#mermaid-1682517442261 .task0,#mermaid-1682517442261 .task1,#mermaid-1682517442261 .task2,#mermaid-1682517442261 .task3{fill:#8a90dd;stroke:#534fbc}#mermaid-1682517442261 .taskTextOutside0,#mermaid-1682517442261 .taskTextOutside1,#mermaid-1682517442261 .taskTextOutside2,#mermaid-1682517442261 .taskTextOutside3{fill:#000}#mermaid-1682517442261 .active0,#mermaid-1682517442261 .active1,#mermaid-1682517442261 .active2,#mermaid-1682517442261 .active3{fill:#bfc7ff;stroke:#534fbc}#mermaid-1682517442261 .activeText0,#mermaid-1682517442261 .activeText1,#mermaid-1682517442261 .activeText2,#mermaid-1682517442261 .activeText3{fill:#000!important}#mermaid-1682517442261 .done0,#mermaid-1682517442261 .done1,#mermaid-1682517442261 .done2,#mermaid-1682517442261 .done3{stroke:grey;fill:#d3d3d3;stroke-width:2}#mermaid-1682517442261 .doneText0,#mermaid-1682517442261 .doneText1,#mermaid-1682517442261 .doneText2,#mermaid-1682517442261 .doneText3{fill:#000!important}#mermaid-1682517442261 .crit0,#mermaid-1682517442261 .crit1,#mermaid-1682517442261 .crit2,#mermaid-1682517442261 .crit3{stroke:#f88;fill:red;stroke-width:2}#mermaid-1682517442261 .activeCrit0,#mermaid-1682517442261 .activeCrit1,#mermaid-1682517442261 .activeCrit2,#mermaid-1682517442261 .activeCrit3{stroke:#f88;fill:#bfc7ff;stroke-width:2}#mermaid-1682517442261 .doneCrit0,#mermaid-1682517442261 .doneCrit1,#mermaid-1682517442261 .doneCrit2,#mermaid-1682517442261 .doneCrit3{stroke:#f88;fill:#d3d3d3;stroke-width:2;cursor:pointer;shape-rendering:crispEdges}#mermaid-1682517442261 .activeCritText0,#mermaid-1682517442261 .activeCritText1,#mermaid-1682517442261 .activeCritText2,#mermaid-1682517442261 .activeCritText3,#mermaid-1682517442261 .doneCritText0,#mermaid-1682517442261 .doneCritText1,#mermaid-1682517442261 .doneCritText2,#mermaid-1682517442261 .doneCritText3{fill:#000!important}#mermaid-1682517442261 .titleText{text-anchor:middle;font-size:18px;fill:#000}#mermaid-1682517442261 g.classGroup text{fill:#9370db;stroke:none;font-family:trebuchet ms,verdana,arial;font-size:10px}#mermaid-1682517442261 g.classGroup rect{fill:#ececff;stroke:#9370db}#mermaid-1682517442261 g.classGroup line{stroke:#9370db;stroke-width:1}#mermaid-1682517442261 .classLabel .box{stroke:none;stroke-width:0;fill:#ececff;opacity:.5}#mermaid-1682517442261 .classLabel .label{fill:#9370db;font-size:10px}#mermaid-1682517442261 .relation{stroke:#9370db;stroke-width:1;fill:none}#mermaid-1682517442261 #compositionEnd,#mermaid-1682517442261 #compositionStart{fill:#9370db;stroke:#9370db;stroke-width:1}#mermaid-1682517442261 #aggregationEnd,#mermaid-1682517442261 #aggregationStart{fill:#ececff;stroke:#9370db;stroke-width:1}#mermaid-1682517442261 #dependencyEnd,#mermaid-1682517442261 #dependencyStart,#mermaid-1682517442261 #extensionEnd,#mermaid-1682517442261 #extensionStart{fill:#9370db;stroke:#9370db;stroke-width:1}#mermaid-1682517442261 .branch-label,#mermaid-1682517442261 .commit-id,#mermaid-1682517442261 .commit-msg{fill:#d3d3d3;color:#d3d3d3}</style><style>#mermaid-1682517442261 {
+    color: rgb(0, 0, 0);
+    font: normal normal 400 normal 16px / normal "Times New Roman";
+  }</style><g></g><g><line id="actor0" x1="75" y1="5" x2="75" y2="220" class="actor-line" stroke-width="0.5px" stroke="#999"></line><rect x="0" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="75" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle;"><tspan x="75" dy="0">John</tspan></text></g><g><line id="actor1" x1="275" y1="5" x2="275" y2="220" class="actor-line" stroke-width="0.5px" stroke="#999"></line><rect x="200" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="275" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle;"><tspan x="275" dy="0">Alice</tspan></text></g><defs><marker id="arrowhead" refX="5" refY="2" markerWidth="6" markerHeight="4" orient="auto"><path d="M 0,0 V 4 L6,2 Z"></path></marker></defs><defs><marker id="crosshead" markerWidth="15" markerHeight="8" orient="auto" refX="16" refY="4"><path fill="black" stroke="#000000" stroke-width="1px" d="M 9,2 V 6 L16,4 Z" style="stroke-dasharray: 0, 0;"></path><path fill="none" stroke="#000000" stroke-width="1px" d="M 0,1 L 6,7 M 6,1 L 0,7" style="stroke-dasharray: 0, 0;"></path></marker></defs><g><text x="175" y="93" class="messageText" style="text-anchor: middle;">Hello John, how are you?</text><line x1="275" y1="100" x2="75" y2="100" class="messageLine0" stroke-width="2" stroke="black" marker-end="url(#arrowhead)" style="fill: none;"></line></g><g><text x="175" y="128" class="messageText" style="text-anchor: middle;">Great!</text><line x1="75" y1="135" x2="275" y2="135" class="messageLine1" stroke-width="2" stroke="black" marker-end="url(#arrowhead)" style="stroke-dasharray: 3, 3; fill: none;"></line></g><g><rect x="0" y="155" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="75" y="187.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle;"><tspan x="75" dy="0">John</tspan></text></g><g><rect x="200" y="155" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="275" y="187.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle;"><tspan x="275" dy="0">Alice</tspan></text></g></svg>
+</div>]]></content><author><name></name></author><summary type="html"><![CDATA[an example of a blog post with diagrams]]></summary></entry><entry><title type="html">a distill-style blog post</title><link href="https://alshedivat.github.io/al-folio/blog/2021/distill/" rel="alternate" type="text/html" title="a distill-style blog post" /><published>2021-05-22T00:00:00+00:00</published><updated>2021-05-22T00:00:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2021/distill</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2021/distill/"><![CDATA[<h2 id="equations">Equations</h2>
+
+<p>This theme supports rendering beautiful math in inline and display modes using <a href="https://www.mathjax.org/">MathJax 3</a> engine.
+You just need to surround your math expression with <code class="language-plaintext highlighter-rouge">$$</code>, like <code class="language-plaintext highlighter-rouge">$$ E = mc^2 $$</code>.
+If you leave it inside a paragraph, it will produce an inline expression, just like \(E = mc^2\).</p>
+
+<p>To use display mode, again surround your expression with <code class="language-plaintext highlighter-rouge">$$</code> and place it as a separate paragraph.
+Here is an example:</p>
+
+\[\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)\]
+
+<p>Note that MathJax 3 is <a href="https://docs.mathjax.org/en/latest/upgrading/whats-new-3.0.html">a major re-write of MathJax</a> that brought a significant improvement to the loading and rendering speed, which is now <a href="http://www.intmath.com/cg5/katex-mathjax-comparison.php">on par with KaTeX</a>.</p>
+
+<hr />
+
+<h2 id="citations">Citations</h2>
+
+<p>Citations are then used in the article body with the <code class="language-plaintext highlighter-rouge">&lt;d-cite&gt;</code> tag.
+The key attribute is a reference to the id provided in the bibliography.
+The key attribute can take multiple ids, separated by commas.</p>
+
+<p>The citation is presented inline like this: <d-cite key="gregor2015draw"></d-cite> (a number that displays more information on hover).
+If you have an appendix, a bibliography is automatically created and populated in it.</p>
+
+<p>Distill chose a numerical inline citation style to improve readability of citation dense articles and because many of the benefits of longer citations are obviated by displaying more information on hover.
+However, we consider it good style to mention author last names if you discuss something at length and it fits into the flow well — the authors are human and it’s nice for them to have the community associate them with their work.</p>
+
+<hr />
+
+<h2 id="footnotes">Footnotes</h2>
+
+<p>Just wrap the text you would like to show up in a footnote in a <code class="language-plaintext highlighter-rouge">&lt;d-footnote&gt;</code> tag.
+The number of the footnote will be automatically generated.<d-footnote>This will become a hoverable footnote.</d-footnote></p>
+
+<hr />
+
+<h2 id="code-blocks">Code Blocks</h2>
+
+<p>Syntax highlighting is provided within <code class="language-plaintext highlighter-rouge">&lt;d-code&gt;</code> tags.
+An example of inline code snippets: <code class="language-plaintext highlighter-rouge">&lt;d-code language="html"&gt;let x = 10;&lt;/d-code&gt;</code>.
+For larger blocks of code, add a <code class="language-plaintext highlighter-rouge">block</code> attribute:</p>
+
+<d-code block="" language="javascript">
+  var x = 25;
+  function(x) {
+    return x * x;
+  }
+</d-code>
+
+<p><strong>Note:</strong> <code class="language-plaintext highlighter-rouge">&lt;d-code&gt;</code> blocks do not look good in the dark mode.
+You can always use the default code-highlight using the <code class="language-plaintext highlighter-rouge">highlight</code> liquid tag:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">25</span><span class="p">;</span>
+<span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<hr />
+
+<h2 id="interactive-plots">Interactive Plots</h2>
+
+<p>You can add interative plots using plotly + iframes :framed_picture:</p>
+
+<div class="l-page">
+  <iframe src="/al-folio/assets/plotly/demo.html" frameborder="0" scrolling="no" height="500px" width="100%" style="border: 1px dashed grey;"></iframe>
+</div>
+
+<p>The plot must be generated separately and saved into an HTML file.
+To generate the plot that you see above, you can use the following code snippet:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="n">plotly.express</span> <span class="k">as</span> <span class="n">px</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nf">read_csv</span><span class="p">(</span>
+  <span class="s">'https://raw.githubusercontent.com/plotly/datasets/master/earthquakes-23k.csv'</span>
+<span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="p">.</span><span class="nf">density_mapbox</span><span class="p">(</span>
+  <span class="n">df</span><span class="p">,</span>
+  <span class="n">lat</span><span class="o">=</span><span class="s">'Latitude'</span><span class="p">,</span>
+  <span class="n">lon</span><span class="o">=</span><span class="s">'Longitude'</span><span class="p">,</span>
+  <span class="n">z</span><span class="o">=</span><span class="s">'Magnitude'</span><span class="p">,</span>
+  <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+  <span class="n">center</span><span class="o">=</span><span class="nf">dict</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="mi">180</span><span class="p">),</span>
+  <span class="n">zoom</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+  <span class="n">mapbox_style</span><span class="o">=</span><span class="s">"stamen-terrain"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+<span class="n">fig</span><span class="p">.</span><span class="nf">write_html</span><span class="p">(</span><span class="s">'assets/plotly/demo.html'</span><span class="p">)</span></code></pre></figure>
+
+<hr />
+
+<h2 id="details-boxes">Details boxes</h2>
+
+<p>Details boxes are collapsible boxes which hide additional information from the user. They can be added with the <code class="language-plaintext highlighter-rouge">details</code> liquid tag:</p>
+
+<details><summary>Click here to know more</summary>
+<p>Additional details, where math \(2x - 1\) and <code class="language-plaintext highlighter-rouge">code</code> is rendered correctly.</p>
+</details>
+
+<hr />
+
+<h2 id="layouts">Layouts</h2>
+
+<p>The main text column is referred to as the body.
+It is the assumed layout of any direct descendants of the <code class="language-plaintext highlighter-rouge">d-article</code> element.</p>
+
+<div class="fake-img l-body">
+  <p>.l-body</p>
+</div>
+
+<p>For images you want to display a little larger, try <code class="language-plaintext highlighter-rouge">.l-page</code>:</p>
+
+<div class="fake-img l-page">
+  <p>.l-page</p>
+</div>
+
+<p>All of these have an outset variant if you want to poke out from the body text a little bit.
+For instance:</p>
+
+<div class="fake-img l-body-outset">
+  <p>.l-body-outset</p>
+</div>
+
+<div class="fake-img l-page-outset">
+  <p>.l-page-outset</p>
+</div>
+
+<p>Occasionally you’ll want to use the full browser width.
+For this, use <code class="language-plaintext highlighter-rouge">.l-screen</code>.
+You can also inset the element a little from the edge of the browser by using the inset variant.</p>
+
+<div class="fake-img l-screen">
+  <p>.l-screen</p>
+</div>
+<div class="fake-img l-screen-inset">
+  <p>.l-screen-inset</p>
+</div>
+
+<p>The final layout is for marginalia, asides, and footnotes.
+It does not interrupt the normal flow of <code class="language-plaintext highlighter-rouge">.l-body</code> sized text except on mobile screen sizes.</p>
+
+<div class="fake-img l-gutter">
+  <p>.l-gutter</p>
+</div>
+
+<hr />
+
+<h2 id="other-typography">Other Typography?</h2>
+
+<p>Emphasis, aka italics, with <em>asterisks</em> (<code class="language-plaintext highlighter-rouge">*asterisks*</code>) or <em>underscores</em> (<code class="language-plaintext highlighter-rouge">_underscores_</code>).</p>
+
+<p>Strong emphasis, aka bold, with <strong>asterisks</strong> or <strong>underscores</strong>.</p>
+
+<p>Combined emphasis with <strong>asterisks and <em>underscores</em></strong>.</p>
+
+<p>Strikethrough uses two tildes. <del>Scratch this.</del></p>
+
 <ol>
-  <li>CAD埋怨IT提供的存储性能太低，正常的业务需求都满足不了；</li>
-  <li>而IT则埋怨CAD没有引导好业务，将很多不必要的I/O操作避免掉。</li>
+  <li>First ordered list item</li>
+  <li>Another item
+⋅⋅* Unordered sub-list.</li>
+  <li>Actual numbers don’t matter, just that it’s a number
+⋅⋅1. Ordered sub-list</li>
+  <li>And another item.</li>
 </ol>
 
-<h1 id="分析">分析</h1>
-<p>分析下来，二者责任都有——</p>
-<ol>
-  <li>CAD确实没有深入定制业务的流程工具与脚本，任由发展。另有CAD自己开发的脚本、工具，也不注意性能。</li>
-  <li>IT将项目目录与tool目录放在了同一机头，没有将问题域隔开。加上CAD的各种依赖的环境，业务在项目目录下ls，还得要去tool目录下读取一堆东西。</li>
-</ol>
+<p>⋅⋅⋅You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we’ll use three here to also align the raw Markdown).</p>
 
-<h1 id="解决或缓解">解决（或缓解）</h1>
-<p>针对不同的根因，我们分别展开了讨论，并形成了解决方案。由于涉及的点太多，有机会再一一展开。</p>
-
-<p>本文我们重点来看Environment Modules在降低I/O Load可以有哪些方法实现。</p>
-
-<h2 id="在当时约2020年">在当时（约2020年）</h2>
-<p>开源社区的Environment Modules TCL版实现，常用的功能都实现了，但还未关注性能。我们环境中的MODULEPATH路径下，共有约<strong>5000</strong>个modulefile文件，每次执行module av时，要去MODULEPATH路径下遍历，并且读取每个文件的第一行判断是否存在Magic cookie，以决定该文件是否为有效的modulefile文件。</p>
-
-<p>当时刚好跟着李智慧学习了缓存架构，我们针对Environment Modules TCL版如何能够使用缓存展开了架构讨论，并且形成了可行方案——</p>
-<ol>
-  <li>每次安装完工具后，EDA管理员将module av的结果以指定的格式存放到一个文本文件（缓存文件）</li>
-  <li>用户执行我们包装后的module av命令，这个命令不会去遍历整个MODULEPATH路径，而是只读取步骤1生成的缓存文件。
-这个缓存架构，将module av命令，从<strong>用户每次对目录的递归遍历以及几千文件的读取</strong>，转成了<strong>管理员一次对目录的递归遍历以及几千文件的读取</strong>+<strong>用户每次只读取一个缓存文件</strong>，极大地提升了用户的体验。</li>
-</ol>
-
-<h2 id="在现在20230412">在现在（2023.04.12）</h2>
-<p>开源社区的Environment Modules TCL版实现，性能也被关注了。从官网可以看到有几种I/O Load的优化：</p>
-<ul>
-  <li>
-    <p>Modules Tcl extension library</p>
-
-    <p>使用针对与Modules优化的Tcl扩展库，它可以减少不需要的<code class="language-plaintext highlighter-rouge">ioctl</code>, <code class="language-plaintext highlighter-rouge">fcntl</code>与<code class="language-plaintext highlighter-rouge">readlink</code>系统调用；<code class="language-plaintext highlighter-rouge">getents</code>的数量也被降到了50%；因为在尝试打开文件前不检查文件，<code class="language-plaintext highlighter-rouge">stat</code>数量也大幅降低。</p>
-  </li>
-  <li>
-    <p>rc文件往根层级迁移</p>
-
-    <p>这里讲到，将每个深层次的.modulerc与.version文件，全部提取到MODULEPATH的根层级来。这样它能够大大降低<code class="language-plaintext highlighter-rouge">access</code>, <code class="language-plaintext highlighter-rouge">stat</code>, <code class="language-plaintext highlighter-rouge">open</code>, <code class="language-plaintext highlighter-rouge">read</code> and <code class="language-plaintext highlighter-rouge">close</code>的数量。</p>
-  </li>
-  <li>
-    <p>不检查Magic Cookie</p>
-
-    <p>前面我们提到，它为了识别文件是否是有效的modulefile，会读取第一行来判断。而实际上我们生产环境在MODULEPATH路径下放的，基本上都是modulefile。因此为了性能提升，我们可以将Magic Cookie的检查去掉，以此来减少open，read与close等系统调用的数量。</p>
-  </li>
-  <li>
-    <p>虚拟modules</p>
-
-    <p>这是一种缓存方案，将modulefile的路径，以指定的命令缓存到.modulerc文件里。在执行module av时读取到.modulerc就能够知道该目录下所有的modulefile路径了，因此节省了遍历与读取的那些操作。</p>
-  </li>
-  <li>
-    <p>Module cache</p>
-
-    <p>这也是一种缓存方案，使用module cachebuild命令在MODULEPATH的每个路径下分别创建缓存文件。在执行module av时看到该缓存文件，直接读取该文件。因此节省了遍历与读取的那些操作。不过这个方案是在MODULEPATH的每个路径下生成缓存文件，与我之前只产生一个缓存文件的方案相比——它仍然需要读取多个文件，不过性能已经非常接近了。</p>
-  </li>
-</ul>
-
-<h1 id="总结">总结</h1>
-<p>略。</p>]]></content><author><name></name></author><category term="icenv" /><category term="modules" /><summary type="html"><![CDATA[背景 前司在全球拥有多个数据中心，每个数据中心有多个集群。其中，单个集群的运算机达4位数台物理机的规模。]]></summary></entry><entry><title type="html">Linux下的rc file是什么？</title><link href="https://www.icinfra.cn/blog/2023/what-are-rc-files-on-linux/" rel="alternate" type="text/html" title="Linux下的rc file是什么？" /><published>2023-04-11T06:49:31+00:00</published><updated>2023-04-11T06:49:31+00:00</updated><id>https://www.icinfra.cn/blog/2023/what-are-rc-files-on-linux</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/what-are-rc-files-on-linux/"><![CDATA[<h1 id="问题">问题</h1>
-<p>我们经常看到.cshrc，.bashrc这些“rc file”，它们为什么被称为“rc file”？</p>
-
-<h1 id="介绍">介绍</h1>
-
-<p>在Linux系统中，rc file是一个用于配置shell环境的文件。”rc”通常代表”run commands”或”resource configuration”，因此rc文件也称为运行命令或资源配置文件。据信它起源于 1965 年左右的 MIT 兼容时间共享系统 (CTSS) 的 runcom 工具。</p>
-
-<p>不同的shell可能有不同的rc文件名和位置。以下是一些常见的Linux shell及其对应的rc文件：</p>
+<p>⋅⋅⋅To have a line break without a paragraph, you will need to use two trailing spaces.⋅⋅
+⋅⋅⋅Note that this line is separate, but within the same paragraph.⋅⋅
+⋅⋅⋅(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)</p>
 
 <ul>
-  <li>Bash shell：<code class="language-plaintext highlighter-rouge">~/.bashrc</code></li>
-  <li>Zsh shell：<code class="language-plaintext highlighter-rouge">~/.zshrc</code></li>
-  <li>Ksh shell：<code class="language-plaintext highlighter-rouge">~/.kshrc</code></li>
-  <li>Csh shell：<code class="language-plaintext highlighter-rouge">~/.cshrc</code></li>
-  <li>Tcsh shell：<code class="language-plaintext highlighter-rouge">~/.tcshrc</code></li>
+  <li>Unordered list can use asterisks</li>
+  <li>Or minuses</li>
+  <li>Or pluses</li>
 </ul>
 
-<p>当用户登录Linux系统时，shell会读取其对应的rc文件，并执行其中包含的命令和配置。这些命令和配置可以包括设置环境变量、定义别名、加载模块、设置提示符等。</p>
+<p><a href="https://www.google.com">I’m an inline-style link</a></p>
 
-<p>用户可以编辑其rc文件来自定义其shell环境。例如，可以添加自定义的别名，以便更快速地执行常用的命令，或者添加环境变量以定制其工作环境。</p>
+<p><a href="https://www.google.com" title="Google's Homepage">I’m an inline-style link with title</a></p>
 
-<p>需要注意的是，rc文件是shell启动时自动执行的，因此在编辑rc文件时要小心，确保不会意外地执行危险的命令或配置。</p>]]></content><author><name></name></author><category term="icenv" /><category term="linux" /><summary type="html"><![CDATA[问题 我们经常看到.cshrc，.bashrc这些“rc file”，它们为什么被称为“rc file”？]]></summary></entry><entry><title type="html">Environment Modules是如何工作的？</title><link href="https://www.icinfra.cn/blog/2023/how-does-environment-modules-work/" rel="alternate" type="text/html" title="Environment Modules是如何工作的？" /><published>2023-04-11T04:35:20+00:00</published><updated>2023-04-11T04:35:20+00:00</updated><id>https://www.icinfra.cn/blog/2023/how-does-environment-modules-work</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/how-does-environment-modules-work/"><![CDATA[<h1 id="前言">前言</h1>
-<p>Environment Modules在我们芯片研发已经耳熟能详了，那，它是如何工作的呢？
-很多人对这个比较陌生，说为什么我一个.cshrc只能够在c shell里source，而一个modulefile modulename能够在多种shell环境中使用。</p>
+<p><a href="https://www.mozilla.org">I’m a reference-style link</a></p>
 
-<h1 id="目的">目的</h1>
-<p>本文通过对一个已经初始化好的Environment Modules环境的<strong>module load</strong>步骤分析，来看它是如何工作的。</p>
+<p><a href="../blob/master/LICENSE">I’m a relative reference to a repository file</a></p>
 
-<h1 id="解析">解析</h1>
+<p><a href="http://slashdot.org">You can use numbers for reference-style link definitions</a></p>
 
-<h2 id="bash环境">bash环境</h2>
-<p>我们拿一个初始化好的环境，从命令开始，一步一步扒。</p>
+<p>Or leave it empty and use the <a href="http://www.reddit.com">link text itself</a>.</p>
 
-<p>首先来看module命令，它是一个bash函数，它调用了bash函数_module_raw：</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$0</span>
-<span class="nt">-bash</span>
-<span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span><span class="nb">type </span>module
-module is a <span class="k">function
-</span>module <span class="o">()</span> 
-<span class="o">{</span> 
-    <span class="nb">local </span><span class="nv">_mlredir</span><span class="o">=</span>1<span class="p">;</span>
-    <span class="k">if</span> <span class="o">[</span> <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">MODULES_REDIRECT_OUTPUT</span><span class="p">+x</span><span class="k">}</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
-        if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$MODULES_REDIRECT_OUTPUT</span><span class="s2">"</span> <span class="o">=</span> <span class="s1">'0'</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
-            </span><span class="nv">_mlredir</span><span class="o">=</span>0<span class="p">;</span>
-        <span class="k">else
-            if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$MODULES_REDIRECT_OUTPUT</span><span class="s2">"</span> <span class="o">=</span> <span class="s1">'1'</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
-                </span><span class="nv">_mlredir</span><span class="o">=</span>1<span class="p">;</span>
-            <span class="k">fi</span><span class="p">;</span>
-        <span class="k">fi</span><span class="p">;</span>
-    <span class="k">fi</span><span class="p">;</span>
-    <span class="k">case</span> <span class="s2">" </span><span class="nv">$@</span><span class="s2"> "</span> <span class="k">in</span> 
-        <span class="k">*</span><span class="s1">' --no-redirect '</span><span class="k">*</span><span class="p">)</span>
-            <span class="nv">_mlredir</span><span class="o">=</span>0
-        <span class="p">;;</span>
-        <span class="k">*</span><span class="s1">' --redirect '</span><span class="k">*</span><span class="p">)</span>
-            <span class="nv">_mlredir</span><span class="o">=</span>1
-        <span class="p">;;</span>
-    <span class="k">esac</span><span class="p">;</span>
-    <span class="k">if</span> <span class="o">[</span> <span class="nv">$_mlredir</span> <span class="nt">-eq</span> 0 <span class="o">]</span><span class="p">;</span> <span class="k">then
-        </span>_module_raw <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span><span class="p">;</span>
-    <span class="k">else
-        </span>_module_raw <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span> 2&gt;&amp;1<span class="p">;</span>
-    <span class="k">fi</span>
-<span class="o">}</span>
+<p>URLs and URLs in angle brackets will automatically get turned into links.
+http://www.example.com or <a href="http://www.example.com">http://www.example.com</a> and sometimes
+example.com (but not on Github, for example).</p>
+
+<p>Some text to show that the reference links can follow later.</p>
+
+<p>Here’s our logo (hover to see the title text):</p>
+
+<p>Inline-style:
+<img src="https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png" alt="alt text" title="Logo Title Text 1" /></p>
+
+<p>Reference-style:
+<img src="https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png" alt="alt text" title="Logo Title Text 2" /></p>
+
+<p>Inline <code class="language-plaintext highlighter-rouge">code</code> has <code class="language-plaintext highlighter-rouge">back-ticks around</code> it.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">JavaScript syntax highlighting</span><span class="dl">"</span><span class="p">;</span>
+<span class="nf">alert</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>_module_raw也是bash函数，它调用了tclsh程序，读入tcl脚本以及参数，生成了<strong>更改环境</strong>的语句，再将其作为eval的参数，对当前shell做出更改。</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span><span class="nb">type </span>_module_raw
-_module_raw is a <span class="k">function
-</span>_module_raw <span class="o">()</span> 
-<span class="o">{</span> 
-    <span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin/tclsh <span class="s1">'/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/environment-modules-5.2.0-upsh6wzxsg7airzqpjayrvoapfrtgttp/libexec/modulecmd.tcl'</span> bash <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span><span class="si">)</span><span class="s2">"</span><span class="p">;</span>
-    <span class="nv">_mlstatus</span><span class="o">=</span><span class="nv">$?</span><span class="p">;</span>
-    <span class="k">return</span> <span class="nv">$_mlstatus</span>
-<span class="o">}</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">s</span> <span class="o">=</span> <span class="s">"Python syntax highlighting"</span>
+<span class="k">print</span> <span class="n">s</span>
 </code></pre></div></div>
 
-<p>我们以load tcl-8.6.12-gcc-12.2.0-5rkwrb3这个modulefile试下，</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>ml show tcl-8.6.12-gcc-12.2.0-5rkwrb3
-<span class="nt">-------------------------------------------------------------------</span>
-/nfs/tools/os/spack/share/spack/modules/linux-centos7-x86_64_v4/tcl-8.6.12-gcc-12.2.0-5rkwrb3:
-
-module-whatis   <span class="o">{</span>Tcl <span class="o">(</span>Tool Command Language<span class="o">)</span> is a very powerful but easy to learn dynamic programming language, suitable <span class="k">for </span>a very wide range of uses, including web and desktop applications, networking, administration, testing and many more. Open <span class="nb">source </span>and business-friendly, Tcl is a mature yet evolving language that is truly cross platform, easily deployed and highly extensible.<span class="o">}</span>
-module          load zlib-1.2.13-gcc-12.2.0-pobtkn4
-prepend-path    <span class="nt">--delim</span> : PATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin
-prepend-path    <span class="nt">--delim</span> : MANPATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/man
-prepend-path    <span class="nt">--delim</span> : MANPATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/share/man
-prepend-path    <span class="nt">--delim</span> : PKG_CONFIG_PATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/lib/pkgconfig
-prepend-path    <span class="nt">--delim</span> : CMAKE_PREFIX_PATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/.
-setenv          TCL_LIBRARY /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/lib/tcl8.6
-<span class="nt">-------------------------------------------------------------------</span><span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>ml
-No Modulefiles Currently Loaded.
-<span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin/tclsh <span class="s1">'/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/environment-modules-5.2.0-upsh6wzxsg7airzqpjayrvoapfrtgttp/libexec/modulecmd.tcl'</span> bash load tcl-8.6.12-gcc-12.2.0-5rkwrb3
-<span class="nv">PATH</span><span class="o">=</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/environment-modules-5.2.0-upsh6wzxsg7airzqpjayrvoapfrtgttp/bin:/nfs/tools/os/spack/bin:/opt/ibm/lsfsuite/lsf/10.1/linux2.6-glibc2.3-x86_64/etc:/opt/ibm/lsfsuite/lsf/10.1/linux2.6-glibc2.3-x86_64/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/centos/.local/bin:/home/centos/bin<span class="p">;</span> <span class="nb">export </span>PATH<span class="p">;</span>
-<span class="nv">__MODULES_SHARE_MANPATH</span><span class="o">=</span>:1<span class="p">;</span> <span class="nb">export </span>__MODULES_SHARE_MANPATH<span class="p">;</span>
-<span class="nv">MANPATH</span><span class="o">=</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/share/man:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/man:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/zlib-1.2.13-pobtkn4lnv467woi4cerdauysxm42mn2/share/man:/opt/ibm/lsfsuite/lsf/10.1/man:<span class="p">;</span> <span class="nb">export </span>MANPATH<span class="p">;</span>
-<span class="nv">__MODULES_LMPREREQ</span><span class="o">=</span>tcl-8.6.12-gcc-12.2.0-5rkwrb3<span class="se">\&amp;</span>zlib-1.2.13-gcc-12.2.0-pobtkn4<span class="p">;</span> <span class="nb">export </span>__MODULES_LMPREREQ<span class="p">;</span>
-<span class="nv">_LMFILES_</span><span class="o">=</span>/nfs/tools/os/spack/share/spack/modules/linux-centos7-x86_64_v4/zlib-1.2.13-gcc-12.2.0-pobtkn4:/nfs/tools/os/spack/share/spack/modules/linux-centos7-x86_64_v4/tcl-8.6.12-gcc-12.2.0-5rkwrb3<span class="p">;</span> <span class="nb">export </span>_LMFILES_<span class="p">;</span>
-<span class="nv">LOADEDMODULES</span><span class="o">=</span>zlib-1.2.13-gcc-12.2.0-pobtkn4:tcl-8.6.12-gcc-12.2.0-5rkwrb3<span class="p">;</span> <span class="nb">export </span>LOADEDMODULES<span class="p">;</span>
-<span class="nv">CMAKE_PREFIX_PATH</span><span class="o">=</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/.:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/zlib-1.2.13-pobtkn4lnv467woi4cerdauysxm42mn2/.<span class="p">;</span> <span class="nb">export </span>CMAKE_PREFIX_PATH<span class="p">;</span>
-<span class="nv">TCL_LIBRARY</span><span class="o">=</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/lib/tcl8.6<span class="p">;</span> <span class="nb">export </span>TCL_LIBRARY<span class="p">;</span>
-<span class="nv">__MODULES_LMTAG</span><span class="o">=</span>zlib-1.2.13-gcc-12.2.0-pobtkn4<span class="se">\&amp;</span>auto-loaded<span class="p">;</span> <span class="nb">export </span>__MODULES_LMTAG<span class="p">;</span>
-<span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/lib/pkgconfig:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/zlib-1.2.13-pobtkn4lnv467woi4cerdauysxm42mn2/lib/pkgconfig<span class="p">;</span> <span class="nb">export </span>PKG_CONFIG_PATH<span class="p">;</span>
-<span class="nb">test </span>0<span class="p">;</span>
-<span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>which tclsh
-/usr/bin/tclsh
-</code></pre></div></div>
-<p>可以看到它生成了的语句，包括了modulefile里显式对PATH、MANPATH、PKG_CONFIG_PATH、CMAKE_PREFIX_PATH等环境变量的修改，还包括了用户未定义的，对Environment Modules工具自身使用的变量做了修改。
-执行完查询后，tclsh并没有被加载上。需要将这些语句传入eval，才能在当前shell环境生效，</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span><span class="nb">eval</span> <span class="sb">`</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin/tclsh <span class="s1">'/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/environment-modules-5.2.0-upsh6wzxsg7airzqpjayrvoapfrtgttp/libexec/modulecmd.tcl'</span> bash load tcl-8.6.12-gcc-12.2.0-5rkwrb3<span class="sb">`</span>
-Loading tcl-8.6.12-gcc-12.2.0-5rkwrb3
-  Loading requirement: zlib-1.2.13-gcc-12.2.0-pobtkn4
-<span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>which tclsh
-/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin/tclsh
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>No language indicated, so no syntax highlighting.
+But let's throw in a &lt;b&gt;tag&lt;/b&gt;.
 </code></pre></div></div>
 
-<h2 id="c-shell环境">c shell环境</h2>
+<p>Colons can be used to align columns.</p>
 
-<p>module是一个alias，同样地，它将生成的更改环境的语句传入eval，使得环境修改，</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$0</span>
-csh
-<span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>which module
-module: 	 aliased to <span class="nb">set </span><span class="nv">_prompt</span><span class="o">=</span><span class="nv">$prompt</span>:q<span class="p">;</span> <span class="nb">set </span><span class="nv">prompt</span><span class="o">=</span><span class="s2">""</span><span class="p">;</span> <span class="nb">eval</span> <span class="s2">"</span><span class="sb">`</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin/tclsh <span class="s1">'/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/environment-modules-5.2.0-upsh6wzxsg7airzqpjayrvoapfrtgttp/libexec/modulecmd.tcl'</span> csh <span class="o">!</span><span class="k">*</span>:q<span class="sb">`</span><span class="s2">"</span><span class="p">;</span> <span class="nb">set </span><span class="nv">_exit</span><span class="o">=</span><span class="s2">"</span><span class="nv">$status</span><span class="s2">"</span><span class="p">;</span> <span class="nb">set </span><span class="nv">prompt</span><span class="o">=</span><span class="nv">$_prompt</span>:q<span class="p">;</span> <span class="nb">unset </span>_prompt<span class="p">;</span> <span class="nb">test </span>0 <span class="o">=</span> <span class="nv">$_exit</span>
-</code></pre></div></div>
+<table>
+  <thead>
+    <tr>
+      <th>Tables</th>
+      <th style="text-align: center">Are</th>
+      <th style="text-align: right">Cool</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>col 3 is</td>
+      <td style="text-align: center">right-aligned</td>
+      <td style="text-align: right">$1600</td>
+    </tr>
+    <tr>
+      <td>col 2 is</td>
+      <td style="text-align: center">centered</td>
+      <td style="text-align: right">$12</td>
+    </tr>
+    <tr>
+      <td>zebra stripes</td>
+      <td style="text-align: center">are neat</td>
+      <td style="text-align: right">$1</td>
+    </tr>
+  </tbody>
+</table>
 
-<p>我们以load tcl-8.6.12-gcc-12.2.0-5rkwrb3这个modulefile试下，</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin/tclsh <span class="s1">'/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/environment-modules-5.2.0-upsh6wzxsg7airzqpjayrvoapfrtgttp/libexec/modulecmd.tcl'</span> csh load tcl-8.6.12-gcc-12.2.0-5rkwrb3
-setenv PATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin:/opt/ibm/lsfsuite/lsf/10.1/linux2.6-glibc2.3-x86_64/etc:/opt/ibm/lsfsuite/lsf/10.1/linux2.6-glibc2.3-x86_64/bin:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/environment-modules-5.2.0-upsh6wzxsg7airzqpjayrvoapfrtgttp/bin:/nfs/tools/os/spack/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/centos/.local/bin:/home/centos/bin<span class="p">;</span>
-setenv __MODULES_SHARE_MANPATH :1<span class="p">;</span>
-setenv MANPATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/share/man:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/man:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/zlib-1.2.13-pobtkn4lnv467woi4cerdauysxm42mn2/share/man:/opt/ibm/lsfsuite/lsf/10.1/man:<span class="p">;</span>
-setenv __MODULES_LMPREREQ tcl-8.6.12-gcc-12.2.0-5rkwrb3<span class="se">\&amp;</span>zlib-1.2.13-gcc-12.2.0-pobtkn4<span class="p">;</span>
-setenv _LMFILES_ /nfs/tools/os/spack/share/spack/modules/linux-centos7-x86_64_v4/zlib-1.2.13-gcc-12.2.0-pobtkn4:/nfs/tools/os/spack/share/spack/modules/linux-centos7-x86_64_v4/tcl-8.6.12-gcc-12.2.0-5rkwrb3<span class="p">;</span>
-setenv LOADEDMODULES zlib-1.2.13-gcc-12.2.0-pobtkn4:tcl-8.6.12-gcc-12.2.0-5rkwrb3<span class="p">;</span>
-setenv CMAKE_PREFIX_PATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/.:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/zlib-1.2.13-pobtkn4lnv467woi4cerdauysxm42mn2/.<span class="p">;</span>
-setenv TCL_LIBRARY /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/lib/tcl8.6<span class="p">;</span>
-setenv __MODULES_LMTAG zlib-1.2.13-gcc-12.2.0-pobtkn4<span class="se">\&amp;</span>auto-loaded<span class="p">;</span>
-setenv PKG_CONFIG_PATH /nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/lib/pkgconfig:/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/zlib-1.2.13-pobtkn4lnv467woi4cerdauysxm42mn2/lib/pkgconfig<span class="p">;</span>
-<span class="nb">test </span>0<span class="p">;</span>
-Loading tcl-8.6.12-gcc-12.2.0-5rkwrb3
-  Loading requirement: zlib-1.2.13-gcc-12.2.0-pobtkn4
-<span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>which tclsh
-/usr/bin/tclsh
-</code></pre></div></div>
+<p>There must be at least 3 dashes separating each header cell.
+The outer pipes (|) are optional, and you don’t need to make the
+raw Markdown line up prettily. You can also use inline Markdown.</p>
 
-<p>可以看到它生成了的语句，包括了modulefile里显式对PATH、MANPATH、PKG_CONFIG_PATH、CMAKE_PREFIX_PATH等环境变量的修改，还包括了用户未定义的，对Environment Modules工具自身使用的变量做了修改。
-执行完查询后，tclsh并没有被加载上。需要将这些语句传入eval，才能在当前shell环境生效，</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span><span class="nb">eval</span> <span class="sb">`</span>/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin/tclsh <span class="s1">'/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/environment-modules-5.2.0-upsh6wzxsg7airzqpjayrvoapfrtgttp/libexec/modulecmd.tcl'</span> csh load tcl-8.6.12-gcc-12.2.0-5rkwrb3<span class="sb">`</span>
-Loading tcl-8.6.12-gcc-12.2.0-5rkwrb3
-  Loading requirement: zlib-1.2.13-gcc-12.2.0-pobtkn4
-<span class="o">[</span>centos@computing-server-133 ~]<span class="nv">$ </span>which tclsh
-/nfs/tools/os/spack/opt/spack/linux-centos7-x86_64_v4/gcc-12.2.0/tcl-8.6.12-5rkwrb3btdklgrkshepg5cctyigmfm37/bin/tclsh
-</code></pre></div></div>
+<table>
+  <thead>
+    <tr>
+      <th>Markdown</th>
+      <th>Less</th>
+      <th>Pretty</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><em>Still</em></td>
+      <td><code class="language-plaintext highlighter-rouge">renders</code></td>
+      <td><strong>nicely</strong></td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
 
-<h1 id="总结">总结</h1>
-<p>上述介绍了Environment Modules对环境的修改的原理，主要是先对tcl语句的modulefile解析，生成对应shell类型的修改语句，再通过eval语句来完成对当前shell的环境修改。</p>
+<blockquote>
+  <p>Blockquotes are very handy in email to emulate reply text.
+This line is part of the same quote.</p>
+</blockquote>
 
-<p>真正难得是它如何生成对环境修改的语句。后续有时间再深入探讨下。</p>
+<p>Quote break.</p>
 
-<h1 id="todo">TODO</h1>
-<p>如何解析modulefile并生成环境更改语句。</p>]]></content><author><name></name></author><category term="icenv" /><category term="modules" /><summary type="html"><![CDATA[前言 Environment Modules在我们芯片研发已经耳熟能详了，那，它是如何工作的呢？ 很多人对这个比较陌生，说为什么我一个.cshrc只能够在c shell里source，而一个modulefile modulename能够在多种shell环境中使用。]]></summary></entry><entry><title type="html">EDA工具与开源工具的管理</title><link href="https://www.icinfra.cn/blog/2023/tools-managment-in-icenv/" rel="alternate" type="text/html" title="EDA工具与开源工具的管理" /><published>2023-04-03T12:20:25+00:00</published><updated>2023-04-03T12:20:25+00:00</updated><id>https://www.icinfra.cn/blog/2023/tools-managment-in-icenv</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/tools-managment-in-icenv/"><![CDATA[<h2 id="介绍">介绍</h2>
+<blockquote>
+  <p>This is a very long line that will still be quoted properly when it wraps. Oh boy let’s keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can <em>put</em> <strong>Markdown</strong> into a blockquote.</p>
+</blockquote>
 
-<p>在IC设计中，常用的商业EDA厂商包括Cadence、Synopsys和Mentor Graphics等，常见的工具包括：</p>
+<p>Here’s a line for us to start with.</p>
 
+<p>This line is separated from the one above by two newlines, so it will be a <em>separate paragraph</em>.</p>
+
+<p>This line is also a separate paragraph, but…
+This line is only separated by a single newline, so it’s a separate line in the <em>same paragraph</em>.</p>]]></content><author><name>Albert Einstein</name></author><summary type="html"><![CDATA[an example of a distill-style blog post and main elements]]></summary></entry><entry><title type="html">a post with github metadata</title><link href="https://alshedivat.github.io/al-folio/blog/2020/github-metadata/" rel="alternate" type="text/html" title="a post with github metadata" /><published>2020-09-28T21:01:00+00:00</published><updated>2020-09-28T21:01:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2020/github-metadata</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2020/github-metadata/"><![CDATA[<p>A sample blog page that demonstrates the accessing of github meta data.</p>
+
+<h2 id="what-does-github-metadata-do">What does Github-MetaData do?</h2>
 <ul>
-  <li>Virtuoso：用于模拟、布局、物理验证等</li>
-  <li>Encounter：用于综合、布局、时序分析等</li>
-  <li>PrimeTime：用于时序分析和优化</li>
-  <li>Design Compiler：用于综合</li>
-  <li>IC Compiler：用于布局和物理验证</li>
-  <li>XCELIUM：高性能的仿真器，用于数字设计验证</li>
-</ul>
-
-<p>在IC设计中，常用的开源EDA工具包括：</p>
-
-<ul>
-  <li>Magic：用于布局和物理验证</li>
-  <li>Qflow：用于综合、布局和物理验证</li>
-  <li>OpenROAD：用于综合、布局和物理验证</li>
-  <li>Yosys：用于逻辑综合和验证</li>
-  <li>Verilator：用于仿真和验证</li>
-</ul>
-
-<p>EDA工具在设计流程中扮演着至关重要的角色，可以帮助设计人员提高设计效率和设计质量。通过EDA工具，设计人员可以对电路进行仿真、综合、布局、布线、逻辑验证、物理验证、测试等多个模块的分析和处理，从而可在设计的早期阶段发现和解决问题，提高设计的可靠性和正确性。此外，EDA工具还可以帮助设计人员优化电路的性能和功耗，提高电路的可靠性和可维护性，缩短设计周期和降低设计成本。</p>
-
-<p>除了EDA工具，IC设计环境还可能使用其他的一些开源工具，比如：</p>
-
-<ul>
-  <li>Python, Perl, TCL等：用于脚本编写、文本与数据处理、EDA工具的控制</li>
-  <li>SVN, Git：用于版本控制和代码管理</li>
-  <li>Make：用于自动化构建和编译</li>
-  <li>Mariadb, Elasticsearch等：数据库工具</li>
-  <li>Grafana, Kibana等：数据可视化工具</li>
-</ul>
-
-<p>这些开源工具可以帮助IC设计流程中的数据版本管理、数据存储与展示、业务流程定制等。例如，Python、Perl、TCL等脚本语言可以用于脚本编写、文本与数据处理以及EDA工具的控制。SVN、Git等版本控制工具可以用于代码管理，Make可以用于自动化构建和编译。此外，Mariadb、Elasticsearch等数据库工具和Grafana、Kibana等数据可视化工具也可以用于IC设计环境中的数据管理和展示。</p>
-
-<h2 id="eda工具的管理">EDA工具的管理</h2>
-
-<p>注：这里介绍商业EDA工具</p>
-
-<ul>
-  <li>管理EDA工具的过程</li>
-</ul>
-
-<p>它可以分为以下几个步骤：</p>
-
-<ol>
-  <li>
-    <p><strong>EDA工具的选型</strong>：</p>
-
-    <p>首先，需要根据项目的需求和具体情况来选择合适的EDA工具。在选型过程中，需要考虑多个因素，如EDA工具的功能、性能、稳定性、可维护性、成本等。同时，也需要考虑到EDA工具的适用性和可扩展性，以便在未来的设计过程中更好地应对新的需求和挑战。此外，还应考虑国际形势，尤其是高尖企业，受制裁后工具许可与AE支持的不可持续性。如有国产化替代工具可在满足需求的情况下引入替代，降低可能被制裁产生的影响。</p>
-  </li>
-  <li>
-    <p><strong>EDA工具的调试和维护</strong>：</p>
-
-    <p>在EDA工具的使用过程中，难免会遇到各种问题，如崩溃、错误、性能下降等。因此，在使用EDA工具的过程中，需要对其进行调试和维护。调试和维护的过程包括：</p>
-
+  <li>Propagates the site.github namespace with repository metadata</li>
+  <li>Setting site variables :
     <ul>
-      <li>发现并记录问题</li>
-      <li>分析和定位问题</li>
-      <li>解决问题</li>
-      <li>验证和测试解决方案</li>
-      <li>文档记录和分享经验</li>
+      <li>site.title</li>
+      <li>site.description</li>
+      <li>site.url</li>
+      <li>site.baseurl</li>
     </ul>
   </li>
-</ol>
-
-<p>只有通过这些步骤的循环迭代，才能保证EDA工具的稳定性和可靠性，从而更好地支持IC设计的整个流程。但像小设计团队的EDA工具选型，比较简单：能用就行，遇到问题再换。原因有二，一是没有足够的人力与时间去做详细的选型，二是没有太多的历史项目，因此很少文档记录与经验积累。</p>
-
-<ol>
-  <li><strong>EDA工具的环境管理：</strong>以c shell为例（这是IC设计最常用的shell之一），大概会经历几个阶段：
-    <ul>
-      <li>
-        <p>.cshrc阶段：</p>
-
-        <p>小团队，往往会以.cshrc文件开始定制，将shell的初始化、项目环境、工具环境以及License的初始化都放在.cshrc文件里</p>
-      </li>
-      <li>
-        <p>project cshrc阶段：</p>
-
-        <p>随着团队的增长，每个人的.cshrc会出现各不相同的情况，容易出现各种问题。这时会将公共的设置，抽出来放到project.cshrc文件。</p>
-      </li>
-      <li>
-        <p>Environment Modules阶段：</p>
-
-        <p>随着项目数量的增长，此时单纯地拷贝.cshrc与project.cshrc必然要出问题了。可以借助Environment Modules，它可以帮助IC设计环境中的工具环境管理。</p>
-
-        <p>Environment Modules是一类开源工具，它有两种实现（TCL与Lua），TCL实现得较早用户量多。可以在Unix/Linux系统中管理用户环境，包括环境变量、路径、别名等。在IC设计环境中，可以使用Environment Modules来管理不同版本的EDA工具和其他开源工具的环境，以及不同的项目环境。通过使用Environment Modules，可以避免环境变量和路径的冲突，使得不同的工具和项目可以协调工作。</p>
-
-        <p>我们常用它来做工具环境初始化，包括工具变量设置，alias，工具冲突自动卸载；项目环境初始化，包括项目变量与路径设置，工具组合设置，研发目录初始化等。</p>
-      </li>
-      <li>
-        <p>Environment Modules + Wrapper 或 Environment Modules + 定制ELF文件 + Wrapper阶段</p>
-
-        <p>问题：IC设计环境的工具数量众多，同时加载的工具越多，命令与共享库冲突概率越大。但是人都是有惰性的，可能要用的都加载上（不做选择，全都要），只做加法，不做减法。有些做的好的厂商，如Cadence，它避免了用户去做共享库路径的设置，只要求用户设置可执行命令路径到PATH变量。但有些厂商做的烂一些，连共享库都与可执行命令放在同一个文件夹下。</p>
-
-        <p>方案：通过Wrapper，将启动命令需要的环境，在Wrapper中定制好。通过Wrapper启动命令；还可以定制ELF文件的rpath，将其需要的共享库所在路径写进去。这两种方式，可有效地避免工具中的共享库路径暴露在shell环境中，降低了共享库冲突的概率。</p>
-      </li>
-    </ul>
-
-    <ol>
-      <li>
-        <p>EDA工具的生命周期管理</p>
-
-        <p>使用EDA工具，我们一般关注安装与配置，不关注删除。随着时间的推移，一些老旧的工具版本不再使用，这时可以走下架或归档流程。</p>
-      </li>
-    </ol>
-  </li>
-</ol>
-
-<h2 id="开源工具的管理">开源工具的管理</h2>
-
-<p>注：这里说的开源工具，叫开源包更合适。我们这里只介绍非操作系统仓库提供的开源包，因为操作系统仓库提供的开源包，安装与管理相对容易。</p>
-
-<ul>
-  <li>
-    <p>开源工具的选型</p>
-
-    <p>开源工具一般是由研发用户提申请，管理员确认后安装。由于开源工具很自由，内部使用对选型不做太多的限制。</p>
-
-    <p>但在做软件集成产品，对外出售或对外提供服务的，则需要考虑开源工具的许可。各种开源许可的介绍：</p>
-
-    <p>开源许可证是规定开源软件使用和发布条件的法律条款，其核心目的是保证开源软件的源代码和衍生作品能够被其他人自由地使用、修改和发布。常见的开源许可证包括：</p>
-
-    <ul>
-      <li>GPL（GNU通用公共许可证）</li>
-      <li>LGPL（GNU宽通用公共许可证）</li>
-      <li>BSD（Berkeley软件分发许可证）</li>
-      <li>MIT（麻省理工学院许可证）</li>
-      <li>Apache许可证</li>
-    </ul>
-
-    <p>GPL和LGPL是最为严格的开源许可证，要求所有使用和发布的软件都必须采用GPL或LGPL协议，也就是说，必须在源代码的基础上进行发布，不允许闭源或专有化。BSD和MIT许可证则相对宽松，只要求在软件中包含许可证和版权声明即可，可以闭源或专有化。Apache许可证则介于两者之间，要求在修改和发布软件时必须保留许可证和版权声明，但可以闭源或专有化。</p>
-
-    <p>在选择开源许可证时，需要根据具体情况来进行选择，考虑到软件的商业价值、使用范围、安全性、社区支持等因素。同时，还需要注意开源许可证之间的兼容性，避免出现不兼容的情况。例如，GPL和LGPL许可证是“传染性”的，意味着如果一个软件采用了GPL或LGPL许可证，那么其衍生作品也必须采用相同的许可证，否则就会出现不兼容的情况。</p>
-
-    <p>更详细的介绍可以参考<a href="http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html">阮一峰的博客</a>。</p>
-  </li>
-  <li>
-    <p>开源工具的调试和维护</p>
-
-    <p>开源工具由于没有AE的支持（也有例外的，如红帽的RHEL订阅服务），安装调试与维护均需靠使用方自己完成。如果有编译GCC或者QT的同学，就会深有体会。</p>
-
-    <p>这里介绍两款自动化的开源包管理器：</p>
-
-    <p>### Spack</p>
-
-    <p><a href="https://spack.readthedocs.io/en/latest/">Spack</a>是一个灵活的开源软件包管理器，它可以管理多个版本的软件包，支持多种不同的平台和架构。Spack使用类似于Linux软件包管理器的命令行界面，可以方便地安装、升级、卸载和配置软件包。Spack还支持模块化设计，可以方便地管理和加载不同版本的软件包和依赖库。</p>
-
-    <p>### EasyBuild</p>
-
-    <p><a href="https://easybuild.io/">EasyBuild</a>是一个开源的软件包管理器，它可以自动化地构建和安装软件包。EasyBuild支持多种不同的平台和架构，可以自动解决依赖关系并构建软件包。EasyBuild还提供了一个易于使用的命令行界面和Python API，可以方便地管理和定制软件包的构建过程。EasyBuild还支持模块化设计，可以方便地管理和加载不同版本的软件包和依赖库。</p>
-
-    <p>这两款开源包管理器都可以用于IC设计环境中的开源工具管理，可以提高工作效率，降低管理成本。</p>
-
-    <p>常见的yum，pip包管理器，每平台上源码与二进制是1:1关系，二进制要尽可能地可移植，整个生态系统用相同的工具链（编译器与运行时共享库）。不是对每个CPU微架构做优化的，性能优化让步于可移植性。</p>
-
-    <p>相比之下，Spack与EasyBuild这两款开源包管理器有什么优势？后者可以支持在同一个目录下，多CPU架构，多操作系统，多编译器，多工具版本共存，并且使用Python为用户提供了易用的框架来增加自己想要管理的包。
-%20%20%20%20%20<img src="/assets/img/Pasted%20image%2020230405221952.png" alt="" /></p>
-
-    <p>我个人在工作做使用Spack，对Spack的基础功能，<a href="https://www.icinfra.cn/blog/2023/offline-packages-installing/">离线使用</a>等有经验积累。Spack安装的开源包，它自动做了依赖包的DAG生成、安装与设置，并且通过<a href="https://spack.readthedocs.io/en/latest/packaging_guide.html#handling-rpaths">rpath</a>设置了共享库路径。Spack还可以enable <a href="https://spack.readthedocs.io/en/latest/module_file_support.html#write-a-configuration-file">Environment Modules</a>的TCL and/or Lua实现，通过其一的方式来加载。Spack除了可管理开源社区的包，还可以将自己开发的<a href="https://spack.readthedocs.io/en/latest/packaging_guide.html#packaging-guide">包用Spack管理</a>。</p>
-  </li>
+  <li>Accessing the metadata - duh.</li>
+  <li>Generating edittable links.</li>
 </ul>
 
-<p>Spack管理超过6700个包，<a href="https://spack-tutorial.readthedocs.io/en/latest/_downloads/f2db2edf0050d1d82fdcd0d89cc6cd48/spack-cineca23-tutorial-slides.pdf">数据来源</a>
-%20%20%20%20<img src="/assets/img/Untitled.png" alt="" /></p>
-
-<p>Mirror机制：解决离线IC研发环境的开源包管理
-%20%20%20%20<img src="/assets/img/Untitled%201.png" alt="" /></p>
-
-<p>Spack concretizer：（依赖生成器）借助了clingo工具。<a href="https://potassco.org/doc/start/">clingo的介绍</a>，<a href="https://potassco.org/clingo/run/">在线体验</a>。</p>
-
-<h2 id="结论">结论</h2>
-
+<h2 id="additional-reading">Additional Reading</h2>
 <ul>
-  <li>总结EDA工具和开源工具的管理</li>
-  <li>展望EDA工具和开源工具在未来的发展</li>
-</ul>]]></content><author><name></name></author><category term="icenv" /><category term="tool" /><summary type="html"><![CDATA[介绍]]></summary></entry><entry><title type="html">解锁new bing在中国的使用</title><link href="https://www.icinfra.cn/blog/2023/new-bing-unlocking-in-cn/" rel="alternate" type="text/html" title="解锁new bing在中国的使用" /><published>2023-03-30T02:47:25+00:00</published><updated>2023-03-30T02:47:25+00:00</updated><id>https://www.icinfra.cn/blog/2023/new-bing-unlocking-in-cn</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/new-bing-unlocking-in-cn/"><![CDATA[<h1 id="new-bing的注册">New Bing的注册</h1>
+  <li>If you’re recieving incorrect/missing data, you may need to perform a Github API<a href="https://github.com/jekyll/github-metadata/blob/master/docs/authentication.md"> authentication</a>.</li>
+  <li>Go through this <a href="https://jekyll.github.io/github-metadata/">README</a> for more details on the topic.</li>
+  <li><a href="https://github.com/jekyll/github-metadata/blob/master/docs/site.github.md">This page</a> highlights all the feilds you can access with github-metadata.
+<br /></li>
+</ul>
 
-<h1 id="new-bing的访问">New Bing的访问</h1>
+<h2 id="example-metadata">Example MetaData</h2>
+<ul>
+  <li>Host Name :</li>
+  <li>URL :</li>
+  <li>BaseURL :</li>
+  <li>Archived :</li>
+  <li>Contributors :</li>
+</ul>]]></content><author><name></name></author><category term="sample-posts" /><category term="external-services" /><summary type="html"><![CDATA[a quick run down on accessing github metadata.]]></summary></entry><entry><title type="html">a post with twitter</title><link href="https://alshedivat.github.io/al-folio/blog/2020/twitter/" rel="alternate" type="text/html" title="a post with twitter" /><published>2020-09-28T15:12:00+00:00</published><updated>2020-09-28T15:12:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2020/twitter</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2020/twitter/"><![CDATA[<p>A sample blog page that demonstrates the inclusion of Tweets/Timelines/etc.</p>
 
-<h2 id="问题一未看到聊天按钮">问题一：未看到“聊天”按钮</h2>
-<p>在中国访问 https://www.bing.com/new 没有“聊天”按钮出现，如何打开New Bing的chat进行对话呢？如下图所示</p>
+<h1 id="tweet">Tweet</h1>
+<p>An example of displaying a tweet:</p>
+<div class="jekyll-twitter-plugin"><blockquote class="twitter-tweet"><p lang="sv" dir="ltr">jekyll-twitter-plugin (1.0.0): A Liquid tag plugin for Jekyll that renders Tweets from Twitter API <a href="http://t.co/m4EIQPM9h4">http://t.co/m4EIQPM9h4</a></p>&mdash; RubyGems (@rubygems) <a href="https://twitter.com/rubygems/status/518821243320287232?ref_src=twsrc%5Etfw">October 5, 2014</a></blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
 
-<p><img src="/assets/img/Pasted%20image%2020230330104807.png" alt="" /></p>
+<h1 id="timeline">Timeline</h1>
+<p>An example of pulling from a timeline:</p>
+<div class="jekyll-twitter-plugin"><a class="twitter-timeline" data-width="500" data-tweet-limit="3" href="https://twitter.com/jekyllrb?ref_src=twsrc%5Etfw">Tweets by jekyllrb</a>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
 
-<p>如下两图所示，将Country/Region设置为United States
-<img src="/assets/img/Pasted%20image%2020230330105110.png" alt="" />
-<img src="/assets/img/Pasted%20image%2020230330105205.png" alt="" /></p>
+<h1 id="additional-details">Additional Details</h1>
+<p>For more details on using the plugin visit: <a href="https://github.com/rob-murray/jekyll-twitter-plugin">jekyll-twitter-plugin</a></p>]]></content><author><name></name></author><category term="sample-posts" /><category term="external-services" /><category term="formatting" /><summary type="html"><![CDATA[an example of a blog post with twitter]]></summary></entry><entry><title type="html">a post with disqus comments</title><link href="https://alshedivat.github.io/al-folio/blog/2015/disqus-comments/" rel="alternate" type="text/html" title="a post with disqus comments" /><published>2015-10-20T15:59:00+00:00</published><updated>2015-10-20T15:59:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2015/disqus-comments</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2015/disqus-comments/"><![CDATA[<p>This post shows how to add DISQUS comments.</p>]]></content><author><name></name></author><category term="sample-posts" /><category term="external-services" /><summary type="html"><![CDATA[an example of a blog post with disqus comments]]></summary></entry><entry><title type="html">a post with math</title><link href="https://alshedivat.github.io/al-folio/blog/2015/math/" rel="alternate" type="text/html" title="a post with math" /><published>2015-10-20T15:12:00+00:00</published><updated>2015-10-20T15:12:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2015/math</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2015/math/"><![CDATA[<p>This theme supports rendering beautiful math in inline and display modes using <a href="https://www.mathjax.org/">MathJax 3</a> engine. You just need to surround your math expression with <code class="language-plaintext highlighter-rouge">$$</code>, like <code class="language-plaintext highlighter-rouge">$$ E = mc^2 $$</code>. If you leave it inside a paragraph, it will produce an inline expression, just like \(E = mc^2\).</p>
 
-<p>回到 https://www.bing.com/new 可以看到“聊天”现身
-<img src="/assets/img/Pasted%20image%2020230330110356.png" alt="" /></p>
+<p>To use display mode, again surround your expression with <code class="language-plaintext highlighter-rouge">$$</code> and place it as a separate paragraph. Here is an example:</p>
 
-<p><img src="/assets/img/Pasted%20image%2020230330110503.png" alt="" /></p>
+\[\sum_{k=1}^\infty |\langle x, e_k \rangle|^2 \leq \|x\|^2\]
 
-<h2 id="问题二提示sorry-looks-like-your-network-settings-are-preventing-access-to-this-feature">问题二：提示Sorry, looks like your network settings are preventing access to this feature.</h2>
+<p>You can also use <code class="language-plaintext highlighter-rouge">\begin{equation}...\end{equation}</code> instead of <code class="language-plaintext highlighter-rouge">$$</code> for display mode math.
+MathJax will automatically number equations:</p>
 
-<p><img src="/assets/img/Pasted%20image%2020230403093848.png" alt="" /></p>
+<p>\begin{equation}
+\label{eq:cauchy-schwarz}
+\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
+\end{equation}</p>
 
-<p>配置 X-Forwarded-For  1.1.1.1
-<img src="/assets/img/Pasted%20image%2020230403093949.png" alt="" /></p>
+<p>and by adding <code class="language-plaintext highlighter-rouge">\label{...}</code> inside the equation environment, we can now refer to the equation using <code class="language-plaintext highlighter-rouge">\eqref</code>.</p>
 
-<p><img src="/assets/img/Pasted%20image%2020230403100926.png" alt="" /></p>]]></content><author><name></name></author><category term="aigc" /><summary type="html"><![CDATA[New Bing的注册]]></summary></entry><entry><title type="html">new bing绘画</title><link href="https://www.icinfra.cn/blog/2023/new-bing-create/" rel="alternate" type="text/html" title="new bing绘画" /><published>2023-03-28T23:51:00+00:00</published><updated>2023-03-28T23:51:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/new-bing-create</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/new-bing-create/"><![CDATA[<p>new bing推出了图片生成，<a href="https://www.bing.com/create">地址</a></p>
-
-<p>请它画：一副很美的春天景色，微风细雨，苔痕上阶绿草色入帘青，油纸伞，柳絮飘飘，三两只鸟飞过。</p>
-
-<p><img src="/assets/img/Pasted%20image%2020230329075258.png" alt="" /></p>
-
-<p>原图如下</p>
-
-<p><img src="/assets/img/Pasted%20image%2020230329075132.png" alt="" /></p>
-
-<p><img src="/assets/img/Pasted%20image%2020230329075145.png" alt="" /></p>
-
-<p><img src="/assets/img/Pasted%20image%2020230329075151.png" alt="" /></p>
-
-<p><img src="/assets/img/Pasted%20image%2020230329075158.png" alt="" /></p>]]></content><author><name></name></author><category term="aigc" /><summary type="html"><![CDATA[new bing推出了图片生成，地址]]></summary></entry><entry><title type="html">离线自动化安装开源工具的方案探索</title><link href="https://www.icinfra.cn/blog/2023/offline-packages-installing/" rel="alternate" type="text/html" title="离线自动化安装开源工具的方案探索" /><published>2023-03-26T00:50:22+00:00</published><updated>2023-03-26T00:50:22+00:00</updated><id>https://www.icinfra.cn/blog/2023/offline-packages-installing</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/offline-packages-installing/"><![CDATA[<h1 id="背景">背景</h1>
-<p>包括芯片设计公司在内，许多研发型公司为了数据安全与网络安全，会将其研发环境与互联网隔绝开来，从物理上禁止了数据在内外部自由流通，也禁止了来自外部的网络攻击。
-安全与效率总是不能够双双完美的，这种架构保证了安全，在很多需要数据传输、访问在线服务的场景上，这种架构就给效率打了折扣。研发环境开源工具的安装与管理，就是场景之一。</p>
-
-<h1 id="设计方案">设计方案</h1>
-
-<h2 id="spack">Spack</h2>
-
-<p>离线安装与使用的Use Case
-<img src="/assets/img/Spack%20Use%20Case.jpg" alt="" /></p>
-
-<p>在线安装与使用的活动图
-<img src="/assets/img/在线Spack安装流程.jpg" alt="" /></p>
-
-<p>离线安装与使用的活动图
-<img src="/assets/img/离线Spack安装流程.jpg" alt="" /></p>
-
-<p>部署图</p>
-
-<h1 id="实施方案">实施方案</h1>
-
-<h2 id="下载与初始化spack">下载与初始化Spack</h2>
-<p>在centos7-9-online机器执行
-下载spack，配置初始化spack</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@centos7-9-online os]<span class="nv">$ </span>git clone <span class="nt">-c</span> feature.manyFiles<span class="o">=</span><span class="nb">true </span>https://github.com/spack/spack.git
-Cloning into <span class="s1">'spack'</span>...
-remote: Enumerating objects: 445711, <span class="k">done</span><span class="nb">.</span>
-remote: Counting objects: 100% <span class="o">(</span>331/331<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
-remote: Compressing objects: 100% <span class="o">(</span>236/236<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
-remote: Total 445711 <span class="o">(</span>delta 162<span class="o">)</span>, reused 199 <span class="o">(</span>delta 46<span class="o">)</span>, pack-reused 445380
-Receiving objects: 100% <span class="o">(</span>445711/445711<span class="o">)</span>, 225.50 MiB | 18.27 MiB/s, <span class="k">done</span><span class="nb">.</span>
-Resolving deltas: 100% <span class="o">(</span>182172/182172<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
-<span class="o">[</span>centos@localhost os]<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">". </span><span class="sb">`</span><span class="nb">readlink</span> <span class="nt">-f</span> spack/share/spack/setup-env.sh<span class="sb">`</span><span class="s2">"</span> <span class="o">&gt;&gt;</span>  ~/.bashrc
-</code></pre></div></div>
-<p>将spack目录拷贝到离线环境CentOS 7.9的<code class="language-plaintext highlighter-rouge">/tools/os/</code>目录，并配置其初始化</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@centos7-9-offline <span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">". /tools/os/spack/share/spack/setup-env.sh"</span> <span class="o">&gt;&gt;</span>  ~/.bashrc
-</code></pre></div></div>
-
-<h2 id="安装与配置编译器">安装与配置编译器</h2>
-<p>分别于centos7-9-online、centos7-9-offline的机器执行</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@centos7-9-online ~]<span class="nv">$ </span><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> gcc gcc-c++ gcc-gfortran <span class="c">#安装编译器</span>
-<span class="o">[</span>centos@centos7-9-online ~]<span class="nv">$ </span><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> patch bzip2 lbzip2 readline-devel unzip <span class="c">#spack install时，有些基础的会被常见的包依赖。</span>
-<span class="o">[</span>centos@centos7-9-online ~]<span class="nv">$ </span>spack compiler find
-<span class="o">==&gt;</span> Added 1 new compiler to /home/centos/.spack/linux/compilers.yaml
-    gcc@4.8.5
-    gcc@12.2.0
-<span class="o">==&gt;</span> Compilers are defined <span class="k">in </span>the following files:
-    /home/centos/.spack/linux/compilers.yaml
-<span class="o">[</span>centos@centos7-9-online ~]<span class="nv">$ </span><span class="nb">cat</span> /home/centos/.spack/linux/compilers.yaml
-compilers:
-- compiler:
-    spec: gcc@4.8.5
-    paths:
-      cc: /usr/bin/gcc
-      cxx: /usr/bin/g++
-      f77: /usr/bin/gfortran
-      <span class="nb">fc</span>: /usr/bin/gfortran
-    flags: <span class="o">{}</span>
-    operating_system: centos7
-    target: x86_64
-    modules: <span class="o">[]</span>
-    environment: <span class="o">{}</span>
-    extra_rpaths: <span class="o">[]</span>
-- compiler:
-    spec: gcc@12.2.0
-    paths:
-      cc: /nfs/tools/os/gcc/12.2.0/bin/gcc
-      cxx: /nfs/tools/os/gcc/12.2.0/bin/g++
-      f77: /nfs/tools/os/gcc/12.2.0/bin/gfortran
-      <span class="nb">fc</span>: /nfs/tools/os/gcc/12.2.0/bin/gfortran
-    flags: <span class="o">{}</span>
-    operating_system: centos7
-    target: x86_64
-    modules: <span class="o">[]</span>
-    environment: <span class="o">{}</span>
-    extra_rpaths: <span class="o">[]</span>
-</code></pre></div></div>
-
-<h2 id="mirror">mirror</h2>
-<p>在centos7-9-online机器</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@centos7-9-online ~]<span class="nv">$ </span><span class="nb">mkdir</span> /local/tools/os/spack/pkgs-mirror <span class="c">#创建mirror目录</span>
-<span class="o">[</span>centos@centos7-9-online ~]<span class="nv">$ </span>spack mirror create <span class="nt">--directory</span> /local/tools/os/spack/pkgs-mirror <span class="nt">--dependencies</span> vim +gtk +gui +lua +perl +python +ruby +x +cscope <span class="c">#这里以mirror vim为例</span>
-<span class="o">==&gt;</span> Concretizing input specs
-<span class="o">==&gt;</span> Installing patchelf-0.13.1-x5afxqz2rtlfbcpghu5l542rhhbw3md7
-<span class="o">==&gt;</span> No binary <span class="k">for </span>patchelf-0.13.1-x5afxqz2rtlfbcpghu5l542rhhbw3md7 found: installing from <span class="nb">source</span>
-<span class="o">==&gt;</span> Fetching https://github.com/NixOS/patchelf/releases/download/0.13.1/patchelf-0.13.1.tar.gz
-<span class="o">==&gt;</span> No patches needed <span class="k">for </span>patchelf
-<span class="o">==&gt;</span> patchelf: Executing phase: <span class="s1">'autoreconf'</span>
-<span class="o">==&gt;</span> patchelf: Executing phase: <span class="s1">'configure'</span>
-<span class="o">==&gt;</span> patchelf: Executing phase: <span class="s1">'build'</span>
-<span class="o">==&gt;</span> patchelf: Executing phase: <span class="s1">'install'</span>
-<span class="o">==&gt;</span> patchelf: Successfully installed patchelf-0.13.1-x5afxqz2rtlfbcpghu5l542rhhbw3md7
-  Stage: 31.52s.  Autoreconf: 0.00s.  Configure: 1.15s.  Build: 2.17s.  Install: 0.03s.  Total: 34.92s
-<span class="o">[</span>+] /home/centos/.spack/bootstrap/store/linux-centos7-x86_64/gcc-4.8.5/patchelf-0.13.1-x5afxqz2rtlfbcpghu5l542rhhbw3md7
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/bootstrap/github-actions/v0.4/build_cache/linux-centos7-x86_64-gcc-10.2.1-clingo-bootstrap-spack-prqkzynv2nwko5mktitebgkeumuxkveu.spec.json
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/bootstrap/github-actions/v0.4/build_cache/linux-centos7-x86_64/gcc-10.2.1/clingo-bootstrap-spack/linux-centos7-x86_64-gcc-10.2.1-clingo-bootstrap-spack-prqkzynv2nwko5mktitebgkeumuxkveu.spack
-<span class="o">==&gt;</span> Installing <span class="s2">"clingo-bootstrap@spack%gcc@10.2.1~docs~ipo+python+static_libstdcpp build_type=Release arch=linux-centos7-x86_64"</span> from a buildcache
-<span class="o">==&gt;</span> Adding package at-spi2-atk@2.38.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/cf/cfa008a5af822b36ae6287f18182c40c91dd699c55faa38605881ed175ca464f.tar.xz
-<span class="o">==&gt;</span> Adding package at-spi2-core@2.47.90 to mirror
-<span class="o">==&gt;</span> Fetching http://ftp.gnome.org/pub/gnome/sources/at-spi2-core/2.47/at-spi2-core-2.47.90.tar.xz
-<span class="o">==&gt;</span> Adding package atk@2.38.0 to mirror
-<span class="o">==&gt;</span> Fetching http://ftp.gnome.org/pub/gnome/sources/atk/2.38/atk-2.38.0.tar.xz
-<span class="o">==&gt;</span> Adding package autoconf@2.69 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/95/954bd69b391edc12d6a4a51a2dd1476543da5c6bbf05a95b59dc0dd6fd4c2969.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/ea/eaa3f69d927a853313a0b06e2117c51adab6377a2278549b05abc5df93643e16
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/77/7793209b33013dc0f81208718c68440c5aae80e7a1c4b8d336e382525af791a7
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/35/35c449281546376449766f92d49fc121ca50e330e60fefcfc9be2af3253082c2
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/a4/a49dd5bac3b62daa0ff688ab4d508d71dbd2f4f8d7e2a02321926346161bf3ee
-<span class="o">==&gt;</span> Adding package autoconf-archive@2023.02.20 to mirror
-<span class="o">==&gt;</span> Fetching https://ftpmirror.gnu.org/autoconf-archive/autoconf-archive-2023.02.20.tar.xz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/13/139214f5104f699f868dc87a14378e1e694a3c2539efa0de6f878024f3d7c66d
-<span class="o">==&gt;</span> Adding package automake@1.16.5 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/07/07bd24ad08a64bc17250ce09ec56e921d6343903943e99ccf63bbf0705e34605.tar.gz
-<span class="o">==&gt;</span> Adding package bdftopcf@1.1 to mirror
-<span class="o">==&gt;</span> Fetching https://www.x.org/archive/individual/app/bdftopcf-1.1.tar.gz
-<span class="o">==&gt;</span> Adding package berkeley-db@18.1.40 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/0c/0cecb2ef0c67b166de93732769abdeba0555086d51de1090df325e18ee8da9c8.tar.gz
-<span class="o">==&gt;</span> Adding package binutils@2.40 to mirror
-<span class="o">==&gt;</span> Fetching https://ftpmirror.gnu.org/binutils/binutils-2.40.tar.bz2
-<span class="o">==&gt;</span> Adding package bison@3.8.2 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/06/06c9e13bdf7eb24d4ceb6b59205a4f67c2c7e7213119644430fe82fbd14a0abb.tar.gz
-<span class="o">==&gt;</span> Adding package bzip2@1.0.8 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/ab/ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269.tar.gz
-<span class="o">==&gt;</span> Adding package ca-certificates-mozilla@2023-01-10 to mirror
-<span class="o">==&gt;</span> Fetching https://curl.se/ca/cacert-2023-01-10.pem
-<span class="o">==&gt;</span> Adding package cairo@1.16.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/5e/5e7b29b3f113ef870d1e3ecf8adf21f923396401604bda16d44be45e66052331.tar.xz
-<span class="o">==&gt;</span> Adding package cmake@3.25.2 to mirror
-<span class="o">==&gt;</span> Fetching https://github.com/Kitware/CMake/releases/download/v3.25.2/cmake-3.25.2.tar.gz
-<span class="o">==&gt;</span> Fetching https://github.com/Kitware/CMake/releases/download/v3.25.2/cmake-3.25.2.tar.gz
-<span class="o">==&gt;</span> Adding package cscope@15.9 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/c5/c5505ae075a871a9cd8d9801859b0ff1c09782075df281c72c23e72115d9f159.tar.gz
-<span class="o">==&gt;</span> Adding package curl@8.0.1 to mirror
-<span class="o">==&gt;</span> Fetching http://curl.haxx.se/download/curl-8.0.1.tar.bz2
-<span class="o">==&gt;</span> Adding package dbus@1.13.6 to mirror
-<span class="o">==&gt;</span> Fetching https://dbus.freedesktop.org/releases/dbus/dbus-1.13.6.tar.gz
-<span class="o">==&gt;</span> Adding package diffutils@3.9 to mirror
-<span class="o">==&gt;</span> Fetching https://ftpmirror.gnu.org/diffutils/diffutils-3.9.tar.xz
-<span class="o">==&gt;</span> Adding package docbook-xml@4.5 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/4e/4e4e037a2b83c98c6c94818390d4bdd3f6e10f6ec62dd79188594e26190dc7b4.zip
-<span class="o">==&gt;</span> Adding package docbook-xsl@1.79.2 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/31/316524ea444e53208a2fb90eeb676af755da96e1417835ba5f5eb719c81fa371.tar.bz2
-<span class="o">==&gt;</span> Adding package elfutils@0.189 to mirror
-<span class="o">==&gt;</span> Fetching https://sourceware.org/pub/elfutils/0.189/elfutils-0.189.tar.bz2
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/d7/d786d49c28d7f0c8fc27bab39ca8714e5f4d128c7f09bb18533a8ec99b38dbf8
-<span class="o">==&gt;</span> Adding package expat@2.5.0 to mirror
-<span class="o">==&gt;</span> Fetching https://github.com/libexpat/libexpat/releases/download/R_2_5_0/expat-2.5.0.tar.bz2
-<span class="o">==&gt;</span> Warning: Error <span class="k">while </span>fetching expat@2.5.0
-  All fetchers failed <span class="k">for </span>spack-stage-expat-2.5.0-yfnrdymdzqycrzk6upmebtvxa2g5motq
-<span class="o">==&gt;</span> Adding package findutils@4.9.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/a2/a2bfb8c09d436770edc59f50fa483e785b161a3b7b9d547573cb08065fd462fe.tar.xz
-<span class="o">==&gt;</span> Adding package fixesproto@5.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/67/67865a0e3cdc7dec1fd676f0927f7011ad4036c18eb320a2b41dbd56282f33b8.tar.gz
-<span class="o">==&gt;</span> Adding package flex@2.6.3 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/68/68b2742233e747c462f781462a2a1e299dc6207401dac8f0bbb316f48565c2aa.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/f8/f8b85a00849bfb58c9b68e177b369f1e060ed8758253ff8daa57a873eae7b7a5
-<span class="o">==&gt;</span> Adding package font-util@1.4.0 to mirror
-<span class="o">==&gt;</span> Fetching https://www.x.org/archive/individual/font/font-util-1.4.0.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/55/55861d9cf456bd717a3d30a3193402c02174ed3c0dcee828798165fe307ee324.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/63/63087cb61d17bfc9cd6f4f9359f63a3b1dd83300a31a42fd93dca084724c6afb.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/72/720b6a513894bfc09a163951ec3dd8311201e08ee40e8891547b6c129ffb5fce.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/d5/d5602f1d749ccd31d3bc1bb6f0c5d77400de0e5e3ac5abebd2a867aa2a4081a4.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/c4/c4923342f6068c83fd4f5dbcf60d671c28461300db7e2aee930c8634b1e4b74a.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/57/57c2db8824865117287d57d47f2c8cf4b2842d036c7475534b5054be69690c73.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/54/549c6ba59979da25e85c218a26e5c527c3c24ebab2c76509c1ebc34d94fae227.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/81/817703372f080d6508cf109011b17f3572ff31047559fe82d93b487ca4e4e2d9.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/45/4509703e9e581061309cf4823bffd4a93f10f48fe192a1d8be1f183fd6ab9711.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/49/493965263070a5ee2a301dfdb2e87c1ca3c00c7882bfb3dd99368565ba558ff5.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/46/46142c876e176036c61c0c24c0a689079704d5ca5b510d48c025861ee2dbf829.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/fc/fcecbfc475dfe5826d137f8edc623ba27d58d32f069165c248a013b3c566bb59.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/97/97ee77a9d8ca3e7caf0c78c386eb0b96e8a825ca3642ec035cfb83f5f2cf1475.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/61/61eb1fcfec89f7435cb92cd68712fbe4ba412ca562b1f5feec1f6daa1b8544f6.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/30/3022b6b124f4cc6aade961f8d1306f67ff42e3b7922fb2244847f287344aefea.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/a0/a0b146139363dd0a704c7265ff9cd9150d4ae7c0d248091a9a42093e1618c427.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/21/21166546b0490aa3ec73215fa4ea28d91c6027b56178800ba51426bd3d840cc3.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/ea/eaddfc6d9b32bf38c9dc87c354be3b646a385bc8d9de6e536269f6e1ca50644e.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/97/97d9c1e706938838e4134d74f0836ae9d9ca6705ecb405c9a0ac8fdcbd9c2159.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/79/79dfde93d356e41c298c2c1b9c638ec1a144f438d5146d0df6219afb1c2b8818.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/d3/d3b93f7f73a526919bf73a38e10ef4643cd541403a682a8068d54bbcdd9c7e27.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/02/02b3839ae79ba6a7750525bb3b0c281305664b95bf63b4a0baa230a277b4f928.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/c4/c43ae370932eb8a4789a5b1f9801da15228b0d4c803251785c38d82aef024a4b.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/33/3399b7586c18be509cdaeceeebf754b861faa1d8799dda1aae01aeb2a7a30f01.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/d6/d64b9bfa5fa8dedf084f1695997cc32149485d2a195c810f62a1991ab5cd5519.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/dc/dc3b8d5890480943e735e0375f0e0d8333094fcb6d6845ba321b2e39db78d148.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/9e/9e82783758e8c67a9aadaf1a7222d13418a87455e4ce0a9974fb1df0278bdf74.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/0a/0a8c77c1540dc376fb2bb5a02bd33ee5f3563fbac9fc07c7947cac462c4bb48a.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/ae/aeea5f130480a3f05149bde13d240e668d8fb4b32c02b18914fcccd1182abe72.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/50/503e70ee66af34f6ec4426c0f4ae708e9d30dafdcd58f671a87c7bf56b1952a3.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/25/254be39c09da1c4e77d2a75a2969330ee2db395120a428671c50aef3ab745fc0.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/d9/d9e86a8805b0fb78222409169d839a8531a1f5c7284ee117ff2a0af2e5016c3f.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/e8/e8c3417d89183b1fc383fb3e0f3948c0d01fabcb9edace8b7ec85eab8cdc18c4.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/38/38301bbdb6374494f30c0b44acc7052ed8fc2289e917e648ca566fc591f0a9e0.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/5e/5e05a642182ec6a77bd7cacb913d3c86b364429329a5f223b69792d418f90ae9.tar.gz
-<span class="o">==&gt;</span> Adding package fontconfig@2.14.2 to mirror
-<span class="o">==&gt;</span> Fetching https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.14.2.tar.gz
-<span class="o">==&gt;</span> Adding package fontsproto@2.1.3 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/72/72c44e63044b2b66f6fa112921621ecc20c71193982de4f198d9a29cda385c5e.tar.gz
-<span class="o">==&gt;</span> Adding package freetype@2.11.1 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/f8/f8db94d307e9c54961b39a1cc799a67d46681480696ed72ecf78d4473770f09b.tar.gz
-<span class="o">==&gt;</span> Adding package fribidi@1.0.12 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/0c/0cd233f97fc8c67bb3ac27ce8440def5d3ffacf516765b91c2cc654498293495.tar.xz
-<span class="o">==&gt;</span> Adding package gawk@5.2.1 to mirror
-<span class="o">==&gt;</span> Fetching https://ftpmirror.gnu.org/gawk/gawk-5.2.1.tar.xz
-<span class="o">==&gt;</span> Adding package gdbm@1.23 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/74/74b1081d21fff13ae4bd7c16e5d6e504a4c26f7cde1dca0d963a484174bbcacd.tar.gz
-<span class="o">==&gt;</span> Adding package gdk-pixbuf@2.42.10 to mirror
-<span class="o">==&gt;</span> Fetching https://ftp.acc.umu.se/pub/gnome/sources/gdk-pixbuf/2.42/gdk-pixbuf-2.42.10.tar.xz
-<span class="o">==&gt;</span> Adding package gettext@0.21.1 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/50/50dbc8f39797950aa2c98e939947c527e5ac9ebd2c1b99dd7b06ba33a6767ae6.tar.xz
-<span class="o">==&gt;</span> Adding package glib@2.74.6 to mirror
-<span class="o">==&gt;</span> Fetching https://download.gnome.org/sources/glib/2.74/glib-2.74.6.tar.xz
-<span class="o">==&gt;</span> Adding package glproto@1.4.17 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/9d/9d8130fec2b98bd032db7730fa092dd9dec39f3de34f4bb03ceb43b9903dbc96.tar.gz
-<span class="o">==&gt;</span> Adding package glx@1.4 to mirror
-<span class="o">==&gt;</span> Adding package gmake@4.4.1 to mirror
-<span class="o">==&gt;</span> Fetching https://ftpmirror.gnu.org/make/make-4.4.1.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/fe/fe5b60d091c33f169740df8cb718bf4259f84528b42435194ffe0dd5b79cd125
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/ca/ca60bd9c1a1b35bc0dc58b6a4a19d5c2651f7a94a4b22b2c5ea001a1ca7a8a7f
-<span class="o">==&gt;</span> Adding package gmp@6.2.1 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/ea/eae9326beb4158c386e39a356818031bd28f3124cf915f8c5b1dc4c7a36b4d7c.tar.bz2
-<span class="o">==&gt;</span> Adding package gobject-introspection@1.72.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/02/02fe8e590861d88f83060dd39cda5ccaa60b2da1d21d0f95499301b186beaabc.tar.xz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/77/7700828b638c85255c87fcc317ea7e9572ff443f65c86648796528885e5b4cea
-<span class="o">==&gt;</span> Adding package gperf@3.1 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/58/588546b945bba4b70b6a3a616e80b4ab466e3f33024a352fc2198112cdbb3ae2.tar.gz
-<span class="o">==&gt;</span> Adding package gtkplus@3.24.29 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/f5/f57ec4ade8f15cab0c23a80dcaee85b876e70a8823d9105f067ce335a8268caa.tar.xz
-<span class="o">==&gt;</span> Adding package harfbuzz@5.3.1 to mirror
-<span class="o">==&gt;</span> Fetching https://github.com/harfbuzz/harfbuzz/releases/download/5.3.1/harfbuzz-5.3.1.tar.xz
-<span class="o">==&gt;</span> Adding package hwloc@2.9.0 to mirror
-<span class="o">==&gt;</span> Fetching https://download.open-mpi.org/release/hwloc/v2.9/hwloc-2.9.0.tar.gz
-<span class="o">==&gt;</span> Adding package icu4c@66.1 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/52/52a3f2209ab95559c1cf0a14f24338001f389615bf00e2585ef3dbc43ecf0a2e.tgz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/6b/6be0b8068b0f5047dad7f4f6f655529304f1abbc551c93223c6f41dafc1e8acc
-<span class="o">==&gt;</span> Adding package inputproto@2.3.2 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/10/10eaadd531f38f7c92ab59ef0708ca195caf3164a75c4ed99f0c04f2913f6ef3.tar.gz
-<span class="o">==&gt;</span> Warning: Error <span class="k">while </span>fetching inputproto@2.3.2
-  sha256 checksum failed <span class="k">for</span> /tmp/centos/spack-stage/spack-stage-inputproto-2.3.2-lchukheykgr7ssdkzqoc6rmu5jj3bb4d/inputproto-2.3.2.tar.gz
-<span class="o">==&gt;</span> Adding package intltool@0.51.0 to mirror
-<span class="o">==&gt;</span> Warning: Error <span class="k">while </span>fetching intltool@0.51.0
-  All fetchers failed <span class="k">for </span>spack-stage-intltool-0.51.0-tqjehgpvexhz6v6ctwifojbppjtcljh7
-<span class="o">==&gt;</span> Adding package json-glib@1.6.6 to mirror
-<span class="o">==&gt;</span> Fetching https://download.gnome.org/sources/json-glib/1.6/json-glib-1.6.6.tar.xz
-<span class="o">==&gt;</span> Adding package kbproto@1.0.7 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/82/828cb275b91268b1a3ea950d5c0c5eb076c678fdf005d517411f89cc8c3bb416.tar.gz
-<span class="o">==&gt;</span> Adding package libbsd@0.11.7 to mirror
-<span class="o">==&gt;</span> Fetching https://libbsd.freedesktop.org/releases/libbsd-0.11.7.tar.xz
-<span class="o">==&gt;</span> Adding package libcroco@0.6.13 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/76/767ec234ae7aa684695b3a735548224888132e063f92db585759b422570621d4.tar.xz
-<span class="o">==&gt;</span> Adding package libedit@3.1-20210216 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/22/2283f741d2aab935c8c52c04b57bf952d02c2c02e651172f8ac811f77b1fc77a.tar.gz
-<span class="o">==&gt;</span> Adding package libepoxy@1.4.3 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/0b/0b808a06c9685a62fca34b680abb8bc7fb2fda074478e329b063c1f872b826f6.tar.xz
-<span class="o">==&gt;</span> Adding package libffi@3.3 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/72/72fba7922703ddfa7a028d513ac15a85c8d54c8d67f55fa5a4802885dc652056.tar.gz
-<span class="o">==&gt;</span> Adding package libfontenc@1.1.7 to mirror
-<span class="o">==&gt;</span> Fetching https://www.x.org/archive/individual/lib/libfontenc-1.1.7.tar.gz
-<span class="o">==&gt;</span> Adding package libgcrypt@1.10.1 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/ef/ef14ae546b0084cd84259f61a55e07a38c3b53afc0f546bffcef2f01baffe9de.tar.bz2
-<span class="o">==&gt;</span> Adding package libgit2@1.5.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/8d/8de872a0f201b33d9522b817c92e14edb4efad18dae95cf156cf240b2efff93e.tar.gz
-<span class="o">==&gt;</span> Adding package libgpg-error@1.46 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/b7/b7e11a64246bbe5ef37748de43b245abd72cfcd53c9ae5e7fc5ca59f1c81268d.tar.bz2
-<span class="o">==&gt;</span> Adding package libice@1.0.9 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/78/7812a824a66dd654c830d21982749b3b563d9c2dfe0b88b203cefc14a891edc0.tar.gz
-<span class="o">==&gt;</span> Adding package libiconv@1.17 to mirror
-<span class="o">==&gt;</span> Fetching https://ftp.gnu.org/gnu/libiconv/libiconv-1.17.tar.gz
-<span class="o">==&gt;</span> Adding package libjpeg-turbo@2.1.4 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/a7/a78b05c0d8427a90eb5b4eb08af25309770c8379592bb0b8a863373128e6143f.tar.gz
-<span class="o">==&gt;</span> Adding package libmd@1.0.4 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/f5/f51c921042e34beddeded4b75557656559cf5b1f2448033b4c1eec11c07e530f.tar.xz
-<span class="o">==&gt;</span> Adding package libpciaccess@0.17 to mirror
-<span class="o">==&gt;</span> Fetching https://www.x.org/archive/individual/lib/libpciaccess-0.17.tar.gz
-<span class="o">==&gt;</span> Adding package libpng@1.6.39 to mirror
-<span class="o">==&gt;</span> Fetching https://prdownloads.sourceforge.net/libpng/libpng-1.6.39.tar.xz
-<span class="o">==&gt;</span> Adding package libpthread-stubs@0.4 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/50/50d5686b79019ccea08bcbd7b02fe5a40634abcfd4146b6e75c6420cc170e9d9.tar.gz
-<span class="o">==&gt;</span> Adding package librsvg@2.51.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/89/89d32e38445025e1b1d9af3dd9d3aeb9f6fce527aeecbecf38b369b34c80c038.tar.xz
-<span class="o">==&gt;</span> Adding package libsigsegv@2.14 to mirror
-<span class="o">==&gt;</span> Fetching https://ftpmirror.gnu.org/libsigsegv/libsigsegv-2.14.tar.gz
-<span class="o">==&gt;</span> Fetching https://ftp.gnu.org/gnu/libsigsegv/libsigsegv-2.14.tar.gz
-<span class="o">==&gt;</span> Adding package libsm@1.2.3 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/1e/1e92408417cb6c6c477a8a6104291001a40b3bb56a4a60608fdd9cd2c5a0f320.tar.gz
-<span class="o">==&gt;</span> Adding package libssh2@1.10.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/2d/2d64e90f3ded394b91d3a2e774ca203a4179f69aebee03003e5a6fa621e41d51.tar.gz
-<span class="o">==&gt;</span> Adding package libtool@2.4.7 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/04/04e96c2404ea70c590c546eba4202a4e12722c640016c12b9b2f1ce3d481e9a8.tar.gz
-<span class="o">==&gt;</span> Adding package libunwind@1.6.2 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/4a/4a6aec666991fb45d0889c44aede8ad6eb108071c3554fcdff671f9c94794976.tar.gz
-<span class="o">==&gt;</span> Adding package libx11@1.8.4 to mirror
-<span class="o">==&gt;</span> Fetching https://www.x.org/archive/individual/lib/libX11-1.8.4.tar.gz
-<span class="o">==&gt;</span> Adding package libxau@1.0.8 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/c3/c343b4ef66d66a6b3e0e27aa46b37ad5cab0f11a5c565eafb4a1c7590bc71d7b.tar.gz
-<span class="o">==&gt;</span> Adding package libxcb@1.14 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/a5/a55ed6db98d43469801262d81dc2572ed124edc3db31059d4e9916eb9f844c34.tar.xz
-<span class="o">==&gt;</span> Adding package libxcrypt@4.4.33 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/e8/e87acf9c652c573a4713d5582159f98f305d56ed5f754ce64f57d4194d6b3a6f.tar.xz
-<span class="o">==&gt;</span> Adding package libxdmcp@1.1.4 to mirror
-<span class="o">==&gt;</span> Fetching https://www.x.org/archive/individual/lib/libXdmcp-1.1.4.tar.gz
-<span class="o">==&gt;</span> Adding package libxext@1.3.3 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/eb/eb0b88050491fef4716da4b06a4d92b4fc9e76f880d6310b2157df604342cfe5.tar.gz
-<span class="o">==&gt;</span> Adding package libxfixes@5.0.2 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/ad/ad8df1ecf3324512b80ed12a9ca07556e561b14256d94216e67a68345b23c981.tar.gz
-<span class="o">==&gt;</span> Adding package libxfont@1.5.4 to mirror
-<span class="o">==&gt;</span> Fetching https://www.x.org/archive/individual/lib/libXfont-1.5.4.tar.gz
-<span class="o">==&gt;</span> Adding package libxft@2.3.2 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/26/26cdddcc70b187833cbe9dc54df1864ba4c03a7175b2ca9276de9f05dce74507.tar.gz
-<span class="o">==&gt;</span> Adding package libxi@1.7.6 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/4e/4e88fa7decd287e58140ea72238f8d54e4791de302938c83695fc0c9ac102b7e.tar.gz
-<span class="o">==&gt;</span> Adding package libxkbcommon@1.4.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/10/106cec5263f9100a7e79b5f7220f889bc78e7d7ffc55d2b6fdb1efefb8024031.tar.xz
-<span class="o">==&gt;</span> Adding package libxkbfile@1.0.9 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/95/95df50570f38e720fb79976f603761ae6eff761613eb56f258c3cb6bab4fd5e3.tar.gz
-<span class="o">==&gt;</span> Adding package libxml2@2.10.3 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/5d/5d2cc3d78bec3dbe212a9d7fa629ada25a7da928af432c93060ff5c17ee28a9c.tar.xz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/96/96151685cec997e1f9f3387e3626d61e6284d4d6e66e0e440c209286c03e9cc7.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/3e/3e06d42596b105839648070a5921157fe284b932289ffdbfa304ddc3457e5637
-<span class="o">==&gt;</span> Adding package libxpm@3.5.12 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/25/2523acc780eac01db5163267b36f5b94374bfb0de26fc0b5a7bee76649fd8501.tar.gz
-<span class="o">==&gt;</span> Adding package libxrandr@1.5.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/1b/1b594a149e6b124aab7149446f2fd886461e2935eca8dca43fe83a70cf8ec451.tar.gz
-<span class="o">==&gt;</span> Adding package libxrender@0.9.10 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/77/770527cce42500790433df84ec3521e8bf095dfe5079454a92236494ab296adf.tar.gz
-<span class="o">==&gt;</span> Adding package libxslt@1.1.33 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/8e/8e36605144409df979cab43d835002f63988f3dc94d5d3537c12796db90e38c8.tar.gz
-<span class="o">==&gt;</span> Adding package libxt@1.1.5 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/b5/b59bee38a9935565fa49dc1bfe84cb30173e2e07e1dcdf801430d4b54eb0caa3.tar.gz
-<span class="o">==&gt;</span> Adding package libxtst@1.2.2 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/22/221838960c7b9058cd6795c1c3ee8e25bae1c68106be314bc3036a4f26be0e6c.tar.gz
-<span class="o">==&gt;</span> Adding package llvm@7.1.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/71/71c93979f20e01f1a1cc839a247945f556fa5e63abf2084e8468b238080fd839.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/51/514926d661635de47972c7d403c9c4669235aa51e22e56d44676d2a2709179b6
-<span class="o">==&gt;</span> Adding package lua@5.4.4 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/16/164c7849653b80ae67bec4b7473b884bf5cc8d2dca05653475ec2ed27b9ebf61.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/56/56ab9b90f5acbc42eb7a94cf482e6c058a63e8a1effdf572b8b2a6323a06d923.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/20/208316c2564bdd5343fa522f3b230d84bd164058957059838df7df56876cb4ae
-<span class="o">==&gt;</span> Adding package m4@1.4.19 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/3b/3be4a26d825ffdfda52a56fc43246456989a3630093cced3fbddf4771ee58a70.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/fc/fc9b61654a3ba1a8d6cd78ce087e7c96366c290bc8d2c299f09828d793b853c8
-<span class="o">==&gt;</span> Adding package mesa@22.1.6 to mirror
-<span class="o">==&gt;</span> Fetching https://archive.mesa3d.org/mesa-22.1.6.tar.xz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/36/36096a178070e40217945e12d542dfe80016cb897284a01114d616656c577d73
-<span class="o">==&gt;</span> Adding package meson@1.0.1 to mirror
-<span class="o">==&gt;</span> Fetching https://github.com/mesonbuild/meson/archive/1.0.1.tar.gz
-<span class="o">==&gt;</span> Adding package mkfontdir@1.0.7 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/bc/bccc5fb7af1b614eabe4a22766758c87bfc36d66191d08c19d2fa97674b7b5b7.tar.gz
-<span class="o">==&gt;</span> Adding package mkfontscale@1.2.2 to mirror
-<span class="o">==&gt;</span> Fetching https://www.x.org/archive/individual/app/mkfontscale-1.2.2.tar.gz
-<span class="o">==&gt;</span> Adding package mpfr@4.2.0 to mirror
-<span class="o">==&gt;</span> Fetching https://ftpmirror.gnu.org/mpfr/mpfr-4.2.0.tar.bz2
-<span class="o">==&gt;</span> Fetching https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.0.tar.bz2
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/3f/3f80b836948aa96f8d1cb9cc7f3f55973f19285482a96f9a4e1623d460bcccf0
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/52/5230aab653fa8675fc05b5bdd3890e071e8df49a92a9d58c4284024affd27739
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/7a/7a6dd71bcda4803d6b89612706a17b8816e1acd5dd9bf1bec29cf748f3b60008
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/1a/1ae14fb3a54ae8e0faed20801970255b279eee9e5ac624891ab5d29727f0bc04
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/11/113705d5333ef0d0ad3eb136a85404ba6bd1cc524dece5ce902c536aa2e29903
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/41/4152a780b3cc6e9643283e59093b43460196d0fea9302d8c93b2496f6679f4e4
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/1b/1b9fdb515efb09a506a01e1eb307b1464455f5ca63d6c193db3a3da371ab3220
-<span class="o">==&gt;</span> Adding package nasm@2.15.05 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/91/9182a118244b058651c576baa9d0366ee05983c4d4ae1d9ddd3236a9f2304997.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/ac/ac9f315d204afa6b99ceefa1fe46d4eed2b8a23c7315d32d33c0f378d930e950
-<span class="o">==&gt;</span> Adding package ncurses@6.4 to mirror
-<span class="o">==&gt;</span> Fetching https://ftp.gnu.org/gnu/ncurses/ncurses-6.4.tar.gz
-<span class="o">==&gt;</span> Adding package ninja@1.11.1 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/31/31747ae633213f1eda3842686f83c2aa1412e0f5691d1c14dbbcc67fe7400cea.tar.gz
-<span class="o">==&gt;</span> Adding package openssl@1.1.1t to mirror
-<span class="o">==&gt;</span> Fetching http://www.openssl.org/source/openssl-1.1.1t.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/3f/3fdcf2d1e47c34f3a012f23306322c5a35cad55b180c9b6fb34537b55884645c
-<span class="o">==&gt;</span> Adding package pango@1.50.13 to mirror
-<span class="o">==&gt;</span> Fetching http://ftp.gnome.org/pub/GNOME/sources/pango/1.50/pango-1.50.13.tar.xz
-<span class="o">==&gt;</span> Adding package pcre@8.45 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/4d/4dae6fdcd2bb0bb6c37b5f97c33c2be954da743985369cddac3546e3218bffb8.tar.bz2
-<span class="o">==&gt;</span> Adding package pcre2@10.42 to mirror
-<span class="o">==&gt;</span> Fetching https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.42/pcre2-10.42.tar.bz2
-<span class="o">==&gt;</span> Adding package perl@5.36.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/e2/e26085af8ac396f62add8a533c3a0ea8c8497d836f0689347ac5abd7b7a4e00a.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/9d/9da50e155df72bce55cb69f51f1dbb4b62d23740fb99f6178bb27f22ebdf8a46.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/8c/8cf4302ca8b480c60ccdcaa29ec53d9d50a71d4baf469ac8c6fca00ca31e58a2
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/3b/3bbd7d6f9933d80b9571533867b444c6f8f5a1ba0575bfba1fba4db9d885a71a
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/0e/0eac10ed90aeb0459ad8851f88081d439a4e41978e586ec743069e8b059370ac
-<span class="o">==&gt;</span> Adding package perl-data-dumper@2.173 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/69/697608b39330988e519131be667ff47168aaaaf99f06bd2095d5b46ad05d76fa.tar.gz
-<span class="o">==&gt;</span> Adding package perl-encode-locale@1.05 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/17/176fa02771f542a4efb1dbc2a4c928e8f4391bf4078473bd6040d8f11adb0ec1.tar.gz
-<span class="o">==&gt;</span> Adding package perl-extutils-config@0.008 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/ae/ae5104f634650dce8a79b7ed13fb59d67a39c213a6776cfdaa3ee749e62f1a8c.tar.gz
-<span class="o">==&gt;</span> Adding package perl-extutils-helpers@0.026 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/de/de901b6790a4557cf4ec908149e035783b125bf115eb9640feb1bc1c24c33416.tar.gz
-<span class="o">==&gt;</span> Adding package perl-extutils-installpaths@0.012 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/84/84735e3037bab1fdffa3c2508567ad412a785c91599db3c12593a50a1dd434ed.tar.gz
-<span class="o">==&gt;</span> Adding package perl-file-listing@6.04 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/1e/1e0050fcd6789a2179ec0db282bf1e90fb92be35d1171588bd9c47d52d959cf5.tar.gz
-<span class="o">==&gt;</span> Adding package perl-html-parser@3.72 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/ec/ec28c7e1d9e67c45eca197077f7cdc41ead1bb4c538c7f02a3296a4bb92f608b.tar.gz
-<span class="o">==&gt;</span> Adding package perl-html-tagset@3.20 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/ad/adb17dac9e36cd011f5243881c9739417fd102fce760f8de4e9be4c7131108e2.tar.gz
-<span class="o">==&gt;</span> Adding package perl-http-cookies@6.10 to mirror
-<span class="o">==&gt;</span> Fetching http://search.cpan.org/CPAN/authors/id/O/OA/OALDERS/HTTP-Cookies-6.10.tar.gz
-<span class="o">==&gt;</span> Adding package perl-http-daemon@6.01 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/43/43fd867742701a3f9fcc7bd59838ab72c6490c0ebaf66901068ec6997514adc2.tar.gz
-<span class="o">==&gt;</span> Adding package perl-http-date@6.02 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/e8/e8b9941da0f9f0c9c01068401a5e81341f0e3707d1c754f8e11f42a7e629e333.tar.gz
-<span class="o">==&gt;</span> Adding package perl-http-message@6.44 to mirror
-<span class="o">==&gt;</span> Fetching http://search.cpan.org/CPAN/authors/id/O/OA/OALDERS/HTTP-Message-6.44.tar.gz
-<span class="o">==&gt;</span> Adding package perl-http-negotiate@6.01 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/1c/1c729c1ea63100e878405cda7d66f9adfd3ed4f1d6cacaca0ee9152df728e016.tar.gz
-<span class="o">==&gt;</span> Adding package perl-io-html@1.004 to mirror
-<span class="o">==&gt;</span> Fetching http://search.cpan.org/CPAN/authors/id/C/CJ/CJM/IO-HTML-1.004.tar.gz
-<span class="o">==&gt;</span> Adding package perl-libwww-perl@6.68 to mirror
-<span class="o">==&gt;</span> Fetching http://search.cpan.org/CPAN/authors/id/O/OA/OALDERS/libwww-perl-6.68.tar.gz
-<span class="o">==&gt;</span> Adding package perl-lwp-mediatypes@6.02 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/18/18790b0cc5f0a51468495c3847b16738f785a2d460403595001e0b932e5db676.tar.gz
-<span class="o">==&gt;</span> Adding package perl-module-build@0.4232 to mirror
-<span class="o">==&gt;</span> Fetching http://search.cpan.org/CPAN/authors/id/L/LE/LEONT/Module-Build-0.4232.tar.gz
-<span class="o">==&gt;</span> Adding package perl-module-build-tiny@0.039 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/7d/7d580ff6ace0cbe555bf36b86dc8ea232581530cbeaaea09bccb57b55797f11c.tar.gz
-<span class="o">==&gt;</span> Adding package perl-net-http@6.22 to mirror
-<span class="o">==&gt;</span> Fetching http://search.cpan.org/CPAN/authors/id/O/OA/OALDERS/Net-HTTP-6.22.tar.gz
-<span class="o">==&gt;</span> Adding package perl-test-needs@0.002010 to mirror
-<span class="o">==&gt;</span> Fetching https://search.cpan.org/CPAN/authors/id/H/HA/HAARG/Test-Needs-0.002010.tar.gz
-<span class="o">==&gt;</span> Adding package perl-try-tiny@0.28 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/f1/f1d166be8aa19942c4504c9111dade7aacb981bc5b3a2a5c5f6019646db8c146.tar.gz
-<span class="o">==&gt;</span> Adding package perl-uri@1.72 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/35/35f14431d4b300de4be1163b0b5332de2d7fbda4f05ff1ed198a8e9330d40a32.tar.gz
-<span class="o">==&gt;</span> Adding package perl-www-robotrules@6.02 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/46/46b502e7a288d559429891eeb5d979461dd3ecc6a5c491ead85d165b6e03a51e.tar.gz
-<span class="o">==&gt;</span> Adding package perl-xml-parser@2.44 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/1a/1ae9d07ee9c35326b3d9aad56eae71a6730a73a116b9fe9e8a4758b7cc033216.tar.gz
-<span class="o">==&gt;</span> Adding package pigz@2.7 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/d2/d2045087dae5e9482158f1f1c0f21c7d3de6f7cdc7cc5848bdabda544e69aa58.tar.gz
-<span class="o">==&gt;</span> Adding package pixman@0.42.2 to mirror
-<span class="o">==&gt;</span> Fetching https://cairographics.org/releases/pixman-0.42.2.tar.gz
-<span class="o">==&gt;</span> Adding package pkgconf@1.8.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/ef/ef9c7e61822b7cb8356e6e9e1dca58d9556f3200d78acab35e4347e9d4c2bbaf.tar.xz
-<span class="o">==&gt;</span> Adding package py-mako@1.2.2 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/37/3724869b363ba630a272a5f89f68c070352137b8fd1757650017b7e06fda163f.tar.gz
-<span class="o">==&gt;</span> Adding package py-markupsafe@2.1.1 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/7f/7f91197cc9e48f989d12e4e6fbc46495c446636dfc81b9ccf50bb0ec74b91d4b.tar.gz
-<span class="o">==&gt;</span> Adding package py-pip@23.0 to mirror
-<span class="o">==&gt;</span> Fetching https://files.pythonhosted.org/packages/py3/p/pip/pip-23.0-py3-none-any.whl
-<span class="o">==&gt;</span> Adding package py-setuptools@67.6.0 to mirror
-<span class="o">==&gt;</span> Fetching https://files.pythonhosted.org/packages/py3/s/setuptools/setuptools-67.6.0-py3-none-any.whl
-<span class="o">==&gt;</span> Adding package py-wheel@0.37.1 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/4b/4bdcd7d840138086126cd09254dc6195fb4fc6f01c050a1d7236f2630db1d22a
-<span class="o">==&gt;</span> Adding package python@3.10.10 to mirror
-<span class="o">==&gt;</span> Fetching https://www.python.org/ftp/python/3.10.10/Python-3.10.10.tgz
-<span class="o">==&gt;</span> Adding package randrproto@1.5.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/8f/8f8a716d6daa6ba05df97d513960d35a39e040600bf04b313633f11679006fab.tar.gz
-<span class="o">==&gt;</span> Adding package re2c@2.2 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/0f/0fc45e4130a8a555d68e230d1795de0216dfe99096b61b28e67c86dfd7d86bda.tar.xz
-<span class="o">==&gt;</span> Adding package readline@8.2 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/3f/3feb7171f16a84ee82ca18a36d7b9be109a52c04f492a053331d7d1095007c35.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/bb/bbf97f1ec40a929edab5aa81998c1e2ef435436c597754916e6a5868f273aff7
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/68/682a465a68633650565c43d59f0b8cdf149c13a874682d3c20cb4af6709b9144
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/e5/e55be055a68cb0719b0ccb5edc9a74edcc1d1f689e8a501525b3bc5ebad325dc
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/d8/d8e5e98933cf5756f862243c0601cb69d3667bb33f2c7b751fe4e40b2c3fd069
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/36/36b0febff1e560091ae7476026921f31b6d1dd4c918dcb7b741aa2dad1aec8f7
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/94/94ddb2210b71eb5389c7756865d60e343666dfb722c85892f8226b26bb3eeaef
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/b1/b1aa3d2a40eee2dea9708229740742e649c32bb8db13535ea78f8ac15377394c
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/9a/9ac1b3ac2ec7b1bf0709af047f2d7d2a34ccde353684e57c6b47ebca77d7a376
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/87/8747c92c35d5db32eae99af66f17b384abaca961653e185677f9c9a571ed2d58
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/9e/9e43aa93378c7e9f7001d8174b1beb948deefa6799b6f581673f465b7d9d4780
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/f9/f925683429f20973c552bff6702c74c58c2a38ff6e5cf305a8e847119c5a6b64
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/ca/ca159c83706541c6bbe39129a33d63bbd76ac594303f67e4d35678711c51b753
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/1a/1a79bbb6eaee750e0d6f7f3d059b30a45fc54e8e388a8e05e9c3ae598590146f
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/39/39e304c7a526888f9e112e733848215736fb7b9d540729b9e31f3347b7a1e0a5
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/ec/ec41bdd8b00fd884e847708513df41d51b1243cecb680189e31b7173d01ca52f
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/45/4547b906fb2570866c21887807de5dee19838a60a1afb66385b272155e4355cc
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/87/877788f9228d1a9907a4bcfe3d6dd0439c08d728949458b41208d9bf9060274b
-<span class="o">==&gt;</span> Warning: Error <span class="k">while </span>fetching readline@8.2
-  All fetchers failed <span class="k">for </span>spack-stage-d0z8q77a
-<span class="o">==&gt;</span> Adding package recordproto@1.14.2 to mirror
-<span class="o">==&gt;</span> Fetching https://mirrors.ircam.fr/pub/x.org/individual/proto/recordproto-1.14.2.tar.gz
-<span class="o">==&gt;</span> Adding package renderproto@0.11.1 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/a0/a0a4be3cad9381ae28279ba5582e679491fc2bec9aab8a65993108bf8dbce5fe.tar.gz
-<span class="o">==&gt;</span> Adding package ruby@3.1.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/50/50a0504c6edcb4d61ce6b8cfdbddaa95707195fab0ecd7b5e92654b2a9412854.tar.gz
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/df/df68841998b7fd098a9517fe971e97890be0fc93bbe1b2a1ef63ebdea3111c80
-<span class="o">==&gt;</span> Adding package rust@1.65.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/58/5828bb67f677eabf8c384020582b0ce7af884e1c84389484f7f8d00dd82c0038.tar.gz
-<span class="o">==&gt;</span> Fetching https://static.rust-lang.org/dist/rust-1.65.0-x86_64-unknown-linux-gnu.tar.gz
-<span class="o">==&gt;</span> Adding package shared-mime-info@1.9 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/5c/5c0133ec4e228e41bdf52f726d271a2d821499c2ab97afd3aa3d6cf43efcdc83.tar.xz
-<span class="o">==&gt;</span> Adding package sqlite@3.40.1 to mirror
-<span class="o">==&gt;</span> Fetching https://www.sqlite.org/2022/sqlite-autoconf-3400100.tar.gz
-<span class="o">==&gt;</span> Adding package <span class="nb">tar</span>@1.34 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/03/03d908cf5768cfe6b7ad588c921c6ed21acabfb2b79b788d1330453507647aed.tar.gz
-<span class="o">==&gt;</span> Adding package texinfo@7.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/92/9261d4ee11cdf6b61895e213ffcd6b746a61a64fe38b9741a3aaa73125b35170.tar.gz
-<span class="o">==&gt;</span> Adding package unzip@6.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/03/036d96991646d0449ed0aa952e4fbe21b476ce994abc276e49d30e686708bd37.tar.gz
-<span class="o">==&gt;</span> Adding package util-linux-uuid@2.36.2 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/f5/f5dbe79057e7d68e1a46fc04083fc558b26a49499b1b3f50e4f4893150970463.tar.gz
-<span class="o">==&gt;</span> Adding package util-macros@1.19.3 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/0f/0f812e6e9d2786ba8f54b960ee563c0663ddbe2434bf24ff193f5feab1f31971.tar.bz2
-<span class="o">==&gt;</span> Adding package vim@9.0.0045 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/59/594a31e96e3eda07a358db305de939ca749693b4684de9e027bfa70311b1994d.tar.gz
-<span class="o">==&gt;</span> Adding package xcb-proto@1.14.1 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/f0/f04add9a972ac334ea11d9d7eb4fc7f8883835da3e4859c9afa971efdf57fcc3.tar.xz
-<span class="o">==&gt;</span> Adding package xextproto@7.3.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/1b/1b1bcdf91221e78c6c33738667a57bd9aaa63d5953174ad8ed9929296741c9f5.tar.gz
-<span class="o">==&gt;</span> Adding package xkbcomp@1.4.4 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/15/159fba6b62ef4a3fb16ef7fc4eb4fc26f3888652471ceb604c495783dda020bc.tar.gz
-<span class="o">==&gt;</span> Adding package xkbdata@1.0.1 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/5b/5b43ca5219cd4022a158a8d4bfa30308ea5e16c9b5270a64589ebfe7f875f430.tar.gz
-<span class="o">==&gt;</span> Adding package xmlto@0.0.28 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/2f/2f986b7c9a0e9ac6728147668e776d405465284e13c74d4146c9cbc51fd8aad3.tar.gz
-<span class="o">==&gt;</span> Adding package xproto@7.0.31 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/6d/6d755eaae27b45c5cc75529a12855fed5de5969b367ed05003944cf901ed43c7.tar.gz
-<span class="o">==&gt;</span> Adding package xrandr@1.5.0 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/dd/ddfe8e7866149c24ccce8e6aaa0623218ae19130c2859cadcaa4228d8bb4a46d.tar.gz
-<span class="o">==&gt;</span> Adding package xtrans@1.3.5 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/b7/b7a577c1b6c75030145e53b4793db9c88f9359ac49e7d771d4385d21b3e5945d.tar.gz
-<span class="o">==&gt;</span> Adding package xz@5.4.1 to mirror
-<span class="o">==&gt;</span> Fetching https://prdownloads.sourceforge.net/lzmautils/files/xz-5.4.1.tar.bz2
-<span class="o">==&gt;</span> Adding package zlib@1.2.13 to mirror
-<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/b3/b3a24de97a8fdbc835b9833169501030b8977031bcb54b3b3ac13740f846ab30.tar.gz
-<span class="o">==&gt;</span> Adding package zstd@1.5.4 to mirror
-<span class="o">==&gt;</span> Warning: Error <span class="k">while </span>fetching zstd@1.5.4
-  All fetchers failed <span class="k">for </span>spack-stage-zstd-1.5.4-fcoqzia2hmo7w2ydmmagjiatpskgp7jf
-<span class="o">==&gt;</span> Summary <span class="k">for </span>mirror <span class="k">in</span> /local/tools/os/spack/pkgs-mirror
-<span class="o">==&gt;</span> Archive stats:
-    0    already present
-    160  added
-    5    failed to fetch.
-<span class="o">==&gt;</span> Error: Failed downloads:
-expat@2.5.0  intltool@0.51.0  zstd@1.5.4  readline@8.2  inputproto@2.3.2
-</code></pre></div></div>
-
-<p>提示有失败。可以将传输错误的临时文件删掉，重新执行试试。完成mirror操作之后，将/local/tools/os/spack/pkgs-mirror与/home/centos/.spack(这个目录缓存好了spack bootstrap)目录传到centos7-9-offline机器，配置mirror信息，</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@centos7-9-offline ~]<span class="nv">$ </span>spack mirror add local_filesystem file:///nfs/tools/os/spack/pkgs-mirror
-<span class="o">[</span>centos@centos7-9-offline ~]<span class="nv">$ </span><span class="nb">cat</span> ~/.spack/mirrors.yaml
-mirrors:
-  local_filesystem: file:///nfs/tools/os/spack/pkgs-mirror
-</code></pre></div></div>
-
-<p>这样，spack在离线环境就可以使用mirror过来的目录安装了</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@centos7-9-offline ~]<span class="nv">$ </span>spack <span class="nb">install </span>vim %gcc@12.2.0 +gtk +gui +lua +perl +python +ruby +x +cscope
-</code></pre></div></div>
-
-<p>验证</p>
-
-<p><a href="https://spack.readthedocs.io/en/latest/mirrors.html">Spack Mirrors</a></p>]]></content><author><name></name></author><category term="icenv" /><category term="linux" /><summary type="html"><![CDATA[背景 包括芯片设计公司在内，许多研发型公司为了数据安全与网络安全，会将其研发环境与互联网隔绝开来，从物理上禁止了数据在内外部自由流通，也禁止了来自外部的网络攻击。 安全与效率总是不能够双双完美的，这种架构保证了安全，在很多需要数据传输、访问在线服务的场景上，这种架构就给效率打了折扣。研发环境开源工具的安装与管理，就是场景之一。]]></summary></entry><entry><title type="html">限制用户直接访问lsf执行机</title><link href="https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts/" rel="alternate" type="text/html" title="限制用户直接访问lsf执行机" /><published>2023-03-22T01:57:58+00:00</published><updated>2023-03-22T01:57:58+00:00</updated><id>https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/restrict-user-access-to-remote-lsf-exec-hosts/"><![CDATA[<h1 id="需求">需求</h1>
-<p>禁止用户直接访问LSF执行机，以实现LSF执行机的用户进程都来自于LSF的调度，确保使用的公平性，以及方便管理员管理。</p>
-
-<h1 id="实现">实现</h1>
-<ol>
-  <li>https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=bsub-about-interactive-jobs  //将队列配置为batch-only，以禁止用户提交interactive的job</li>
-  <li>https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=cluster-restrict-user-access-remote-hosts  //禁止普通用户执行lsrun, lsgrun与lsmake</li>
-  <li>每台机器的sshd配置，禁止普通用户登录。</li>
-</ol>
-
-<p>三个步骤组合起来，可以满足需求。但interactive往往是必须的，因此可以细化队列的管理，允许个别队列的interactive。</p>]]></content><author><name></name></author><category term="icenv" /><category term="lsf" /><summary type="html"><![CDATA[需求 禁止用户直接访问LSF执行机，以实现LSF执行机的用户进程都来自于LSF的调度，确保使用的公平性，以及方便管理员管理。]]></summary></entry><entry><title type="html">Python bytes的单个元素与slice</title><link href="https://www.icinfra.cn/blog/2023/python-bytes/" rel="alternate" type="text/html" title="Python bytes的单个元素与slice" /><published>2023-03-21T13:59:32+00:00</published><updated>2023-03-21T13:59:32+00:00</updated><id>https://www.icinfra.cn/blog/2023/python-bytes</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/python-bytes/"><![CDATA[<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">wanlinwang</span><span class="nd">@MacBook</span><span class="o">-</span><span class="n">Pro</span> <span class="o">~</span> <span class="o">%</span> <span class="n">python3</span> 
-<span class="n">Python</span> <span class="mf">3.10</span><span class="p">.</span><span class="mi">8</span> <span class="p">(</span><span class="n">main</span><span class="p">,</span> <span class="n">Mar</span> <span class="mi">17</span> <span class="mi">2023</span><span class="p">,</span> <span class="mi">21</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">21</span><span class="p">)</span> <span class="p">[</span><span class="n">Clang</span> <span class="mf">14.0</span><span class="p">.</span><span class="mi">0</span> <span class="p">(</span><span class="n">clang</span><span class="o">-</span><span class="mf">1400.0</span><span class="p">.</span><span class="mf">29.202</span><span class="p">)]</span> <span class="n">on</span> <span class="n">darwin</span>
-<span class="n">Type</span> <span class="s">"help"</span><span class="p">,</span> <span class="s">"copyright"</span><span class="p">,</span> <span class="s">"credits"</span> <span class="ow">or</span> <span class="s">"license"</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="p">.</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">cafe</span> <span class="o">=</span> <span class="nf">bytes</span><span class="p">(</span><span class="s">'café'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">'utf_8'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">cafe</span>
-<span class="sa">b</span><span class="s">'caf</span><span class="se">\xc3\xa9</span><span class="s">'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">cafe</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="mi">99</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">cafe</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span>
-<span class="sa">b</span><span class="s">'c'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nf">type</span><span class="p">(</span><span class="n">cafe</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="o">&lt;</span><span class="k">class</span> <span class="err">'</span><span class="nc">int</span><span class="s">'&gt;
-&gt;&gt;&gt; type(cafe[:1])
-&lt;class '</span><span class="nb">bytes</span><span class="s">'&gt;
-&gt;&gt;&gt; 
-</span></code></pre></div></div>
-
-<p>Python bytes的单个元素与slice，不是同一种类型。bytes的单个元素，是一个范围是0到255的整数；而bytes的slice同样是bytes，即使slice的长度是1。</p>]]></content><author><name></name></author><category term="icenv" /><category term="python" /><summary type="html"><![CDATA[wanlinwang@MacBook-Pro ~ % python3 Python 3.10.8 (main, Mar 17 2023, 21:21:21) [Clang 14.0.0 (clang-1400.0.29.202)] on darwin Type "help", "copyright", "credits" or "license" for more information. &gt;&gt;&gt; cafe = bytes('café', encoding='utf_8') &gt;&gt;&gt; cafe b'caf\xc3\xa9' &gt;&gt;&gt; cafe[0] 99 &gt;&gt;&gt; cafe[:1] b'c' &gt;&gt;&gt; type(cafe[0]) &lt;class 'int'&gt; &gt;&gt;&gt; type(cafe[:1]) &lt;class 'bytes'&gt; &gt;&gt;&gt;]]></summary></entry><entry><title type="html">lsf运行问题</title><link href="https://www.icinfra.cn/blog/2023/lsf-problems/" rel="alternate" type="text/html" title="lsf运行问题" /><published>2023-03-20T12:08:15+00:00</published><updated>2023-03-20T12:08:15+00:00</updated><id>https://www.icinfra.cn/blog/2023/lsf-problems</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/lsf-problems/"><![CDATA[<p><img src="/assets/img/Pasted%20image%2020230320200849.png" alt="" />
-master到执行机的udp端口不通导致问题（在执行机的input方向，开了来自于master的tcp连接，没开udp连接）。</p>
-
-<p><img src="/assets/img/Pasted%20image%2020230320200840.png" alt="" />
-从执行机到master通信失败导致的问题（在执行机的output方向，禁止掉了去往master的连接）。</p>]]></content><author><name></name></author><category term="icenv" /><category term="lsf" /><summary type="html"><![CDATA[master到执行机的udp端口不通导致问题（在执行机的input方向，开了来自于master的tcp连接，没开udp连接）。]]></summary></entry></feed>
+<p>Note that MathJax 3 is <a href="https://docs.mathjax.org/en/latest/upgrading/whats-new-3.0.html">a major re-write of MathJax</a> that brought a significant improvement to the loading and rendering speed, which is now <a href="http://www.intmath.com/cg5/katex-mathjax-comparison.php">on par with KaTeX</a>.</p>]]></content><author><name></name></author><category term="sample-posts" /><category term="formatting" /><category term="math" /><summary type="html"><![CDATA[an example of a blog post with some math]]></summary></entry></feed>
