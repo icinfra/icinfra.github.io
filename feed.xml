@@ -1,5 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-05-06T14:55:07+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">从Grafana获取panel图片</title><link href="https://www.icinfra.cn/blog/2023/rendering-image-from-grafana-panel/" rel="alternate" type="text/html" title="从Grafana获取panel图片" /><published>2023-05-06T01:23:19+00:00</published><updated>2023-05-06T01:23:19+00:00</updated><id>https://www.icinfra.cn/blog/2023/rendering-image-from-grafana-panel</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/rendering-image-from-grafana-panel/"><![CDATA[<h1 id="前言">前言</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-05-07T03:17:03+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">Python pillow修图</title><link href="https://www.icinfra.cn/blog/2023/modify-image-with-pillow/" rel="alternate" type="text/html" title="Python pillow修图" /><published>2023-05-07T02:47:38+00:00</published><updated>2023-05-07T02:47:38+00:00</updated><id>https://www.icinfra.cn/blog/2023/modify-image-with-pillow</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/modify-image-with-pillow/"><![CDATA[<h1 id="背景">背景</h1>
+<p>以指定参数去调用Grafana可视化界面API生成图片。但API未提供修改图片（如title或其它区域）的功能，直接作为报告发送可能传达的信息不够清晰。</p>
+
+<h1 id="步骤">步骤</h1>
+<h2 id="获取图片">获取图片</h2>
+<p>按照<a href="https://www.icinfra.cn/blog/2023/rendering-image-from-grafana-panel/">本文</a>的步骤获取图片（数值已马赛克）：
+![[Pasted image 20230507110045.png]]</p>
+
+<h2 id="修图需求">修图需求</h2>
+<ol>
+  <li>将title修改掉；</li>
+  <li>total Mean去掉，不重要。</li>
+</ol>
+
+<h2 id="编码">编码</h2>
+<p>先安装好pillow模块</p>
+
+<p><code class="language-plaintext highlighter-rouge">pip3 install pillow</code></p>
+
+<p>然后码</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3
+</span>
+<span class="c1"># wanlinwang
+# 07-May-2023
+# 处理500x250的图片，修改标题，再抹掉部分信息。
+</span>
+
+<span class="kn">from</span> <span class="n">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageFont</span><span class="p">,</span> <span class="n">ImageDraw</span>
+
+
+<span class="n">filename</span><span class="o">=</span><span class="s">"/Users/wanlinwang/image_processing/过去30天的License使用报告_20230407000000_to_20230507000000_raw.png"</span>
+<span class="n">filename_dst</span><span class="o">=</span><span class="s">"/Users/wanlinwang/image_processing/过去30天的License使用报告_20230407000000_to_20230507000000_dest.png"</span>
+
+<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="n">W</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">size</span>
+
+<span class="n">title_font</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="p">.</span><span class="nf">truetype</span><span class="p">(</span><span class="s">'/Users/wanlinwang/image_processing/fonts/NotoSerifSC-Black.otf'</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">image_editable</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="p">.</span><span class="nc">Draw</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+<span class="n">title_text</span><span class="o">=</span><span class="s">"过去30天的License使用报告"</span>
+
+<span class="c1"># (x0, y0, x1, y1), 填充黑色，抹掉原title
+</span><span class="n">image_editable</span><span class="p">.</span><span class="nf">rectangle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="s">"black"</span><span class="p">)</span>
+<span class="c1"># 加上新title
+</span><span class="n">image_editable</span><span class="p">.</span><span class="nf">text</span><span class="p">((</span><span class="n">W</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">title_text</span><span class="p">,</span> <span class="p">(</span><span class="mi">237</span><span class="p">,</span> <span class="mi">230</span><span class="p">,</span> <span class="mi">211</span><span class="p">),</span> <span class="n">anchor</span><span class="o">=</span><span class="s">'ma'</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="n">title_font</span><span class="p">)</span>
+<span class="c1"># (x0, y0, x1, y1), 填充黑色，抹掉total Mean
+</span><span class="n">image_editable</span><span class="p">.</span><span class="nf">rectangle</span><span class="p">((</span><span class="mi">135</span><span class="p">,</span> <span class="mi">222</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span>  <span class="n">H</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="s">"black"</span><span class="p">)</span>
+
+<span class="c1"># 保存图片文件
+</span><span class="n">im</span><span class="p">.</span><span class="nf">save</span><span class="p">(</span><span class="n">filename_dst</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="效果">效果</h1>
+<p>![[Pasted image 20230507110141.png]]</p>
+
+<h1 id="参考资料">参考资料</h1>
+<ol>
+  <li>ImageDraw.text()锚点参数说明：https://pillow.readthedocs.io/en/stable/reference/ImageDraw.html#PIL.ImageDraw.ImageDraw.text</li>
+  <li>获取图片像素点，在Windows上可以使用<strong>画图</strong>打开图片，将鼠标停留在图片任意像素点，即可在左下方显示像素点的坐标位置。在MacOS暂未找到方法，欢迎留言。</li>
+</ol>]]></content><author><name></name></author><category term="icenv" /><summary type="html"><![CDATA[背景 以指定参数去调用Grafana可视化界面API生成图片。但API未提供修改图片（如title或其它区域）的功能，直接作为报告发送可能传达的信息不够清晰。]]></summary></entry><entry><title type="html">从Grafana获取panel图片</title><link href="https://www.icinfra.cn/blog/2023/rendering-image-from-grafana-panel/" rel="alternate" type="text/html" title="从Grafana获取panel图片" /><published>2023-05-06T01:23:19+00:00</published><updated>2023-05-06T01:23:19+00:00</updated><id>https://www.icinfra.cn/blog/2023/rendering-image-from-grafana-panel</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/rendering-image-from-grafana-panel/"><![CDATA[<h1 id="前言">前言</h1>
 <p>日常工作，有这样的需求：以指定的时间区间以及变量，获得Grafana panel图，并将多张图以邮件的方式发送到领导。</p>
 
 <h1 id="步骤">步骤</h1>
@@ -487,18 +545,4 @@ Loading tcl-8.6.12-gcc-12.2.0-5rkwrb3
 <p>配置 X-Forwarded-For  1.1.1.1
 <img src="/assets/img/Pasted%20image%2020230403093949.png" alt="" /></p>
 
-<p><img src="/assets/img/Pasted%20image%2020230403100926.png" alt="" /></p>]]></content><author><name></name></author><category term="aigc" /><summary type="html"><![CDATA[New Bing的注册]]></summary></entry><entry><title type="html">new bing绘画</title><link href="https://www.icinfra.cn/blog/2023/new-bing-create/" rel="alternate" type="text/html" title="new bing绘画" /><published>2023-03-28T23:51:00+00:00</published><updated>2023-03-28T23:51:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/new-bing-create</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/new-bing-create/"><![CDATA[<p>new bing推出了图片生成，<a href="https://www.bing.com/create">地址</a></p>
-
-<p>请它画：一副很美的春天景色，微风细雨，苔痕上阶绿草色入帘青，油纸伞，柳絮飘飘，三两只鸟飞过。</p>
-
-<p><img src="/assets/img/Pasted%20image%2020230329075258.png" alt="" /></p>
-
-<p>原图如下</p>
-
-<p><img src="/assets/img/Pasted%20image%2020230329075132.png" alt="" /></p>
-
-<p><img src="/assets/img/Pasted%20image%2020230329075145.png" alt="" /></p>
-
-<p><img src="/assets/img/Pasted%20image%2020230329075151.png" alt="" /></p>
-
-<p><img src="/assets/img/Pasted%20image%2020230329075158.png" alt="" /></p>]]></content><author><name></name></author><category term="aigc" /><summary type="html"><![CDATA[new bing推出了图片生成，地址]]></summary></entry></feed>
+<p><img src="/assets/img/Pasted%20image%2020230403100926.png" alt="" /></p>]]></content><author><name></name></author><category term="aigc" /><summary type="html"><![CDATA[New Bing的注册]]></summary></entry></feed>
