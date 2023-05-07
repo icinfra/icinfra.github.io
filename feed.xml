@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-05-07T03:22:43+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-05-07T03:23:48+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 </subtitle><entry><title type="html">Python pillow修图</title><link href="https://www.icinfra.cn/blog/2023/modify-image-with-pillow/" rel="alternate" type="text/html" title="Python pillow修图" /><published>2023-05-07T02:47:38+00:00</published><updated>2023-05-07T02:47:38+00:00</updated><id>https://www.icinfra.cn/blog/2023/modify-image-with-pillow</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/modify-image-with-pillow/"><![CDATA[<h1 id="背景">背景</h1>
 <p>以指定参数去调用Grafana可视化界面API生成图片。但API未提供修改图片（如title或其它区域）的功能，直接作为报告发送可能传达的信息不够清晰。</p>
 
 <h1 id="步骤">步骤</h1>
 <h2 id="获取图片">获取图片</h2>
-<p>按照<a href="https://www.icinfra.cn/blog/2023/rendering-image-from-grafana-panel/">本文</a>的步骤获取图片（数值已马赛克）：
-<img src="/assets/img/Pasted%20image%2020230507110045.png" alt="" /></p>
+<p>按照<a href="https://www.icinfra.cn/blog/2023/rendering-image-from-grafana-panel/">本文</a>的步骤获取图片（数值已马赛克）：</p>
+
+<p><img src="/assets/img/Pasted%20image%2020230507110045.png" alt="" /></p>
 
 <h2 id="修图需求">修图需求</h2>
 <ol>
