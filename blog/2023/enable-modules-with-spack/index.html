@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Python tuple += 的谜题 | IC Infra</title>
+    <title>spack打开modules | IC Infra</title>
     <meta name="author" content="Wanlin  Wang">
     <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 ">
@@ -39,7 +39,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://www.icinfra.cn/blog/2023/tuple-addition-assignment-puzzler/">
+    <link rel="canonical" href="https://www.icinfra.cn/blog/2023/enable-modules-with-spack/">
 
     <!-- Dark Mode -->
     
@@ -136,13 +136,13 @@
 <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">Python tuple += 的谜题</h1>
-    <p class="post-meta">March 13, 2023</p>
+    <h1 class="post-title">spack打开modules</h1>
+    <p class="post-meta">May 7, 2023</p>
     <p class="post-tags">
       <a href="/blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
         ·  
-        <a href="/blog/tag/python">
-          <i class="fas fa-hashtag fa-sm"></i> python</a>  
+        <a href="/blog/tag/spack">
+          <i class="fas fa-hashtag fa-sm"></i> spack</a>  
           
         ·  
         <a href="/blog/category/icenv">
@@ -151,7 +151,7 @@
 
       <!-- 本页浏览数 added by wanlinwang 03-Mar-2023. -->
         ·  
-      <img src="https://visitor-badge.glitch.me/badge?page_id=al-folio/blog/2023/tuple-addition-assignment-puzzler" alt="visitor badge">
+      <img src="https://visitor-badge.glitch.me/badge?page_id=al-folio/blog/2023/enable-modules-with-spack" alt="visitor badge">
 
     </p>
   </header>
@@ -159,68 +159,17 @@
   <article class="post-content">
     
     <div id="markdown-content">
-      <p>Python的tuple是一个不可修改的数据类型。</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> a <span class="o">=</span> <span class="o">(</span>1,2,3<span class="o">)</span>
-<span class="o">&gt;&gt;&gt;</span> a[0]
-1
-<span class="o">&gt;&gt;&gt;</span> a[0] <span class="o">=</span> 11
-Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
-  File <span class="s2">"&lt;stdin&gt;"</span>, line 1, <span class="k">in</span> &lt;module&gt;
-TypeError: <span class="s1">'tuple'</span> object does not support item assignment
-</code></pre></div></div>
+      <h1 id="背景">背景</h1>
+<p>spack是HPC使用最广的包管理器之一。
+最近行业内朋友频繁遇到一个问题：在使用新版本spack安装完工具后，未生成工具的modulefile。</p>
 
-<p>那么tuple里放一个list，对这个tuple里的list做扩展，是什么结果？</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> t <span class="o">=</span> <span class="o">(</span>1, 2, <span class="o">[</span>30, 40]<span class="o">)</span>
-<span class="o">&gt;&gt;&gt;</span> t[2] +<span class="o">=</span> <span class="o">[</span>50, 60]
-</code></pre></div></div>
-<ol>
-  <li>t变成(1, 2, [30, 40, 50, 60])</li>
-  <li>像上面那样抛出TypeError: ‘tuple’ object does not support item assignment</li>
-  <li>1与2都不是</li>
-  <li>1与2都是</li>
-</ol>
+<h1 id="解决">解决</h1>
+<p>根据官网介绍，
+https://spack.readthedocs.io/en/latest/module_file_support.html#write-a-configuration-file</p>
 
-<p>答案如下，是不是出乎意料？</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> t <span class="o">=</span> <span class="o">(</span>1, 2, <span class="o">[</span>30, 40]<span class="o">)</span>
-<span class="o">&gt;&gt;&gt;</span> t[2] +<span class="o">=</span> <span class="o">[</span>50, 60]
-Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
-  File <span class="s2">"&lt;stdin&gt;"</span>, line 1, <span class="k">in</span> &lt;module&gt;
-TypeError: <span class="s1">'tuple'</span> object does not support item assignment
-<span class="o">&gt;&gt;&gt;</span> t
-<span class="o">(</span>1, 2, <span class="o">[</span>30, 40, 50, 60]<span class="o">)</span>
-</code></pre></div></div>
+<p><img src="/assets/img/Pasted%20image%2020230507171645.png" alt=""></p>
 
-<p>通过https://pythontutor.com/visualize.html#mode=display图形化查看代码执行
-<img src="/assets/img/Pasted%20image%2020230313222004.png" alt="">
-<img src="/assets/img/Pasted%20image%2020230313222032.png" alt=""></p>
-
-<p>使用dis模块查看s[a] += b的字节码</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> import dis
-<span class="o">&gt;&gt;&gt;</span> dis.dis<span class="o">(</span><span class="s1">'s[a] += b'</span><span class="o">)</span>
-  1           0 LOAD_NAME                0 <span class="o">(</span>s<span class="o">)</span>
-              2 LOAD_NAME                1 <span class="o">(</span>a<span class="o">)</span>
-              4 DUP_TOP_TWO
-              6 BINARY_SUBSCR
-              8 LOAD_NAME                2 <span class="o">(</span>b<span class="o">)</span>
-             10 INPLACE_ADD
-             12 ROT_THREE
-             14 STORE_SUBSCR
-             16 LOAD_CONST               0 <span class="o">(</span>None<span class="o">)</span>
-             18 RETURN_VALUE
-
-</code></pre></div></div>
-
-<blockquote>
-  <p>DUP_TOP_TWO: 将栈顶的两个引用复制，保持顺序
-BINARY_SUBSCR: TOS = TOS1[TOS]的实现
-ROT_THREE：将栈顶的第二、第三个元素提升一个位置，将最顶的放到第三位置。
-ROT_TWO: 将栈顶的两个元素对调</p>
-</blockquote>
-
-<h1 id="参考资料">参考资料</h1>
-<p>https://docs.python.org/3/library/dis.html
-https://learning.oreilly.com/library/view/fluent-python-2nd/9781492056348/ch02.html#tuple_puzzler
-https://www.synopsys.com/blogs/software-security/understanding-python-bytecode/</p>
+<p>可以打开tcl、lmod或者二者都打开。</p>
 
     </div>
   </article>
@@ -245,12 +194,6 @@ https://www.synopsys.com/blogs/software-security/understanding-python-bytecode/<
   
 
   <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/enable-modules-with-spack/">spack打开modules</a>
-  </li>
-
-  
-
-  <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/modify-image-with-pillow/">Python pillow修图</a>
   </li>
 
@@ -264,6 +207,12 @@ https://www.synopsys.com/blogs/software-security/understanding-python-bytecode/<
 
   <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/hyperthreading/">超线程</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/process-sched/">Process Sched</a>
   </li>
 
 <div id="giscus_thread" style="max-width: 800px; margin: 0 auto;">
