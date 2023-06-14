@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-06-14T14:59:54+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-06-14T23:11:00+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 </subtitle><entry><title type="html">Subversion Performance</title><link href="https://www.icinfra.cn/blog/2023/subversion-performance/" rel="alternate" type="text/html" title="Subversion Performance" /><published>2023-06-12T13:46:33+00:00</published><updated>2023-06-12T13:46:33+00:00</updated><id>https://www.icinfra.cn/blog/2023/subversion-performance</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/subversion-performance/"><![CDATA[<h1 id="背景">背景</h1>
 <p>据作者了解，截止至本文写作，芯片研发业务大多在使用CentOS/RHEL 7，其中7.9是final版本，使用的最多。还有些因历史项目与老旧工具版本，在使用CentOS/RHEL 5或者6的。</p>
 
@@ -58,13 +58,44 @@
   </tbody>
 </table>
 
-<p>实验数据
-| 序号 | 环境一 | 环境二 | 时间%降低至 |
-| —— | —— | —— | —— |
-| co | 63.470u 22.431s | 110.595u 24.920s | 63% |
-| co | 63.467u 22.718s | 113.484u 25.144s | 62% |
-| up | 44.089u 16.353s | 84.621u 19.304s | 58% |
-| up | 43.856u 16.083s | 83.391u 19.075s | 58% |</p>
+<p>实验数据</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>环境一</th>
+      <th>环境二</th>
+      <th>时间%降低至</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>co</td>
+      <td>63.470u 22.431s</td>
+      <td>110.595u 24.920s</td>
+      <td>63%</td>
+    </tr>
+    <tr>
+      <td>co</td>
+      <td>63.467u 22.718s</td>
+      <td>113.484u 25.144s</td>
+      <td>62%</td>
+    </tr>
+    <tr>
+      <td>up</td>
+      <td>44.089u 16.353s</td>
+      <td>84.621u 19.304s</td>
+      <td>58%</td>
+    </tr>
+    <tr>
+      <td>up</td>
+      <td>43.856u 16.083s</td>
+      <td>83.391u 19.075s</td>
+      <td>58%</td>
+    </tr>
+  </tbody>
+</table>
 
 <h1 id="结论">结论</h1>
 
