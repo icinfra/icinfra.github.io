@@ -27,7 +27,7 @@
     <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha256-i1+4qU2G2860dGGIOJscdC30s9beBXjFfzjWLjBRsBg=" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700%7CRoboto+Slab:100,300,400,500,700%7CMaterial+Icons">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons">
 
     <!-- Code Syntax Highlighting -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/github.css" media="" id="highlight_theme_light">
@@ -190,22 +190,22 @@
 <span class="kn">from</span> <span class="n">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageFont</span><span class="p">,</span> <span class="n">ImageDraw</span>
 
 
-<span class="n">filename</span><span class="o">=</span><span class="s">"/Users/wanlinwang/image_processing/过去30天的License使用报告_20230407000000_to_20230507000000_raw.png"</span>
-<span class="n">filename_dst</span><span class="o">=</span><span class="s">"/Users/wanlinwang/image_processing/过去30天的License使用报告_20230407000000_to_20230507000000_dest.png"</span>
+<span class="n">filename</span><span class="o">=</span><span class="sh">"</span><span class="s">/Users/wanlinwang/image_processing/过去30天的License使用报告_20230407000000_to_20230507000000_raw.png</span><span class="sh">"</span>
+<span class="n">filename_dst</span><span class="o">=</span><span class="sh">"</span><span class="s">/Users/wanlinwang/image_processing/过去30天的License使用报告_20230407000000_to_20230507000000_dest.png</span><span class="sh">"</span>
 
 <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 <span class="n">W</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="n">im</span><span class="p">.</span><span class="n">size</span>
 
-<span class="n">title_font</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="p">.</span><span class="nf">truetype</span><span class="p">(</span><span class="s">'/Users/wanlinwang/image_processing/fonts/NotoSerifSC-Black.otf'</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">title_font</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="p">.</span><span class="nf">truetype</span><span class="p">(</span><span class="sh">'</span><span class="s">/Users/wanlinwang/image_processing/fonts/NotoSerifSC-Black.otf</span><span class="sh">'</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
 <span class="n">image_editable</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="p">.</span><span class="nc">Draw</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
-<span class="n">title_text</span><span class="o">=</span><span class="s">"过去30天的License使用报告"</span>
+<span class="n">title_text</span><span class="o">=</span><span class="sh">"</span><span class="s">过去30天的License使用报告</span><span class="sh">"</span>
 
 <span class="c1"># (x0, y0, x1, y1), 填充黑色，抹掉原title
-</span><span class="n">image_editable</span><span class="p">.</span><span class="nf">rectangle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="s">"black"</span><span class="p">)</span>
+</span><span class="n">image_editable</span><span class="p">.</span><span class="nf">rectangle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="sh">"</span><span class="s">black</span><span class="sh">"</span><span class="p">)</span>
 <span class="c1"># 加上新title
-</span><span class="n">image_editable</span><span class="p">.</span><span class="nf">text</span><span class="p">((</span><span class="n">W</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">title_text</span><span class="p">,</span> <span class="p">(</span><span class="mi">237</span><span class="p">,</span> <span class="mi">230</span><span class="p">,</span> <span class="mi">211</span><span class="p">),</span> <span class="n">anchor</span><span class="o">=</span><span class="s">'ma'</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="n">title_font</span><span class="p">)</span>
+</span><span class="n">image_editable</span><span class="p">.</span><span class="nf">text</span><span class="p">((</span><span class="n">W</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">title_text</span><span class="p">,</span> <span class="p">(</span><span class="mi">237</span><span class="p">,</span> <span class="mi">230</span><span class="p">,</span> <span class="mi">211</span><span class="p">),</span> <span class="n">anchor</span><span class="o">=</span><span class="sh">'</span><span class="s">ma</span><span class="sh">'</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="n">title_font</span><span class="p">)</span>
 <span class="c1"># (x0, y0, x1, y1), 填充黑色，抹掉total Mean
-</span><span class="n">image_editable</span><span class="p">.</span><span class="nf">rectangle</span><span class="p">((</span><span class="mi">135</span><span class="p">,</span> <span class="mi">222</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span>  <span class="n">H</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="s">"black"</span><span class="p">)</span>
+</span><span class="n">image_editable</span><span class="p">.</span><span class="nf">rectangle</span><span class="p">((</span><span class="mi">135</span><span class="p">,</span> <span class="mi">222</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span>  <span class="n">H</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="sh">"</span><span class="s">black</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="c1"># 保存图片文件
 </span><span class="n">im</span><span class="p">.</span><span class="nf">save</span><span class="p">(</span><span class="n">filename_dst</span><span class="p">)</span>
@@ -243,6 +243,18 @@
   
 
   <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/subversion-performance/">Subversion Performance</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/Checkout-request-rejected-by-vendor-defined-checkout-filter/">Checkout request rejected by vendor-defined checkout filter报错</a>
+  </li>
+
+  
+
+  <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/enable-modules-with-spack/">spack打开modules</a>
   </li>
 
@@ -250,18 +262,6 @@
 
   <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/rendering-image-from-grafana-panel/">从Grafana获取panel图片</a>
-  </li>
-
-  
-
-  <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/hyperthreading/">超线程</a>
-  </li>
-
-  
-
-  <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/process-sched/">Process Sched</a>
   </li>
 
 <div id="giscus_thread" style="max-width: 800px; margin: 0 auto;">
@@ -301,7 +301,7 @@
     <footer class="fixed-bottom">
       <div class="container mt-0">
         © Copyright 2023 Wanlin  Wang. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>.
-Last updated: May 07, 2023.
+Last updated: June 14, 2023.
       </div>
     </footer>
 

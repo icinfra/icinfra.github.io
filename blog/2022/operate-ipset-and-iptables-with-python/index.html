@@ -27,7 +27,7 @@
     <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha256-i1+4qU2G2860dGGIOJscdC30s9beBXjFfzjWLjBRsBg=" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700%7CRoboto+Slab:100,300,400,500,700%7CMaterial+Icons">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons">
 
     <!-- Code Syntax Highlighting -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/github.css" media="" id="highlight_theme_light">
@@ -312,11 +312,11 @@
 </code></pre></div></div>
 
 <h2 id="生成脚本">生成脚本</h2>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sh">"""</span><span class="s">
 Author: wanlinwang
 Date: 24-Aug-2022 19:00-23:00
 Description: 自动化维护iptables与ipset
-"""</span>
+</span><span class="sh">"""</span>
 
 <span class="kn">import</span> <span class="n">yaml</span>
 <span class="kn">import</span> <span class="n">tempfile</span>
@@ -332,9 +332,9 @@ Description: 自动化维护iptables与ipset
         <span class="c1"># 有些接口没有IP，使用try跳过它。
 </span>        <span class="k">try</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="nf">ifaddresses</span><span class="p">(</span><span class="n">interface</span><span class="p">)[</span><span class="n">AF_INET</span><span class="p">]:</span>
-                <span class="n">ip</span><span class="o">=</span><span class="n">link</span><span class="p">[</span><span class="s">'addr'</span><span class="p">]</span>
+                <span class="n">ip</span><span class="o">=</span><span class="n">link</span><span class="p">[</span><span class="sh">'</span><span class="s">addr</span><span class="sh">'</span><span class="p">]</span>
                 <span class="c1">#去掉本地地址，去掉192.开头的私有地址。
-</span>                <span class="k">if</span> <span class="n">ip</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="s">'192.'</span><span class="p">)</span> <span class="ow">or</span> <span class="n">ip</span> <span class="o">==</span> <span class="s">'127.0.0.1'</span><span class="p">:</span>
+</span>                <span class="k">if</span> <span class="n">ip</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">'</span><span class="s">192.</span><span class="sh">'</span><span class="p">)</span> <span class="ow">or</span> <span class="n">ip</span> <span class="o">==</span> <span class="sh">'</span><span class="s">127.0.0.1</span><span class="sh">'</span><span class="p">:</span>
                     <span class="k">continue</span>
                 <span class="n">ip_list</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
@@ -343,83 +343,83 @@ Description: 自动化维护iptables与ipset
 
 
 <span class="k">def</span> <span class="nf">dig_domainname_to_ips</span><span class="p">(</span><span class="n">domain_name</span><span class="p">):</span>
-    <span class="n">entries</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">([</span><span class="s">'dig'</span><span class="p">,</span> <span class="s">'+short'</span><span class="p">,</span> <span class="n">domain_name</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">PIPE</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">entries</span><span class="p">.</span><span class="n">stdout</span><span class="p">.</span><span class="nf">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+    <span class="n">entries</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">([</span><span class="sh">'</span><span class="s">dig</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">+short</span><span class="sh">'</span><span class="p">,</span> <span class="n">domain_name</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">PIPE</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">entries</span><span class="p">.</span><span class="n">stdout</span><span class="p">.</span><span class="nf">decode</span><span class="p">(</span><span class="sh">'</span><span class="s">utf-8</span><span class="sh">'</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">check_if_ip</span><span class="p">(</span><span class="n">ip_str</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">re</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="sa">r</span><span class="s">"^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$"</span><span class="p">,</span> <span class="n">ip_str</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">re</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="sa">r</span><span class="sh">"</span><span class="s">^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$</span><span class="sh">"</span><span class="p">,</span> <span class="n">ip_str</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">True</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">False</span>
 
 
 <span class="k">def</span> <span class="nf">create_ipset</span><span class="p">(</span><span class="n">set_name</span><span class="p">,</span> <span class="n">entry_list</span><span class="p">,</span> <span class="n">set_type</span><span class="p">,</span> <span class="n">write_file</span><span class="p">):</span>
-    <span class="s">"""
+    <span class="sh">"""</span><span class="s">
     生成ipset配置文件，应用命令如下：
             ipset restore -f ./ipset.conf --exist
-    """</span>
+    </span><span class="sh">"""</span>
     <span class="c1"># print('entry_list', entry_list)
-</span>    <span class="k">if</span> <span class="n">set_type</span> <span class="o">==</span> <span class="s">'dns,port'</span><span class="p">:</span>
-        <span class="n">set_type</span> <span class="o">=</span> <span class="s">'ip,port'</span>
+</span>    <span class="k">if</span> <span class="n">set_type</span> <span class="o">==</span> <span class="sh">'</span><span class="s">dns,port</span><span class="sh">'</span><span class="p">:</span>
+        <span class="n">set_type</span> <span class="o">=</span> <span class="sh">'</span><span class="s">ip,port</span><span class="sh">'</span>
         <span class="n">rst_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entry_list</span><span class="p">:</span>
-            <span class="n">ip_list</span> <span class="o">=</span> <span class="nf">dig_domainname_to_ips</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s">'name'</span><span class="p">]).</span><span class="nf">split</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+            <span class="n">ip_list</span> <span class="o">=</span> <span class="nf">dig_domainname_to_ips</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">]).</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="se">\n</span><span class="sh">'</span><span class="p">)</span>
             <span class="n">ip_list</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ip_list</span><span class="p">:</span>
                 <span class="c1"># 只添加是ip的条目
 </span>                <span class="k">if</span> <span class="nf">check_if_ip</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
-                    <span class="n">rst_list</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">item</span> <span class="o">+</span> <span class="s">","</span> <span class="o">+</span> <span class="n">entry</span><span class="p">[</span><span class="s">'port'</span><span class="p">])</span>
+                    <span class="n">rst_list</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">item</span> <span class="o">+</span> <span class="sh">"</span><span class="s">,</span><span class="sh">"</span> <span class="o">+</span> <span class="n">entry</span><span class="p">[</span><span class="sh">'</span><span class="s">port</span><span class="sh">'</span><span class="p">])</span>
         <span class="n">entry_list</span> <span class="o">=</span> <span class="n">rst_list</span>
-    <span class="k">elif</span> <span class="n">set_type</span> <span class="o">==</span> <span class="s">'ip,port'</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">set_type</span> <span class="o">==</span> <span class="sh">'</span><span class="s">ip,port</span><span class="sh">'</span><span class="p">:</span>
         <span class="n">rst_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entry_list</span><span class="p">:</span>
-            <span class="n">rst_list</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="s">'name'</span><span class="p">]</span> <span class="o">+</span> <span class="s">","</span> <span class="o">+</span> <span class="n">entry</span><span class="p">[</span><span class="s">'port'</span><span class="p">])</span>
+            <span class="n">rst_list</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">]</span> <span class="o">+</span> <span class="sh">"</span><span class="s">,</span><span class="sh">"</span> <span class="o">+</span> <span class="n">entry</span><span class="p">[</span><span class="sh">'</span><span class="s">port</span><span class="sh">'</span><span class="p">])</span>
         <span class="n">entry_list</span> <span class="o">=</span> <span class="n">rst_list</span>
 
 
-    <span class="n">set_tmp_name</span> <span class="o">=</span> <span class="n">set_name</span> <span class="o">+</span> <span class="s">"_tmp"</span>
-    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"""
+    <span class="n">set_tmp_name</span> <span class="o">=</span> <span class="n">set_name</span> <span class="o">+</span> <span class="sh">"</span><span class="s">_tmp</span><span class="sh">"</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"""</span><span class="s">
 ####################################################
 create  </span><span class="si">{</span><span class="n">set_name</span><span class="si">}</span><span class="s">     hash:</span><span class="si">{</span><span class="n">set_type</span><span class="si">}</span><span class="s"> family inet hashsize 1024 maxelem 65536
 create  </span><span class="si">{</span><span class="n">set_tmp_name</span><span class="si">}</span><span class="s"> hash:</span><span class="si">{</span><span class="n">set_type</span><span class="si">}</span><span class="s"> family inet hashsize 1024 maxelem 65536
 destroy </span><span class="si">{</span><span class="n">set_tmp_name</span><span class="si">}</span><span class="s">
 create  </span><span class="si">{</span><span class="n">set_tmp_name</span><span class="si">}</span><span class="s"> hash:</span><span class="si">{</span><span class="n">set_type</span><span class="si">}</span><span class="s"> family inet hashsize 1024 maxelem 65536</span><span class="se">\
-</span><span class="s">    """</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">write_file</span><span class="p">)</span>
+</span><span class="s">    </span><span class="sh">"""</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">write_file</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entry_list</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"add </span><span class="si">{</span><span class="n">set_tmp_name</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="n">entry</span><span class="si">}</span><span class="s">"</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">write_file</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">add </span><span class="si">{</span><span class="n">set_tmp_name</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="n">entry</span><span class="si">}</span><span class="sh">"</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">write_file</span><span class="p">)</span>
 
-    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"""</span><span class="se">\
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"""</span><span class="se">\
 </span><span class="s">swap </span><span class="si">{</span><span class="n">set_tmp_name</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="n">set_name</span><span class="si">}</span><span class="s">
 destroy </span><span class="si">{</span><span class="n">set_tmp_name</span><span class="si">}</span><span class="s">
 ####################################################
-    """</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">write_file</span><span class="p">)</span>
+    </span><span class="sh">"""</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">write_file</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">generate_iptables_entry</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span> <span class="n">ip_type</span><span class="p">,</span> <span class="n">ips</span><span class="p">,</span> <span class="n">ipset_dict</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="n">entry</span> <span class="o">=</span> <span class="p">[</span><span class="s">'-A'</span><span class="p">]</span>
-    <span class="n">match_set_arg</span> <span class="o">=</span> <span class="s">''</span>
-    <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="s">'input'</span><span class="p">:</span>
-        <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">'INPUT'</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">ip_type</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="s">'ipset'</span><span class="p">):</span>
-            <span class="n">match_set_arg</span> <span class="o">=</span> <span class="s">'src'</span>
-    <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="s">'output'</span><span class="p">:</span>
-        <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="s">'OUTPUT'</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">ip_type</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="s">'ipset'</span><span class="p">):</span>
-            <span class="n">match_set_arg</span> <span class="o">=</span> <span class="s">'dst'</span>
-            <span class="k">if</span> <span class="n">ipset_dict</span><span class="p">[</span><span class="n">ips</span><span class="p">]</span> <span class="o">==</span> <span class="s">'ip,port'</span><span class="p">:</span>
-                <span class="n">match_set_arg</span> <span class="o">=</span> <span class="s">'dst,dst'</span>
+    <span class="n">entry</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">-A</span><span class="sh">'</span><span class="p">]</span>
+    <span class="n">match_set_arg</span> <span class="o">=</span> <span class="sh">''</span>
+    <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="sh">'</span><span class="s">input</span><span class="sh">'</span><span class="p">:</span>
+        <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">'</span><span class="s">INPUT</span><span class="sh">'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ip_type</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">'</span><span class="s">ipset</span><span class="sh">'</span><span class="p">):</span>
+            <span class="n">match_set_arg</span> <span class="o">=</span> <span class="sh">'</span><span class="s">src</span><span class="sh">'</span>
+    <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="sh">'</span><span class="s">output</span><span class="sh">'</span><span class="p">:</span>
+        <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">'</span><span class="s">OUTPUT</span><span class="sh">'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ip_type</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">'</span><span class="s">ipset</span><span class="sh">'</span><span class="p">):</span>
+            <span class="n">match_set_arg</span> <span class="o">=</span> <span class="sh">'</span><span class="s">dst</span><span class="sh">'</span>
+            <span class="k">if</span> <span class="n">ipset_dict</span><span class="p">[</span><span class="n">ips</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">ip,port</span><span class="sh">'</span><span class="p">:</span>
+                <span class="n">match_set_arg</span> <span class="o">=</span> <span class="sh">'</span><span class="s">dst,dst</span><span class="sh">'</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Error with </span><span class="si">{</span><span class="n">direction</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Error with </span><span class="si">{</span><span class="n">direction</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
     
-    <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="s">'-p tcp'</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">ip_type</span> <span class="o">==</span> <span class="s">'ip'</span><span class="p">:</span>
-        <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="s">'-s </span><span class="si">{</span><span class="n">ips</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">ip_type</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="s">'ipset'</span><span class="p">):</span>
-        <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="s">'-m set --match-set </span><span class="si">{</span><span class="n">ips</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="n">match_set_arg</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+    <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">-p tcp</span><span class="sh">'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ip_type</span> <span class="o">==</span> <span class="sh">'</span><span class="s">ip</span><span class="sh">'</span><span class="p">:</span>
+        <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">-s </span><span class="si">{</span><span class="n">ips</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">ip_type</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">'</span><span class="s">ipset</span><span class="sh">'</span><span class="p">):</span>
+        <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">-m set --match-set </span><span class="si">{</span><span class="n">ips</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="n">match_set_arg</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'Error with ip_type </span><span class="si">{</span><span class="n">ip_type</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">Error with ip_type </span><span class="si">{</span><span class="n">ip_type</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
     <span class="c1"># if ip_type == 'ip':
 </span>    <span class="c1">#     entry.append(f'-s {ips}')
 </span>    <span class="c1"># elif ip_type.startswith('ipset'):
@@ -432,72 +432,72 @@ destroy </span><span class="si">{</span><span class="n">set_tmp_name</span><span
 </span>    <span class="c1">#     print(f'Error with ip_type {ip_type}')
 </span>
     <span class="k">if</span> <span class="n">ports</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">ip_type</span> <span class="o">==</span> <span class="s">'ipset,ip,port'</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="s">'Conflict with ipset'</span>
-        <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="s">'--dport </span><span class="si">{</span><span class="n">ports</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ip_type</span> <span class="o">==</span> <span class="sh">'</span><span class="s">ipset,ip,port</span><span class="sh">'</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="sh">'</span><span class="s">Conflict with ipset</span><span class="sh">'</span>
+        <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">--dport </span><span class="si">{</span><span class="n">ports</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
     
-    <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="s">'-j ACCEPT'</span><span class="p">)</span>
+    <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">-j ACCEPT</span><span class="sh">'</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="s">' '</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
-    <span class="n">ipset_conf_tmp</span>    <span class="o">=</span> <span class="n">tempfile</span><span class="p">.</span><span class="nc">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s">'w+'</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s">'ipset.conf_'</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="s">'./'</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-    <span class="n">iptables_conf_tmp</span> <span class="o">=</span> <span class="n">tempfile</span><span class="p">.</span><span class="nc">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s">'w+'</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s">'iptables_'</span><span class="p">,</span>   <span class="nb">dir</span><span class="o">=</span><span class="s">'./'</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">"</span><span class="s">__main__</span><span class="sh">"</span><span class="p">:</span>
+    <span class="n">ipset_conf_tmp</span>    <span class="o">=</span> <span class="n">tempfile</span><span class="p">.</span><span class="nc">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="sh">'</span><span class="s">w+</span><span class="sh">'</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="sh">'</span><span class="s">ipset.conf_</span><span class="sh">'</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="sh">'</span><span class="s">./</span><span class="sh">'</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">iptables_conf_tmp</span> <span class="o">=</span> <span class="n">tempfile</span><span class="p">.</span><span class="nc">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="sh">'</span><span class="s">w+</span><span class="sh">'</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="sh">'</span><span class="s">iptables_</span><span class="sh">'</span><span class="p">,</span>   <span class="nb">dir</span><span class="o">=</span><span class="sh">'</span><span class="s">./</span><span class="sh">'</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
     <span class="n">current_host_ips</span> <span class="o">=</span> <span class="nf">ip4_addresses</span><span class="p">()</span>
-    <span class="nf">print</span><span class="p">(</span><span class="s">"current host ip"</span><span class="p">,</span> <span class="n">current_host_ips</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">current host ip</span><span class="sh">"</span><span class="p">,</span> <span class="n">current_host_ips</span><span class="p">)</span>
 
     <span class="c1"># 将默认开通的iptables条目先写上。
 </span>
-    <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="s">"./config.yml"</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">yml</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">./config.yml</span><span class="sh">"</span><span class="p">,</span> <span class="sh">'</span><span class="s">r</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">yml</span><span class="p">:</span>
         <span class="n">conf</span> <span class="o">=</span> <span class="n">yaml</span><span class="p">.</span><span class="nf">safe_load</span><span class="p">(</span><span class="n">yml</span><span class="p">)</span>
         <span class="c1"># print(json.dumps(conf,indent=2))
 </span>        <span class="c1"># print(conf['host-rules'])
 </span>        <span class="n">ipset_type_dict</span> <span class="o">=</span> <span class="nf">dict</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">host_rule</span> <span class="ow">in</span> <span class="n">conf</span><span class="p">[</span><span class="s">'host-rules'</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">host_rule</span> <span class="ow">in</span> <span class="n">conf</span><span class="p">[</span><span class="sh">'</span><span class="s">host-rules</span><span class="sh">'</span><span class="p">]:</span>
             <span class="c1"># print(json.dumps(host_rule, indent=2))
-</span>            <span class="n">host_rule_name</span> <span class="o">=</span> <span class="n">host_rule</span><span class="p">[</span><span class="s">'name'</span><span class="p">]</span>
-            <span class="n">host_rule_conf</span> <span class="o">=</span> <span class="n">host_rule</span><span class="p">[</span><span class="s">'conf'</span><span class="p">]</span>
-            <span class="n">host_rule_conf_type</span> <span class="o">=</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="s">'type'</span><span class="p">]</span>
+</span>            <span class="n">host_rule_name</span> <span class="o">=</span> <span class="n">host_rule</span><span class="p">[</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">]</span>
+            <span class="n">host_rule_conf</span> <span class="o">=</span> <span class="n">host_rule</span><span class="p">[</span><span class="sh">'</span><span class="s">conf</span><span class="sh">'</span><span class="p">]</span>
+            <span class="n">host_rule_conf_type</span> <span class="o">=</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="sh">'</span><span class="s">type</span><span class="sh">'</span><span class="p">]</span>
             <span class="c1"># 步骤一：首先完成ipset的创建。Done
-</span>            <span class="k">if</span> <span class="s">'need_create_ipset'</span> <span class="ow">in</span> <span class="n">host_rule_conf</span> <span class="ow">and</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="s">'need_create_ipset'</span><span class="p">]:</span>
-                <span class="nf">create_ipset</span><span class="p">(</span><span class="n">host_rule_name</span><span class="p">,</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="s">'hosts'</span><span class="p">],</span> <span class="n">host_rule_conf_type</span><span class="p">,</span> <span class="n">ipset_conf_tmp</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">host_rule_conf_type</span> <span class="o">==</span> <span class="s">'dns,port'</span><span class="p">:</span>
-                    <span class="n">host_rule_conf_type</span> <span class="o">=</span> <span class="s">'ip,port'</span>
+</span>            <span class="k">if</span> <span class="sh">'</span><span class="s">need_create_ipset</span><span class="sh">'</span> <span class="ow">in</span> <span class="n">host_rule_conf</span> <span class="ow">and</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="sh">'</span><span class="s">need_create_ipset</span><span class="sh">'</span><span class="p">]:</span>
+                <span class="nf">create_ipset</span><span class="p">(</span><span class="n">host_rule_name</span><span class="p">,</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="sh">'</span><span class="s">hosts</span><span class="sh">'</span><span class="p">],</span> <span class="n">host_rule_conf_type</span><span class="p">,</span> <span class="n">ipset_conf_tmp</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">host_rule_conf_type</span> <span class="o">==</span> <span class="sh">'</span><span class="s">dns,port</span><span class="sh">'</span><span class="p">:</span>
+                    <span class="n">host_rule_conf_type</span> <span class="o">=</span> <span class="sh">'</span><span class="s">ip,port</span><span class="sh">'</span>
                 <span class="n">ipset_type_dict</span><span class="p">[</span><span class="n">host_rule_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">host_rule_conf_type</span>
             
-        <span class="k">for</span> <span class="n">host_rule</span> <span class="ow">in</span> <span class="n">conf</span><span class="p">[</span><span class="s">'host-rules'</span><span class="p">]:</span>
-            <span class="n">host_rule_name</span> <span class="o">=</span> <span class="n">host_rule</span><span class="p">[</span><span class="s">'name'</span><span class="p">]</span>
-            <span class="n">host_rule_conf</span> <span class="o">=</span> <span class="n">host_rule</span><span class="p">[</span><span class="s">'conf'</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">host_rule</span> <span class="ow">in</span> <span class="n">conf</span><span class="p">[</span><span class="sh">'</span><span class="s">host-rules</span><span class="sh">'</span><span class="p">]:</span>
+            <span class="n">host_rule_name</span> <span class="o">=</span> <span class="n">host_rule</span><span class="p">[</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">]</span>
+            <span class="n">host_rule_conf</span> <span class="o">=</span> <span class="n">host_rule</span><span class="p">[</span><span class="sh">'</span><span class="s">conf</span><span class="sh">'</span><span class="p">]</span>
             <span class="c1"># 步骤二：然后判断本机属于哪个rule下面，将对应的rule都生成一遍。TODO
-</span>            <span class="k">if</span> <span class="s">'need_create_iptables'</span> <span class="ow">in</span> <span class="n">host_rule_conf</span> <span class="ow">and</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="s">'need_create_iptables'</span><span class="p">]:</span>
+</span>            <span class="k">if</span> <span class="sh">'</span><span class="s">need_create_iptables</span><span class="sh">'</span> <span class="ow">in</span> <span class="n">host_rule_conf</span> <span class="ow">and</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="sh">'</span><span class="s">need_create_iptables</span><span class="sh">'</span><span class="p">]:</span>
                 
                 <span class="k">for</span> <span class="n">current_ip</span> <span class="ow">in</span> <span class="n">current_host_ips</span><span class="p">:</span>
                     <span class="c1"># print(host_rule_conf)
 </span>                    <span class="c1"># print(host_rule_conf['hosts'])
-</span>                    <span class="k">if</span> <span class="s">'hosts'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">host_rule_conf</span><span class="p">:</span>
-                        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'hosts not in </span><span class="si">{</span><span class="n">host_rule_name</span><span class="si">}</span><span class="s">, please check.'</span><span class="p">)</span>
+</span>                    <span class="k">if</span> <span class="sh">'</span><span class="s">hosts</span><span class="sh">'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">host_rule_conf</span><span class="p">:</span>
+                        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">hosts not in </span><span class="si">{</span><span class="n">host_rule_name</span><span class="si">}</span><span class="s">, please check.</span><span class="sh">'</span><span class="p">)</span>
                         <span class="k">continue</span>
-                    <span class="k">if</span> <span class="n">current_ip</span> <span class="ow">in</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="s">'hosts'</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">current_ip</span> <span class="ow">in</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="sh">'</span><span class="s">hosts</span><span class="sh">'</span><span class="p">]:</span>
                         <span class="c1"># 分析文件条目
 </span>                        <span class="c1"># 分析input的
-</span>                        <span class="k">for</span> <span class="n">direction</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'input'</span><span class="p">,</span> <span class="s">'output'</span><span class="p">]:</span>
+</span>                        <span class="k">for</span> <span class="n">direction</span> <span class="ow">in</span> <span class="p">[</span><span class="sh">'</span><span class="s">input</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">output</span><span class="sh">'</span><span class="p">]:</span>
                             <span class="k">if</span> <span class="n">direction</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">host_rule_conf</span><span class="p">:</span>
-                                <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">direction</span><span class="si">}</span><span class="s"> not in </span><span class="si">{</span><span class="n">host_rule_name</span><span class="si">}</span><span class="s">, please check.'</span><span class="p">)</span>
+                                <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="si">{</span><span class="n">direction</span><span class="si">}</span><span class="s"> not in </span><span class="si">{</span><span class="n">host_rule_name</span><span class="si">}</span><span class="s">, please check.</span><span class="sh">'</span><span class="p">)</span>
                             <span class="k">else</span><span class="p">:</span>
                                 <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="n">direction</span><span class="p">]:</span>
                                     <span class="c1"># print('direction', d)
 </span>                                    <span class="n">dports</span> <span class="o">=</span> <span class="bp">None</span>
-                                    <span class="k">if</span> <span class="s">'dport'</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
-                                        <span class="n">dports</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s">'dport'</span><span class="p">]</span>
+                                    <span class="k">if</span> <span class="sh">'</span><span class="s">dport</span><span class="sh">'</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                                        <span class="n">dports</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="sh">'</span><span class="s">dport</span><span class="sh">'</span><span class="p">]</span>
 
-                                    <span class="k">if</span> <span class="s">'peer'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
-                                        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">direction</span><span class="si">}</span><span class="s"> peer not in </span><span class="si">{</span><span class="n">host_rule_name</span><span class="si">}</span><span class="s">, please check.'</span><span class="p">)</span>
+                                    <span class="k">if</span> <span class="sh">'</span><span class="s">peer</span><span class="sh">'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                                        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="si">{</span><span class="n">direction</span><span class="si">}</span><span class="s"> peer not in </span><span class="si">{</span><span class="n">host_rule_name</span><span class="si">}</span><span class="s">, please check.</span><span class="sh">'</span><span class="p">)</span>
                                         <span class="k">continue</span>
                                     <span class="k">else</span><span class="p">:</span>
-                                        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s">'peer'</span><span class="p">]:</span>
-                                            <span class="n">ip_type</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">'type'</span><span class="p">]</span>
-                                            <span class="n">value</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">'value'</span><span class="p">]</span>
+                                        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="sh">'</span><span class="s">peer</span><span class="sh">'</span><span class="p">]:</span>
+                                            <span class="n">ip_type</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="sh">'</span><span class="s">type</span><span class="sh">'</span><span class="p">]</span>
+                                            <span class="n">value</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="sh">'</span><span class="s">value</span><span class="sh">'</span><span class="p">]</span>
                                             
                                             <span class="c1"># 生成iptables INPUT条目
 </span>                                            <span class="c1"># print("=============")
@@ -510,11 +510,11 @@ destroy </span><span class="si">{</span><span class="n">set_tmp_name</span><span
 </span>    <span class="c1"># 如有变则应用它，并将日志写到日志文件里。TODO
 </span>    <span class="n">ipset_conf_tmp</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
     <span class="n">iptables_conf_tmp</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">filecmp</span><span class="p">.</span><span class="nf">cmp</span><span class="p">(</span><span class="n">ipset_conf_tmp</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="s">'ipset.conf'</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">filecmp</span><span class="p">.</span><span class="nf">cmp</span><span class="p">(</span><span class="n">ipset_conf_tmp</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="sh">'</span><span class="s">ipset.conf</span><span class="sh">'</span><span class="p">):</span>
         <span class="c1"># ipset.conf有更新，执行更新操作
 </span>        <span class="k">pass</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">filecmp</span><span class="p">.</span><span class="nf">cmp</span><span class="p">(</span><span class="n">iptables_conf_tmp</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="s">'iptables'</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">filecmp</span><span class="p">.</span><span class="nf">cmp</span><span class="p">(</span><span class="n">iptables_conf_tmp</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="sh">'</span><span class="s">iptables</span><span class="sh">'</span><span class="p">):</span>
         <span class="c1"># iptables文件有更新，执行更新操作
 </span>        <span class="k">pass</span>
 </code></pre></div></div>
@@ -542,6 +542,18 @@ destroy </span><span class="si">{</span><span class="n">set_tmp_name</span><span
   
 
   <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/subversion-performance/">Subversion Performance</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/Checkout-request-rejected-by-vendor-defined-checkout-filter/">Checkout request rejected by vendor-defined checkout filter报错</a>
+  </li>
+
+  
+
+  <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/enable-modules-with-spack/">spack打开modules</a>
   </li>
 
@@ -549,18 +561,6 @@ destroy </span><span class="si">{</span><span class="n">set_tmp_name</span><span
 
   <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/modify-image-with-pillow/">Python pillow修图</a>
-  </li>
-
-  
-
-  <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/rendering-image-from-grafana-panel/">从Grafana获取panel图片</a>
-  </li>
-
-  
-
-  <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/hyperthreading/">超线程</a>
   </li>
 
 </div>
@@ -572,7 +572,7 @@ destroy </span><span class="si">{</span><span class="n">set_tmp_name</span><span
     <footer class="fixed-bottom">
       <div class="container mt-0">
         © Copyright 2023 Wanlin  Wang. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>.
-Last updated: May 07, 2023.
+Last updated: June 14, 2023.
       </div>
     </footer>
 
