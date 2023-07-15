@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>lsf运行问题 | IC Infra</title>
+    <title>EDA软件与开源软件的管理 | IC Infra</title>
     <meta name="author" content="Wanlin  Wang">
     <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 ">
@@ -39,7 +39,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://www.icinfra.cn/blog/2023/lsf-problems/">
+    <link rel="canonical" href="https://www.icinfra.cn/blog/2023/eda-and-oss-management/">
 
     <!-- Dark Mode -->
     
@@ -136,14 +136,10 @@
 <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">lsf运行问题</h1>
-    <p class="post-meta">March 20, 2023</p>
+    <h1 class="post-title">EDA软件与开源软件的管理</h1>
+    <p class="post-meta">July 15, 2023</p>
     <p class="post-tags">
       <a href="/blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
-        ·  
-        <a href="/blog/tag/lsf">
-          <i class="fas fa-hashtag fa-sm"></i> lsf</a>  
-          
         ·  
         <a href="/blog/category/icenv">
           <i class="fas fa-tag fa-sm"></i> icenv</a>  
@@ -151,7 +147,7 @@
 
       <!-- 本页浏览数 added by wanlinwang 03-Mar-2023. -->
         ·  
-      <img src="https://visitor-badge.glitch.me/badge?page_id=al-folio/blog/2023/lsf-problems" alt="visitor badge">
+      <img src="https://visitor-badge.glitch.me/badge?page_id=al-folio/blog/2023/eda-and-oss-management" alt="visitor badge">
 
     </p>
   </header>
@@ -159,11 +155,103 @@
   <article class="post-content">
     
     <div id="markdown-content">
-      <p><img src="/assets/img/Pasted%20image%2020230320200849.png" alt="">
-master到执行机的udp端口不通导致问题（在执行机的input方向，开了来自于master的tcp连接，没开udp连接）。</p>
+      <h1 id="eda软件与开源软件的管理">EDA软件与开源软件的管理</h1>
 
-<p><img src="/assets/img/Pasted%20image%2020230320200840.png" alt="">
-从执行机到master通信失败导致的问题（在执行机的output方向，禁止掉了去往master的连接）。</p>
+<p>随着集成电路设计技术的发展，EDA (Electronic Design Automation) 工具在设计流程中扮演着关键的角色。此外，开源软件也在IC设计中提供了许多优势，包括在处理代码、构建工具和进行数据分析等方面的便利。本文将探讨EDA工具和开源软件的管理。</p>
+
+<h2 id="一简介">一、简介</h2>
+
+<p>商业EDA厂商包括 Cadence、Synopsys、Mentor Graphics（已被西门子收购）、华大九天、芯华章等。常见的工具有 Virtuoso（用于模拟、布局、物理验证等）、Innovus（用于综合、布局、时序分析等）、PrimeTime（用于时序分析和优化）、Design Compiler（用于综合）、IC Compiler（用于布局和物理验证）以及 XCELIUM（高性能的仿真器，用于数字设计验证）等。</p>
+
+<p>开源EDA工具包括 Magic（用于布局和物理验证）、Qflow（用于综合、布局和物理验证）、OpenROAD（用于综合、布局和物理验证）、Yosys（用于逻辑综合和验证）以及 Verilator（用于仿真和验证）等。</p>
+
+<p>除了EDA工具，IC设计环境还可能使用一些开源工具，比如 Python, Perl, TCL 等用于脚本编写、文本与数据处理、EDA工具的控制；SVN, Git 用于版本控制和代码管理；Make 用于自动化构建和编译；Mariadb, Elasticsearch 等数据库工具；以及 Grafana, Kibana 等数据可视化工具。</p>
+
+<h2 id="二eda工具的管理">二、EDA工具的管理</h2>
+
+<p>在管理EDA工具时，需要考虑以下几个方面：目录规划、选型、调试与维护、License管理以及环境管理。</p>
+
+<h3 id="目录规划">目录规划</h3>
+
+<p>单平台、单OS（最常见的工具目录结构） <code class="language-plaintext highlighter-rouge">/tools/&lt;VENDOR&gt;/&lt;TOOL&gt;/&lt;VERSION&gt;</code></p>
+
+<p>涉及多平台、单OS， <code class="language-plaintext highlighter-rouge">/tools/x86_64/&lt;VENDOR&gt;/&lt;TOOL&gt;/&lt;VERSION&gt;</code> 或 <code class="language-plaintext highlighter-rouge">/tools/aarch64/&lt;VENDOR&gt;/&lt;TOOL&gt;/&lt;VERSION&gt;</code> 的</p>
+
+<p>涉及多平台、多OS，
+<code class="language-plaintext highlighter-rouge">/tools/x86_64/CentOS7/&lt;VENDOR&gt;/&lt;TOOL&gt;/&lt;VERSION&gt;</code>  <code class="language-plaintext highlighter-rouge">/tools/aarch64/CentOS7/&lt;VENDOR&gt;/&lt;TOOL&gt;/&lt;VERSION&gt;</code></p>
+
+<h3 id="选型">选型</h3>
+
+<p>选择EDA工具需要考虑功能、性能、稳定性、使用难易度、成本等因素。此外，还需要考虑可能的国际制裁、行业市场占有率、厂商服务质量等因素。</p>
+
+<h3 id="调试与维护">调试与维护</h3>
+
+<p>在厂商在新版本中推出新特性时，需要配合做测试版本调试。商业EDA工具的责任方是厂商，如果想尝试新特性则可能需要配合做调试。</p>
+
+<h3 id="license管理">License管理</h3>
+
+<p>商业EDA工具，常用的License管理器：</p>
+<ul>
+  <li>FlexLM ,</li>
+  <li>RLM(Reprise License Manager),</li>
+  <li>LM-X</li>
+</ul>
+
+<p>FlexLM的options file支持丰富的个人、群组以及项目配额管理功能。如RTM、OpenLM、in-house tool等进行使用情况存储与数据分析以及日志解析与定期采样。</p>
+
+<h3 id="环境管理">环境管理</h3>
+
+<p>可能经历的阶段包括</p>
+<ul>
+  <li>.*shrc阶段</li>
+  <li>Project *shrc阶段</li>
+  <li>Environment Modules阶段</li>
+  <li>Environment Modules + Wrapper</li>
+  <li>Environment Modules + ELF定制 + Wrapper阶段</li>
+</ul>
+
+<h2 id="三开源工具的管理">三、开源工具的管理</h2>
+
+<p>在管理开源工具时，也需要考虑目录规划、选型、安装调试与维护以及环境管理等方面。</p>
+
+<h3 id="目录规划-1">目录规划</h3>
+
+<p>手动安装的工具，目录规划遵循上述的规则。包管理器安装的工具，目录由包管理器决定。</p>
+
+<h3 id="选型-1">选型</h3>
+
+<p>一般是由研发用户提申请，管理员确认后安装。由于开源工具相对自由，内部使用对选型不做太多的限制。但在做软件集成产品，涉及到对外出售或对外提供服务的，则选型时须考虑其许可证，例如</p>
+<ul>
+  <li>GPL（GNU通用公共许可证）</li>
+  <li>LGPL（GNU宽通用公共许可证）</li>
+  <li>BSD（Berkeley软件分发许可证）</li>
+  <li>MIT（麻省理工学院许可证）</li>
+  <li>Apache许可证</li>
+</ul>
+
+<h3 id="安装调试与维护">安装调试与维护</h3>
+
+<p>由于没有AE的支持（也有如红帽的RHEL订阅服务可提供技术支持服务），安装调试与维护均需靠使用方自己，以及借助上游社区完成。可以手动安装调试与维护，也可以借助 Spack（或Easybuild等）包管理器自动化安装。</p>
+
+<h3 id="环境管理-1">环境管理</h3>
+
+<p>如果是手动安装，则手动制作modulefile，由Environment Modules进行管理。如果是自动安装，如Spack，可以使用spack内置的加载卸载命令管理环境，也可以enable TCL/Lmod Environment Modules，在安装时自动生成modulefile，用Environment Modules进行管理。</p>
+
+<h2 id="性能优化">性能优化</h2>
+<ul>
+  <li>对工具目录（大部分是只读场景）所在FS做FS-Cache加速工具的加载；</li>
+  <li>对工具环境文件（modulefile）进行缓存，加速工具环境的初始化；</li>
+  <li>对工具命令环境的最精确设置，避免大量的无效路径查找导致的耗时；</li>
+  <li>在稳定版本的范围内，选最新的工具版本。</li>
+</ul>
+
+<h2 id="结语">结语</h2>
+
+<p>管理EDA工具和开源软件是一项复杂的任务，涉及到许多因素，包括工具的选型、目录规划、安装与调试、许可证管理以及环境管理等。通过对这些因素的深入理解和有效管理，可以更好地利用这些工具，提高IC设计的效率和质量。</p>
+
+<hr>
+
+<p>这就是我根据PPT的内容整理的草案，如果有任何改进的建议，欢迎提出。</p>
 
     </div>
   </article>
@@ -188,12 +276,6 @@ master到执行机的udp端口不通导致问题（在执行机的input方向，
   
 
   <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/eda-and-oss-management/">EDA软件与开源软件的管理</a>
-  </li>
-
-  
-
-  <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/subversion-performance/">Subversion Performance</a>
   </li>
 
@@ -207,6 +289,12 @@ master到执行机的udp端口不通导致问题（在执行机的input方向，
 
   <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/enable-modules-with-spack/">spack打开modules</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/modify-image-with-pillow/">Python pillow修图</a>
   </li>
 
 <div id="giscus_thread" style="max-width: 800px; margin: 0 auto;">
