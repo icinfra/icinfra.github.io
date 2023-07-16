@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>降低Environment Modules的I/O Load | IC Infra</title>
+    <title>synopsys dev not in | IC Infra</title>
     <meta name="author" content="Wanlin  Wang">
     <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 ">
@@ -39,7 +39,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://www.icinfra.cn/blog/2023/reduce-io-load/">
+    <link rel="canonical" href="https://www.icinfra.cn/blog/2023/synopsys-dve/">
 
     <!-- Dark Mode -->
     
@@ -136,14 +136,10 @@
 <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">降低Environment Modules的I/O Load</h1>
-    <p class="post-meta">April 12, 2023</p>
+    <h1 class="post-title">synopsys dev not in</h1>
+    <p class="post-meta">July 15, 2023</p>
     <p class="post-tags">
       <a href="/blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
-        ·  
-        <a href="/blog/tag/modules">
-          <i class="fas fa-hashtag fa-sm"></i> modules</a>  
-          
         ·  
         <a href="/blog/category/icenv">
           <i class="fas fa-tag fa-sm"></i> icenv</a>  
@@ -151,7 +147,7 @@
 
       <!-- 本页浏览数 added by wanlinwang 03-Mar-2023. -->
         ·  
-      <img src="https://visitor-badge.glitch.me/badge?page_id=al-folio/blog/2023/reduce-io-load" alt="visitor badge">
+      <img src="https://visitor-badge.glitch.me/badge?page_id=al-folio/blog/2023/synopsys-dve" alt="visitor badge">
 
     </p>
   </header>
@@ -159,70 +155,35 @@
   <article class="post-content">
     
     <div id="markdown-content">
-      <h1 id="背景">背景</h1>
-<p>前司在全球拥有多个数据中心，每个数据中心有多个集群。其中，单个集群的运算机达4位数台物理机的规模。</p>
+      <h2 id="问题">问题</h2>
+<p>行业群问到，vcs带的dve命令启动报错<code class="language-plaintext highlighter-rouge">ERROR - Unable to find valid DVE installation in $VCS_HOME/gui/dve, please download DVE installation package and install it under $VCS_HOME</code>。</p>
 
-<p>在大量的验证任务跑起来时，经常会遇到NFS卡死的问题，用户敲一个ls命令会卡个几十秒或者根本就无响应。
-问题从业务部门爆发之后，CAD与IT部门之间，互相丢锅——</p>
+<h2 id="分析">分析</h2>
+<p>这个错误提示表明你正在试图运行Synopsys VCS的DVE (Design Vision Environment) 图形界面，但是在你设置的<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>环境变量指定的目录下没有找到有效的DVE安装。</p>
+
+<p>这可能是因为DVE没有被正确安装，或者<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>环境变量没有被正确设置。要解决这个问题，你可以尝试以下步骤：</p>
+
 <ol>
-  <li>CAD埋怨IT提供的存储性能太低，正常的业务需求都满足不了；</li>
-  <li>而IT则埋怨CAD没有引导好业务，将很多不必要的I/O操作避免掉。</li>
+  <li>
+    <p>确认DVE是否已经被正确安装。在你的Synopsys VCS安装目录下，应该有一个名为<code class="language-plaintext highlighter-rouge">gui/dve</code>的子目录。如果这个目录不存在，那么你可能需要重新安装DVE。</p>
+  </li>
+  <li>
+    <p>检查<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>环境变量是否已经被正确设置。你可以在终端中输入<code class="language-plaintext highlighter-rouge">echo $VCS_HOME</code>来查看这个环境变量的值。这个值应该是你的Synopsys VCS安装目录的路径。如果这个值不正确，你需要更新<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>环境变量的设置。</p>
+
+    <p>在C shell中，你可以使用以下命令来临时设置<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>环境变量：</p>
+
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>setenv VCS_HOME /path/to/your/vcs/installation
+</code></pre></div>    </div>
+
+    <p>要永久设置这个环境变量，你可以将上述<code class="language-plaintext highlighter-rouge">export</code>命令添加到你的shell启动脚本中，如C shell的<code class="language-plaintext highlighter-rouge">~/.cshrc</code>。</p>
+  </li>
+  <li>
+    <p>如果上述步骤都不能解决问题，那么你可能需要从Synopsys下载并重新安装DVE到<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>目录下。</p>
+  </li>
 </ol>
 
-<h1 id="分析">分析</h1>
-<p>分析下来，二者责任都有——</p>
-<ol>
-  <li>CAD确实没有深入定制业务的流程工具与脚本，任由发展。另有CAD自己开发的脚本、工具，也不注意性能。</li>
-  <li>IT将项目目录与tool目录放在了同一机头，没有将问题域隔开。加上CAD的各种依赖的环境，业务在项目目录下ls，还得要去tool目录下读取一堆东西。</li>
-</ol>
-
-<h1 id="解决或缓解">解决（或缓解）</h1>
-<p>针对不同的根因，我们分别展开了讨论，并形成了解决方案。由于涉及的点太多，有机会再一一展开。</p>
-
-<p>本文我们重点来看Environment Modules在降低I/O Load可以有哪些方法实现。</p>
-
-<h2 id="在当时约2020年">在当时（约2020年）</h2>
-<p>开源社区的Environment Modules TCL版实现，常用的功能都实现了，但还未关注性能。我们环境中的MODULEPATH路径下，共有约<strong>5000</strong>个modulefile文件，每次执行module av时，要去MODULEPATH路径下遍历，并且读取每个文件的第一行判断是否存在Magic cookie，以决定该文件是否为有效的modulefile文件。</p>
-
-<p>当时刚好跟着李智慧学习了缓存架构，我们针对Environment Modules TCL版如何能够使用缓存展开了架构讨论，并且形成了可行方案——</p>
-<ol>
-  <li>每次安装完工具后，EDA管理员将module av的结果以指定的格式存放到一个文本文件（缓存文件）</li>
-  <li>用户执行我们包装后的module av命令，这个命令不会去遍历整个MODULEPATH路径，而是只读取步骤1生成的缓存文件。
-这个缓存架构，将module av命令，从<strong>用户每次对目录的递归遍历以及几千文件的读取</strong>，转成了<strong>管理员一次对目录的递归遍历以及几千文件的读取</strong>+<strong>用户每次只读取一个缓存文件</strong>，极大地提升了用户的体验。</li>
-</ol>
-
-<h2 id="在现在20230412">在现在（2023.04.12）</h2>
-<p>开源社区的Environment Modules TCL版实现，性能也被关注了。从官网可以看到有几种I/O Load的优化：</p>
-<ul>
-  <li>
-    <p>Modules Tcl extension library</p>
-
-    <p>使用针对与Modules优化的Tcl扩展库，它可以减少不需要的<code class="language-plaintext highlighter-rouge">ioctl</code>, <code class="language-plaintext highlighter-rouge">fcntl</code>与<code class="language-plaintext highlighter-rouge">readlink</code>系统调用；<code class="language-plaintext highlighter-rouge">getents</code>的数量也被降到了50%；因为在尝试打开文件前不检查文件，<code class="language-plaintext highlighter-rouge">stat</code>数量也大幅降低。</p>
-  </li>
-  <li>
-    <p>rc文件往根层级迁移</p>
-
-    <p>这里讲到，将每个深层次的.modulerc与.version文件，全部提取到MODULEPATH的根层级来。这样它能够大大降低<code class="language-plaintext highlighter-rouge">access</code>, <code class="language-plaintext highlighter-rouge">stat</code>, <code class="language-plaintext highlighter-rouge">open</code>, <code class="language-plaintext highlighter-rouge">read</code> and <code class="language-plaintext highlighter-rouge">close</code>的数量。</p>
-  </li>
-  <li>
-    <p>不检查Magic Cookie</p>
-
-    <p>前面我们提到，它为了识别文件是否是有效的modulefile，会读取第一行来判断。而实际上我们生产环境在MODULEPATH路径下放的，基本上都是modulefile。因此为了性能提升，我们可以将Magic Cookie的检查去掉，以此来减少open，read与close等系统调用的数量。</p>
-  </li>
-  <li>
-    <p>虚拟modules</p>
-
-    <p>这是一种缓存方案，将modulefile的路径，以指定的命令缓存到.modulerc文件里。在执行module av时读取到.modulerc就能够知道该目录下所有的modulefile路径了，因此节省了遍历与读取的那些操作。</p>
-  </li>
-  <li>
-    <p>Module cache</p>
-
-    <p>这也是一种缓存方案，使用module cachebuild命令在MODULEPATH的每个路径下分别创建缓存文件。在执行module av时看到该缓存文件，直接读取该文件。因此节省了遍历与读取的那些操作。不过这个方案是在MODULEPATH的每个路径下生成缓存文件，与我之前只产生一个缓存文件的方案相比——它仍然需要读取多个文件，不过性能已经非常接近了。</p>
-  </li>
-</ul>
-
-<h1 id="总结">总结</h1>
-<p>略。</p>
+<p>如果你还有问题，或者不确定如何进行，你可能需要联系Synopsys的技术支持获取帮助。</p>
 
     </div>
   </article>
@@ -247,12 +208,6 @@
   
 
   <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/synopsys-dve/">synopsys dev not in</a>
-  </li>
-
-  
-
-  <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/eda-and-oss-management/">EDA软件与开源软件的管理</a>
   </li>
 
@@ -266,6 +221,12 @@
 
   <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/Checkout-request-rejected-by-vendor-defined-checkout-filter/">Checkout request rejected by vendor-defined checkout filter报错</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/enable-modules-with-spack/">spack打开modules</a>
   </li>
 
 <div id="giscus_thread" style="max-width: 800px; margin: 0 auto;">

@@ -1,7 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-07-15T10:37:14+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">EDA软件与开源软件的管理</title><link href="https://www.icinfra.cn/blog/2023/eda-and-oss-management/" rel="alternate" type="text/html" title="EDA软件与开源软件的管理" /><published>2023-07-15T09:44:42+00:00</published><updated>2023-07-15T09:44:42+00:00</updated><id>https://www.icinfra.cn/blog/2023/eda-and-oss-management</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/eda-and-oss-management/"><![CDATA[<h1 id="eda软件与开源软件的管理">EDA软件与开源软件的管理</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-07-16T03:08:43+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">synopsys dev not in</title><link href="https://www.icinfra.cn/blog/2023/synopsys-dve/" rel="alternate" type="text/html" title="synopsys dev not in" /><published>2023-07-15T23:39:01+00:00</published><updated>2023-07-15T23:39:01+00:00</updated><id>https://www.icinfra.cn/blog/2023/synopsys-dve</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/synopsys-dve/"><![CDATA[<h2 id="问题">问题</h2>
+<p>行业群问到，vcs带的dve命令启动报错<code class="language-plaintext highlighter-rouge">ERROR - Unable to find valid DVE installation in $VCS_HOME/gui/dve, please download DVE installation package and install it under $VCS_HOME</code>。</p>
 
-<p>随着集成电路设计技术的发展，EDA (Electronic Design Automation) 工具在设计流程中扮演着关键的角色。此外，开源软件也在IC设计中提供了许多优势，包括在处理代码、构建工具和进行数据分析等方面的便利。本文将探讨EDA工具和开源软件的管理。</p>
+<h2 id="分析">分析</h2>
+<p>这个错误提示表明你正在试图运行Synopsys VCS的DVE (Design Vision Environment) 图形界面，但是在你设置的<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>环境变量指定的目录下没有找到有效的DVE安装。</p>
+
+<p>这可能是因为DVE没有被正确安装，或者<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>环境变量没有被正确设置。要解决这个问题，你可以尝试以下步骤：</p>
+
+<ol>
+  <li>
+    <p>确认DVE是否已经被正确安装。在你的Synopsys VCS安装目录下，应该有一个名为<code class="language-plaintext highlighter-rouge">gui/dve</code>的子目录。如果这个目录不存在，那么你可能需要重新安装DVE。</p>
+  </li>
+  <li>
+    <p>检查<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>环境变量是否已经被正确设置。你可以在终端中输入<code class="language-plaintext highlighter-rouge">echo $VCS_HOME</code>来查看这个环境变量的值。这个值应该是你的Synopsys VCS安装目录的路径。如果这个值不正确，你需要更新<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>环境变量的设置。</p>
+
+    <p>在C shell中，你可以使用以下命令来临时设置<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>环境变量：</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>setenv VCS_HOME /path/to/your/vcs/installation
+</code></pre></div>    </div>
+
+    <p>要永久设置这个环境变量，你可以将上述<code class="language-plaintext highlighter-rouge">export</code>命令添加到你的shell启动脚本中，如C shell的<code class="language-plaintext highlighter-rouge">~/.cshrc</code>。</p>
+  </li>
+  <li>
+    <p>如果上述步骤都不能解决问题，那么你可能需要从Synopsys下载并重新安装DVE到<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>目录下。</p>
+  </li>
+</ol>
+
+<p>如果你还有问题，或者不确定如何进行，你可能需要联系Synopsys的技术支持获取帮助。</p>]]></content><author><name></name></author><category term="icenv" /><summary type="html"><![CDATA[问题 行业群问到，vcs带的dve命令启动报错ERROR - Unable to find valid DVE installation in $VCS_HOME/gui/dve, please download DVE installation package and install it under $VCS_HOME。]]></summary></entry><entry><title type="html">EDA软件与开源软件的管理</title><link href="https://www.icinfra.cn/blog/2023/eda-and-oss-management/" rel="alternate" type="text/html" title="EDA软件与开源软件的管理" /><published>2023-07-15T09:44:42+00:00</published><updated>2023-07-15T09:44:42+00:00</updated><id>https://www.icinfra.cn/blog/2023/eda-and-oss-management</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/eda-and-oss-management/"><![CDATA[<h1 id="eda软件与开源软件的管理">EDA软件与开源软件的管理</h1>
+
+<p>随着集成电路设计技术的发展，EDA (Electronic Design Automation) 工具在设计流程中扮演着关键的角色。此外，开源软件也在IC设计中提供了许多优势，包括在处理代码、构建工具和进行数据分析等方面的便利。本文主要对芯片设计环境主要的两类工具——EDA工具和开源软件的管理展开讨论。</p>
 
 <h2 id="一简介">一、简介</h2>
 
@@ -24,13 +51,15 @@
 <p>涉及多平台、多OS，
 <code class="language-plaintext highlighter-rouge">/tools/x86_64/CentOS7/&lt;VENDOR&gt;/&lt;TOOL&gt;/&lt;VERSION&gt;</code>  <code class="language-plaintext highlighter-rouge">/tools/aarch64/CentOS7/&lt;VENDOR&gt;/&lt;TOOL&gt;/&lt;VERSION&gt;</code></p>
 
+<p>这里最主要的考虑点是兼容性与存储效率。如果优先兼容性，那么每个平台、每个OS分开是最好的；在没有去重功能的存储上，如果优先考虑存储效率，则层级往少规划，遇到不兼容时再采用modulefile分支来判断加载。</p>
+
 <h3 id="选型">选型</h3>
 
 <p>选择EDA工具需要考虑功能、性能、稳定性、使用难易度、成本等因素。此外，还需要考虑可能的国际制裁、行业市场占有率、厂商服务质量等因素。</p>
 
 <h3 id="调试与维护">调试与维护</h3>
 
-<p>在厂商在新版本中推出新特性时，需要配合做测试版本调试。商业EDA工具的责任方是厂商，如果想尝试新特性则可能需要配合做调试。</p>
+<p>厂商在针对bug修复、新特性增加时，用户通常需要配合跑特定任务做测试，以实现软件的迭代升级。</p>
 
 <h3 id="license管理">License管理</h3>
 
@@ -86,16 +115,15 @@
   <li>对工具目录（大部分是只读场景）所在FS做FS-Cache加速工具的加载；</li>
   <li>对工具环境文件（modulefile）进行缓存，加速工具环境的初始化；</li>
   <li>对工具命令环境的最精确设置，避免大量的无效路径查找导致的耗时；</li>
-  <li>在稳定版本的范围内，选最新的工具版本。</li>
+  <li>在兼容、稳定版本的范围内，选最新的工具版本。</li>
 </ul>
 
 <h2 id="结语">结语</h2>
 
 <p>管理EDA工具和开源软件是一项复杂的任务，涉及到许多因素，包括工具的选型、目录规划、安装与调试、许可证管理以及环境管理等。通过对这些因素的深入理解和有效管理，可以更好地利用这些工具，提高IC设计的效率和质量。</p>
 
-<hr />
-
-<p>这就是我根据PPT的内容整理的草案，如果有任何改进的建议，欢迎提出。</p>]]></content><author><name></name></author><category term="icenv" /><summary type="html"><![CDATA[EDA软件与开源软件的管理]]></summary></entry><entry><title type="html">Subversion Performance</title><link href="https://www.icinfra.cn/blog/2023/subversion-performance/" rel="alternate" type="text/html" title="Subversion Performance" /><published>2023-06-12T13:46:33+00:00</published><updated>2023-06-12T13:46:33+00:00</updated><id>https://www.icinfra.cn/blog/2023/subversion-performance</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/subversion-performance/"><![CDATA[<h1 id="背景">背景</h1>
+<h2 id="参考资料">参考资料</h2>
+<p>http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html 阮一峰写的开源License介绍</p>]]></content><author><name></name></author><category term="icenv" /><summary type="html"><![CDATA[EDA软件与开源软件的管理]]></summary></entry><entry><title type="html">Subversion Performance</title><link href="https://www.icinfra.cn/blog/2023/subversion-performance/" rel="alternate" type="text/html" title="Subversion Performance" /><published>2023-06-12T13:46:33+00:00</published><updated>2023-06-12T13:46:33+00:00</updated><id>https://www.icinfra.cn/blog/2023/subversion-performance</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/subversion-performance/"><![CDATA[<h1 id="背景">背景</h1>
 <p>据作者了解，截止至本文写作，芯片研发业务大多在使用CentOS/RHEL 7，其中7.9是final版本，使用的最多。还有些因历史项目与老旧工具版本，在使用CentOS/RHEL 5或者6的。</p>
 
 <p>在这些环境下，IT部署svn，一般是直接<code class="language-plaintext highlighter-rouge">yum install subversion</code>进行安装的。以CentOS 7.9为例，安装的是1.7.14版本的svn。</p>
@@ -350,32 +378,4 @@ renice 调整进程优先级。</PID></p>
 <ol>
   <li>XDG_DATA_DIRS变量介绍： https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html</li>
   <li>CentOS 7.9桌面用户安装中文输入法：https://blog.csdn.net/thesre/article/details/125595496</li>
-</ol>]]></content><author><name></name></author><category term="icenv" /><category term="im" /><summary type="html"><![CDATA[问题描述 CentOS 7.9桌面用户，重新登录的vnc会话，运行im-chooser无法在右上角唤起输入法选择器。]]></summary></entry><entry><title type="html">a post with table of contents on a sidebar</title><link href="https://www.icinfra.cn/blog/2023/sidebar-table-of-contents/" rel="alternate" type="text/html" title="a post with table of contents on a sidebar" /><published>2023-04-25T14:14:00+00:00</published><updated>2023-04-25T14:14:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/sidebar-table-of-contents</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/sidebar-table-of-contents/"><![CDATA[<p>This post shows how to add a table of contents as a sidebar.</p>
-
-<h2 id="adding-a-table-of-contents">Adding a Table of Contents</h2>
-
-<p>To add a table of contents to a post as a sidebar, simply add</p>
-<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">toc</span><span class="pi">:</span>
-  <span class="na">sidebar</span><span class="pi">:</span> <span class="s">left</span>
-</code></pre></div></div>
-<p>to the front matter of the post. The table of contents will be automatically generated from the headings in the post. If you wish to display the sidebar to the right, simply change <code class="language-plaintext highlighter-rouge">left</code> to <code class="language-plaintext highlighter-rouge">right</code>.</p>
-
-<h3 id="example-of-sub-heading-1">Example of Sub-Heading 1</h3>
-
-<p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>
-
-<h3 id="example-of-another-sub-heading-1">Example of another Sub-Heading 1</h3>
-
-<p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>
-
-<h2 data-toc-text="Customizing" id="customizing-your-table-of-contents">Customizing Your Table of Contents</h2>
-
-<p>If you want to learn more about how to customize the table of contents of your sidebar, you can check the <a href="https://afeld.github.io/bootstrap-toc/">bootstrap-toc</a> documentation. Notice that you can even customize the text of the heading that will be displayed on the sidebar.</p>
-
-<h3 id="example-of-sub-heading-2">Example of Sub-Heading 2</h3>
-
-<p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>
-
-<h3 id="example-of-another-sub-heading-2">Example of another Sub-Heading 2</h3>
-
-<p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>]]></content><author><name></name></author><category term="sample-posts" /><category term="toc" /><category term="sidebar" /><summary type="html"><![CDATA[an example of a blog post with table of contents on a sidebar]]></summary></entry></feed>
+</ol>]]></content><author><name></name></author><category term="icenv" /><category term="im" /><summary type="html"><![CDATA[问题描述 CentOS 7.9桌面用户，重新登录的vnc会话，运行im-chooser无法在右上角唤起输入法选择器。]]></summary></entry></feed>

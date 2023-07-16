@@ -157,7 +157,7 @@
     <div id="markdown-content">
       <h1 id="eda软件与开源软件的管理">EDA软件与开源软件的管理</h1>
 
-<p>随着集成电路设计技术的发展，EDA (Electronic Design Automation) 工具在设计流程中扮演着关键的角色。此外，开源软件也在IC设计中提供了许多优势，包括在处理代码、构建工具和进行数据分析等方面的便利。本文将探讨EDA工具和开源软件的管理。</p>
+<p>随着集成电路设计技术的发展，EDA (Electronic Design Automation) 工具在设计流程中扮演着关键的角色。此外，开源软件也在IC设计中提供了许多优势，包括在处理代码、构建工具和进行数据分析等方面的便利。本文主要对芯片设计环境主要的两类工具——EDA工具和开源软件的管理展开讨论。</p>
 
 <h2 id="一简介">一、简介</h2>
 
@@ -180,13 +180,15 @@
 <p>涉及多平台、多OS，
 <code class="language-plaintext highlighter-rouge">/tools/x86_64/CentOS7/&lt;VENDOR&gt;/&lt;TOOL&gt;/&lt;VERSION&gt;</code>  <code class="language-plaintext highlighter-rouge">/tools/aarch64/CentOS7/&lt;VENDOR&gt;/&lt;TOOL&gt;/&lt;VERSION&gt;</code></p>
 
+<p>这里最主要的考虑点是兼容性与存储效率。如果优先兼容性，那么每个平台、每个OS分开是最好的；在没有去重功能的存储上，如果优先考虑存储效率，则层级往少规划，遇到不兼容时再采用modulefile分支来判断加载。</p>
+
 <h3 id="选型">选型</h3>
 
 <p>选择EDA工具需要考虑功能、性能、稳定性、使用难易度、成本等因素。此外，还需要考虑可能的国际制裁、行业市场占有率、厂商服务质量等因素。</p>
 
 <h3 id="调试与维护">调试与维护</h3>
 
-<p>在厂商在新版本中推出新特性时，需要配合做测试版本调试。商业EDA工具的责任方是厂商，如果想尝试新特性则可能需要配合做调试。</p>
+<p>厂商在针对bug修复、新特性增加时，用户通常需要配合跑特定任务做测试，以实现软件的迭代升级。</p>
 
 <h3 id="license管理">License管理</h3>
 
@@ -242,16 +244,15 @@
   <li>对工具目录（大部分是只读场景）所在FS做FS-Cache加速工具的加载；</li>
   <li>对工具环境文件（modulefile）进行缓存，加速工具环境的初始化；</li>
   <li>对工具命令环境的最精确设置，避免大量的无效路径查找导致的耗时；</li>
-  <li>在稳定版本的范围内，选最新的工具版本。</li>
+  <li>在兼容、稳定版本的范围内，选最新的工具版本。</li>
 </ul>
 
 <h2 id="结语">结语</h2>
 
 <p>管理EDA工具和开源软件是一项复杂的任务，涉及到许多因素，包括工具的选型、目录规划、安装与调试、许可证管理以及环境管理等。通过对这些因素的深入理解和有效管理，可以更好地利用这些工具，提高IC设计的效率和质量。</p>
 
-<hr>
-
-<p>这就是我根据PPT的内容整理的草案，如果有任何改进的建议，欢迎提出。</p>
+<h2 id="参考资料">参考资料</h2>
+<p>http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html 阮一峰写的开源License介绍</p>
 
     </div>
   </article>
@@ -276,6 +277,12 @@
   
 
   <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/synopsys-dve/">synopsys dev not in</a>
+  </li>
+
+  
+
+  <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/subversion-performance/">Subversion Performance</a>
   </li>
 
@@ -289,12 +296,6 @@
 
   <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/enable-modules-with-spack/">spack打开modules</a>
-  </li>
-
-  
-
-  <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/modify-image-with-pillow/">Python pillow修图</a>
   </li>
 
 <div id="giscus_thread" style="max-width: 800px; margin: 0 auto;">
@@ -334,7 +335,7 @@
     <footer class="fixed-bottom">
       <div class="container mt-0">
         © Copyright 2023 Wanlin  Wang. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>.
-Last updated: July 15, 2023.
+Last updated: July 16, 2023.
       </div>
     </footer>
 
