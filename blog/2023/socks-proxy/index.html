@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>会议有感 | IC Infra</title>
+    <title>SOCKS代理ChatGPT | IC Infra</title>
     <meta name="author" content="Wanlin  Wang">
     <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 ">
@@ -39,7 +39,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://www.icinfra.cn/blog/2022/meetings/">
+    <link rel="canonical" href="https://www.icinfra.cn/blog/2023/socks-proxy/">
 
     <!-- Dark Mode -->
     
@@ -136,22 +136,14 @@
 <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">会议有感</h1>
-    <p class="post-meta">September 13, 2022</p>
+    <h1 class="post-title">SOCKS代理ChatGPT</h1>
+    <p class="post-meta">August 4, 2023</p>
     <p class="post-tags">
-      <a href="/blog/2022"> <i class="fas fa-calendar fa-sm"></i> 2022 </a>
-        ·  
-        <a href="/blog/tag/post">
-          <i class="fas fa-hashtag fa-sm"></i> post</a>  
-          
-        ·  
-        <a href="/blog/category/career">
-          <i class="fas fa-tag fa-sm"></i> career</a>  
-          
+      <a href="/blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
 
       <!-- 本页浏览数 added by wanlinwang 03-Mar-2023. -->
         ·  
-      <img src="https://visitor-badge.glitch.me/badge?page_id=al-folio/blog/2022/meetings" alt="visitor badge">
+      <img src="https://visitor-badge.glitch.me/badge?page_id=al-folio/blog/2023/socks-proxy" alt="visitor badge">
 
     </p>
   </header>
@@ -159,15 +151,76 @@
   <article class="post-content">
     
     <div id="markdown-content">
-      <h2 id="会议有感">会议有感</h2>
-<p>领导是帮助大家将事情做成的人，千万不要将领导看成是高人一等的角色，而是看成是可以求助的伙伴，要资源，要帮助，就说服领导，把事情做成。
-我们做的事情很有意义，放长远来看，对社会、对公司、对个人都是很有意义的。当前的待遇都是临时的。大家可以将现在做的事，想成是为下一份工作简历，努力做好，充实简历。当然了，留在公司一直做下去也是最好的。</p>
+      <p>首先，我们需要在你的Windows 10或MacOS系统上使用SSH设置SOCKS代理。然后，我们将在浏览器上安装和配置SwitchyOmega插件，以使所有访问chat.openai.com的请求都通过这个代理服务器。</p>
 
-<p>我们技术人要保持单纯，就事论事，会议上给大家提了很多批评与建议，希望大家不要太介意。有问题，有建议就提出来，千万不要藏着掖着。</p>
+<h3 id="第一步设置socks代理">第一步：设置SOCKS代理</h3>
 
-<p>有大家齐心协力才能完成这么重要的工作，任何一个单人都无法完成这种事业。大家一起继续努力。</p>
+<h4 id="对于windows-10">对于Windows 10：</h4>
 
-<p>监控中，大部分正常的数据，都是没有价值的。我们如何识别并留存有效的数据，是需要特别关注的。</p>
+<ol>
+  <li>
+    <p>首先，你需要在你的Windows系统上安装SSH客户端。你可以选择使用Git Bash，它可以从<a href="https://git-scm.com/download/win" rel="external nofollow noopener" target="_blank">这个链接</a>下载。</p>
+  </li>
+  <li>
+    <p>安装完成后，打开Git Bash。</p>
+  </li>
+  <li>
+    <p>在Git Bash中，输入下面的命令（用你的实际情况替换<code class="language-plaintext highlighter-rouge">&lt;username&gt;</code>,<code class="language-plaintext highlighter-rouge">&lt;proxy-server&gt;</code>和<code class="language-plaintext highlighter-rouge">&lt;port&gt;</code>）：<br>
+    <code class="language-plaintext highlighter-rouge"> 
+    ssh -D &lt;port&gt; -N &lt;username&gt;@&lt;proxy-server&gt;  
+   </code><br>
+    例如：<br>
+    <code class="language-plaintext highlighter-rouge"> 
+    ssh -D 8080 -N user@proxy-server.com  
+   </code><br>
+   这条命令将在本地的8080端口上启动一个SOCKS代理，所有通过此代理的流量都将通过<code class="language-plaintext highlighter-rouge">proxy-server.com</code>服务器传输。</p>
+  </li>
+  <li>
+    <p>输入密码，如果你的服务器配置了公钥认证，可能需要提供私钥。</p>
+  </li>
+</ol>
+
+<h4 id="对于macos">对于MacOS：</h4>
+
+<ol>
+  <li>
+    <p>打开Terminal。</p>
+  </li>
+  <li>
+    <p>输入同样的命令：<br>
+    <code class="language-plaintext highlighter-rouge"> 
+    ssh -D &lt;port&gt; -N &lt;username&gt;@&lt;proxy-server&gt;  
+   </code></p>
+  </li>
+</ol>
+
+<h3 id="第二步配置switchyomega">第二步：配置SwitchyOmega</h3>
+
+<ol>
+  <li>
+    <p>在Chrome或Firefox浏览器中安装SwitchyOmega插件。</p>
+  </li>
+  <li>
+    <p>在浏览器的地址栏中输入<code class="language-plaintext highlighter-rouge">chrome://extensions/</code>（Chrome）或<code class="language-plaintext highlighter-rouge">about:addons</code>（Firefox），然后找到SwitchyOmega并点击“选项”。</p>
+  </li>
+  <li>
+    <p>在SwitchyOmega的选项页面，点击左侧的“新建情景模式”。</p>
+  </li>
+  <li>
+    <p>输入情景模式的名称，例如“SOCKS Proxy”，然后选择“代理服务器”。</p>
+  </li>
+  <li>
+    <p>在“代理协议和服务器”部分，选择SOCKS5，输入<code class="language-plaintext highlighter-rouge">127.0.0.1</code>作为服务器地址，端口设置为你在第一步中选择的端口，例如<code class="language-plaintext highlighter-rouge">8080</code>。</p>
+  </li>
+  <li>
+    <p>点击左侧的“自动切换”，然后在“规则列表规则”中添加一条新的规则。在“主机通配符”中输入<code class="language-plaintext highlighter-rouge">*.openai.com</code>，然后在“情景模式”中选择你刚刚创建的“SOCKS Proxy”。</p>
+  </li>
+  <li>
+    <p>点击“应用选项”。</p>
+  </li>
+</ol>
+
+<p>现在，当你访问任何以<code class="language-plaintext highlighter-rouge">.openai.com</code>结尾的网站时，你的请求将通过你在第一步中设置的SOCKS代理服务器转发。</p>
 
     </div>
   </article>
@@ -192,12 +245,6 @@
   
 
   <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/socks-proxy/">SOCKS代理ChatGPT</a>
-  </li>
-
-  
-
-  <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/synopsys-dve/">synopsys dev not in</a>
   </li>
 
@@ -213,6 +260,40 @@
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/subversion-performance/">Subversion Performance</a>
   </li>
 
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/Checkout-request-rejected-by-vendor-defined-checkout-filter/">Checkout request rejected by vendor-defined checkout filter报错</a>
+  </li>
+
+<div id="giscus_thread" style="max-width: 800px; margin: 0 auto;">
+  <script>
+    let giscusTheme = localStorage.getItem("theme");
+    let giscusAttributes = {
+        "src": "https://giscus.app/client.js",
+        "data-repo": "icinfra/icinfra.github.io",
+        "data-repo-id": "R_kgDOJCjOsg",
+        "data-category": "Q&A",
+        "data-category-id": "DIC_kwDOJCjOss4CUimo",
+        "data-mapping": "pathname",
+        "data-strict": "1",
+        "data-reactions-enabled": "1",
+        "data-emit-metadata": "0",
+        "data-input-position": "bottom",
+        "data-theme": giscusTheme,
+        "data-lang": "en",
+        "crossorigin": "anonymous",
+        "async": "",
+    };
+
+
+    let giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
+    document.getElementById("giscus_thread").appendChild(giscusScript);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript" rel="external nofollow noopener" target="_blank">comments powered by giscus.</a>
+</noscript>
+</div>
 </div>
 
       

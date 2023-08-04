@@ -1,5 +1,74 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-07-16T03:08:43+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">synopsys dev not in</title><link href="https://www.icinfra.cn/blog/2023/synopsys-dve/" rel="alternate" type="text/html" title="synopsys dev not in" /><published>2023-07-15T23:39:01+00:00</published><updated>2023-07-15T23:39:01+00:00</updated><id>https://www.icinfra.cn/blog/2023/synopsys-dve</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/synopsys-dve/"><![CDATA[<h2 id="问题">问题</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-04T11:41:10+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">SOCKS代理ChatGPT</title><link href="https://www.icinfra.cn/blog/2023/socks-proxy/" rel="alternate" type="text/html" title="SOCKS代理ChatGPT" /><published>2023-08-04T11:36:49+00:00</published><updated>2023-08-04T11:36:49+00:00</updated><id>https://www.icinfra.cn/blog/2023/socks-proxy</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/socks-proxy/"><![CDATA[<p>首先，我们需要在你的Windows 10或MacOS系统上使用SSH设置SOCKS代理。然后，我们将在浏览器上安装和配置SwitchyOmega插件，以使所有访问chat.openai.com的请求都通过这个代理服务器。</p>
+
+<h3 id="第一步设置socks代理">第一步：设置SOCKS代理</h3>
+
+<h4 id="对于windows-10">对于Windows 10：</h4>
+
+<ol>
+  <li>
+    <p>首先，你需要在你的Windows系统上安装SSH客户端。你可以选择使用Git Bash，它可以从<a href="https://git-scm.com/download/win">这个链接</a>下载。</p>
+  </li>
+  <li>
+    <p>安装完成后，打开Git Bash。</p>
+  </li>
+  <li>
+    <p>在Git Bash中，输入下面的命令（用你的实际情况替换<code class="language-plaintext highlighter-rouge">&lt;username&gt;</code>,<code class="language-plaintext highlighter-rouge">&lt;proxy-server&gt;</code>和<code class="language-plaintext highlighter-rouge">&lt;port&gt;</code>）：<br />
+    <code class="language-plaintext highlighter-rouge"> 
+    ssh -D &lt;port&gt; -N &lt;username&gt;@&lt;proxy-server&gt;  
+   </code><br />
+    例如：<br />
+    <code class="language-plaintext highlighter-rouge"> 
+    ssh -D 8080 -N user@proxy-server.com  
+   </code><br />
+   这条命令将在本地的8080端口上启动一个SOCKS代理，所有通过此代理的流量都将通过<code class="language-plaintext highlighter-rouge">proxy-server.com</code>服务器传输。</p>
+  </li>
+  <li>
+    <p>输入密码，如果你的服务器配置了公钥认证，可能需要提供私钥。</p>
+  </li>
+</ol>
+
+<h4 id="对于macos">对于MacOS：</h4>
+
+<ol>
+  <li>
+    <p>打开Terminal。</p>
+  </li>
+  <li>
+    <p>输入同样的命令：<br />
+    <code class="language-plaintext highlighter-rouge"> 
+    ssh -D &lt;port&gt; -N &lt;username&gt;@&lt;proxy-server&gt;  
+   </code></p>
+  </li>
+</ol>
+
+<h3 id="第二步配置switchyomega">第二步：配置SwitchyOmega</h3>
+
+<ol>
+  <li>
+    <p>在Chrome或Firefox浏览器中安装SwitchyOmega插件。</p>
+  </li>
+  <li>
+    <p>在浏览器的地址栏中输入<code class="language-plaintext highlighter-rouge">chrome://extensions/</code>（Chrome）或<code class="language-plaintext highlighter-rouge">about:addons</code>（Firefox），然后找到SwitchyOmega并点击“选项”。</p>
+  </li>
+  <li>
+    <p>在SwitchyOmega的选项页面，点击左侧的“新建情景模式”。</p>
+  </li>
+  <li>
+    <p>输入情景模式的名称，例如“SOCKS Proxy”，然后选择“代理服务器”。</p>
+  </li>
+  <li>
+    <p>在“代理协议和服务器”部分，选择SOCKS5，输入<code class="language-plaintext highlighter-rouge">127.0.0.1</code>作为服务器地址，端口设置为你在第一步中选择的端口，例如<code class="language-plaintext highlighter-rouge">8080</code>。</p>
+  </li>
+  <li>
+    <p>点击左侧的“自动切换”，然后在“规则列表规则”中添加一条新的规则。在“主机通配符”中输入<code class="language-plaintext highlighter-rouge">*.openai.com</code>，然后在“情景模式”中选择你刚刚创建的“SOCKS Proxy”。</p>
+  </li>
+  <li>
+    <p>点击“应用选项”。</p>
+  </li>
+</ol>
+
+<p>现在，当你访问任何以<code class="language-plaintext highlighter-rouge">.openai.com</code>结尾的网站时，你的请求将通过你在第一步中设置的SOCKS代理服务器转发。</p>]]></content><author><name></name></author><summary type="html"><![CDATA[首先，我们需要在你的Windows 10或MacOS系统上使用SSH设置SOCKS代理。然后，我们将在浏览器上安装和配置SwitchyOmega插件，以使所有访问chat.openai.com的请求都通过这个代理服务器。]]></summary></entry><entry><title type="html">synopsys dev not in</title><link href="https://www.icinfra.cn/blog/2023/synopsys-dve/" rel="alternate" type="text/html" title="synopsys dev not in" /><published>2023-07-15T23:39:01+00:00</published><updated>2023-07-15T23:39:01+00:00</updated><id>https://www.icinfra.cn/blog/2023/synopsys-dve</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/synopsys-dve/"><![CDATA[<h2 id="问题">问题</h2>
 <p>行业群问到，vcs带的dve命令启动报错<code class="language-plaintext highlighter-rouge">ERROR - Unable to find valid DVE installation in $VCS_HOME/gui/dve, please download DVE installation package and install it under $VCS_HOME</code>。</p>
 
 <h2 id="分析">分析</h2>
@@ -363,19 +432,4 @@ renice 调整进程优先级。</PID></p>
 
 <p>RCU是很重要的一个</p>
 
-<p>RCU stall detect</p>]]></content><author><name></name></author><summary type="html"><![CDATA[构造用例 使用perf抓取]]></summary></entry><entry><title type="html">XDG_DATA_DIRS变量导致im-chooser不正常</title><link href="https://www.icinfra.cn/blog/2023/XDG_DATA_DIRS-variable-cause-im-chooser-not-working/" rel="alternate" type="text/html" title="XDG_DATA_DIRS变量导致im-chooser不正常" /><published>2023-04-26T11:38:12+00:00</published><updated>2023-04-26T11:38:12+00:00</updated><id>https://www.icinfra.cn/blog/2023/XDG_DATA_DIRS-variable-cause-im-chooser-not-working</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/XDG_DATA_DIRS-variable-cause-im-chooser-not-working/"><![CDATA[<h1 id="问题描述">问题描述</h1>
-<p>CentOS 7.9桌面用户，重新登录的vnc会话，运行im-chooser无法在右上角唤起输入法选择器。</p>
-
-<h1 id="问题定位">问题定位</h1>
-<p>通过二分排除法定位到是spack安装的vim的modulefile里，好几句设置XDG_DATA_DIRS语句导致，</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>prepend-path XDG_DATA_DIRS <span class="s2">"/tools/opensrc/spack/opt/spack/linux-tlinux2-icelake/gcc-11.2.0/atk-2.36.0-44etyekjnugxjiz6tblr7zddv5igvzn2/share"</span>
-</code></pre></div></div>
-
-<h1 id="问题根因">问题根因</h1>
-<p>TODO</p>
-
-<h1 id="参考资料">参考资料</h1>
-<ol>
-  <li>XDG_DATA_DIRS变量介绍： https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html</li>
-  <li>CentOS 7.9桌面用户安装中文输入法：https://blog.csdn.net/thesre/article/details/125595496</li>
-</ol>]]></content><author><name></name></author><category term="icenv" /><category term="im" /><summary type="html"><![CDATA[问题描述 CentOS 7.9桌面用户，重新登录的vnc会话，运行im-chooser无法在右上角唤起输入法选择器。]]></summary></entry></feed>
+<p>RCU stall detect</p>]]></content><author><name></name></author><summary type="html"><![CDATA[构造用例 使用perf抓取]]></summary></entry></feed>
