@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-07T06:49:34+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">SOCKS代理ChatGPT</title><link href="https://www.icinfra.cn/blog/2023/socks-proxy/" rel="alternate" type="text/html" title="SOCKS代理ChatGPT" /><published>2023-08-04T11:36:49+00:00</published><updated>2023-08-04T11:36:49+00:00</updated><id>https://www.icinfra.cn/blog/2023/socks-proxy</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/socks-proxy/"><![CDATA[<p>首先，我们需要在你的Windows 10或MacOS系统上使用SSH设置SOCKS代理。然后，我们将在浏览器上安装和配置SwitchyOmega插件，以使所有访问chat.openai.com的请求都通过这个代理服务器。</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-07T07:06:43+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html"></title><link href="https://www.icinfra.cn/blog/2023/2023-08-07-cannot-save-file-with-libreoffice/" rel="alternate" type="text/html" title="" /><published>2023-08-07T07:06:43+00:00</published><updated>2023-08-07T07:06:43+00:00</updated><id>https://www.icinfra.cn/blog/2023/2023-08-07-cannot-save-file-with-libreoffice</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/2023-08-07-cannot-save-file-with-libreoffice/"><![CDATA[<p>使用<code class="language-plaintext highlighter-rouge">env LD_LIBRARY_PATH= /tools/opensrc/LibreOffice/7.3.0/opt/libreoffice7.3/program/soffice -env:UserInstallation=file:///tmp/pl_wanlinwang/libreoffice7.3</code>无法保存文件，报错如下，
+<img width="219" alt="企业微信截图_16913800075669" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/8bb7e8c5-f6d1-4275-89a1-5d7ba9773a5f" /></p>
+
+<p>重启了TurboVNC就好了。但根因未找到。</p>]]></content><author><name></name></author></entry><entry><title type="html">SOCKS代理ChatGPT</title><link href="https://www.icinfra.cn/blog/2023/socks-proxy/" rel="alternate" type="text/html" title="SOCKS代理ChatGPT" /><published>2023-08-04T11:36:49+00:00</published><updated>2023-08-04T11:36:49+00:00</updated><id>https://www.icinfra.cn/blog/2023/socks-proxy</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/socks-proxy/"><![CDATA[<p>首先，我们需要在你的Windows 10或MacOS系统上使用SSH设置SOCKS代理。然后，我们将在浏览器上安装和配置SwitchyOmega插件，以使所有访问chat.openai.com的请求都通过这个代理服务器。</p>
 
 <h3 id="第一步设置socks代理">第一步：设置SOCKS代理</h3>
 
@@ -421,20 +424,4 @@ https://spack.readthedocs.io/en/latest/module_file_support.html#write-a-configur
 
 <p>超线程共享一个物理核心以及它的缓存系统。因为huancun 是共享的，所以在超线程之间移动数据不会有太多损失。但这也意味着如果在同一个物理核心的多个超线程运行的不同进程之间没有任何共享的数据，则每个虚拟核心的缓存大小只有真实物理核心的一半。对于内存受限的应用程序而言，将缓存减半可能是一个严重的打击。因此，超线程有利有弊。</p>
 
-<p>许多HPC关闭了超线程，因为一些程序使用超线程反而更慢。如果我们使用超线程，我们总是希望进程靠近，这样共享缓存对两个虚拟处理器都有利。</p>]]></content><author><name></name></author><category term="icenv" /><category term="ht" /><summary type="html"><![CDATA[简介 超线程是Intel与AMD的一项技术，通过在两个线程之间共享硬件资源，使得单cpu对操作系统而言是两个vcpu。]]></summary></entry><entry><title type="html">Process Sched</title><link href="https://www.icinfra.cn/blog/2023/process-sched/" rel="alternate" type="text/html" title="Process Sched" /><published>2023-04-27T08:47:12+00:00</published><updated>2023-04-27T08:47:12+00:00</updated><id>https://www.icinfra.cn/blog/2023/process-sched</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/process-sched/"><![CDATA[<p>构造用例
-使用perf抓取</p>
-
-<p>查看间隔，这里频率是250。也就是每4ms来看一次。</p>
-
-<p>开启准确的调度。开启HRTICK，实际上用得少。</p>
-
-<p>cat /proc/<PID>/sched
-renice 调整进程优先级。</PID></p>
-
-<p>组调度。cgroup</p>
-
-<p>负载均衡。</p>
-
-<p>RCU是很重要的一个</p>
-
-<p>RCU stall detect</p>]]></content><author><name></name></author><summary type="html"><![CDATA[构造用例 使用perf抓取]]></summary></entry></feed>
+<p>许多HPC关闭了超线程，因为一些程序使用超线程反而更慢。如果我们使用超线程，我们总是希望进程靠近，这样共享缓存对两个虚拟处理器都有利。</p>]]></content><author><name></name></author><category term="icenv" /><category term="ht" /><summary type="html"><![CDATA[简介 超线程是Intel与AMD的一项技术，通过在两个线程之间共享硬件资源，使得单cpu对操作系统而言是两个vcpu。]]></summary></entry></feed>
