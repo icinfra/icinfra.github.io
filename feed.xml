@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-04T11:41:10+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-07T06:49:34+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 </subtitle><entry><title type="html">SOCKS代理ChatGPT</title><link href="https://www.icinfra.cn/blog/2023/socks-proxy/" rel="alternate" type="text/html" title="SOCKS代理ChatGPT" /><published>2023-08-04T11:36:49+00:00</published><updated>2023-08-04T11:36:49+00:00</updated><id>https://www.icinfra.cn/blog/2023/socks-proxy</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/socks-proxy/"><![CDATA[<p>首先，我们需要在你的Windows 10或MacOS系统上使用SSH设置SOCKS代理。然后，我们将在浏览器上安装和配置SwitchyOmega插件，以使所有访问chat.openai.com的请求都通过这个代理服务器。</p>
 
 <h3 id="第一步设置socks代理">第一步：设置SOCKS代理</h3>
@@ -21,7 +21,9 @@
     <code class="language-plaintext highlighter-rouge"> 
     ssh -D 8080 -N user@proxy-server.com  
    </code><br />
-   这条命令将在本地的8080端口上启动一个SOCKS代理，所有通过此代理的流量都将通过<code class="language-plaintext highlighter-rouge">proxy-server.com</code>服务器传输。</p>
+   这条命令将在本地的8080端口上启动一个SOCKS代理，所有通过此代理的流量都将通过<code class="language-plaintext highlighter-rouge">proxy-server.com</code>服务器传输。
+如下图所示：
+<img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/a2efc617-7b33-48bd-b3ab-c4ebcf417e23" alt="image" /></p>
   </li>
   <li>
     <p>输入密码，如果你的服务器配置了公钥认证，可能需要提供私钥。</p>
@@ -67,6 +69,9 @@
     <p>点击“应用选项”。</p>
   </li>
 </ol>
+
+<p>如下图所示，
+<img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/266e65bc-ea88-49f5-9068-8061a4edec28" alt="image" /></p>
 
 <p>现在，当你访问任何以<code class="language-plaintext highlighter-rouge">.openai.com</code>结尾的网站时，你的请求将通过你在第一步中设置的SOCKS代理服务器转发。</p>]]></content><author><name></name></author><summary type="html"><![CDATA[首先，我们需要在你的Windows 10或MacOS系统上使用SSH设置SOCKS代理。然后，我们将在浏览器上安装和配置SwitchyOmega插件，以使所有访问chat.openai.com的请求都通过这个代理服务器。]]></summary></entry><entry><title type="html">synopsys dev not in</title><link href="https://www.icinfra.cn/blog/2023/synopsys-dve/" rel="alternate" type="text/html" title="synopsys dev not in" /><published>2023-07-15T23:39:01+00:00</published><updated>2023-07-15T23:39:01+00:00</updated><id>https://www.icinfra.cn/blog/2023/synopsys-dve</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/synopsys-dve/"><![CDATA[<h2 id="问题">问题</h2>
 <p>行业群问到，vcs带的dve命令启动报错<code class="language-plaintext highlighter-rouge">ERROR - Unable to find valid DVE installation in $VCS_HOME/gui/dve, please download DVE installation package and install it under $VCS_HOME</code>。</p>
