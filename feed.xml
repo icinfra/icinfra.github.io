@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-07T22:48:14+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">libreoffice不能保存</title><link href="https://www.icinfra.cn/blog/2023/cannot-save-file-with-libreoffice/" rel="alternate" type="text/html" title="libreoffice不能保存" /><published>2023-08-07T08:15:00+00:00</published><updated>2023-08-07T08:15:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/cannot-save-file-with-libreoffice</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/cannot-save-file-with-libreoffice/"><![CDATA[<p>使用<code class="language-plaintext highlighter-rouge">env LD_LIBRARY_PATH= /tools/opensrc/LibreOffice/7.3.0/opt/libreoffice7.3/program/soffice -env:UserInstallation=file:///tmp/pl_wanlinwang/libreoffice7.3</code>无法保存文件，报错如下，</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-07T22:49:47+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">libreoffice不能保存</title><link href="https://www.icinfra.cn/blog/2023/cannot-save-file-with-libreoffice/" rel="alternate" type="text/html" title="libreoffice不能保存" /><published>2023-08-07T08:15:00+00:00</published><updated>2023-08-07T08:15:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/cannot-save-file-with-libreoffice</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/cannot-save-file-with-libreoffice/"><![CDATA[<p>使用<code class="language-plaintext highlighter-rouge">env LD_LIBRARY_PATH= /tools/opensrc/LibreOffice/7.3.0/opt/libreoffice7.3/program/soffice -env:UserInstallation=file:///tmp/wanlinwang/libreoffice7.3</code>无法保存文件，报错如下，</p>
 
 <p><img width="219" alt="企业微信截图_16913800075669" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/8bb7e8c5-f6d1-4275-89a1-5d7ba9773a5f" /></p>
 
-<p>重启了TurboVNC就好了。但根因未找到。</p>]]></content><author><name></name></author><category term="icenv" /><summary type="html"><![CDATA[使用env LD_LIBRARY_PATH= /tools/opensrc/LibreOffice/7.3.0/opt/libreoffice7.3/program/soffice -env:UserInstallation=file:///tmp/pl_wanlinwang/libreoffice7.3无法保存文件，报错如下，]]></summary></entry><entry><title type="html">SOCKS代理ChatGPT</title><link href="https://www.icinfra.cn/blog/2023/socks-proxy/" rel="alternate" type="text/html" title="SOCKS代理ChatGPT" /><published>2023-08-04T11:36:49+00:00</published><updated>2023-08-04T11:36:49+00:00</updated><id>https://www.icinfra.cn/blog/2023/socks-proxy</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/socks-proxy/"><![CDATA[<p>首先，我们需要在你的Windows 10或MacOS系统上使用SSH设置SOCKS代理。然后，我们将在浏览器上安装和配置SwitchyOmega插件，以使所有访问chat.openai.com的请求都通过这个代理服务器。</p>
+<p>重启了TurboVNC就好了。但根因未找到。</p>]]></content><author><name></name></author><category term="icenv" /><summary type="html"><![CDATA[使用env LD_LIBRARY_PATH= /tools/opensrc/LibreOffice/7.3.0/opt/libreoffice7.3/program/soffice -env:UserInstallation=file:///tmp/wanlinwang/libreoffice7.3无法保存文件，报错如下，]]></summary></entry><entry><title type="html">SOCKS代理ChatGPT</title><link href="https://www.icinfra.cn/blog/2023/socks-proxy/" rel="alternate" type="text/html" title="SOCKS代理ChatGPT" /><published>2023-08-04T11:36:49+00:00</published><updated>2023-08-04T11:36:49+00:00</updated><id>https://www.icinfra.cn/blog/2023/socks-proxy</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/socks-proxy/"><![CDATA[<p>首先，我们需要在你的Windows 10或MacOS系统上使用SSH设置SOCKS代理。然后，我们将在浏览器上安装和配置SwitchyOmega插件，以使所有访问chat.openai.com的请求都通过这个代理服务器。</p>
 
 <h3 id="第一步设置socks代理">第一步：设置SOCKS代理</h3>
 
@@ -26,8 +26,9 @@
     ssh -D 8080 -N user@proxy-server.com  
    </code><br />
    这条命令将在本地的8080端口上启动一个SOCKS代理，所有通过此代理的流量都将通过<code class="language-plaintext highlighter-rouge">proxy-server.com</code>服务器传输。
-如下图所示：
-<img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/a2efc617-7b33-48bd-b3ab-c4ebcf417e23" alt="image" /></p>
+如下图所示：</p>
+
+    <p><img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/dceb7c3f-8173-42b0-8132-268328e48110" alt="image" /></p>
   </li>
   <li>
     <p>输入密码，如果你的服务器配置了公钥认证，可能需要提供私钥。</p>
