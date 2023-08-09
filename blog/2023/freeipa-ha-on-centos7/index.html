@@ -210,12 +210,14 @@ files is the Directory Manager password
 <span class="o">[</span>centos@vm-centos7-9-189 ~]<span class="nv">$ </span>ipa-replica-install
 <span class="o">[</span>centos@vm-centos7-9-189 ~]<span class="nv">$ </span>ipa-ca-install <span class="nt">-p</span> Secret123
 </code></pre></div></div>
+<p><img width="1700" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/6c9f1020-01de-49d5-9bb3-1df7f7c67ac9"></p>
 
 <p>配置客户端，</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@vm-centos7-9-190 centos]# ipa-client-install <span class="nt">--server</span><span class="o">=</span>ipa-server-01.icinfra.cn <span class="nt">--server</span><span class="o">=</span>ipa-server-02.icinfra.cn <span class="nt">--domain</span><span class="o">=</span>icinfra.cn <span class="nt">-p</span> admin <span class="nt">-w</span> Secret123 <span class="nt">-U</span>
 <span class="o">[</span>centos@vm-centos7-9-190 ~]<span class="nv">$ </span><span class="nb">id </span>admin
 <span class="nv">uid</span><span class="o">=</span>668600000<span class="o">(</span>admin<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>668600000<span class="o">(</span>admins<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>668600000<span class="o">(</span>admins<span class="o">)</span>
 </code></pre></div></div>
+<p><img width="1700" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/44fd89ec-fe2d-4bea-af41-9be5efbbc619"></p>
 
 <h1 id="参考资料">参考资料</h1>
 <p>https://blog.csdn.net/thesre/article/details/117791657
