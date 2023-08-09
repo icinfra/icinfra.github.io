@@ -10,9 +10,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>REALVNC如何增加或删除分辨率配置？ | IC Infra</title>
+    <title>freeipa | IC Infra</title>
     <meta name="author" content="Wanlin  Wang">
-    <meta name="description" content="REALVNC增加或删除分辨率配置">
+    <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+">
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website">
 
 
@@ -38,7 +39,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://www.icinfra.cn/blog/2023/realvnc-add-or-rm-resolution/">
+    <link rel="canonical" href="https://www.icinfra.cn/blog/tag/freeipa/">
 
     <!-- Dark Mode -->
     
@@ -130,125 +131,28 @@
     <!-- Content -->
     <div class="container mt-5">
       
-        <!-- _layouts/post.html -->
-
-<div class="post">
+        <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">REALVNC如何增加或删除分辨率配置？</h1>
-    <p class="post-meta">March 8, 2023</p>
-    <p class="post-tags">
-      <a href="/blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
-        ·  
-        <a href="/blog/tag/linux">
-          <i class="fas fa-hashtag fa-sm"></i> linux</a>  
-          <a href="/blog/tag/vnc">
-          <i class="fas fa-hashtag fa-sm"></i> vnc</a>  
-          
-        ·  
-        <a href="/blog/category/icenv-posts">
-          <i class="fas fa-tag fa-sm"></i> icenv-posts</a>  
-          
-
-      <!-- 本页浏览数 added by wanlinwang 03-Mar-2023. -->
-        ·  
-      <img src="https://visitor-badge.glitch.me/badge?page_id=al-folio/blog/2023/realvnc-add-or-rm-resolution" alt="visitor badge">
-
-    </p>
+    <h1 class="post-title"> <i class="fas fa-hashtag fa-sm"></i> freeipa </h1>
+    <p class="post-description"> an archive of posts with this tag </p>
   </header>
 
-  <article class="post-content">
-    
-    <div id="markdown-content">
-      <h1 id="问题">问题</h1>
-<p>用户设置1920x1080的分辨率，屏幕崩溃，画面乱了。</p>
-
-<h1 id="解决">解决</h1>
-<p>去掉有问题的配置。</p>
-
-<p>查看到两个1920x1080的配置<br>
-<img src="/assets/img/realvnc%E5%88%86%E8%BE%A8%E7%8E%87Snipaste_2023-03-08_13-08-11.png" alt="xrandr%20-q结果"></p>
-
-<p>使用xrandr试着删掉其中一个，提示无法删除<br>
-<img src="/assets/img/xrandr%E5%88%A0%E9%99%A4%E5%88%86%E8%BE%A8%E7%8E%87%E5%A4%B1%E8%B4%A5Snipaste_2023-03-08_13-14-04.png" alt="xrandr%20--delmode"></p>
-
-<p>经<a href="https://bugs.freedesktop.org/show_bug.cgi?id=10369#c2" rel="external nofollow noopener" target="_blank">google</a>，说的是xrandr无法删除由X managed的mode。</p>
-
-<p>从X<a href="https://help.realvnc.com/hc/en-us/articles/360016058212-How-do-I-adjust-the-screen-resolution-of-a-virtual-desktop-under-Linux-#realvnc-dummy-driver-0-3" rel="external nofollow noopener" target="_blank">REALVNC手册</a>侧删除，/etc/X11/vncserver-virtual-dummy.conf，如果是较早的版本则是/etc/X11/vncserver-virtual.conf文件。尝试将其一从这个文件里移除，问题即解决。</p>
-
-
+  <article>
+    <div class="table-responsive">
+      <table class="table table-sm table-borderless">
+        
+        <tr>
+          <th scope="row">Aug 9, 2023</th>
+          <td>
+              <a class="post-link" href="/blog/2023/freeipa-ha-on-centos7/">CentOS 7.9上的FreeIPA HA 架构</a>
+          </td>
+        </tr>
+      
+      </table>
     </div>
   </article>
 
-
-  
-    
-    <br>
-    <hr>
-    <br>
-    <ul class="list-disc pl-8"></ul>
-
-    <!-- Adds related posts to the end of an article -->
-    <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2>
-    <p class="mb-2">Here are some more articles you might like to read next:</p>
-  
-
-  <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2022/displaying-external-posts-on-your-al-folio-blog/">Displaying External Posts on Your al-folio Blog</a>
-  </li>
-
-  
-
-  <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/freeipa-ha-on-centos7/">CentOS 7.9上的FreeIPA HA 架构</a>
-  </li>
-
-  
-
-  <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/svn-git-permanently-delete-files/">版本库彻底删除文件</a>
-  </li>
-
-  
-
-  <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/cannot-save-file-with-libreoffice/">libreoffice不能保存</a>
-  </li>
-
-  
-
-  <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/socks-proxy/">SOCKS代理ChatGPT</a>
-  </li>
-
-<div id="giscus_thread" style="max-width: 800px; margin: 0 auto;">
-  <script>
-    let giscusTheme = localStorage.getItem("theme");
-    let giscusAttributes = {
-        "src": "https://giscus.app/client.js",
-        "data-repo": "icinfra/icinfra.github.io",
-        "data-repo-id": "R_kgDOJCjOsg",
-        "data-category": "Q&A",
-        "data-category-id": "DIC_kwDOJCjOss4CUimo",
-        "data-mapping": "pathname",
-        "data-strict": "1",
-        "data-reactions-enabled": "1",
-        "data-emit-metadata": "0",
-        "data-input-position": "bottom",
-        "data-theme": giscusTheme,
-        "data-lang": "en",
-        "crossorigin": "anonymous",
-        "async": "",
-    };
-
-
-    let giscusScript = document.createElement("script");
-    Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
-    document.getElementById("giscus_thread").appendChild(giscusScript);
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript" rel="external nofollow noopener" target="_blank">comments powered by giscus.</a>
-</noscript>
-</div>
 </div>
 
       
