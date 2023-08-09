@@ -1,53 +1,56 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-09T12:12:59+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-09T12:29:44+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 </subtitle><entry><title type="html">版本库彻底删除文件</title><link href="https://www.icinfra.cn/blog/2023/svn-git-permanently-delete-files/" rel="alternate" type="text/html" title="版本库彻底删除文件" /><published>2023-08-09T12:08:45+00:00</published><updated>2023-08-09T12:08:45+00:00</updated><id>https://www.icinfra.cn/blog/2023/svn-git-permanently-delete-files</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/svn-git-permanently-delete-files/"><![CDATA[<p>wanlinwang, 2023/08/08</p>
 <h1 id="svnsubversion">SVN(subversion)</h1>
 
 <h2 id="方法一只保留一个revision">方法一：只保留一个revision</h2>
 
-<p>关键点：使用svnadmin dump最新revision。
-先将需要删除的文件，删除了并执行svn ci提交，然后只保留最新这个revision，如下步骤，</p>
+<p>关键点：使用svnadmin dump最新revision。</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># step1: get younest revision number
+<p>先将需要删除的文件，删除了并执行svn ci提交，然后只保留最新这个revision，如下步骤，</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># step1: get younest revision number</span>
 svnlook youngest /path/to/svn/repo_dir 
-# step2: hotcopy without logs
-svnadmin hotcopy --clean-logs /path/to/svn/repo_dir /path/to/svn/repo_new_dir01 
-# step3: dump youngest revision
-svnadmin dump /path/to/svn/repo_new_dir01 -r &lt;youngest_revision&gt;:&lt;youngest_revision&gt; &gt; /path/to/svn/repo_in_youngest_revision.dump
-# step4: create new repo
-svnadmin create --fs-type fsfs /path/to/svn/repo_new_dir
-# step5: load repo_in_youngest_revision.dump to the new repo
+<span class="c"># step2: hotcopy without logs</span>
+svnadmin hotcopy <span class="nt">--clean-logs</span> /path/to/svn/repo_dir /path/to/svn/repo_new_dir01 
+<span class="c"># step3: dump youngest revision</span>
+svnadmin dump /path/to/svn/repo_new_dir01 <span class="nt">-r</span> &lt;youngest_revision&gt;:&lt;youngest_revision&gt; <span class="o">&gt;</span> /path/to/svn/repo_in_youngest_revision.dump
+<span class="c"># step4: create new repo</span>
+svnadmin create <span class="nt">--fs-type</span> fsfs /path/to/svn/repo_new_dir
+<span class="c"># step5: load repo_in_youngest_revision.dump to the new repo</span>
 svnadmin load /path/to/svn/repo_new_dir &lt; /path/to/svn/repo_in_youngest_revision.dump 
-# step6: rename the new repo to the original one
-mv /path/to/svn/repo_dir /path/to/svn/repo_dir_bak20230808; mv /path/to/svn/repo_new_dir /path/to/svn/repo_dir #重命名仓库目录
+<span class="c"># step6: rename the new repo to the original one</span>
+<span class="nb">mv</span> /path/to/svn/repo_dir /path/to/svn/repo_dir_bak20230808<span class="p">;</span> <span class="nb">mv</span> /path/to/svn/repo_new_dir /path/to/svn/repo_dir <span class="c">#重命名仓库目录</span>
 </code></pre></div></div>
-<p>这样，/path/to/svn/repo_dir就是处理后的仓库了。
-由于subversion是针对node进行增量存储，对于没有修改的文件与目录，subversion是简单地引用早期的revision。当只dump最新版本，即svnadmin dump -r <youngest_revision_num>时，需要对每个node递归地从<youngest_revision_num>到<oldest_revision_num>去重建，是一个非常耗时的操作。</oldest_revision_num></youngest_revision_num></youngest_revision_num></p>
+<p>这样，/path/to/svn/repo_dir就是处理后的仓库了。</p>
+
+<p>由于subversion是针对node进行增量存储，对于没有修改的文件与目录，subversion是简单地引用早期的revision。当只dump最新版本，即svnadmin dump -r <youngest_revision_num>时，需要对每个node递归地从<youngest_revision_num>到<oldest_revision_num>去重建，是一个非常耗时的操作。</oldest_revision_num></youngest_revision_num></youngest_revision_num></p>
 
 <h2 id="方法二保留所有revision">方法二：保留所有revision</h2>
 
 <p>关键点：使用svndumpfilter命令。</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># step1: dump
-svnadmin dump /path/to/svn/repo_dir &gt; repo_dir.dump
-# step2: svndumpfilter
-cat repo_dir.dump | svndumpfilter exclude path/to/dir1 path/to/dir2 &gt; filtered.dump 
-# step3: creat new repo
-svnadmin create --fs-type fsfs /path/to/svn/repo_new_dir 
-# step4: load filterd.dump to the new repo
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># step1: dump</span>
+svnadmin dump /path/to/svn/repo_dir <span class="o">&gt;</span> repo_dir.dump
+<span class="c"># step2: svndumpfilter</span>
+<span class="nb">cat </span>repo_dir.dump | svndumpfilter exclude path/to/dir1 path/to/dir2 <span class="o">&gt;</span> filtered.dump 
+<span class="c"># step3: creat new repo</span>
+svnadmin create <span class="nt">--fs-type</span> fsfs /path/to/svn/repo_new_dir 
+<span class="c"># step4: load filterd.dump to the new repo</span>
 svnadmin load /path/to/svn/repo_new_dir &lt; filtered.dump 
-# step5: rename the new repo to the original one
-mv /path/to/svn/repo_dir /path/to/svn/repo_dir_bak20230808; mv /path/to/svn/repo_new_dir /path/to/svn/repo_dir #重命名仓库目录
+<span class="c"># step5: rename the new repo to the original one</span>
+<span class="nb">mv</span> /path/to/svn/repo_dir /path/to/svn/repo_dir_bak20230808<span class="p">;</span> <span class="nb">mv</span> /path/to/svn/repo_new_dir /path/to/svn/repo_dir <span class="c">#重命名仓库目录</span>
 </code></pre></div></div>
-<p>这样，/path/to/svn/repo_dir就是处理后的仓库了。
-由于是dump全部revision，不涉及对每个node的递归重建，只涉及简单的revision遍历并根据filelist过滤，这种方法耗时相对短。</p>
+<p>这样，/path/to/svn/repo_dir就是处理后的仓库了。</p>
+
+<p>由于是dump全部revision，不涉及对每个node的递归重建，只涉及简单的revision遍历并根据filelist过滤，这种方法耗时相对短。</p>
 
 <h2 id="方法三保留所有revision">方法三：保留所有revision</h2>
 
 <p>关键点：用path-based限制访问后执行svnsync
 https://subversion.apache.org/faq.html#removal</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># step1: 在authz文件里，将待删掉的目录或文件定义为不可读。
-# step2: 执行svnsync复制仓库。
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># step1: 在authz文件里，将待删掉的目录或文件定义为不可读。</span>
+<span class="c"># step2: 执行svnsync复制仓库。</span>
 </code></pre></div></div>
 
 <table>
@@ -108,27 +111,30 @@ https://subversion.apache.org/faq.html#removal</p>
 
 <p>测试记录：
 方法一：
-耗时3h
+耗时3h</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 8:54    svnlook youngest test_repo_bak20230728000501
 8:54    svn info file:///data/user/wanin/test_repo_bak20230728000501
-8:55    svn info -r 11997 file:///data/user/wanin/test_repo_bak20230728000501
-8:56    date ; svnadmin dump test_repo_bak20230728000501 -r 11998 &gt; test_repo_dump_r11998.dmp ; date
-10:05   svnadmin create –fs-type fsfs test_repo_dump_r11998_new_repo
-10:06   echo ‘date ; svnadmin load test_repo_dump_r11998_new_repo &lt; test_repo_dump_r11998.dmp; date’
-10:06   date
-Wed Aug  9 10:06:17 CST 2023
-10:06   svnadmin load test_repo_dump_r11998_new_repo &lt; test_repo_dump_r11998.dmp ; date
-Wed Aug  9 11:57:13 CST 2023</p>
+8:55    svn info <span class="nt">-r</span> 11997 file:///data/user/wanin/test_repo_bak20230728000501
+8:56    <span class="nb">date</span> <span class="p">;</span> svnadmin dump test_repo_bak20230728000501 <span class="nt">-r</span> 11998 <span class="o">&gt;</span> test_repo_dump_r11998.dmp <span class="p">;</span> <span class="nb">date
+</span>10:05   svnadmin create <span class="nt">--fs-type</span> fsfs test_repo_dump_r11998_new_repo
+10:06   <span class="nb">echo</span> <span class="s1">'date ; svnadmin load test_repo_dump_r11998_new_repo &lt; test_repo_dump_r11998.dmp; date'</span>
+10:06   <span class="nb">date
+</span>Wed Aug  9 10:06:17 CST 2023
+10:06   svnadmin load test_repo_dump_r11998_new_repo &lt; test_repo_dump_r11998.dmp <span class="p">;</span> <span class="nb">date
+</span>Wed Aug  9 11:57:13 CST 2023
+</code></pre></div></div>
 
 <p>方法二：
-耗时43m
-仓库test_repo_bak20230808201044有12000个revision。
-20:55   svnadmin dump test_repo_bak20230808201044 &gt; test_repo_bak20230808201044.dump
-21:14   ls test_repo_bak20230808201044.dump
-21:15   cat test_repo_bak20230808201044.dump | svndumpfilter exclude <code class="language-plaintext highlighter-rouge">cat filelist.txt | xargs </code> &gt; test_repo_bak20230808201044_filtered.dump
-21:19   svnadmin create –fs-type fsfs test_repo_bak20230808201044_filtered
-21:19   cat test_repo_bak20230808201044_filtered.dump | svnadmin load test_repo_bak20230808201044_filtered
-21:38   cat test_repo_bak20230808201044_filtered/db/current</p>
+耗时43m</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>仓库test_repo_bak20230808201044有12000个revision。
+20:55   svnadmin dump test_repo_bak20230808201044 <span class="o">&gt;</span> test_repo_bak20230808201044.dump
+21:14   <span class="nb">ls </span>test_repo_bak20230808201044.dump
+21:15   <span class="nb">cat </span>test_repo_bak20230808201044.dump | svndumpfilter exclude <span class="sb">`</span><span class="nb">cat </span>filelist.txt | xargs <span class="sb">`</span> <span class="o">&gt;</span> test_repo_bak20230808201044_filtered.dump
+21:19   svnadmin create <span class="nt">--fs-type</span> fsfs test_repo_bak20230808201044_filtered
+21:19   <span class="nb">cat </span>test_repo_bak20230808201044_filtered.dump | svnadmin load test_repo_bak20230808201044_filtered
+21:38   <span class="nb">cat </span>test_repo_bak20230808201044_filtered/db/current
+</code></pre></div></div>
 
 <h1 id="git">Git</h1>
 
