@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>从Grafana获取panel图片 | IC Infra</title>
+    <title>版本库彻底删除文件 | IC Infra</title>
     <meta name="author" content="Wanlin  Wang">
     <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 ">
@@ -39,7 +39,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://www.icinfra.cn/blog/2023/rendering-image-from-grafana-panel/">
+    <link rel="canonical" href="https://www.icinfra.cn/blog/2023/svn-git-permanently-delete-files/">
 
     <!-- Dark Mode -->
     
@@ -136,22 +136,14 @@
 <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">从Grafana获取panel图片</h1>
-    <p class="post-meta">May 6, 2023</p>
+    <h1 class="post-title">版本库彻底删除文件</h1>
+    <p class="post-meta">August 9, 2023</p>
     <p class="post-tags">
       <a href="/blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
-        ·  
-        <a href="/blog/tag/report">
-          <i class="fas fa-hashtag fa-sm"></i> report</a>  
-          
-        ·  
-        <a href="/blog/category/icenv">
-          <i class="fas fa-tag fa-sm"></i> icenv</a>  
-          
 
       <!-- 本页浏览数 added by wanlinwang 03-Mar-2023. -->
         ·  
-      <img src="https://visitor-badge.glitch.me/badge?page_id=al-folio/blog/2023/rendering-image-from-grafana-panel" alt="visitor badge">
+      <img src="https://visitor-badge.glitch.me/badge?page_id=al-folio/blog/2023/svn-git-permanently-delete-files" alt="visitor badge">
 
     </p>
   </header>
@@ -159,33 +151,141 @@
   <article class="post-content">
     
     <div id="markdown-content">
-      <h1 id="前言">前言</h1>
-<p>日常工作，有这样的需求：以指定的时间区间以及变量，获得Grafana panel图，并将多张图以邮件的方式发送到领导。</p>
+      <p>wanlinwang, 2023/08/08</p>
+<h1 id="svnsubversion">SVN(subversion)</h1>
 
-<h1 id="步骤">步骤</h1>
+<h2 id="方法一只保留一个revision">方法一：只保留一个revision</h2>
 
-<ol>
-  <li>
-    <p>先创建API key
-<img src="/assets/img/Pasted%20image%2020230506092820.png" alt=""></p>
-  </li>
-  <li>
-    <p>获得Panel的图片链接
-打开Dashboard，在需要生成图片的Panel上，点击下拉-&gt;Share，
-<img src="/assets/img/Pasted%20image%2020230506093819.png" alt=""></p>
-  </li>
-</ol>
+<p>关键点：使用svnadmin dump最新revision。
+先将需要删除的文件，删除了并执行svn ci提交，然后只保留最新这个revision，如下步骤，</p>
 
-<p><img src="/assets/img/Pasted%20image%2020230506100824.png" alt=""></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># step1: get younest revision number
+svnlook youngest /path/to/svn/repo_dir 
+# step2: hotcopy without logs
+svnadmin hotcopy --clean-logs /path/to/svn/repo_dir /path/to/svn/repo_new_dir01 
+# step3: dump youngest revision
+svnadmin dump /path/to/svn/repo_new_dir01 -r &lt;youngest_revision&gt;:&lt;youngest_revision&gt; &gt; /path/to/svn/repo_in_youngest_revision.dump
+# step4: create new repo
+svnadmin create --fs-type fsfs /path/to/svn/repo_new_dir
+# step5: load repo_in_youngest_revision.dump to the new repo
+svnadmin load /path/to/svn/repo_new_dir &lt; /path/to/svn/repo_in_youngest_revision.dump 
+# step6: rename the new repo to the original one
+mv /path/to/svn/repo_dir /path/to/svn/repo_dir_bak20230808; mv /path/to/svn/repo_new_dir /path/to/svn/repo_dir #重命名仓库目录
+</code></pre></div></div>
+<p>这样，/path/to/svn/repo_dir就是处理后的仓库了。
+由于subversion是针对node进行增量存储，对于没有修改的文件与目录，subversion是简单地引用早期的revision。当只dump最新版本，即svnadmin dump -r <youngest_revision_num>时，需要对每个node递归地从<youngest_revision_num>到<oldest_revision_num>去重建，是一个非常耗时的操作。</oldest_revision_num></youngest_revision_num></youngest_revision_num></p>
 
-<p>如果未安装Grafana image render plugin，则点击并按照提示安装，安装完毕后如下图所示，
-<img src="/assets/img/Pasted%20image%2020230506100911.png" alt=""></p>
+<h2 id="方法二保留所有revision">方法二：保留所有revision</h2>
 
-<p>复制“Direct link rendered image”链接。</p>
+<p>关键点：使用svndumpfilter命令。</p>
 
-<ol>
-  <li>在Python里，请求步骤2获得的链接，将response.content以二进制保存到文件里，该文件即是图片文件。此外，如果需要对图片进行<strong>部分遮盖</strong>、<strong>写文字</strong>，可以使用pillow模块。</li>
-</ol>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># step1: dump
+svnadmin dump /path/to/svn/repo_dir &gt; repo_dir.dump
+# step2: svndumpfilter
+cat repo_dir.dump | svndumpfilter exclude path/to/dir1 path/to/dir2 &gt; filtered.dump 
+# step3: creat new repo
+svnadmin create --fs-type fsfs /path/to/svn/repo_new_dir 
+# step4: load filterd.dump to the new repo
+svnadmin load /path/to/svn/repo_new_dir &lt; filtered.dump 
+# step5: rename the new repo to the original one
+mv /path/to/svn/repo_dir /path/to/svn/repo_dir_bak20230808; mv /path/to/svn/repo_new_dir /path/to/svn/repo_dir #重命名仓库目录
+</code></pre></div></div>
+<p>这样，/path/to/svn/repo_dir就是处理后的仓库了。
+由于是dump全部revision，不涉及对每个node的递归重建，只涉及简单的revision遍历并根据filelist过滤，这种方法耗时相对短。</p>
+
+<h2 id="方法三保留所有revision">方法三：保留所有revision</h2>
+
+<p>关键点：用path-based限制访问后执行svnsync
+https://subversion.apache.org/faq.html#removal</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># step1: 在authz文件里，将待删掉的目录或文件定义为不可读。
+# step2: 执行svnsync复制仓库。
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">方法</td>
+      <td> </td>
+      <td>效果</td>
+      <td> </td>
+      <td>耗时</td>
+      <td> </td>
+      <td>备注</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">方法一</td>
+      <td> </td>
+      <td>历史revision都没了</td>
+      <td> </td>
+      <td>长</td>
+      <td> </td>
+      <td>要重新checkout一份</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">方法二</td>
+      <td> </td>
+      <td>历史revision还在</td>
+      <td> </td>
+      <td>短</td>
+      <td> </td>
+      <td>要重新checkout一份</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">方法三</td>
+      <td> </td>
+      <td>未调研</td>
+      <td> </td>
+      <td>未调研</td>
+      <td> </td>
+      <td>未调研</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="结论采用方法二">结论：采用方法二</h2>
+
+<p>经讨论并根据以下测试，采用方法二。</p>
+
+<p>测试记录：
+方法一：
+耗时3h
+8:54    svnlook youngest test_repo_bak20230728000501
+8:54    svn info file:///data/user/wanin/test_repo_bak20230728000501
+8:55    svn info -r 11997 file:///data/user/wanin/test_repo_bak20230728000501
+8:56    date ; svnadmin dump test_repo_bak20230728000501 -r 11998 &gt; test_repo_dump_r11998.dmp ; date
+10:05   svnadmin create –fs-type fsfs test_repo_dump_r11998_new_repo
+10:06   echo ‘date ; svnadmin load test_repo_dump_r11998_new_repo &lt; test_repo_dump_r11998.dmp; date’
+10:06   date
+Wed Aug  9 10:06:17 CST 2023
+10:06   svnadmin load test_repo_dump_r11998_new_repo &lt; test_repo_dump_r11998.dmp ; date
+Wed Aug  9 11:57:13 CST 2023</p>
+
+<p>方法二：
+耗时43m
+仓库test_repo_bak20230808201044有12000个revision。
+20:55   svnadmin dump test_repo_bak20230808201044 &gt; test_repo_bak20230808201044.dump
+21:14   ls test_repo_bak20230808201044.dump
+21:15   cat test_repo_bak20230808201044.dump | svndumpfilter exclude <code class="language-plaintext highlighter-rouge">cat filelist.txt | xargs </code> &gt; test_repo_bak20230808201044_filtered.dump
+21:19   svnadmin create –fs-type fsfs test_repo_bak20230808201044_filtered
+21:19   cat test_repo_bak20230808201044_filtered.dump | svnadmin load test_repo_bak20230808201044_filtered
+21:38   cat test_repo_bak20230808201044_filtered/db/current</p>
+
+<h1 id="git">Git</h1>
+
+<p>参考这个文档
+<a href="https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository" rel="external nofollow noopener" target="_blank">从存储库中删除敏感数据 - GitHub 文档</a></p>
 
     </div>
   </article>
@@ -210,12 +310,6 @@
   
 
   <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/svn-git-permanently-delete-files/">版本库彻底删除文件</a>
-  </li>
-
-  
-
-  <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/cannot-save-file-with-libreoffice/">libreoffice不能保存</a>
   </li>
 
@@ -229,6 +323,12 @@
 
   <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/synopsys-dve/">synopsys dev not in</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/eda-and-oss-management/">EDA软件与开源软件的管理</a>
   </li>
 
 <div id="giscus_thread" style="max-width: 800px; margin: 0 auto;">

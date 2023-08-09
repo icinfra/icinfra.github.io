@@ -1,5 +1,139 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-09T02:34:03+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">libreoffice不能保存</title><link href="https://www.icinfra.cn/blog/2023/cannot-save-file-with-libreoffice/" rel="alternate" type="text/html" title="libreoffice不能保存" /><published>2023-08-07T08:15:00+00:00</published><updated>2023-08-07T08:15:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/cannot-save-file-with-libreoffice</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/cannot-save-file-with-libreoffice/"><![CDATA[<p>使用<code class="language-plaintext highlighter-rouge">env LD_LIBRARY_PATH= /tools/opensrc/LibreOffice/7.3.0/opt/libreoffice7.3/program/soffice -env:UserInstallation=file:///tmp/wanlinwang/libreoffice7.3</code>无法保存文件，报错如下，</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-09T12:12:59+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">版本库彻底删除文件</title><link href="https://www.icinfra.cn/blog/2023/svn-git-permanently-delete-files/" rel="alternate" type="text/html" title="版本库彻底删除文件" /><published>2023-08-09T12:08:45+00:00</published><updated>2023-08-09T12:08:45+00:00</updated><id>https://www.icinfra.cn/blog/2023/svn-git-permanently-delete-files</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/svn-git-permanently-delete-files/"><![CDATA[<p>wanlinwang, 2023/08/08</p>
+<h1 id="svnsubversion">SVN(subversion)</h1>
+
+<h2 id="方法一只保留一个revision">方法一：只保留一个revision</h2>
+
+<p>关键点：使用svnadmin dump最新revision。
+先将需要删除的文件，删除了并执行svn ci提交，然后只保留最新这个revision，如下步骤，</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># step1: get younest revision number
+svnlook youngest /path/to/svn/repo_dir 
+# step2: hotcopy without logs
+svnadmin hotcopy --clean-logs /path/to/svn/repo_dir /path/to/svn/repo_new_dir01 
+# step3: dump youngest revision
+svnadmin dump /path/to/svn/repo_new_dir01 -r &lt;youngest_revision&gt;:&lt;youngest_revision&gt; &gt; /path/to/svn/repo_in_youngest_revision.dump
+# step4: create new repo
+svnadmin create --fs-type fsfs /path/to/svn/repo_new_dir
+# step5: load repo_in_youngest_revision.dump to the new repo
+svnadmin load /path/to/svn/repo_new_dir &lt; /path/to/svn/repo_in_youngest_revision.dump 
+# step6: rename the new repo to the original one
+mv /path/to/svn/repo_dir /path/to/svn/repo_dir_bak20230808; mv /path/to/svn/repo_new_dir /path/to/svn/repo_dir #重命名仓库目录
+</code></pre></div></div>
+<p>这样，/path/to/svn/repo_dir就是处理后的仓库了。
+由于subversion是针对node进行增量存储，对于没有修改的文件与目录，subversion是简单地引用早期的revision。当只dump最新版本，即svnadmin dump -r <youngest_revision_num>时，需要对每个node递归地从<youngest_revision_num>到<oldest_revision_num>去重建，是一个非常耗时的操作。</oldest_revision_num></youngest_revision_num></youngest_revision_num></p>
+
+<h2 id="方法二保留所有revision">方法二：保留所有revision</h2>
+
+<p>关键点：使用svndumpfilter命令。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># step1: dump
+svnadmin dump /path/to/svn/repo_dir &gt; repo_dir.dump
+# step2: svndumpfilter
+cat repo_dir.dump | svndumpfilter exclude path/to/dir1 path/to/dir2 &gt; filtered.dump 
+# step3: creat new repo
+svnadmin create --fs-type fsfs /path/to/svn/repo_new_dir 
+# step4: load filterd.dump to the new repo
+svnadmin load /path/to/svn/repo_new_dir &lt; filtered.dump 
+# step5: rename the new repo to the original one
+mv /path/to/svn/repo_dir /path/to/svn/repo_dir_bak20230808; mv /path/to/svn/repo_new_dir /path/to/svn/repo_dir #重命名仓库目录
+</code></pre></div></div>
+<p>这样，/path/to/svn/repo_dir就是处理后的仓库了。
+由于是dump全部revision，不涉及对每个node的递归重建，只涉及简单的revision遍历并根据filelist过滤，这种方法耗时相对短。</p>
+
+<h2 id="方法三保留所有revision">方法三：保留所有revision</h2>
+
+<p>关键点：用path-based限制访问后执行svnsync
+https://subversion.apache.org/faq.html#removal</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># step1: 在authz文件里，将待删掉的目录或文件定义为不可读。
+# step2: 执行svnsync复制仓库。
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">方法</td>
+      <td> </td>
+      <td>效果</td>
+      <td> </td>
+      <td>耗时</td>
+      <td> </td>
+      <td>备注</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">方法一</td>
+      <td> </td>
+      <td>历史revision都没了</td>
+      <td> </td>
+      <td>长</td>
+      <td> </td>
+      <td>要重新checkout一份</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">方法二</td>
+      <td> </td>
+      <td>历史revision还在</td>
+      <td> </td>
+      <td>短</td>
+      <td> </td>
+      <td>要重新checkout一份</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">方法三</td>
+      <td> </td>
+      <td>未调研</td>
+      <td> </td>
+      <td>未调研</td>
+      <td> </td>
+      <td>未调研</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="结论采用方法二">结论：采用方法二</h2>
+
+<p>经讨论并根据以下测试，采用方法二。</p>
+
+<p>测试记录：
+方法一：
+耗时3h
+8:54    svnlook youngest test_repo_bak20230728000501
+8:54    svn info file:///data/user/wanin/test_repo_bak20230728000501
+8:55    svn info -r 11997 file:///data/user/wanin/test_repo_bak20230728000501
+8:56    date ; svnadmin dump test_repo_bak20230728000501 -r 11998 &gt; test_repo_dump_r11998.dmp ; date
+10:05   svnadmin create –fs-type fsfs test_repo_dump_r11998_new_repo
+10:06   echo ‘date ; svnadmin load test_repo_dump_r11998_new_repo &lt; test_repo_dump_r11998.dmp; date’
+10:06   date
+Wed Aug  9 10:06:17 CST 2023
+10:06   svnadmin load test_repo_dump_r11998_new_repo &lt; test_repo_dump_r11998.dmp ; date
+Wed Aug  9 11:57:13 CST 2023</p>
+
+<p>方法二：
+耗时43m
+仓库test_repo_bak20230808201044有12000个revision。
+20:55   svnadmin dump test_repo_bak20230808201044 &gt; test_repo_bak20230808201044.dump
+21:14   ls test_repo_bak20230808201044.dump
+21:15   cat test_repo_bak20230808201044.dump | svndumpfilter exclude <code class="language-plaintext highlighter-rouge">cat filelist.txt | xargs </code> &gt; test_repo_bak20230808201044_filtered.dump
+21:19   svnadmin create –fs-type fsfs test_repo_bak20230808201044_filtered
+21:19   cat test_repo_bak20230808201044_filtered.dump | svnadmin load test_repo_bak20230808201044_filtered
+21:38   cat test_repo_bak20230808201044_filtered/db/current</p>
+
+<h1 id="git">Git</h1>
+
+<p>参考这个文档
+<a href="https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository">从存储库中删除敏感数据 - GitHub 文档</a></p>]]></content><author><name></name></author><summary type="html"><![CDATA[wanlinwang, 2023/08/08 SVN(subversion)]]></summary></entry><entry><title type="html">libreoffice不能保存</title><link href="https://www.icinfra.cn/blog/2023/cannot-save-file-with-libreoffice/" rel="alternate" type="text/html" title="libreoffice不能保存" /><published>2023-08-07T08:15:00+00:00</published><updated>2023-08-07T08:15:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/cannot-save-file-with-libreoffice</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/cannot-save-file-with-libreoffice/"><![CDATA[<p>使用<code class="language-plaintext highlighter-rouge">env LD_LIBRARY_PATH= /tools/opensrc/LibreOffice/7.3.0/opt/libreoffice7.3/program/soffice -env:UserInstallation=file:///tmp/wanlinwang/libreoffice7.3</code>无法保存文件，报错如下，</p>
 
 <p><img width="219" alt="企业微信截图_16913800075669" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/8bb7e8c5-f6d1-4275-89a1-5d7ba9773a5f" /></p>
 
@@ -421,9 +555,4 @@ https://spack.readthedocs.io/en/latest/module_file_support.html#write-a-configur
 
 <ol>
   <li>在Python里，请求步骤2获得的链接，将response.content以二进制保存到文件里，该文件即是图片文件。此外，如果需要对图片进行<strong>部分遮盖</strong>、<strong>写文字</strong>，可以使用pillow模块。</li>
-</ol>]]></content><author><name></name></author><category term="icenv" /><category term="report" /><summary type="html"><![CDATA[前言 日常工作，有这样的需求：以指定的时间区间以及变量，获得Grafana panel图，并将多张图以邮件的方式发送到领导。]]></summary></entry><entry><title type="html">超线程</title><link href="https://www.icinfra.cn/blog/2023/hyperthreading/" rel="alternate" type="text/html" title="超线程" /><published>2023-05-05T11:10:58+00:00</published><updated>2023-05-05T11:10:58+00:00</updated><id>https://www.icinfra.cn/blog/2023/hyperthreading</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/hyperthreading/"><![CDATA[<h1 id="简介">简介</h1>
-<p>超线程是Intel与AMD的一项技术，通过在两个线程之间共享硬件资源，使得单cpu对操作系统而言是两个vcpu。</p>
-
-<p>超线程共享一个物理核心以及它的缓存系统。因为huancun 是共享的，所以在超线程之间移动数据不会有太多损失。但这也意味着如果在同一个物理核心的多个超线程运行的不同进程之间没有任何共享的数据，则每个虚拟核心的缓存大小只有真实物理核心的一半。对于内存受限的应用程序而言，将缓存减半可能是一个严重的打击。因此，超线程有利有弊。</p>
-
-<p>许多HPC关闭了超线程，因为一些程序使用超线程反而更慢。如果我们使用超线程，我们总是希望进程靠近，这样共享缓存对两个虚拟处理器都有利。</p>]]></content><author><name></name></author><category term="icenv" /><category term="ht" /><summary type="html"><![CDATA[简介 超线程是Intel与AMD的一项技术，通过在两个线程之间共享硬件资源，使得单cpu对操作系统而言是两个vcpu。]]></summary></entry></feed>
+</ol>]]></content><author><name></name></author><category term="icenv" /><category term="report" /><summary type="html"><![CDATA[前言 日常工作，有这样的需求：以指定的时间区间以及变量，获得Grafana panel图，并将多张图以邮件的方式发送到领导。]]></summary></entry></feed>
