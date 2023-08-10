@@ -175,7 +175,7 @@
 </code></pre></div></div>
 
 <h2 id="ipa配置">ipa配置</h2>
-<p>master与replica的/etc/hosts</p>
+<p>如果上游DNS没有设置master与replica的解析记录，则我们在master与replica/etc/hosts加上映射关系，</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/hosts <span class="o">&gt;</span> /dev/null <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
 172.16.0.188 ipa-server-01.icinfra.cn
 172.16.0.189 ipa-server-02.icinfra.cn
