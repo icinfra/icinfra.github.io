@@ -159,12 +159,12 @@
   <article class="post-content">
     
     <div id="markdown-content">
-      <h1 id="机器">机器</h1>
+      <h2 id="机器">机器</h2>
 <p>在proxmox virtual environment的虚拟机，</p>
 
 <p><img width="445" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/d4c52512-f679-4573-8b21-f253e2d19ba1"></p>
 
-<h1 id="防火墙">防火墙</h1>
+<h2 id="防火墙">防火墙</h2>
 <p>在master与replica上执行，</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>firewall-cmd <span class="nt">--add-service</span><span class="o">={</span>freeipa-ldap,freeipa-ldaps,dns,mountd,rpc-bind<span class="o">}</span> <span class="nt">--permanent</span> <span class="o">&amp;&amp;</span> <span class="nb">sudo </span>firewall-cmd <span class="nt">--reload</span>
 
@@ -176,7 +176,7 @@
 
 </code></pre></div></div>
 
-<h2 id="ipa配置">ipa配置</h2>
+<h2 id="ipa-server配置">ipa server配置</h2>
 <p>如果上游DNS没有设置master与replica的解析记录，则我们在master与replica/etc/hosts加上映射关系，</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/hosts <span class="o">&gt;</span> /dev/null <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
 172.16.0.188 ipa-server-01.icinfra.cn
@@ -225,7 +225,7 @@ files is the Directory Manager password
 </code></pre></div></div>
 <p><img width="1700" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/6c9f1020-01de-49d5-9bb3-1df7f7c67ac9"></p>
 
-<p>配置客户端，</p>
+<h2 id="客户端配置">客户端配置</h2>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@vm-centos7-9-190 centos]# ipa-client-install <span class="nt">--server</span><span class="o">=</span>ipa-server-01.icinfra.cn <span class="nt">--server</span><span class="o">=</span>ipa-server-02.icinfra.cn <span class="nt">--domain</span><span class="o">=</span>icinfra.cn <span class="nt">-p</span> admin <span class="nt">-w</span> Secret123 <span class="nt">-U</span>
 <span class="o">[</span>centos@vm-centos7-9-190 ~]<span class="nv">$ </span><span class="nb">id </span>admin
 <span class="nv">uid</span><span class="o">=</span>668600000<span class="o">(</span>admin<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>668600000<span class="o">(</span>admins<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>668600000<span class="o">(</span>admins<span class="o">)</span>
