@@ -190,8 +190,7 @@
 
 </code></pre></div></div>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@vm-centos7-9-188 ~]# <span class="nb">sudo </span>ipa-server-install <span class="nt">--setup-dns</span>  <span class="nt">--domain</span><span class="o">=</span>icinfra.cn <span class="nt">--realm</span><span class="o">=</span>ICINFRA.CN <span class="nt">--hostname</span><span class="o">=</span>ipa-server-01.icinfra.cn <span class="nt">--admin-password</span><span class="o">=</span>Secret123 <span class="nt">--ds-password</span><span class="o">=</span>Secret123 <span class="nt">--no-reverse</span> <span class="nt">--allow-zone-overlap</span> <span class="nt">--auto-forwarders</span> <span class="nt">-U</span>
-<span class="o">==============================================================================</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">==============================================================================</span>
 Setup <span class="nb">complete
 
 </span>Next steps:
@@ -217,9 +216,10 @@ files is the Directory Manager password
 </code></pre></div></div>
 
 <p>配置HA replica，</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@vm-centos7-9-189 ~]<span class="nv">$ </span><span class="nb">sudo </span>ipa-client-install <span class="nt">--domain</span><span class="o">=</span>icinfra.cn <span class="nt">--server</span><span class="o">=</span>ipa-server-01.icinfra.cn <span class="nt">--hostname</span><span class="o">=</span>ipa-server-02.icinfra.cn <span class="nt">--enable-dns-updates</span> <span class="nt">-p</span> admin <span class="nt">-w</span> Secret123 <span class="nt">-U</span>
-<span class="o">[</span>centos@vm-centos7-9-189 ~]<span class="nv">$ </span>ipa-replica-install
-<span class="o">[</span>centos@vm-centos7-9-189 ~]<span class="nv">$ </span>ipa-ca-install <span class="nt">-p</span> Secret123
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>ipa-client-install <span class="nt">--domain</span><span class="o">=</span>icinfra.cn <span class="nt">--server</span><span class="o">=</span>ipa-server-01.icinfra.cn <span class="nt">--hostname</span><span class="o">=</span>ipa-server-02.icinfra.cn <span class="nt">--enable-dns-updates</span> <span class="nt">-p</span> admin <span class="nt">-w</span> Secret123 <span class="nt">-U</span>
+<span class="nb">sudo </span>ipa-replica-install
+<span class="nb">sudo </span>ipa-ca-install <span class="nt">-p</span> Secret123
+
 </code></pre></div></div>
 <p><img width="1700" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/6c9f1020-01de-49d5-9bb3-1df7f7c67ac9"></p>
 
