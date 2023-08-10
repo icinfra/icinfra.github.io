@@ -163,23 +163,27 @@
 <p><img width="445" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/d4c52512-f679-4573-8b21-f253e2d19ba1"></p>
 
 <h1 id="防火墙">防火墙</h1>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@vm-centos7-9-188 ~]<span class="nv">$ </span><span class="nb">sudo </span>systemctl disable firewalld <span class="nt">--now</span>
-<span class="o">[</span>centos@vm-centos7-9-189 ~]<span class="nv">$ </span><span class="nb">sudo </span>systemctl disable firewalld <span class="nt">--now</span>
+<p>在master与replica上执行，</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>firewall-cmd <span class="nt">--add-service</span><span class="o">={</span>freeipa-ldap,freeipa-ldaps,dns,mountd,rpc-bind<span class="o">}</span> <span class="nt">--permanent</span> <span class="o">&amp;&amp;</span> <span class="nb">sudo </span>firewall-cmd <span class="nt">--reload</span>
+
 </code></pre></div></div>
-<p>或者根据提示，firewall-cmd打开相应的服务。</p>
 
 <h2 id="包安装">包安装</h2>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@vm-centos7-9-188 ~]<span class="nv">$ </span><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> freeipa-server ipa-server-dns
-<span class="o">[</span>centos@vm-centos7-9-189 ~]<span class="nv">$ </span><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> freeipa-server ipa-server-dns
+<p>在master与replica上执行，</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> freeipa-server ipa-server-dns
+
 </code></pre></div></div>
 
 <h2 id="ipa配置">ipa配置</h2>
-<p>分别在HA两台机器的/etc/hosts加入</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> <span class="o">&gt;&gt;</span> /etc/hosts <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh">
+<p>master与replica的/etc/hosts</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/hosts <span class="o">&gt;</span> /dev/null <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
 172.16.0.188 ipa-server-01.icinfra.cn
 172.16.0.189 ipa-server-02.icinfra.cn
 </span><span class="no">EOF
-</span></code></pre></div></div>
+
+</span><span class="nb">sudo cp</span> <span class="nt">-a</span> /etc/hosts /etc/cloud/templates/hosts.redhat.tmpl
+
+</code></pre></div></div>
 
 <p>配置HA Master，</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@vm-centos7-9-188 ~]# ipa-server-install <span class="nt">--setup-dns</span>  <span class="nt">--domain</span><span class="o">=</span>icinfra.cn <span class="nt">--realm</span><span class="o">=</span>ICINFRA.CN <span class="nt">--hostname</span><span class="o">=</span>ipa-server-01.icinfra.cn <span class="nt">--admin-password</span><span class="o">=</span>Secret123 <span class="nt">--ds-password</span><span class="o">=</span>Secret123 <span class="nt">--no-reverse</span> <span class="nt">--allow-zone-overlap</span> <span class="nt">--auto-forwarders</span> <span class="nt">-U</span>
