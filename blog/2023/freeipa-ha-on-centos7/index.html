@@ -230,7 +230,12 @@ search icinfra.cn
 <p><img width="1700" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/6c9f1020-01de-49d5-9bb3-1df7f7c67ac9"></p>
 
 <h2 id="客户端配置">客户端配置</h2>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> ipa-client
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo tee</span> /etc/resolv.conf <span class="o">&gt;</span> /dev/null <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+nameserver 172.16.0.188
+nameserver 172.16.0.189
+search icinfra.cn
+</span><span class="no">EOF
+</span><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> ipa-client
 <span class="nb">sudo </span>ipa-client-install <span class="nt">--server</span><span class="o">=</span>ipa-server-01.icinfra.cn <span class="nt">--server</span><span class="o">=</span>ipa-server-02.icinfra.cn <span class="nt">--domain</span><span class="o">=</span>icinfra.cn <span class="nt">-p</span> admin <span class="nt">-w</span> Secret123 <span class="nt">-U</span>
 
 </code></pre></div></div>
