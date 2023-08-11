@@ -218,8 +218,12 @@ files is the Directory Manager password
 </code></pre></div></div>
 
 <p>配置HA replica，</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>ipa-client-install <span class="nt">--domain</span><span class="o">=</span>icinfra.cn <span class="nt">--server</span><span class="o">=</span>ipa-server-01.icinfra.cn <span class="nt">--hostname</span><span class="o">=</span>ipa-server-02.icinfra.cn <span class="nt">--enable-dns-updates</span> <span class="nt">-p</span> admin <span class="nt">-w</span> Secret123 <span class="nt">-U</span>
-<span class="nb">sudo </span>ipa-replica-install
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo tee</span> /etc/resolv.conf <span class="o">&gt;</span> /dev/null <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+nameserver 172.16.0.188
+search icinfra.cn
+</span><span class="no">EOF
+</span><span class="nb">sudo </span>ipa-client-install <span class="nt">--domain</span><span class="o">=</span>icinfra.cn <span class="nt">--server</span><span class="o">=</span>ipa-server-01.icinfra.cn <span class="nt">--hostname</span><span class="o">=</span>ipa-server-02.icinfra.cn <span class="nt">--enable-dns-updates</span> <span class="nt">-p</span> admin <span class="nt">-w</span> Secret123 <span class="nt">-U</span>
+<span class="nb">sudo </span>ipa-replica-install <span class="nt">--setup-dns</span> <span class="nt">--auto-forwarders</span>
 <span class="nb">sudo </span>ipa-ca-install <span class="nt">-p</span> Secret123
 
 </code></pre></div></div>
@@ -317,7 +321,7 @@ https://blog.csdn.net/thesre/article/details/124896546</p>
     <footer class="fixed-bottom">
       <div class="container mt-0">
         © Copyright 2023 Wanlin  Wang. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>.
-Last updated: August 10, 2023.
+Last updated: August 11, 2023.
       </div>
     </footer>
 
