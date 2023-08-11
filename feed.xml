@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-11T15:40:42+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-11T15:43:27+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 </subtitle><entry><title type="html">CentOS 7.9上的FreeIPA HA 架构</title><link href="https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7/" rel="alternate" type="text/html" title="CentOS 7.9上的FreeIPA HA 架构" /><published>2023-08-09T12:49:19+00:00</published><updated>2023-08-09T12:49:19+00:00</updated><id>https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7/"><![CDATA[<h2 id="机器">机器</h2>
 <p>在proxmox virtual environment的虚拟机，</p>
 
@@ -59,6 +59,7 @@ files is the Directory Manager password
 
 <p>配置HA replica，</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo tee</span> /etc/resolv.conf <span class="o">&gt;</span> /dev/null <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+# 这里设置master为DNS服务器，在ipa-client-install时才会加入DNS记录，否则不加入。
 nameserver 172.16.0.188
 search icinfra.cn
 </span><span class="no">EOF
@@ -71,6 +72,7 @@ search icinfra.cn
 
 <h2 id="客户端配置">客户端配置</h2>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo tee</span> /etc/resolv.conf <span class="o">&gt;</span> /dev/null <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+# 这里设置master与replica为DNS服务器，在ipa-client-install时才会加入DNS记录，否则不加入。
 nameserver 172.16.0.188
 nameserver 172.16.0.189
 search icinfra.cn

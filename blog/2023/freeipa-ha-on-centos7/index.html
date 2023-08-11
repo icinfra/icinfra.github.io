@@ -219,6 +219,7 @@ files is the Directory Manager password
 
 <p>配置HA replica，</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo tee</span> /etc/resolv.conf <span class="o">&gt;</span> /dev/null <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+# 这里设置master为DNS服务器，在ipa-client-install时才会加入DNS记录，否则不加入。
 nameserver 172.16.0.188
 search icinfra.cn
 </span><span class="no">EOF
@@ -231,6 +232,7 @@ search icinfra.cn
 
 <h2 id="客户端配置">客户端配置</h2>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo tee</span> /etc/resolv.conf <span class="o">&gt;</span> /dev/null <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+# 这里设置master与replica为DNS服务器，在ipa-client-install时才会加入DNS记录，否则不加入。
 nameserver 172.16.0.188
 nameserver 172.16.0.189
 search icinfra.cn
