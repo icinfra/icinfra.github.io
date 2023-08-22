@@ -1,5 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-22T14:07:05+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">ipa dns forwarder的注意事项</title><link href="https://www.icinfra.cn/blog/2023/ipa-dns-forwarder/" rel="alternate" type="text/html" title="ipa dns forwarder的注意事项" /><published>2023-08-22T14:04:58+00:00</published><updated>2023-08-22T14:04:58+00:00</updated><id>https://www.icinfra.cn/blog/2023/ipa-dns-forwarder</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/ipa-dns-forwarder/"><![CDATA[]]></content><author><name></name></author><category term="icenv" /><category term="ipa" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">CentOS 7.9上的FreeIPA HA 架构</title><link href="https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7/" rel="alternate" type="text/html" title="CentOS 7.9上的FreeIPA HA 架构" /><published>2023-08-09T12:49:19+00:00</published><updated>2023-08-09T12:49:19+00:00</updated><id>https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7/"><![CDATA[<h2 id="机器">机器</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-22T14:11:40+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">ipa dns forwarder的注意事项</title><link href="https://www.icinfra.cn/blog/2023/ipa-dns-forwarder/" rel="alternate" type="text/html" title="ipa dns forwarder的注意事项" /><published>2023-08-22T14:04:58+00:00</published><updated>2023-08-22T14:04:58+00:00</updated><id>https://www.icinfra.cn/blog/2023/ipa-dns-forwarder</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/ipa-dns-forwarder/"><![CDATA[<p>一、global DNS forwarder，在CentOS 7.9与CentOS 8.8上，</p>
+
+<ol>
+  <li>如果安装时指定了(global) DNS forwarder，安装完毕之后，使用</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ipa dnsconfig-mod <span class="nt">--forwarder</span><span class="o">=</span>8.8.8.8
+
+</code></pre></div></div>
+
+<p>这样修改(global) DNS forwarder是不生效的。这可能是一个bug。</p>
+
+<ol>
+  <li>如果安装时没有指定(global) DNS forwarder，安装完毕之后，使用</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ipa dnsconfig-mod <span class="nt">--forwarder</span><span class="o">=</span>8.8.8.8
+
+</code></pre></div></div>
+
+<p>这样设置(global) DNS forwarder是生效的。</p>
+
+<p>二、指定domain的DNS forwarder，在CentOS 7.9与CentOS 8.8上，</p>
+
+<p>在安装完毕之后，使用</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ipa dnsforwardzone-add google.com <span class="nt">--skip-overlap-check</span> <span class="nt">--forwarder</span><span class="o">=</span>8.8.8.8
+
+</code></pre></div></div>
+
+<p>这样修改，在解析 google.com 时这个DNS forwarder是生效的。</p>]]></content><author><name></name></author><category term="icenv" /><category term="ipa" /><summary type="html"><![CDATA[一、global DNS forwarder，在CentOS 7.9与CentOS 8.8上，]]></summary></entry><entry><title type="html">CentOS 7.9上的FreeIPA HA 架构</title><link href="https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7/" rel="alternate" type="text/html" title="CentOS 7.9上的FreeIPA HA 架构" /><published>2023-08-09T12:49:19+00:00</published><updated>2023-08-09T12:49:19+00:00</updated><id>https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7/"><![CDATA[<h2 id="机器">机器</h2>
 <p>在proxmox virtual environment的虚拟机，</p>
 
 <p><img width="445" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/d4c52512-f679-4573-8b21-f253e2d19ba1" /></p>

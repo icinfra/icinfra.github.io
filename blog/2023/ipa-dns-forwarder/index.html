@@ -159,7 +159,40 @@
   <article class="post-content">
     
     <div id="markdown-content">
-      
+      <p>一、global DNS forwarder，在CentOS 7.9与CentOS 8.8上，</p>
+
+<ol>
+  <li>如果安装时指定了(global) DNS forwarder，安装完毕之后，使用</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ipa dnsconfig-mod <span class="nt">--forwarder</span><span class="o">=</span>8.8.8.8
+
+</code></pre></div></div>
+
+<p>这样修改(global) DNS forwarder是不生效的。这可能是一个bug。</p>
+
+<ol>
+  <li>如果安装时没有指定(global) DNS forwarder，安装完毕之后，使用</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ipa dnsconfig-mod <span class="nt">--forwarder</span><span class="o">=</span>8.8.8.8
+
+</code></pre></div></div>
+
+<p>这样设置(global) DNS forwarder是生效的。</p>
+
+<p>二、指定domain的DNS forwarder，在CentOS 7.9与CentOS 8.8上，</p>
+
+<p>在安装完毕之后，使用</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ipa dnsforwardzone-add google.com <span class="nt">--skip-overlap-check</span> <span class="nt">--forwarder</span><span class="o">=</span>8.8.8.8
+
+</code></pre></div></div>
+
+<p>这样修改，在解析 google.com 时这个DNS forwarder是生效的。</p>
 
     </div>
   </article>
