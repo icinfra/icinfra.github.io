@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>cursor IDE使用 | IC Infra</title>
+    <title>merge synopsys license file | IC Infra</title>
     <meta name="author" content="Wanlin  Wang">
     <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 ">
@@ -39,7 +39,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://www.icinfra.cn/blog/2023/cursor-ide/">
+    <link rel="canonical" href="https://www.icinfra.cn/blog/2023/merge-synospsy-license-file/">
 
     <!-- Dark Mode -->
     
@@ -136,13 +136,13 @@
 <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">cursor IDE使用</h1>
-    <p class="post-meta">March 17, 2023</p>
+    <h1 class="post-title">merge synopsys license file</h1>
+    <p class="post-meta">August 22, 2023</p>
     <p class="post-tags">
       <a href="/blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
         ·  
-        <a href="/blog/tag/ide">
-          <i class="fas fa-hashtag fa-sm"></i> ide</a>  
+        <a href="/blog/tag/license">
+          <i class="fas fa-hashtag fa-sm"></i> license</a>  
           
         ·  
         <a href="/blog/category/icenv">
@@ -151,7 +151,7 @@
 
       <!-- 本页浏览数 added by wanlinwang 03-Mar-2023. -->
         ·  
-      <img src="https://visitor-badge.glitch.me/badge?page_id=al-folio/blog/2023/cursor-ide" alt="visitor badge">
+      <img src="https://visitor-badge.glitch.me/badge?page_id=al-folio/blog/2023/merge-synospsy-license-file" alt="visitor badge">
 
     </p>
   </header>
@@ -159,17 +159,71 @@
   <article class="post-content">
     
     <div id="markdown-content">
-      <h1 id="下载">下载</h1>
-<p><img src="/assets/img/Download%20cursor%20for%20MacOS%20Snipaste_2023-03-17_16-53-21.png" alt=""></p>
+      <p>不像Cadence家每个hostid提供一个完整的License文件，Synopsys家的License是可合并的。这里提供一个合并脚本，供参考：</p>
 
-<h1 id="安装">安装</h1>
-<p><img src="/assets/img/cursor%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4%20Snipaste_2023-03-17_16-56-03.png" alt=""></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/bin/python3
+</span>
+<span class="c1"># Author: wanlinwang
+# Date: 23-Aug-2023
+</span>
+<span class="kn">import</span> <span class="n">sys</span>
+<span class="kn">import</span> <span class="n">datetime</span>
 
-<h1 id="使用">使用</h1>
-<div class="embed-container">
-    <iframe src="https://www.youtube.com/embed/T6KjDZvZcwM" width="700" height="480" frameborder="0" allowfullscreen="true">
-    </iframe>
-</div>
+<span class="k">def</span> <span class="nf">is_feature_expired</span><span class="p">(</span><span class="n">feature</span><span class="p">):</span>
+    <span class="c1"># 从INCREMENT行中获取过期日期
+</span>    <span class="n">fields</span> <span class="o">=</span> <span class="n">feature</span><span class="p">.</span><span class="nf">split</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">expire_date_str</span> <span class="o">=</span> <span class="n">fields</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">expire_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="nf">strptime</span><span class="p">(</span><span class="n">expire_date_str</span><span class="p">,</span> <span class="sh">'</span><span class="s">%d-%b-%Y</span><span class="sh">'</span><span class="p">).</span><span class="nf">date</span><span class="p">()</span>
+            <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">date</span><span class="p">.</span><span class="nf">today</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">expire_date</span> <span class="o">&lt;</span> <span class="n">today</span>
+        <span class="k">except</span> <span class="nb">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>  <span class="c1"># 如果日期格式不正确或不存在，我们将其视为未过期
+</span>    <span class="k">return</span> <span class="bp">False</span>
+
+<span class="k">def</span> <span class="nf">merge_license_files</span><span class="p">(</span><span class="n">filenames</span><span class="p">):</span>
+    <span class="n">header_lines</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">filename</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">filenames</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="sh">'</span><span class="s">r</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="nf">read</span><span class="p">().</span><span class="nf">strip</span><span class="p">()</span>
+
+            <span class="c1"># 对于第一个license文件，获取所有非INCREMENT行作为header
+</span>            <span class="c1"># 对于第二个及以后的license文件，只获取注释行
+</span>            <span class="k">if</span> <span class="ow">not</span> <span class="n">header_lines</span> <span class="ow">or</span> <span class="n">index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">"</span><span class="s">INCREMENT</span><span class="sh">"</span><span class="p">):</span>
+                        <span class="c1"># 只从第二个及之后的文件中获取注释行
+</span>                        <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">line</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">"</span><span class="s">#</span><span class="sh">"</span><span class="p">):</span>
+                            <span class="n">header_lines</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">break</span>
+
+            <span class="n">feature_blocks</span> <span class="o">=</span> <span class="n">content</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">"</span><span class="s">INCREMENT</span><span class="sh">"</span><span class="p">)</span>  <span class="c1"># 假设每个feature块是以INCREMENT开始
+</span>            <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">feature_blocks</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="n">feature_with_prefix</span> <span class="o">=</span> <span class="sh">"</span><span class="s">INCREMENT</span><span class="sh">"</span> <span class="o">+</span> <span class="n">feature</span>  <span class="c1"># 因为我们通过INCREMENT来分割，所以需要添加回去
+</span>                <span class="k">if</span> <span class="ow">not</span> <span class="nf">is_feature_expired</span><span class="p">(</span><span class="n">feature_with_prefix</span><span class="p">):</span>
+                    <span class="n">features</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">feature_with_prefix</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">header_lines</span> <span class="o">+</span> <span class="n">features</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">"</span><span class="s">__main__</span><span class="sh">"</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Usage: python merge_licenses.py &lt;output_file&gt; &lt;license_file1&gt; [license_file2 ...]</span><span class="sh">"</span><span class="p">)</span>
+        <span class="n">sys</span><span class="p">.</span><span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">output_file</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">license_files</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+
+    <span class="n">merged_content</span> <span class="o">=</span> <span class="nf">merge_license_files</span><span class="p">(</span><span class="n">license_files</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="sh">'</span><span class="s">w</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">merged_content</span><span class="p">)</span>
+    
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Merged licenses saved to </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s">.</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
 
     </div>
   </article>
@@ -194,12 +248,6 @@
   
 
   <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/merge-synospsy-license-file/">merge synopsys license file</a>
-  </li>
-
-  
-
-  <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/ipa-dns-forwarder/">ipa dns forwarder的注意事项</a>
   </li>
 
@@ -213,6 +261,12 @@
 
   <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/svn-git-permanently-delete-files/">版本库彻底删除文件</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/cannot-save-file-with-libreoffice/">libreoffice不能保存</a>
   </li>
 
 <div id="giscus_thread" style="max-width: 800px; margin: 0 auto;">
