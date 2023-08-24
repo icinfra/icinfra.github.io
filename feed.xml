@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-23T02:09:26+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-24T06:20:20+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 </subtitle><entry><title type="html">ipa dns forwarder的注意事项</title><link href="https://www.icinfra.cn/blog/2023/ipa-dns-forwarder/" rel="alternate" type="text/html" title="ipa dns forwarder的注意事项" /><published>2023-08-22T14:04:58+00:00</published><updated>2023-08-22T14:04:58+00:00</updated><id>https://www.icinfra.cn/blog/2023/ipa-dns-forwarder</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/ipa-dns-forwarder/"><![CDATA[<p>一、global DNS forwarder，在CentOS 7.9与CentOS 8.8上，</p>
 
 <ol>
@@ -34,7 +34,50 @@ ipa dnsforwardzone-add google.com <span class="nt">--skip-overlap-check</span> <
 
 <p>这样修改，在解析 google.com 时这个DNS forwarder是生效的。</p>
 
-<p>综上，1）在安装FreeIPA或IdM时，请不要指定DNS Forwarder，安装之后再设置即可；2）如果已有的FreeIPA或IdM已经设置了DNS Forwarder，但这个DNS Forwarder变得不可用，那可以使用<code class="language-plaintext highlighter-rouge">ipa dnsforwardzone-add google.com --skip-overlap-check --forwarder=8.8.8.8</code>语句为指定的域设置DNS Forwarder查询。</p>]]></content><author><name></name></author><category term="icenv" /><category term="ipa" /><summary type="html"><![CDATA[一、global DNS forwarder，在CentOS 7.9与CentOS 8.8上，]]></summary></entry><entry><title type="html">merge synopsys license file</title><link href="https://www.icinfra.cn/blog/2023/merge-synospsy-license-file/" rel="alternate" type="text/html" title="merge synopsys license file" /><published>2023-08-22T14:04:58+00:00</published><updated>2023-08-22T14:04:58+00:00</updated><id>https://www.icinfra.cn/blog/2023/merge-synospsy-license-file</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/merge-synospsy-license-file/"><![CDATA[<p>不像Cadence家每个hostid提供一个完整的License文件，Synopsys家的License是可合并的。这里提供一个合并脚本，供参考：</p>
+<p>综上，1）在安装FreeIPA或IdM时，请不要指定DNS Forwarder，安装之后再设置即可；2）如果已有的FreeIPA或IdM已经设置了DNS Forwarder，但这个DNS Forwarder变得不可用，那可以使用<code class="language-plaintext highlighter-rouge">ipa dnsforwardzone-add google.com --skip-overlap-check --forwarder=8.8.8.8</code>语句为指定的域设置DNS Forwarder查询。</p>]]></content><author><name></name></author><category term="icenv" /><category term="ipa" /><summary type="html"><![CDATA[一、global DNS forwarder，在CentOS 7.9与CentOS 8.8上，]]></summary></entry><entry><title type="html">merge synopsys license file</title><link href="https://www.icinfra.cn/blog/2023/merge-synospsy-license-file/" rel="alternate" type="text/html" title="merge synopsys license file" /><published>2023-08-22T14:04:58+00:00</published><updated>2023-08-22T14:04:58+00:00</updated><id>https://www.icinfra.cn/blog/2023/merge-synospsy-license-file</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/merge-synospsy-license-file/"><![CDATA[<h1 id="对synopsys-license管理">对Synopsys License管理</h1>
+
+<ol>
+  <li>
+    <p>修改从Synopsys获取的密钥：</p>
+
+    <ul>
+      <li>只能修改许可证文件中的SERVER和VENDOR行，确保SERVER行包含正确的服务器主机名，VENDOR行包含snpslmd守护程序的完整路径。</li>
+      <li>任何更改都必须以ASCII文本格式保存。</li>
+      <li>不要添加、删除或修改许可证文件中的任何INCREMENT行，这样做会使许可证无效。</li>
+      <li>如果从Synopsys获取临时密钥，可以将其附加到现有的许可证文件中，但需要删除重复的SERVER、VENDOR和USE_SERVER行。</li>
+    </ul>
+  </li>
+  <li>
+    <p>使用sssverify实用程序验证密钥：</p>
+
+    <ul>
+      <li>在使用来自Synopsys的任何新密钥文件之前，运行”SCL sssverify”实用程序来检查文件中的任何错误。</li>
+      <li>如果许可证文件没有错误，您将看到类似以下消息的输出：”License file integrity check PASSED”。</li>
+      <li>如果许可证文件损坏，您将收到相应的错误消息，并建议不使用该许可证文件。</li>
+    </ul>
+  </li>
+  <li>
+    <p>确认SCL正在提供许可证：</p>
+
+    <ul>
+      <li>检查SCL服务器调试日志文件以查找启动错误。</li>
+      <li>确保lmgrd和snpslmd已正确启动，没有出现”SSS”错误。</li>
+      <li>如果调试日志文件中存在与SSS相关的错误消息，需要采取相应的措施来解决问题。</li>
+    </ul>
+  </li>
+  <li>
+    <p>管理临时密钥：</p>
+
+    <ul>
+      <li>临时密钥需要SSST功能。维护一个单独的服务器来存储临时密钥，以防止其被后续的生产密钥无效化。</li>
+      <li>添加或删除临时密钥时，必须作为一个块进行操作，而不是单独处理每个密钥。</li>
+    </ul>
+  </li>
+</ol>
+
+<p>这些是对License管理的一些重要事项的总结。详细的指南和步骤可以在提供的PDF文档中找到。</p>
+
+<p>不像Cadence家每个hostid提供一个完整的License文件，Synopsys家的License是可合并的。这里提供一个合并脚本，供参考：</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/bin/python3
 </span>
@@ -98,7 +141,10 @@ ipa dnsforwardzone-add google.com <span class="nt">--skip-overlap-check</span> <
         <span class="n">f</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">merged_content</span><span class="p">)</span>
     
     <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Merged licenses saved to </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s">.</span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>]]></content><author><name></name></author><category term="icenv" /><category term="license" /><summary type="html"><![CDATA[不像Cadence家每个hostid提供一个完整的License文件，Synopsys家的License是可合并的。这里提供一个合并脚本，供参考：]]></summary></entry><entry><title type="html">CentOS 7.9上的FreeIPA HA 架构</title><link href="https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7/" rel="alternate" type="text/html" title="CentOS 7.9上的FreeIPA HA 架构" /><published>2023-08-09T12:49:19+00:00</published><updated>2023-08-09T12:49:19+00:00</updated><id>https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7/"><![CDATA[<h2 id="机器">机器</h2>
+</code></pre></div></div>
+
+<h1 id="参考资料">参考资料</h1>
+<p>https://www.synopsys.com/content/dam/synopsys/support/documents/licensing/scl-license-verification.pdf</p>]]></content><author><name></name></author><category term="icenv" /><category term="license" /><summary type="html"><![CDATA[对Synopsys License管理]]></summary></entry><entry><title type="html">CentOS 7.9上的FreeIPA HA 架构</title><link href="https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7/" rel="alternate" type="text/html" title="CentOS 7.9上的FreeIPA HA 架构" /><published>2023-08-09T12:49:19+00:00</published><updated>2023-08-09T12:49:19+00:00</updated><id>https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7/"><![CDATA[<h2 id="机器">机器</h2>
 <p>在proxmox virtual environment的虚拟机，</p>
 
 <p><img width="445" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/d4c52512-f679-4573-8b21-f253e2d19ba1" /></p>

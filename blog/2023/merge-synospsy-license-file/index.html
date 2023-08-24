@@ -159,7 +159,50 @@
   <article class="post-content">
     
     <div id="markdown-content">
-      <p>不像Cadence家每个hostid提供一个完整的License文件，Synopsys家的License是可合并的。这里提供一个合并脚本，供参考：</p>
+      <h1 id="对synopsys-license管理">对Synopsys License管理</h1>
+
+<ol>
+  <li>
+    <p>修改从Synopsys获取的密钥：</p>
+
+    <ul>
+      <li>只能修改许可证文件中的SERVER和VENDOR行，确保SERVER行包含正确的服务器主机名，VENDOR行包含snpslmd守护程序的完整路径。</li>
+      <li>任何更改都必须以ASCII文本格式保存。</li>
+      <li>不要添加、删除或修改许可证文件中的任何INCREMENT行，这样做会使许可证无效。</li>
+      <li>如果从Synopsys获取临时密钥，可以将其附加到现有的许可证文件中，但需要删除重复的SERVER、VENDOR和USE_SERVER行。</li>
+    </ul>
+  </li>
+  <li>
+    <p>使用sssverify实用程序验证密钥：</p>
+
+    <ul>
+      <li>在使用来自Synopsys的任何新密钥文件之前，运行”SCL sssverify”实用程序来检查文件中的任何错误。</li>
+      <li>如果许可证文件没有错误，您将看到类似以下消息的输出：”License file integrity check PASSED”。</li>
+      <li>如果许可证文件损坏，您将收到相应的错误消息，并建议不使用该许可证文件。</li>
+    </ul>
+  </li>
+  <li>
+    <p>确认SCL正在提供许可证：</p>
+
+    <ul>
+      <li>检查SCL服务器调试日志文件以查找启动错误。</li>
+      <li>确保lmgrd和snpslmd已正确启动，没有出现”SSS”错误。</li>
+      <li>如果调试日志文件中存在与SSS相关的错误消息，需要采取相应的措施来解决问题。</li>
+    </ul>
+  </li>
+  <li>
+    <p>管理临时密钥：</p>
+
+    <ul>
+      <li>临时密钥需要SSST功能。维护一个单独的服务器来存储临时密钥，以防止其被后续的生产密钥无效化。</li>
+      <li>添加或删除临时密钥时，必须作为一个块进行操作，而不是单独处理每个密钥。</li>
+    </ul>
+  </li>
+</ol>
+
+<p>这些是对License管理的一些重要事项的总结。详细的指南和步骤可以在提供的PDF文档中找到。</p>
+
+<p>不像Cadence家每个hostid提供一个完整的License文件，Synopsys家的License是可合并的。这里提供一个合并脚本，供参考：</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/bin/python3
 </span>
@@ -224,6 +267,9 @@
     
     <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Merged licenses saved to </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s">.</span><span class="sh">"</span><span class="p">)</span>
 </code></pre></div></div>
+
+<h1 id="参考资料">参考资料</h1>
+<p>https://www.synopsys.com/content/dam/synopsys/support/documents/licensing/scl-license-verification.pdf</p>
 
     </div>
   </article>
@@ -306,7 +352,7 @@
     <footer class="fixed-bottom">
       <div class="container mt-0">
         © Copyright 2023 Wanlin  Wang. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>.
-Last updated: August 23, 2023.
+Last updated: August 24, 2023.
       </div>
     </footer>
 
