@@ -1,700 +1,105 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-24T06:20:20+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">ipa dns forwarder的注意事项</title><link href="https://www.icinfra.cn/blog/2023/ipa-dns-forwarder/" rel="alternate" type="text/html" title="ipa dns forwarder的注意事项" /><published>2023-08-22T14:04:58+00:00</published><updated>2023-08-22T14:04:58+00:00</updated><id>https://www.icinfra.cn/blog/2023/ipa-dns-forwarder</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/ipa-dns-forwarder/"><![CDATA[<p>一、global DNS forwarder，在CentOS 7.9与CentOS 8.8上，</p>
-
-<ol>
-  <li>如果安装时指定了(global) DNS forwarder，安装完毕之后，使用</li>
-</ol>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-ipa dnsconfig-mod <span class="nt">--forwarder</span><span class="o">=</span>8.8.8.8
-
-</code></pre></div></div>
-
-<p>这样修改(global) DNS forwarder是不生效的。这可能是一个bug。</p>
-
-<ol>
-  <li>如果安装时没有指定(global) DNS forwarder，安装完毕之后，使用</li>
-</ol>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-ipa dnsconfig-mod <span class="nt">--forwarder</span><span class="o">=</span>8.8.8.8
-
-</code></pre></div></div>
-
-<p>这样设置(global) DNS forwarder是生效的。</p>
-
-<p>二、指定domain的DNS forwarder，在CentOS 7.9与CentOS 8.8上，</p>
-
-<p>在安装完毕之后，使用</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-ipa dnsforwardzone-add google.com <span class="nt">--skip-overlap-check</span> <span class="nt">--forwarder</span><span class="o">=</span>8.8.8.8
-
-</code></pre></div></div>
-
-<p>这样修改，在解析 google.com 时这个DNS forwarder是生效的。</p>
-
-<p>综上，1）在安装FreeIPA或IdM时，请不要指定DNS Forwarder，安装之后再设置即可；2）如果已有的FreeIPA或IdM已经设置了DNS Forwarder，但这个DNS Forwarder变得不可用，那可以使用<code class="language-plaintext highlighter-rouge">ipa dnsforwardzone-add google.com --skip-overlap-check --forwarder=8.8.8.8</code>语句为指定的域设置DNS Forwarder查询。</p>]]></content><author><name></name></author><category term="icenv" /><category term="ipa" /><summary type="html"><![CDATA[一、global DNS forwarder，在CentOS 7.9与CentOS 8.8上，]]></summary></entry><entry><title type="html">merge synopsys license file</title><link href="https://www.icinfra.cn/blog/2023/merge-synospsy-license-file/" rel="alternate" type="text/html" title="merge synopsys license file" /><published>2023-08-22T14:04:58+00:00</published><updated>2023-08-22T14:04:58+00:00</updated><id>https://www.icinfra.cn/blog/2023/merge-synospsy-license-file</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/merge-synospsy-license-file/"><![CDATA[<h1 id="对synopsys-license管理">对Synopsys License管理</h1>
-
-<ol>
-  <li>
-    <p>修改从Synopsys获取的密钥：</p>
-
-    <ul>
-      <li>只能修改许可证文件中的SERVER和VENDOR行，确保SERVER行包含正确的服务器主机名，VENDOR行包含snpslmd守护程序的完整路径。</li>
-      <li>任何更改都必须以ASCII文本格式保存。</li>
-      <li>不要添加、删除或修改许可证文件中的任何INCREMENT行，这样做会使许可证无效。</li>
-      <li>如果从Synopsys获取临时密钥，可以将其附加到现有的许可证文件中，但需要删除重复的SERVER、VENDOR和USE_SERVER行。</li>
-    </ul>
-  </li>
-  <li>
-    <p>使用sssverify实用程序验证密钥：</p>
-
-    <ul>
-      <li>在使用来自Synopsys的任何新密钥文件之前，运行”SCL sssverify”实用程序来检查文件中的任何错误。</li>
-      <li>如果许可证文件没有错误，您将看到类似以下消息的输出：”License file integrity check PASSED”。</li>
-      <li>如果许可证文件损坏，您将收到相应的错误消息，并建议不使用该许可证文件。</li>
-    </ul>
-  </li>
-  <li>
-    <p>确认SCL正在提供许可证：</p>
-
-    <ul>
-      <li>检查SCL服务器调试日志文件以查找启动错误。</li>
-      <li>确保lmgrd和snpslmd已正确启动，没有出现”SSS”错误。</li>
-      <li>如果调试日志文件中存在与SSS相关的错误消息，需要采取相应的措施来解决问题。</li>
-    </ul>
-  </li>
-  <li>
-    <p>管理临时密钥：</p>
-
-    <ul>
-      <li>临时密钥需要SSST功能。维护一个单独的服务器来存储临时密钥，以防止其被后续的生产密钥无效化。</li>
-      <li>添加或删除临时密钥时，必须作为一个块进行操作，而不是单独处理每个密钥。</li>
-    </ul>
-  </li>
-</ol>
-
-<p>这些是对License管理的一些重要事项的总结。详细的指南和步骤可以在提供的PDF文档中找到。</p>
-
-<p>不像Cadence家每个hostid提供一个完整的License文件，Synopsys家的License是可合并的。这里提供一个合并脚本，供参考：</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/bin/python3
-</span>
-<span class="c1"># Author: wanlinwang
-# Date: 23-Aug-2023
-</span>
-<span class="kn">import</span> <span class="n">sys</span>
-<span class="kn">import</span> <span class="n">datetime</span>
-
-<span class="k">def</span> <span class="nf">is_feature_expired</span><span class="p">(</span><span class="n">feature</span><span class="p">):</span>
-    <span class="c1"># 从INCREMENT行中获取过期日期
-</span>    <span class="n">fields</span> <span class="o">=</span> <span class="n">feature</span><span class="p">.</span><span class="nf">split</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
-        <span class="n">expire_date_str</span> <span class="o">=</span> <span class="n">fields</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">expire_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="nf">strptime</span><span class="p">(</span><span class="n">expire_date_str</span><span class="p">,</span> <span class="sh">'</span><span class="s">%d-%b-%Y</span><span class="sh">'</span><span class="p">).</span><span class="nf">date</span><span class="p">()</span>
-            <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">date</span><span class="p">.</span><span class="nf">today</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">expire_date</span> <span class="o">&lt;</span> <span class="n">today</span>
-        <span class="k">except</span> <span class="nb">ValueError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span>  <span class="c1"># 如果日期格式不正确或不存在，我们将其视为未过期
-</span>    <span class="k">return</span> <span class="bp">False</span>
-
-<span class="k">def</span> <span class="nf">merge_license_files</span><span class="p">(</span><span class="n">filenames</span><span class="p">):</span>
-    <span class="n">header_lines</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">features</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">filename</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">filenames</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="sh">'</span><span class="s">r</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="nf">read</span><span class="p">().</span><span class="nf">strip</span><span class="p">()</span>
-
-            <span class="c1"># 对于第一个license文件，获取所有非INCREMENT行作为header
-</span>            <span class="c1"># 对于第二个及以后的license文件，只获取注释行
-</span>            <span class="k">if</span> <span class="ow">not</span> <span class="n">header_lines</span> <span class="ow">or</span> <span class="n">index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">"</span><span class="s">INCREMENT</span><span class="sh">"</span><span class="p">):</span>
-                        <span class="c1"># 只从第二个及之后的文件中获取注释行
-</span>                        <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">line</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">"</span><span class="s">#</span><span class="sh">"</span><span class="p">):</span>
-                            <span class="n">header_lines</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="k">break</span>
-
-            <span class="n">feature_blocks</span> <span class="o">=</span> <span class="n">content</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">"</span><span class="s">INCREMENT</span><span class="sh">"</span><span class="p">)</span>  <span class="c1"># 假设每个feature块是以INCREMENT开始
-</span>            <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">feature_blocks</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-                <span class="n">feature_with_prefix</span> <span class="o">=</span> <span class="sh">"</span><span class="s">INCREMENT</span><span class="sh">"</span> <span class="o">+</span> <span class="n">feature</span>  <span class="c1"># 因为我们通过INCREMENT来分割，所以需要添加回去
-</span>                <span class="k">if</span> <span class="ow">not</span> <span class="nf">is_feature_expired</span><span class="p">(</span><span class="n">feature_with_prefix</span><span class="p">):</span>
-                    <span class="n">features</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">feature_with_prefix</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">header_lines</span> <span class="o">+</span> <span class="n">features</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">"</span><span class="s">__main__</span><span class="sh">"</span><span class="p">:</span>
-    <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Usage: python merge_licenses.py &lt;output_file&gt; &lt;license_file1&gt; [license_file2 ...]</span><span class="sh">"</span><span class="p">)</span>
-        <span class="n">sys</span><span class="p">.</span><span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    
-    <span class="n">output_file</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">license_files</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
-
-    <span class="n">merged_content</span> <span class="o">=</span> <span class="nf">merge_license_files</span><span class="p">(</span><span class="n">license_files</span><span class="p">)</span>
-
-    <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="sh">'</span><span class="s">w</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">f</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">merged_content</span><span class="p">)</span>
-    
-    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Merged licenses saved to </span><span class="si">{</span><span class="n">output_file</span><span class="si">}</span><span class="s">.</span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>
-
-<h1 id="参考资料">参考资料</h1>
-<p>https://www.synopsys.com/content/dam/synopsys/support/documents/licensing/scl-license-verification.pdf</p>]]></content><author><name></name></author><category term="icenv" /><category term="license" /><summary type="html"><![CDATA[对Synopsys License管理]]></summary></entry><entry><title type="html">CentOS 7.9上的FreeIPA HA 架构</title><link href="https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7/" rel="alternate" type="text/html" title="CentOS 7.9上的FreeIPA HA 架构" /><published>2023-08-09T12:49:19+00:00</published><updated>2023-08-09T12:49:19+00:00</updated><id>https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7/"><![CDATA[<h2 id="机器">机器</h2>
-<p>在proxmox virtual environment的虚拟机，</p>
-
-<p><img width="445" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/d4c52512-f679-4573-8b21-f253e2d19ba1" /></p>
-
-<h2 id="防火墙">防火墙</h2>
-<p>在master与replica上执行，</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>firewall-cmd <span class="nt">--add-service</span><span class="o">={</span>freeipa-ldap,freeipa-ldaps,dns,mountd,rpc-bind<span class="o">}</span> <span class="nt">--permanent</span> <span class="o">&amp;&amp;</span> <span class="nb">sudo </span>firewall-cmd <span class="nt">--reload</span>
-
-</code></pre></div></div>
-
-<h2 id="包安装">包安装</h2>
-<p>在master与replica上执行，</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> freeipa-server ipa-server-dns
-
-</code></pre></div></div>
-
-<h2 id="ipa-server配置">ipa server配置</h2>
-<p>如果上游DNS没有设置master与replica的解析记录，则我们在master与replica/etc/hosts加上映射关系，</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/hosts <span class="o">&gt;</span> /dev/null <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
-172.16.0.188 ipa-server-01.icinfra.cn
-172.16.0.189 ipa-server-02.icinfra.cn
-</span><span class="no">EOF
-
-</span><span class="nb">sudo cp</span> <span class="nt">-a</span> /etc/hosts /etc/cloud/templates/hosts.redhat.tmpl
-
-</code></pre></div></div>
-
-<p>配置HA Master，</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>ipa-server-install <span class="nt">--setup-dns</span> <span class="nt">--domain</span><span class="o">=</span>icinfra.cn <span class="nt">--realm</span><span class="o">=</span>ICINFRA.CN <span class="nt">--hostname</span><span class="o">=</span>ipa-server-01.icinfra.cn <span class="nt">--admin-password</span><span class="o">=</span>Secret123 <span class="nt">--ds-password</span><span class="o">=</span>Secret123 <span class="nt">--no-reverse</span> <span class="nt">--allow-zone-overlap</span> <span class="nt">--auto-forwarders</span> <span class="nt">-U</span>
-
-</code></pre></div></div>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">==============================================================================</span>
-Setup <span class="nb">complete
-
-</span>Next steps:
-	1. You must make sure these network ports are open:
-		TCP Ports:
-		  <span class="k">*</span> 80, 443: HTTP/HTTPS
-		  <span class="k">*</span> 389, 636: LDAP/LDAPS
-		  <span class="k">*</span> 88, 464: kerberos
-		  <span class="k">*</span> 53: <span class="nb">bind
-		</span>UDP Ports:
-		  <span class="k">*</span> 88, 464: kerberos
-		  <span class="k">*</span> 53: <span class="nb">bind</span>
-		  <span class="k">*</span> 123: ntp
-
-	2. You can now obtain a kerberos ticket using the <span class="nb">command</span>: <span class="s1">'kinit admin'</span>
-	   This ticket will allow you to use the IPA tools <span class="o">(</span>e.g., ipa user-add<span class="o">)</span>
-	   and the web user interface.
-
-Be sure to back up the CA certificates stored <span class="k">in</span> /root/cacert.p12
-These files are required to create replicas. The password <span class="k">for </span>these
-files is the Directory Manager password
-<span class="o">[</span>centos@vm-centos7-9-188 ~]<span class="nv">$ </span>
-</code></pre></div></div>
-
-<p>配置HA replica，</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo tee</span> /etc/resolv.conf <span class="o">&gt;</span> /dev/null <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
-# 这里设置master为DNS服务器，在ipa-client-install时才会加入DNS记录，否则不加入。
-nameserver 172.16.0.188
-search icinfra.cn
-</span><span class="no">EOF
-</span><span class="nb">sudo </span>ipa-client-install <span class="nt">--domain</span><span class="o">=</span>icinfra.cn <span class="nt">--server</span><span class="o">=</span>ipa-server-01.icinfra.cn <span class="nt">--hostname</span><span class="o">=</span>ipa-server-02.icinfra.cn <span class="nt">--enable-dns-updates</span> <span class="nt">-p</span> admin <span class="nt">-w</span> Secret123 <span class="nt">-U</span>
-<span class="nb">sudo </span>ipa-replica-install <span class="nt">--setup-dns</span> <span class="nt">--auto-forwarders</span> <span class="nt">-p</span> Secret123
-<span class="nb">sudo </span>ipa-ca-install <span class="nt">-p</span> Secret123
-
-</code></pre></div></div>
-<p><img width="1700" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/6c9f1020-01de-49d5-9bb3-1df7f7c67ac9" /></p>
-
-<h2 id="客户端配置">客户端配置</h2>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo tee</span> /etc/resolv.conf <span class="o">&gt;</span> /dev/null <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
-# 这里设置master与replica为DNS服务器，在ipa-client-install时才会加入DNS记录，否则不加入。
-nameserver 172.16.0.188
-nameserver 172.16.0.189
-search icinfra.cn
-</span><span class="no">EOF
-</span><span class="nb">sudo </span>yum <span class="nb">install</span> <span class="nt">-y</span> ipa-client
-<span class="nb">sudo </span>ipa-client-install <span class="nt">--server</span><span class="o">=</span>ipa-server-01.icinfra.cn <span class="nt">--server</span><span class="o">=</span>ipa-server-02.icinfra.cn <span class="nt">--domain</span><span class="o">=</span>icinfra.cn <span class="nt">-p</span> admin <span class="nt">-w</span> Secret123 <span class="nt">-U</span>
-
-</code></pre></div></div>
-<p><img width="1700" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/44fd89ec-fe2d-4bea-af41-9be5efbbc619" /></p>
-
-<h1 id="参考资料">参考资料</h1>
-<p>https://blog.csdn.net/thesre/article/details/117791657
-https://blog.csdn.net/thesre/article/details/124896546</p>]]></content><author><name></name></author><category term="icenv" /><category term="freeipa" /><summary type="html"><![CDATA[机器 在proxmox virtual environment的虚拟机，]]></summary></entry><entry><title type="html">版本库彻底删除文件</title><link href="https://www.icinfra.cn/blog/2023/svn-git-permanently-delete-files/" rel="alternate" type="text/html" title="版本库彻底删除文件" /><published>2023-08-09T12:08:45+00:00</published><updated>2023-08-09T12:08:45+00:00</updated><id>https://www.icinfra.cn/blog/2023/svn-git-permanently-delete-files</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/svn-git-permanently-delete-files/"><![CDATA[<p>wanlinwang, 2023/08/08</p>
-<h1 id="svnsubversion">SVN(subversion)</h1>
-
-<h2 id="方法一只保留一个revision">方法一：只保留一个revision</h2>
-
-<p>关键点：使用svnadmin dump最新revision。</p>
-
-<p>先将需要删除的文件，删除了并执行svn ci提交，然后只保留最新这个revision，如下步骤，</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># step1: get younest revision number</span>
-svnlook youngest /path/to/svn/repo_dir 
-<span class="c"># step2: hotcopy without logs</span>
-svnadmin hotcopy <span class="nt">--clean-logs</span> /path/to/svn/repo_dir /path/to/svn/repo_new_dir01 
-<span class="c"># step3: dump youngest revision</span>
-svnadmin dump /path/to/svn/repo_new_dir01 <span class="nt">-r</span> &lt;youngest_revision&gt;:&lt;youngest_revision&gt; <span class="o">&gt;</span> /path/to/svn/repo_in_youngest_revision.dump
-<span class="c"># step4: create new repo</span>
-svnadmin create <span class="nt">--fs-type</span> fsfs /path/to/svn/repo_new_dir
-<span class="c"># step5: load repo_in_youngest_revision.dump to the new repo</span>
-svnadmin load /path/to/svn/repo_new_dir &lt; /path/to/svn/repo_in_youngest_revision.dump 
-<span class="c"># step6: rename the new repo to the original one</span>
-<span class="nb">mv</span> /path/to/svn/repo_dir /path/to/svn/repo_dir_bak20230808<span class="p">;</span> <span class="nb">mv</span> /path/to/svn/repo_new_dir /path/to/svn/repo_dir <span class="c">#重命名仓库目录</span>
-</code></pre></div></div>
-<p>这样，/path/to/svn/repo_dir就是处理后的仓库了。</p>
-
-<p>由于subversion是针对node进行增量存储，对于没有修改的文件与目录，subversion是简单地引用早期的revision。当只dump最新版本，即svnadmin dump -r <youngest_revision_num>时，需要对每个node递归地从<youngest_revision_num>到<oldest_revision_num>去重建，是一个非常耗时的操作。</oldest_revision_num></youngest_revision_num></youngest_revision_num></p>
-
-<h2 id="方法二保留所有revision">方法二：保留所有revision</h2>
-
-<p>关键点：使用svndumpfilter命令。</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># step1: dump</span>
-svnadmin dump /path/to/svn/repo_dir <span class="o">&gt;</span> repo_dir.dump
-<span class="c"># step2: svndumpfilter</span>
-<span class="nb">cat </span>repo_dir.dump | svndumpfilter exclude path/to/dir1 path/to/dir2 <span class="o">&gt;</span> filtered.dump 
-<span class="c"># step3: creat new repo</span>
-svnadmin create <span class="nt">--fs-type</span> fsfs /path/to/svn/repo_new_dir 
-<span class="c"># step4: load filterd.dump to the new repo</span>
-svnadmin load /path/to/svn/repo_new_dir &lt; filtered.dump 
-<span class="c"># step5: rename the new repo to the original one</span>
-<span class="nb">mv</span> /path/to/svn/repo_dir /path/to/svn/repo_dir_bak20230808<span class="p">;</span> <span class="nb">mv</span> /path/to/svn/repo_new_dir /path/to/svn/repo_dir <span class="c">#重命名仓库目录</span>
-</code></pre></div></div>
-<p>这样，/path/to/svn/repo_dir就是处理后的仓库了。</p>
-
-<p>由于是dump全部revision，不涉及对每个node的递归重建，只涉及简单的revision遍历并根据filelist过滤，这种方法耗时相对短。</p>
-
-<h2 id="方法三保留所有revision">方法三：保留所有revision</h2>
-
-<p>关键点：用path-based限制访问后执行svnsync
-https://subversion.apache.org/faq.html#removal</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># step1: 在authz文件里，将待删掉的目录或文件定义为不可读。</span>
-<span class="c"># step2: 执行svnsync复制仓库。</span>
-</code></pre></div></div>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left"> </th>
-      <th> </th>
-      <th> </th>
-      <th> </th>
-      <th> </th>
-      <th> </th>
-      <th> </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left">方法</td>
-      <td> </td>
-      <td>效果</td>
-      <td> </td>
-      <td>耗时</td>
-      <td> </td>
-      <td>备注</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">方法一</td>
-      <td> </td>
-      <td>历史revision都没了</td>
-      <td> </td>
-      <td>长</td>
-      <td> </td>
-      <td>要重新checkout一份</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">方法二</td>
-      <td> </td>
-      <td>历史revision还在</td>
-      <td> </td>
-      <td>短</td>
-      <td> </td>
-      <td>要重新checkout一份</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">方法三</td>
-      <td> </td>
-      <td>未调研</td>
-      <td> </td>
-      <td>未调研</td>
-      <td> </td>
-      <td>未调研</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="结论采用方法二">结论：采用方法二</h2>
-
-<p>经讨论并根据以下测试，采用方法二。</p>
-
-<p>测试记录：
-方法一：
-耗时3h</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-8:54    svnlook youngest test_repo_bak20230728000501
-8:54    svn info file:///data/user/wanin/test_repo_bak20230728000501
-8:55    svn info <span class="nt">-r</span> 11997 file:///data/user/wanin/test_repo_bak20230728000501
-8:56    <span class="nb">date</span> <span class="p">;</span> svnadmin dump test_repo_bak20230728000501 <span class="nt">-r</span> 11998 <span class="o">&gt;</span> test_repo_dump_r11998.dmp <span class="p">;</span> <span class="nb">date
-</span>10:05   svnadmin create <span class="nt">--fs-type</span> fsfs test_repo_dump_r11998_new_repo
-10:06   <span class="nb">echo</span> <span class="s1">'date ; svnadmin load test_repo_dump_r11998_new_repo &lt; test_repo_dump_r11998.dmp; date'</span>
-10:06   <span class="nb">date
-</span>Wed Aug  9 10:06:17 CST 2023
-10:06   svnadmin load test_repo_dump_r11998_new_repo &lt; test_repo_dump_r11998.dmp <span class="p">;</span> <span class="nb">date
-</span>Wed Aug  9 11:57:13 CST 2023
-</code></pre></div></div>
-
-<p>方法二：
-耗时43m</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>仓库test_repo_bak20230808201044有12000个revision。
-20:55   svnadmin dump test_repo_bak20230808201044 <span class="o">&gt;</span> test_repo_bak20230808201044.dump
-21:14   <span class="nb">ls </span>test_repo_bak20230808201044.dump
-21:15   <span class="nb">cat </span>test_repo_bak20230808201044.dump | svndumpfilter exclude <span class="sb">`</span><span class="nb">cat </span>filelist.txt | xargs <span class="sb">`</span> <span class="o">&gt;</span> test_repo_bak20230808201044_filtered.dump
-21:19   svnadmin create <span class="nt">--fs-type</span> fsfs test_repo_bak20230808201044_filtered
-21:19   <span class="nb">cat </span>test_repo_bak20230808201044_filtered.dump | svnadmin load test_repo_bak20230808201044_filtered
-21:38   <span class="nb">cat </span>test_repo_bak20230808201044_filtered/db/current
-</code></pre></div></div>
-
-<h1 id="git">Git</h1>
-
-<p>参考这个文档
-<a href="https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository">从存储库中删除敏感数据 - GitHub 文档</a></p>]]></content><author><name></name></author><summary type="html"><![CDATA[wanlinwang, 2023/08/08 SVN(subversion)]]></summary></entry><entry><title type="html">libreoffice不能保存</title><link href="https://www.icinfra.cn/blog/2023/cannot-save-file-with-libreoffice/" rel="alternate" type="text/html" title="libreoffice不能保存" /><published>2023-08-07T08:15:00+00:00</published><updated>2023-08-07T08:15:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/cannot-save-file-with-libreoffice</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/cannot-save-file-with-libreoffice/"><![CDATA[<p>使用<code class="language-plaintext highlighter-rouge">env LD_LIBRARY_PATH= /tools/opensrc/LibreOffice/7.3.0/opt/libreoffice7.3/program/soffice -env:UserInstallation=file:///tmp/wanlinwang/libreoffice7.3</code>无法保存文件，报错如下，</p>
-
-<p><img width="219" alt="企业微信截图_16913800075669" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/8bb7e8c5-f6d1-4275-89a1-5d7ba9773a5f" /></p>
-
-<p>重启了TurboVNC就好了。但根因未找到。</p>]]></content><author><name></name></author><category term="icenv" /><summary type="html"><![CDATA[使用env LD_LIBRARY_PATH= /tools/opensrc/LibreOffice/7.3.0/opt/libreoffice7.3/program/soffice -env:UserInstallation=file:///tmp/wanlinwang/libreoffice7.3无法保存文件，报错如下，]]></summary></entry><entry><title type="html">SOCKS代理ChatGPT</title><link href="https://www.icinfra.cn/blog/2023/socks-proxy/" rel="alternate" type="text/html" title="SOCKS代理ChatGPT" /><published>2023-08-04T11:36:49+00:00</published><updated>2023-08-04T11:36:49+00:00</updated><id>https://www.icinfra.cn/blog/2023/socks-proxy</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/socks-proxy/"><![CDATA[<p>首先，我们需要在你的Windows 10或MacOS系统上使用SSH设置SOCKS代理。然后，我们将在浏览器上安装和配置SwitchyOmega插件，以使所有访问chat.openai.com的请求都通过这个代理服务器。</p>
-
-<h3 id="第一步设置socks代理">第一步：设置SOCKS代理</h3>
-
-<h4 id="对于windows-10">对于Windows 10：</h4>
-
-<ol>
-  <li>
-    <p>首先，你需要在你的Windows系统上安装SSH客户端。你可以选择使用Git Bash，它可以从<a href="https://git-scm.com/download/win">这个链接</a>下载。</p>
-  </li>
-  <li>
-    <p>安装完成后，打开Git Bash。</p>
-  </li>
-  <li>
-    <p>在Git Bash中，输入下面的命令（用你的实际情况替换<code class="language-plaintext highlighter-rouge">&lt;username&gt;</code>,<code class="language-plaintext highlighter-rouge">&lt;proxy-server&gt;</code>和<code class="language-plaintext highlighter-rouge">&lt;port&gt;</code>）：<br />
-    <code class="language-plaintext highlighter-rouge"> 
-    ssh -D &lt;port&gt; -N &lt;username&gt;@&lt;proxy-server&gt;  
-   </code><br />
-    例如：<br />
-    <code class="language-plaintext highlighter-rouge"> 
-    ssh -D 8080 -N user@proxy-server.com  
-   </code><br />
-   这条命令将在本地的8080端口上启动一个SOCKS代理，所有通过此代理的流量都将通过<code class="language-plaintext highlighter-rouge">proxy-server.com</code>服务器传输。
-如下图所示：</p>
-
-    <p><img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/430b374d-01ca-40a4-bab2-730e0a72423d" alt="image" /></p>
-  </li>
-  <li>
-    <p>输入密码，如果你的服务器配置了公钥认证，可能需要提供私钥。</p>
-  </li>
-</ol>
-
-<h4 id="对于macos">对于MacOS：</h4>
-
-<ol>
-  <li>
-    <p>打开Terminal。</p>
-  </li>
-  <li>
-    <p>输入同样的命令：<br />
-    <code class="language-plaintext highlighter-rouge"> 
-    ssh -D &lt;port&gt; -N &lt;username&gt;@&lt;proxy-server&gt;  
-   </code></p>
-  </li>
-</ol>
-
-<h3 id="第二步配置switchyomega">第二步：配置SwitchyOmega</h3>
-
-<ol>
-  <li>
-    <p>在Chrome或Firefox浏览器中安装SwitchyOmega插件。</p>
-  </li>
-  <li>
-    <p>在浏览器的地址栏中输入<code class="language-plaintext highlighter-rouge">chrome://extensions/</code>（Chrome）或<code class="language-plaintext highlighter-rouge">about:addons</code>（Firefox），然后找到SwitchyOmega并点击“选项”。</p>
-  </li>
-  <li>
-    <p>在SwitchyOmega的选项页面，点击左侧的“新建情景模式”。</p>
-  </li>
-  <li>
-    <p>输入情景模式的名称，例如“SOCKS Proxy”，然后选择“代理服务器”。</p>
-  </li>
-  <li>
-    <p>在“代理协议和服务器”部分，选择SOCKS5，输入<code class="language-plaintext highlighter-rouge">127.0.0.1</code>作为服务器地址，端口设置为你在第一步中选择的端口，例如<code class="language-plaintext highlighter-rouge">8080</code>。</p>
-  </li>
-  <li>
-    <p>点击左侧的“自动切换”，然后在“规则列表规则”中添加一条新的规则。在“主机通配符”中输入<code class="language-plaintext highlighter-rouge">*.openai.com</code>，然后在“情景模式”中选择你刚刚创建的“SOCKS Proxy”。</p>
-  </li>
-  <li>
-    <p>点击“应用选项”。</p>
-  </li>
-</ol>
-
-<p>如下图所示，
-<img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/266e65bc-ea88-49f5-9068-8061a4edec28" alt="image" /></p>
-
-<p>现在，当你访问任何以<code class="language-plaintext highlighter-rouge">.openai.com</code>结尾的网站时，你的请求将通过你在第一步中设置的SOCKS代理服务器转发。</p>]]></content><author><name></name></author><summary type="html"><![CDATA[首先，我们需要在你的Windows 10或MacOS系统上使用SSH设置SOCKS代理。然后，我们将在浏览器上安装和配置SwitchyOmega插件，以使所有访问chat.openai.com的请求都通过这个代理服务器。]]></summary></entry><entry><title type="html">synopsys dev not in</title><link href="https://www.icinfra.cn/blog/2023/synopsys-dve/" rel="alternate" type="text/html" title="synopsys dev not in" /><published>2023-07-15T23:39:01+00:00</published><updated>2023-07-15T23:39:01+00:00</updated><id>https://www.icinfra.cn/blog/2023/synopsys-dve</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/synopsys-dve/"><![CDATA[<h2 id="问题">问题</h2>
-<p>行业群问到，vcs带的dve命令启动报错<code class="language-plaintext highlighter-rouge">ERROR - Unable to find valid DVE installation in $VCS_HOME/gui/dve, please download DVE installation package and install it under $VCS_HOME</code>。</p>
-
-<h2 id="分析">分析</h2>
-<p>这个错误提示表明你正在试图运行Synopsys VCS的DVE (Design Vision Environment) 图形界面，但是在你设置的<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>环境变量指定的目录下没有找到有效的DVE安装。</p>
-
-<p>这可能是因为DVE没有被正确安装，或者<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>环境变量没有被正确设置。要解决这个问题，你可以尝试以下步骤：</p>
-
-<ol>
-  <li>
-    <p>确认DVE是否已经被正确安装。在你的Synopsys VCS安装目录下，应该有一个名为<code class="language-plaintext highlighter-rouge">gui/dve</code>的子目录。如果这个目录不存在，那么你可能需要重新安装DVE。</p>
-  </li>
-  <li>
-    <p>检查<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>环境变量是否已经被正确设置。你可以在终端中输入<code class="language-plaintext highlighter-rouge">echo $VCS_HOME</code>来查看这个环境变量的值。这个值应该是你的Synopsys VCS安装目录的路径。如果这个值不正确，你需要更新<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>环境变量的设置。</p>
-
-    <p>在C shell中，你可以使用以下命令来临时设置<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>环境变量：</p>
-
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>setenv VCS_HOME /path/to/your/vcs/installation
-</code></pre></div>    </div>
-
-    <p>要永久设置这个环境变量，你可以将上述<code class="language-plaintext highlighter-rouge">export</code>命令添加到你的shell启动脚本中，如C shell的<code class="language-plaintext highlighter-rouge">~/.cshrc</code>。</p>
-  </li>
-  <li>
-    <p>如果上述步骤都不能解决问题，那么你可能需要从Synopsys下载并重新安装DVE到<code class="language-plaintext highlighter-rouge">$VCS_HOME</code>目录下。</p>
-  </li>
-</ol>
-
-<p>如果你还有问题，或者不确定如何进行，你可能需要联系Synopsys的技术支持获取帮助。</p>]]></content><author><name></name></author><category term="icenv" /><summary type="html"><![CDATA[问题 行业群问到，vcs带的dve命令启动报错ERROR - Unable to find valid DVE installation in $VCS_HOME/gui/dve, please download DVE installation package and install it under $VCS_HOME。]]></summary></entry><entry><title type="html">EDA软件与开源软件的管理</title><link href="https://www.icinfra.cn/blog/2023/eda-and-oss-management/" rel="alternate" type="text/html" title="EDA软件与开源软件的管理" /><published>2023-07-15T09:44:42+00:00</published><updated>2023-07-15T09:44:42+00:00</updated><id>https://www.icinfra.cn/blog/2023/eda-and-oss-management</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/eda-and-oss-management/"><![CDATA[<h1 id="eda软件与开源软件的管理">EDA软件与开源软件的管理</h1>
-
-<p>随着集成电路设计技术的发展，EDA (Electronic Design Automation) 工具在设计流程中扮演着关键的角色。此外，开源软件也在IC设计中提供了许多优势，包括在处理代码、构建工具和进行数据分析等方面的便利。本文主要对芯片设计环境主要的两类工具——EDA工具和开源软件的管理展开讨论。</p>
-
-<h2 id="一简介">一、简介</h2>
-
-<p>商业EDA厂商包括 Cadence、Synopsys、Mentor Graphics（已被西门子收购）、华大九天、芯华章等。常见的工具有 Virtuoso（用于模拟、布局、物理验证等）、Innovus（用于综合、布局、时序分析等）、PrimeTime（用于时序分析和优化）、Design Compiler（用于综合）、IC Compiler（用于布局和物理验证）以及 XCELIUM（高性能的仿真器，用于数字设计验证）等。</p>
-
-<p>开源EDA工具包括 Magic（用于布局和物理验证）、Qflow（用于综合、布局和物理验证）、OpenROAD（用于综合、布局和物理验证）、Yosys（用于逻辑综合和验证）以及 Verilator（用于仿真和验证）等。</p>
-
-<p>除了EDA工具，IC设计环境还可能使用一些开源工具，比如 Python, Perl, TCL 等用于脚本编写、文本与数据处理、EDA工具的控制；SVN, Git 用于版本控制和代码管理；Make 用于自动化构建和编译；Mariadb, Elasticsearch 等数据库工具；以及 Grafana, Kibana 等数据可视化工具。</p>
-
-<h2 id="二eda工具的管理">二、EDA工具的管理</h2>
-
-<p>在管理EDA工具时，需要考虑以下几个方面：目录规划、选型、调试与维护、License管理以及环境管理。</p>
-
-<h3 id="目录规划">目录规划</h3>
-
-<p>单平台、单OS（最常见的工具目录结构） <code class="language-plaintext highlighter-rouge">/tools/&lt;VENDOR&gt;/&lt;TOOL&gt;/&lt;VERSION&gt;</code></p>
-
-<p>涉及多平台、单OS， <code class="language-plaintext highlighter-rouge">/tools/x86_64/&lt;VENDOR&gt;/&lt;TOOL&gt;/&lt;VERSION&gt;</code> 或 <code class="language-plaintext highlighter-rouge">/tools/aarch64/&lt;VENDOR&gt;/&lt;TOOL&gt;/&lt;VERSION&gt;</code> 的</p>
-
-<p>涉及多平台、多OS，
-<code class="language-plaintext highlighter-rouge">/tools/x86_64/CentOS7/&lt;VENDOR&gt;/&lt;TOOL&gt;/&lt;VERSION&gt;</code>  <code class="language-plaintext highlighter-rouge">/tools/aarch64/CentOS7/&lt;VENDOR&gt;/&lt;TOOL&gt;/&lt;VERSION&gt;</code></p>
-
-<p>这里最主要的考虑点是兼容性与存储效率。如果优先兼容性，那么每个平台、每个OS分开是最好的；在没有去重功能的存储上，如果优先考虑存储效率，则层级往少规划，遇到不兼容时再采用modulefile分支来判断加载。</p>
-
-<h3 id="选型">选型</h3>
-
-<p>选择EDA工具需要考虑功能、性能、稳定性、使用难易度、成本等因素。此外，还需要考虑可能的国际制裁、行业市场占有率、厂商服务质量等因素。</p>
-
-<h3 id="调试与维护">调试与维护</h3>
-
-<p>厂商在针对bug修复、新特性增加时，用户通常需要配合跑特定任务做测试，以实现软件的迭代升级。</p>
-
-<h3 id="license管理">License管理</h3>
-
-<p>商业EDA工具，常用的License管理器：</p>
-<ul>
-  <li>FlexLM ,</li>
-  <li>RLM(Reprise License Manager),</li>
-  <li>LM-X</li>
-</ul>
-
-<p>FlexLM的options file支持丰富的个人、群组以及项目配额管理功能。如RTM、OpenLM、in-house tool等进行使用情况存储与数据分析以及日志解析与定期采样。</p>
-
-<h3 id="环境管理">环境管理</h3>
-
-<p>可能经历的阶段包括</p>
-<ul>
-  <li>.*shrc阶段</li>
-  <li>Project *shrc阶段</li>
-  <li>Environment Modules阶段</li>
-  <li>Environment Modules + Wrapper</li>
-  <li>Environment Modules + ELF定制 + Wrapper阶段</li>
-</ul>
-
-<h2 id="三开源工具的管理">三、开源工具的管理</h2>
-
-<p>在管理开源工具时，也需要考虑目录规划、选型、安装调试与维护以及环境管理等方面。</p>
-
-<h3 id="目录规划-1">目录规划</h3>
-
-<p>手动安装的工具，目录规划遵循上述的规则。包管理器安装的工具，目录由包管理器决定。</p>
-
-<h3 id="选型-1">选型</h3>
-
-<p>一般是由研发用户提申请，管理员确认后安装。由于开源工具相对自由，内部使用对选型不做太多的限制。但在做软件集成产品，涉及到对外出售或对外提供服务的，则选型时须考虑其许可证，例如</p>
-<ul>
-  <li>GPL（GNU通用公共许可证）</li>
-  <li>LGPL（GNU宽通用公共许可证）</li>
-  <li>BSD（Berkeley软件分发许可证）</li>
-  <li>MIT（麻省理工学院许可证）</li>
-  <li>Apache许可证</li>
-</ul>
-
-<h3 id="安装调试与维护">安装调试与维护</h3>
-
-<p>由于没有AE的支持（也有如红帽的RHEL订阅服务可提供技术支持服务），安装调试与维护均需靠使用方自己，以及借助上游社区完成。可以手动安装调试与维护，也可以借助 Spack（或Easybuild等）包管理器自动化安装。</p>
-
-<h3 id="环境管理-1">环境管理</h3>
-
-<p>如果是手动安装，则手动制作modulefile，由Environment Modules进行管理。如果是自动安装，如Spack，可以使用spack内置的加载卸载命令管理环境，也可以enable TCL/Lmod Environment Modules，在安装时自动生成modulefile，用Environment Modules进行管理。</p>
-
-<h2 id="性能优化">性能优化</h2>
-<ul>
-  <li>对工具目录（大部分是只读场景）所在FS做FS-Cache加速工具的加载；</li>
-  <li>对工具环境文件（modulefile）进行缓存，加速工具环境的初始化；</li>
-  <li>对工具命令环境的最精确设置，避免大量的无效路径查找导致的耗时；</li>
-  <li>在兼容、稳定版本的范围内，选最新的工具版本。</li>
-</ul>
-
-<h2 id="结语">结语</h2>
-
-<p>管理EDA工具和开源软件是一项复杂的任务，涉及到许多因素，包括工具的选型、目录规划、安装与调试、许可证管理以及环境管理等。通过对这些因素的深入理解和有效管理，可以更好地利用这些工具，提高IC设计的效率和质量。</p>
-
-<h2 id="参考资料">参考资料</h2>
-<p>http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html 阮一峰写的开源License介绍</p>]]></content><author><name></name></author><category term="icenv" /><summary type="html"><![CDATA[EDA软件与开源软件的管理]]></summary></entry><entry><title type="html">Subversion Performance</title><link href="https://www.icinfra.cn/blog/2023/subversion-performance/" rel="alternate" type="text/html" title="Subversion Performance" /><published>2023-06-12T13:46:33+00:00</published><updated>2023-06-12T13:46:33+00:00</updated><id>https://www.icinfra.cn/blog/2023/subversion-performance</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/subversion-performance/"><![CDATA[<h1 id="背景">背景</h1>
-<p>据作者了解，截止至本文写作，芯片研发业务大多在使用CentOS/RHEL 7，其中7.9是final版本，使用的最多。还有些因历史项目与老旧工具版本，在使用CentOS/RHEL 5或者6的。</p>
-
-<p>在这些环境下，IT部署svn，一般是直接<code class="language-plaintext highlighter-rouge">yum install subversion</code>进行安装的。以CentOS 7.9为例，安装的是1.7.14版本的svn。</p>
-
-<p>软件在迭代升级过程中，除修复bug，新增feature，还有很重要的一点是带来性能提升。subversion也不例外，可以参考wandisco公司做的benchmark<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>。</p>
-
-<h1 id="实验">实验</h1>
-<p>由wandisco公司提供的benchmark可以得到规律：subversion版本越高，获得的性能越强。我们用自己的环境做实验，当前版本1.7.14 vs. 最新稳定版本1.14.1。</p>
-
-<p>环境说明</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>序号</th>
-      <th>环境一</th>
-      <th>环境二</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>服务器</td>
-      <td>CentOS 7.9</td>
-      <td>CentOS 7.9</td>
-    </tr>
-    <tr>
-      <td>SVN Server</td>
-      <td>1.14.1</td>
-      <td>1.7.14</td>
-    </tr>
-    <tr>
-      <td>SVN Client</td>
-      <td>1.14.1</td>
-      <td>1.7.14</td>
-    </tr>
-    <tr>
-      <td>测试仓库所属业务</td>
-      <td>验证</td>
-      <td>验证</td>
-    </tr>
-    <tr>
-      <td>checkout仓库node数量</td>
-      <td> </td>
-      <td> </td>
-    </tr>
-    <tr>
-      <td>checkout仓库rev数量</td>
-      <td>14885</td>
-      <td>14885</td>
-    </tr>
-    <tr>
-      <td>update rev至</td>
-      <td>15669</td>
-      <td>15669</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>实验数据</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>序号</th>
-      <th>环境一</th>
-      <th>环境二</th>
-      <th>时间%降低至</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>co</td>
-      <td>63.470u 22.431s</td>
-      <td>110.595u 24.920s</td>
-      <td>63%</td>
-    </tr>
-    <tr>
-      <td>co</td>
-      <td>63.467u 22.718s</td>
-      <td>113.484u 25.144s</td>
-      <td>62%</td>
-    </tr>
-    <tr>
-      <td>up</td>
-      <td>44.089u 16.353s</td>
-      <td>84.621u 19.304s</td>
-      <td>58%</td>
-    </tr>
-    <tr>
-      <td>up</td>
-      <td>43.856u 16.083s</td>
-      <td>83.391u 19.075s</td>
-      <td>58%</td>
-    </tr>
-  </tbody>
-</table>
-
-<h1 id="结论">结论</h1>
-
-<p>在常见的checkout与upadte场景下，svn 1.14.1比1.7.14性能更强——耗时降低至60%左右。</p>
-
-<p>鉴于实验结论，我们可以将svn升级到新版本以获得更优的性能。</p>
-<div class="footnotes" role="doc-endnotes">
-  <ol>
-    <li id="fn:1" role="doc-endnote">
-      <p>http://live.wandisco.com/Fuhrmann_SVNlive2014%20Benchmarking%20SVN.pdf <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
-  </ol>
-</div>]]></content><author><name></name></author><category term="icenv" /><category term="svn" /><summary type="html"><![CDATA[背景 据作者了解，截止至本文写作，芯片研发业务大多在使用CentOS/RHEL 7，其中7.9是final版本，使用的最多。还有些因历史项目与老旧工具版本，在使用CentOS/RHEL 5或者6的。]]></summary></entry><entry><title type="html">Checkout request rejected by vendor-defined checkout filter报错</title><link href="https://www.icinfra.cn/blog/2023/Checkout-request-rejected-by-vendor-defined-checkout-filter/" rel="alternate" type="text/html" title="Checkout request rejected by vendor-defined checkout filter报错" /><published>2023-05-10T00:43:45+00:00</published><updated>2023-05-10T00:43:45+00:00</updated><id>https://www.icinfra.cn/blog/2023/Checkout-request-rejected-by-vendor-defined-checkout-filter</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/Checkout-request-rejected-by-vendor-defined-checkout-filter/"><![CDATA[<h1 id="问题">问题</h1>
-<p>软件运行报错</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Checkout request rejected by vendor-defined checkout filter
-Feature: Proto<span class="k">********</span>S-RT
-License path: 27020@hostname
-FlexNet Licensing error:-53,234
-
-
-Please choose another license.
-</code></pre></div></div>
-
-<h1 id="原因">原因</h1>
-<p>https://docs.flexera.com/fnmea/2020r1/ConceptGuide/Content/helplibrary/License_Denials.htm 可获得该报错的解释，<code class="language-plaintext highlighter-rouge">The application has a built-in test for the license that failed and rejected the license checkout.</code> 。</p>
-
-<h1 id="解决">解决</h1>
-<p>在License Server侧，执行<code class="language-plaintext highlighter-rouge">lmutil lmreread -c &lt;license.txt&gt;</code>一下license file解决。</p>]]></content><author><name></name></author><category term="icenv" /><category term="license" /><summary type="html"><![CDATA[问题 软件运行报错 ```bash Checkout request rejected by vendor-defined checkout filter Feature: Proto****S-RT License path: 27020@hostname FlexNet Licensing error:-53,234]]></summary></entry></feed>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://alshedivat.github.io/al-folio/feed.xml" rel="self" type="application/atom+xml"/><link href="https://alshedivat.github.io/al-folio/" rel="alternate" type="text/html" hreflang="en"/><updated>2023-10-01T07:33:25+00:00</updated><id>https://alshedivat.github.io/al-folio/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">a post with bibliography</title><link href="https://alshedivat.github.io/al-folio/blog/2023/post-bibliography/" rel="alternate" type="text/html" title="a post with bibliography"/><published>2023-07-12T13:56:00+00:00</published><updated>2023-07-12T13:56:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2023/post-bibliography</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2023/post-bibliography/"><![CDATA[<p>This post shows how to add bibliography to simple blog posts. If you would like something more academic, check the <a href="/al-folio/blog/2021/distill/">distill style post</a>.</p>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="bib"/><summary type="html"><![CDATA[an example of a blog post with bibliography]]></summary></entry><entry><title type="html">a post with jupyter notebook</title><link href="https://alshedivat.github.io/al-folio/blog/2023/jupyter-notebook/" rel="alternate" type="text/html" title="a post with jupyter notebook"/><published>2023-07-04T12:57:00+00:00</published><updated>2023-07-04T12:57:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2023/jupyter-notebook</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2023/jupyter-notebook/"><![CDATA[<p>To include a jupyter notebook in a post, you can use the following code:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{::nomarkdown}
+{% assign jupyter_path = "assets/jupyter/blog.ipynb" | relative_url %}
+{% capture notebook_exists %}{% file_exists assets/jupyter/blog.ipynb %}{% endcapture %}
+{% if notebook_exists == "true" %}
+    {% jupyter_notebook jupyter_path %}
+{% else %}
+    <span class="nt">&lt;p&gt;</span>Sorry, the notebook you are looking for does not exist.<span class="nt">&lt;/p&gt;</span>
+{% endif %}
+{:/nomarkdown}
+</code></pre></div></div> <p>Let’s break it down: this is possible thanks to <a href="https://github.com/red-data-tools/jekyll-jupyter-notebook">Jekyll Jupyter Notebook plugin</a> that allows you to embed jupyter notebooks in your posts. It basically calls <a href="https://nbconvert.readthedocs.io/en/latest/usage.html#convert-html"><code class="language-plaintext highlighter-rouge">jupyter nbconvert --to html</code></a> to convert the notebook to an html page and then includes it in the post. Since <a href="https://jekyllrb.com/docs/configuration/markdown/">Kramdown</a> is the default Markdown renderer for Jekyll, we need to surround the call to the plugin with the <a href="https://kramdown.gettalong.org/syntax.html#extensions">::nomarkdown</a> tag so that it stops processing this part with Kramdown and outputs the content as-is.</p> <p>The plugin takes as input the path to the notebook, but it assumes the file exists. If you want to check if the file exists before calling the plugin, you can use the <code class="language-plaintext highlighter-rouge">file_exists</code> filter. This avoids getting a 404 error from the plugin and ending up displaying the main page inside of it instead. If the file does not exist, you can output a message to the user. The code displayed above outputs the following:</p> <div class="jupyter-notebook" style="position: relative; width: 100%; margin: 0 auto;"> <div class="jupyter-notebook-iframe-container"> <iframe src="/al-folio/assets/jupyter/blog.ipynb.html" style="position: absolute; top: 0; left: 0; border-style: none;" width="100%" height="100%" onload="this.parentElement.style.paddingBottom = (this.contentWindow.document.documentElement.scrollHeight + 10) + 'px'"></iframe> </div> </div> <p>Note that the jupyter notebook supports both light and dark themes.</p>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="jupyter"/><summary type="html"><![CDATA[an example of a blog post with jupyter notebook]]></summary></entry><entry><title type="html">a post with custom blockquotes</title><link href="https://alshedivat.github.io/al-folio/blog/2023/custom-blockquotes/" rel="alternate" type="text/html" title="a post with custom blockquotes"/><published>2023-05-12T19:53:00+00:00</published><updated>2023-05-12T19:53:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2023/custom-blockquotes</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2023/custom-blockquotes/"><![CDATA[<p>This post shows how to add custom styles for blockquotes. Based on <a href="https://github.com/sighingnow/jekyll-gitbook">jekyll-gitbook</a> implementation.</p> <p>We decided to support the same custom blockquotes as in <a href="https://sighingnow.github.io/jekyll-gitbook/jekyll/2022-06-30-tips_warnings_dangers.html">jekyll-gitbook</a>, which are also found in a lot of other sites’ styles. The styles definitions can be found on the <a href="https://github.com/alshedivat/al-folio/blob/master/_sass/_base.scss">_base.scss</a> file, more specifically:</p> <div class="language-scss highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Tips, warnings, and dangers */</span>
+<span class="nc">.post</span> <span class="nc">.post-content</span> <span class="nt">blockquote</span> <span class="p">{</span>
+    <span class="k">&amp;</span><span class="nc">.block-tip</span> <span class="p">{</span>
+    <span class="nl">border-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-tip-block</span><span class="p">);</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-tip-block-bg</span><span class="p">);</span>
+
+    <span class="nt">p</span> <span class="p">{</span>
+      <span class="nl">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-tip-block-text</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span><span class="o">,</span> <span class="nt">h5</span><span class="o">,</span> <span class="nt">h6</span> <span class="p">{</span>
+      <span class="nl">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-tip-block-title</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">&amp;</span><span class="nc">.block-warning</span> <span class="p">{</span>
+    <span class="nl">border-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-warning-block</span><span class="p">);</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-warning-block-bg</span><span class="p">);</span>
+
+    <span class="nt">p</span> <span class="p">{</span>
+      <span class="nl">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-warning-block-text</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span><span class="o">,</span> <span class="nt">h5</span><span class="o">,</span> <span class="nt">h6</span> <span class="p">{</span>
+      <span class="nl">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-warning-block-title</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">&amp;</span><span class="nc">.block-danger</span> <span class="p">{</span>
+    <span class="nl">border-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-danger-block</span><span class="p">);</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-danger-block-bg</span><span class="p">);</span>
+
+    <span class="nt">p</span> <span class="p">{</span>
+      <span class="nl">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-danger-block-text</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span><span class="o">,</span> <span class="nt">h5</span><span class="o">,</span> <span class="nt">h6</span> <span class="p">{</span>
+      <span class="nl">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-danger-block-title</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div> <p>A regular blockquote can be used as following:</p> <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gt">&gt; This is a regular blockquote</span>
+<span class="gt">&gt; and it can be used as usual</span>
+</code></pre></div></div> <blockquote> <p>This is a regular blockquote and it can be used as usual</p> </blockquote> <p>These custom styles can be used by adding the specific class to the blockquote, as follows:</p> <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gt">&gt; ##### TIP</span>
+<span class="gt">&gt;</span>
+<span class="gt">&gt; A tip can be used when you want to give advice</span>
+<span class="gt">&gt; related to a certain content.</span>
+{: .block-tip }
+</code></pre></div></div> <blockquote class="block-tip"> <h5 id="tip">TIP</h5> <p>A tip can be used when you want to give advice related to a certain content.</p> </blockquote> <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gt">&gt; ##### WARNING</span>
+<span class="gt">&gt;</span>
+<span class="gt">&gt; This is a warning, and thus should</span>
+<span class="gt">&gt; be used when you want to warn the user</span>
+{: .block-warning }
+</code></pre></div></div> <blockquote class="block-warning"> <h5 id="warning">WARNING</h5> <p>This is a warning, and thus should be used when you want to warn the user</p> </blockquote> <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gt">&gt; ##### DANGER</span>
+<span class="gt">&gt;</span>
+<span class="gt">&gt; This is a danger zone, and thus should</span>
+<span class="gt">&gt; be used carefully</span>
+{: .block-danger }
+</code></pre></div></div> <blockquote class="block-danger"> <h5 id="danger">DANGER</h5> <p>This is a danger zone, and thus should be used carefully</p> </blockquote>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="blockquotes"/><summary type="html"><![CDATA[an example of a blog post with custom blockquotes]]></summary></entry><entry><title type="html">a post with table of contents on a sidebar</title><link href="https://alshedivat.github.io/al-folio/blog/2023/sidebar-table-of-contents/" rel="alternate" type="text/html" title="a post with table of contents on a sidebar"/><published>2023-04-25T14:14:00+00:00</published><updated>2023-04-25T14:14:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2023/sidebar-table-of-contents</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2023/sidebar-table-of-contents/"><![CDATA[<p>This post shows how to add a table of contents as a sidebar.</p> <h2 id="adding-a-table-of-contents">Adding a Table of Contents</h2> <p>To add a table of contents to a post as a sidebar, simply add</p> <div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">toc</span><span class="pi">:</span>
+  <span class="na">sidebar</span><span class="pi">:</span> <span class="s">left</span>
+</code></pre></div></div> <p>to the front matter of the post. The table of contents will be automatically generated from the headings in the post. If you wish to display the sidebar to the right, simply change <code class="language-plaintext highlighter-rouge">left</code> to <code class="language-plaintext highlighter-rouge">right</code>.</p> <h3 id="example-of-sub-heading-1">Example of Sub-Heading 1</h3> <p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p> <h3 id="example-of-another-sub-heading-1">Example of another Sub-Heading 1</h3> <p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p> <h2 data-toc-text="Customizing" id="customizing-your-table-of-contents">Customizing Your Table of Contents</h2> <p>If you want to learn more about how to customize the table of contents of your sidebar, you can check the <a href="https://afeld.github.io/bootstrap-toc/">bootstrap-toc</a> documentation. Notice that you can even customize the text of the heading that will be displayed on the sidebar.</p> <h3 id="example-of-sub-heading-2">Example of Sub-Heading 2</h3> <p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p> <h3 id="example-of-another-sub-heading-2">Example of another Sub-Heading 2</h3> <p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="toc"/><category term="sidebar"/><summary type="html"><![CDATA[an example of a blog post with table of contents on a sidebar]]></summary></entry><entry><title type="html">a post with audios</title><link href="https://alshedivat.github.io/al-folio/blog/2023/audios/" rel="alternate" type="text/html" title="a post with audios"/><published>2023-04-25T10:25:00+00:00</published><updated>2023-04-25T10:25:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2023/audios</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2023/audios/"><![CDATA[<p>This is an example post with audios. It supports local audio files.</p> <div class="row mt-3"> <div class="col-sm mt-3 mt-md-0"> <figure> <audio src="/al-folio/assets/audio/epicaly-short-113909.mp3" controls=""/> </figure> </div> <div class="col-sm mt-3 mt-md-0"> <figure> <audio src="https://cdn.pixabay.com/download/audio/2022/06/25/audio_69a61cd6d6.mp3" controls=""/> </figure> </div> </div> <div class="caption"> A simple, elegant caption looks good between video rows, after each row, or doesn't have to be there at all. </div>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="audios"/><summary type="html"><![CDATA[this is what included audios could look like]]></summary></entry><entry><title type="html">a post with videos</title><link href="https://alshedivat.github.io/al-folio/blog/2023/videos/" rel="alternate" type="text/html" title="a post with videos"/><published>2023-04-24T21:01:00+00:00</published><updated>2023-04-24T21:01:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2023/videos</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2023/videos/"><![CDATA[<p>This is an example post with videos. It supports local video files.</p> <div class="row mt-3"> <div class="col-sm mt-3 mt-md-0"> <figure> <video src="/al-folio/assets/video/pexels-engin-akyurt-6069112-960x540-30fps.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""/> </figure> </div> <div class="col-sm mt-3 mt-md-0"> <figure> <video src="/al-folio/assets/video/pexels-engin-akyurt-6069112-960x540-30fps.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" controls=""/> </figure> </div> </div> <div class="caption"> A simple, elegant caption looks good between video rows, after each row, or doesn't have to be there at all. </div> <p>It does also support embedding videos from different sources. Here are some examples:</p> <div class="row mt-3"> <div class="col-sm mt-3 mt-md-0"> <figure> <iframe src="https://www.youtube.com/embed/jNQXAC9IVRw" class="img-fluid rounded z-depth-1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" width="auto" height="auto"/> </figure> </div> <div class="col-sm mt-3 mt-md-0"> <figure> <iframe src="https://player.vimeo.com/video/524933864?h=1ac4fd9fb4&amp;title=0&amp;byline=0&amp;portrait=0" class="img-fluid rounded z-depth-1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" width="auto" height="auto"/> </figure> </div> </div>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="videos"/><summary type="html"><![CDATA[this is what included videos could look like]]></summary></entry><entry><title type="html">displaying beautiful tables with Bootstrap Tables</title><link href="https://alshedivat.github.io/al-folio/blog/2023/tables/" rel="alternate" type="text/html" title="displaying beautiful tables with Bootstrap Tables"/><published>2023-03-20T18:37:00+00:00</published><updated>2023-03-20T18:37:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2023/tables</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2023/tables/"><![CDATA[<p>Using markdown to display tables is easy. Just use the following syntax:</p> <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| Left aligned | Center aligned | Right aligned |
+| :----------- | :------------: | ------------: |
+| Left 1       | center 1       | right 1       |
+| Left 2       | center 2       | right 2       |
+| Left 3       | center 3       | right 3       |
+</code></pre></div></div> <p>That will generate:</p> <table> <thead> <tr> <th style="text-align: left">Left aligned</th> <th style="text-align: center">Center aligned</th> <th style="text-align: right">Right aligned</th> </tr> </thead> <tbody> <tr> <td style="text-align: left">Left 1</td> <td style="text-align: center">center 1</td> <td style="text-align: right">right 1</td> </tr> <tr> <td style="text-align: left">Left 2</td> <td style="text-align: center">center 2</td> <td style="text-align: right">right 2</td> </tr> <tr> <td style="text-align: left">Left 3</td> <td style="text-align: center">center 3</td> <td style="text-align: right">right 3</td> </tr> </tbody> </table> <p></p> <p>It is also possible to use HTML to display tables. For example, the following HTML code will display a table with <a href="https://bootstrap-table.com/">Bootstrap Table</a>, loaded from a JSON file:</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;table</span>
+  <span class="na">id=</span><span class="s">"table"</span>
+  <span class="na">data-toggle=</span><span class="s">"table"</span>
+  <span class="na">data-url=</span><span class="s">"{{ '/assets/json/table_data.json' | relative_url }}"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;thead&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+      <span class="nt">&lt;th</span> <span class="na">data-field=</span><span class="s">"id"</span><span class="nt">&gt;</span>ID<span class="nt">&lt;/th&gt;</span>
+      <span class="nt">&lt;th</span> <span class="na">data-field=</span><span class="s">"name"</span><span class="nt">&gt;</span>Item Name<span class="nt">&lt;/th&gt;</span>
+      <span class="nt">&lt;th</span> <span class="na">data-field=</span><span class="s">"price"</span><span class="nt">&gt;</span>Item Price<span class="nt">&lt;/th&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+  <span class="nt">&lt;/thead&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</code></pre></div></div> <table data-toggle="table" data-url="/al-folio/assets/json/table_data.json"> <thead> <tr> <th data-field="id">ID</th> <th data-field="name">Item Name</th> <th data-field="price">Item Price</th> </tr> </thead> </table> <p></p> <p>By using <a href="https://bootstrap-table.com/">Bootstrap Table</a> it is possible to create pretty complex tables, with pagination, search, and more. For example, the following HTML code will display a table, loaded from a JSON file, with pagination, search, checkboxes, and header/content alignment. For more information, check the <a href="https://examples.bootstrap-table.com/index.html">documentation</a>.</p> <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;table</span>
+  <span class="na">data-click-to-select=</span><span class="s">"true"</span>
+  <span class="na">data-height=</span><span class="s">"460"</span>
+  <span class="na">data-pagination=</span><span class="s">"true"</span>
+  <span class="na">data-search=</span><span class="s">"true"</span>
+  <span class="na">data-toggle=</span><span class="s">"table"</span>
+  <span class="na">data-url=</span><span class="s">"{{ '/assets/json/table_data.json' | relative_url }}"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;thead&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+      <span class="nt">&lt;th</span> <span class="na">data-checkbox=</span><span class="s">"true"</span><span class="nt">&gt;&lt;/th&gt;</span>
+      <span class="nt">&lt;th</span> <span class="na">data-field=</span><span class="s">"id"</span> <span class="na">data-halign=</span><span class="s">"left"</span> <span class="na">data-align=</span><span class="s">"center"</span> <span class="na">data-sortable=</span><span class="s">"true"</span><span class="nt">&gt;</span>ID<span class="nt">&lt;/th&gt;</span>
+      <span class="nt">&lt;th</span> <span class="na">data-field=</span><span class="s">"name"</span> <span class="na">data-halign=</span><span class="s">"center"</span> <span class="na">data-align=</span><span class="s">"right"</span> <span class="na">data-sortable=</span><span class="s">"true"</span><span class="nt">&gt;</span>Item Name<span class="nt">&lt;/th&gt;</span>
+      <span class="nt">&lt;th</span> <span class="na">data-field=</span><span class="s">"price"</span> <span class="na">data-halign=</span><span class="s">"right"</span> <span class="na">data-align=</span><span class="s">"left"</span> <span class="na">data-sortable=</span><span class="s">"true"</span><span class="nt">&gt;</span>Item Price<span class="nt">&lt;/th&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+  <span class="nt">&lt;/thead&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</code></pre></div></div> <table data-click-to-select="true" data-height="460" data-pagination="true" data-search="true" data-toggle="table" data-url="/al-folio/assets/json/table_data.json"> <thead> <tr> <th data-checkbox="true"></th> <th data-field="id" data-halign="left" data-align="center" data-sortable="true">ID</th> <th data-field="name" data-halign="center" data-align="right" data-sortable="true">Item Name</th> <th data-field="price" data-halign="right" data-align="left" data-sortable="true">Item Price</th> </tr> </thead> </table>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="tables"/><summary type="html"><![CDATA[an example of how to use Bootstrap Tables]]></summary></entry><entry><title type="html">a post with table of contents</title><link href="https://alshedivat.github.io/al-folio/blog/2023/table-of-contents/" rel="alternate" type="text/html" title="a post with table of contents"/><published>2023-03-20T15:59:00+00:00</published><updated>2023-03-20T15:59:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2023/table-of-contents</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2023/table-of-contents/"><![CDATA[<p>This post shows how to add a table of contents in the beginning of the post.</p> <h2 id="adding-a-table-of-contents">Adding a Table of Contents</h2> <p>To add a table of contents to a post, simply add</p> <div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">toc</span><span class="pi">:</span>
+  <span class="na">beginning</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div> <p>to the front matter of the post. The table of contents will be automatically generated from the headings in the post.</p> <h3 id="example-of-sub-heading-1">Example of Sub-Heading 1</h3> <p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p> <h3 id="example-of-another-sub-heading-1">Example of another Sub-Heading 1</h3> <p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p> <h2 id="table-of-contents-options">Table of Contents Options</h2> <p>If you want to learn more about how to customize the table of contents, you can check the <a href="https://github.com/toshimaru/jekyll-toc">jekyll-toc</a> repository.</p> <h3 id="example-of-sub-heading-2">Example of Sub-Heading 2</h3> <p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p> <h3 id="example-of-another-sub-heading-2">Example of another Sub-Heading 2</h3> <p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="toc"/><summary type="html"><![CDATA[an example of a blog post with table of contents]]></summary></entry><entry><title type="html">a post with giscus comments</title><link href="https://alshedivat.github.io/al-folio/blog/2022/giscus-comments/" rel="alternate" type="text/html" title="a post with giscus comments"/><published>2022-12-10T15:59:00+00:00</published><updated>2022-12-10T15:59:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2022/giscus-comments</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2022/giscus-comments/"><![CDATA[<p>This post shows how to add GISCUS comments.</p>]]></content><author><name></name></author><category term="sample-posts"/><category term="external-services"/><category term="comments"/><summary type="html"><![CDATA[an example of a blog post with giscus comments]]></summary></entry><entry><title type="html">Displaying External Posts on Your al-folio Blog</title><link href="https://alshedivat.github.io/al-folio/blog/2022/displaying-external-posts-on-your-al-folio-blog/" rel="alternate" type="text/html" title="Displaying External Posts on Your al-folio Blog"/><published>2022-04-23T23:20:09+00:00</published><updated>2022-04-23T23:20:09+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2022/displaying-external-posts-on-your-al-folio-blog</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2022/displaying-external-posts-on-your-al-folio-blog/"><![CDATA[]]></content><author><name></name></author></entry></feed>
