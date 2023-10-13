@@ -1,7 +1,7 @@
 ---
 layout: post
 title: cloud-init模板镜像的创建与使用
-date: 2015-07-15 15:09:00
+date: 2023-10-13 09:00:00
 description: 
 tags: pve
 categories: cloud
