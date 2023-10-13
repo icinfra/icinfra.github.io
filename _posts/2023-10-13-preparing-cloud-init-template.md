@@ -1,12 +1,13 @@
 ---
 layout: post
 title: cloud-init模板镜像的创建与使用
-date: 2023-10-13 09:00:00
+date: 2023-10-13 09:00+0800
 description: 
 tags: pve
-categories: cloud
-featured: true
+giscus_comments: true
+categories: 
 ---
+
 
 # Abstract
 本文介绍，在Proxmox Virtual Environment（pve）上，cloud-init模板镜像的创建与使用。
