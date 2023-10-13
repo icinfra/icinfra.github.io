@@ -1,19 +1,23 @@
 ---
 layout: post
 title: vnc灰屏
-date: 2023-10-13 10:13:00
+date: 2023-10-13 10:13+0800
 description: 
 tags: vnc
+giscus_comments: true
 categories: 
-featured: true
 ---
 
 在Ubuntu 18服务器上，从root账号的terminal里，执行su user01，然后执行vncserver启动一个vnc桌面。从vncviewer去连接时提示Failed to connect to socket /run/user/0/bus: Permission denied，
+
 ![image](https://github.com/icinfra/icinfra.github.io/assets/32032219/dd4be61a-cdf7-46e2-a2dd-2adf7df7ac6a)
+
 
 ![image](https://github.com/icinfra/icinfra.github.io/assets/32032219/50f285a3-47df-4cfc-b527-10a94c1704d7)
 
+
 并且屏幕是灰屏的，
+
 ![image](https://github.com/icinfra/icinfra.github.io/assets/32032219/f0746ef7-1534-4923-9024-5a7d4d9d26f9)
 
 这个问题是因为你从 root 用户切换到 user01 时，某些环境变量（特别是关于 D-Bus 的）没有被正确地设置。这导致 VNC 试图连接到 root 用户的 D-Bus 会话，而不是 user01 的会话。
