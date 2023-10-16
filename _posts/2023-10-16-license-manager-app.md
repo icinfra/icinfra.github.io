@@ -1,7 +1,7 @@
 ---
 layout: post
 title: License管理器应用
-date: 2023-10-17 23:00+0800
+date: 2023-10-16 23:00+0800
 description: 
 tags: license
 giscus_comments: true
