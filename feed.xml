@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2023-10-17T01:58:32+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">License管理器应用</title><link href="https://www.icinfra.cn/blog/2023/license-manager-app/" rel="alternate" type="text/html" title="License管理器应用"/><published>2023-10-16T15:00:00+00:00</published><updated>2023-10-16T15:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/license-manager-app</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/license-manager-app/"><![CDATA[<p>读取License文件，并存入sqlite3数据库。</p> <pre><code class="language-python3">#!/Users/wanlinwang/spack/opt/spack/darwin-ventura-m1/apple-clang-14.0.3/python-3.10.8-b7rgkczw4yfgrkbgttbcbur3ksmwho5d/bin/python3
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2023-10-17T15:20:29+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">License管理器应用</title><link href="https://www.icinfra.cn/blog/2023/license-manager-app/" rel="alternate" type="text/html" title="License管理器应用"/><published>2023-10-16T15:00:00+00:00</published><updated>2023-10-16T15:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/license-manager-app</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/license-manager-app/"><![CDATA[<p>读取License文件，并存入sqlite3数据库。</p> <pre><code class="language-python3">#!/Users/wanlinwang/spack/opt/spack/darwin-ventura-m1/apple-clang-14.0.3/python-3.10.8-b7rgkczw4yfgrkbgttbcbur3ksmwho5d/bin/python3
+
 
 import sqlite3
 import re
@@ -27,17 +28,19 @@ def store_to_db(products, filename):
 
     # Create tables
     cursor.execute('''CREATE TABLE IF NOT EXISTS LicenseFiles
-                     (LicenseFileId INTEGER PRIMARY KEY AUTOINCREMENT, FileName TEXT UNIQUE)''')
-
+                     (LicenseFileId INTEGER PRIMARY KEY AUTOINCREMENT, FileName TEXT UNIQUE, hostname TEXT, hostid TEXT, lmgrd_port TEXT, vendor_daemon_port TEXT, lmgrd_file_id INTEGER, vendor_daemon_file_id INTEGER, options_file_id INTEGER)''')
     cursor.execute("INSERT OR IGNORE INTO LicenseFiles (FileName) VALUES (?)", (filename,))
     cursor.execute("SELECT LicenseFileId FROM LicenseFiles WHERE FileName=?", (filename,))
     license_file_id = cursor.fetchone()[0]
+
+    cursor.execute('''CREATE TABLE IF NOT EXISTS LicenseRelatedFiles
+                     (ExecutableFileId INTEGER PRIMARY KEY AUTOINCREMENT, FileName TEXT UNIQUE)''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS Features
                      (FeatureId INTEGER PRIMARY KEY AUTOINCREMENT, FeatureName TEXT UNIQUE)''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS Products
-                     (ProductId TEXT PRIMARY KEY, ProductName TEXT(256))''')
+                     (ProductId TEXT PRIMARY KEY, ProductName TEXT)''')
 
     cursor.execute('''CREATE TABLE IF NOT EXISTS ProductFeatureRelation
                      (RelationId INTEGER PRIMARY KEY AUTOINCREMENT, ProductId TEXT, FeatureId INTEGER, 
@@ -84,26 +87,35 @@ if __name__ == "__main__":
 
 </code></pre> <p>读取sqlite3数据库，并显示在客户端内，</p> <pre><code class="language-python3">#!/home/centos/spack/opt/spack/linux-centos7-x86_64_v4/gcc-13.2.0/python-3.10.10-64a4t27o3c2cnk23lenooydikdsiqzgv/bin/python3
 
+
 import sqlite3
 import tkinter as tk
 from tkinter import ttk
-import tkinter.font as tkFont
+from contextlib import contextmanager
+import tkinter.messagebox
 
-def adjust_column_width(tree, columns):
-    font = tkFont.Font()
-    for column in columns:
-        width = tree.column(column, 'width')
-        for item in tree.get_children():
-            entry = tree.item(item, 'values')
-            if entry:
-                entry_width = font.measure(entry[columns.index(column)])
-                width = max(width, entry_width)
-        tree.column(column, width=width)
+
+@contextmanager
+def get_db_connection():
+    conn = sqlite3.connect('license.db')
+    try:
+        yield conn
+    finally:
+        conn.close()
+
+def execute_query(query, params=()):
+    with get_db_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute(query, params)
+        return cursor.fetchall()
+
+def execute_commit(query, params=()):
+    with get_db_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute(query, params)
+        conn.commit()
 
 def retrieve_license_info_by_feature(feature_name):
-    conn = sqlite3.connect('license.db')
-    cursor = conn.cursor()
-
     query = """
     SELECT pd.StartDate, pd.EndDate, pd.Quantity, lf.FileName, p.ProductId
     FROM ProductDates pd
@@ -113,16 +125,9 @@ def retrieve_license_info_by_feature(feature_name):
     JOIN LicenseFiles lf ON pd.LicenseFileId = lf.LicenseFileId
     WHERE f.FeatureName = ?
     """
-    
-    cursor.execute(query, (feature_name,))
-    results = cursor.fetchall()
-    conn.close()
-    return results
+    return execute_query(query, (feature_name,))
 
 def retrieve_license_info_by_product(product_id):
-    conn = sqlite3.connect('license.db')
-    cursor = conn.cursor()
-
     query = """
     SELECT pd.StartDate, pd.EndDate, pd.Quantity, lf.FileName, p.ProductId
     FROM ProductDates pd
@@ -130,46 +135,231 @@ def retrieve_license_info_by_product(product_id):
     JOIN LicenseFiles lf ON pd.LicenseFileId = lf.LicenseFileId
     WHERE p.ProductId = ?
     """
-    
-    cursor.execute(query, (product_id,))
-    results = cursor.fetchall()
-    conn.close()
-    return results
+    return execute_query(query, (product_id,))
 
 def get_all_features():
-    conn = sqlite3.connect('license.db')
-    cursor = conn.cursor()
-    cursor.execute("SELECT FeatureName FROM Features")
-    features = [row[0] for row in cursor.fetchall()]
-    conn.close()
-    return features
+    return [row[0] for row in execute_query("SELECT FeatureName FROM Features")]
 
 def get_all_products():
-    conn = sqlite3.connect('license.db')
-    cursor = conn.cursor()
-    cursor.execute("SELECT ProductId FROM Products")
-    products = [row[0] for row in cursor.fetchall()]
-    conn.close()
-    return products
+    return [row[0] for row in execute_query("SELECT ProductId FROM Products")]
+
+def get_all_license_files():
+    return [row[0] for row in execute_query("SELECT FileName FROM LicenseFiles")]
+
+def get_all_license_related_files():
+    return [row[0] for row in execute_query("SELECT FileName FROM LicenseRelatedFiles")]
 
 def on_search_by_feature():
+    tree_by_feature.delete(*tree_by_feature.get_children())  # Clear the treeview
     feature_name = feature_name_combobox.get()
     results = retrieve_license_info_by_feature(feature_name)
-    tree_by_feature.delete(*tree_by_feature.get_children())  # Clear previous results
-    for index, result in enumerate(results, 1):
-        tree_by_feature.insert("", "end", values=(index, *result))
-    adjust_column_width(tree_by_feature, tree_by_feature["columns"])
+    for result in results:
+        tree_by_feature.insert("", "end", values=result)
 
 def on_search_by_product():
+    tree_by_product.delete(*tree_by_product.get_children())  # Clear the treeview
     product_id = product_id_combobox.get()
     results = retrieve_license_info_by_product(product_id)
-    tree_by_product.delete(*tree_by_product.get_children())  # Clear previous results
-    for index, result in enumerate(results, 1):
-        tree_by_product.insert("", "end", values=(index, *result))
-    adjust_column_width(tree_by_product, tree_by_product["columns"])
+    for result in results:
+        tree_by_product.insert("", "end", values=result)
+
+def load_license_info(event):
+    data = execute_query("SELECT hostname, hostid, lmgrd_port, vendor_daemon_port, lmgrd_file_id, vendor_daemon_file_id, options_file_id FROM LicenseFiles WHERE FileName=?", (license_file_combobox.get(),))
+    if data:
+        data = data[0]
+        
+        hostname_entry.delete(0, tk.END)
+        hostid_entry.delete(0, tk.END)
+        lmgrd_port_entry.delete(0, tk.END)
+        vendor_daemon_port_entry.delete(0, tk.END)
+
+        # Clear all entries and comboboxes first
+        hostname_entry.delete(0, tk.END)
+        hostid_entry.delete(0, tk.END)
+        lmgrd_port_entry.delete(0, tk.END)
+        vendor_daemon_port_entry.delete(0, tk.END)
+        lmgrd_file_combobox.set('')
+        vendor_daemon_file_combobox.set('')
+        options_file_combobox.set('')
+
+        if data:
+            if data[0]:
+                hostname_entry.insert(0, data[0])
+            if data[1]:
+                hostid_entry.insert(0, data[1])
+            if data[2]:
+                lmgrd_port_entry.insert(0, data[2])
+            if data[3]:
+                vendor_daemon_port_entry.insert(0, data[3])
+            if data[4]:
+                lmgrd_file = execute_query("SELECT FileName FROM LicenseRelatedFiles WHERE ExecutableFileId=?", (data[4],))
+                if lmgrd_file:
+                    lmgrd_file = lmgrd_file[0]
+                    lmgrd_file_combobox.set(lmgrd_file)
+            if data[5]:
+                vendor_daemon_file = execute_query("SELECT FileName FROM LicenseRelatedFiles WHERE ExecutableFileId=?", (data[5],))
+                if vendor_daemon_file:
+                    vendor_daemon_file = vendor_daemon_file[0]
+                    vendor_daemon_file_combobox.set(vendor_daemon_file)
+            if data[6]:
+                options_file = execute_query("SELECT FileName FROM LicenseRelatedFiles WHERE ExecutableFileId=?", (data[6],))
+                if options_file:
+                    options_file = options_file[0]
+                    options_file_combobox.set(options_file)
+
+        if (not hostname_entry.get() and not lmgrd_port_entry.get() and not vendor_daemon_port_entry.get() and not lmgrd_file_combobox.get() and not vendor_daemon_file_combobox.get() and not options_file_combobox.get()):
+            copy_from_prev_button['state'] = tk.NORMAL
+        else:
+            copy_from_prev_button['state'] = tk.DISABLED
+
+def check_inputs_filled():
+    # Check if all required fields are filled
+    if (license_file_combobox.get() and hostname_entry.get() and hostid_entry.get() and lmgrd_port_entry.get() and lmgrd_file_combobox.get() and vendor_daemon_file_combobox.get()):
+        save_button['state'] = tk.NORMAL
+        modify_button['state'] = tk.NORMAL
+    else:
+        save_button['state'] = tk.DISABLED
+        modify_button['state'] = tk.DISABLED
+
+def copy_from_previous_file():
+    license_file_name = license_file_combobox.get()
+    if not license_file_name:
+        tkinter.messagebox.showerror("Error", "Please select a License File first.")
+        return
+
+    # Extract hostid from the license file's filename
+    try:
+        hostid = license_file_name.split('_')[2]
+    except IndexError:
+        tkinter.messagebox.showerror("Error", "Invalid License File name format.")
+        return
+
+    data = execute_query("SELECT hostname, lmgrd_port, vendor_daemon_port, lmgrd_file_id, vendor_daemon_file_id, options_file_id FROM LicenseFiles WHERE hostid=? ORDER BY LicenseFileId DESC LIMIT 1", (hostid,))
+    if data:
+        data = data[0]
+    else:
+        tkinter.messagebox.showinfo("Info", "No previous data found for the given Host ID.")
+        return
+
+    hostname, lmgrd_port, vendor_daemon_port, lmgrd_file_id, vendor_daemon_file_id, options_file_id = data
+
+    # Populate the fields
+    hostname_entry.delete(0, tk.END)
+    hostname_entry.insert(0, hostname)
+
+    hostid_entry.delete(0, tk.END)
+    hostid_entry.insert(0, hostid)
+
+    lmgrd_port_entry.delete(0, tk.END)
+    lmgrd_port_entry.insert(0, lmgrd_port)
+
+    vendor_daemon_port_entry.delete(0, tk.END)
+    vendor_daemon_port_entry.insert(0, vendor_daemon_port)
+
+    # Fetch filenames for the file IDs
+    lmgrd_file = execute_query("SELECT FileName FROM LicenseRelatedFiles WHERE ExecutableFileId=?", (lmgrd_file_id,))
+    if lmgrd_file:
+        lmgrd_file = lmgrd_file[0]
+        lmgrd_file_combobox.set(lmgrd_file)
+    vendor_daemon_file = execute_query("SELECT FileName FROM LicenseRelatedFiles WHERE ExecutableFileId=?", (vendor_daemon_file_id,))
+    if vendor_daemon_file:
+        vendor_daemon_file = vendor_daemon_file[0]
+        vendor_daemon_file_combobox.set(vendor_daemon_file)
+
+    if options_file_id:
+        options_file = execute_query("SELECT FileName FROM LicenseRelatedFiles WHERE ExecutableFileId=?", (options_file_id,))
+        if options_file:
+            options_file = options_file[0]
+            options_file_combobox.set(options_file)
+
+    # Enable the "Copy From Previous File" button only when the other fields are empty
+    if not hostname_entry.get() and not lmgrd_port_entry.get() and not vendor_daemon_port_entry.get():
+        copy_from_prev_button['state'] = tk.NORMAL
+    else:
+        copy_from_prev_button['state'] = tk.DISABLED
+
+def save_license_info():
+    license_file_id = execute_query("SELECT LicenseFileId FROM LicenseFiles WHERE FileName=?", (license_file_combobox.get(),))
+    if license_file_id:
+        license_file_id = license_file_id[0]
+        
+        lmgrd_file = lmgrd_file_combobox.get()
+        vendor_daemon_file = vendor_daemon_file_combobox.get()
+        options_file = options_file_combobox.get()
+
+        update_sub_str_list = []
+        insert_sub_str_list = []
+        value_sub_str_list = []
+        if lmgrd_file:
+            execute_commit("INSERT OR IGNORE INTO LicenseRelatedFiles (FileName) VALUES (?)", (lmgrd_file,))
+            lmgrd_file_id = execute_query("SELECT ExecutableFileId FROM LicenseRelatedFiles WHERE FileName=?", (lmgrd_file,))
+            if lmgrd_file_id:
+                lmgrd_file_id = lmgrd_file_id[0][0]
+                update_sub_str_list.append("lmgrd_file_id=?")
+                insert_sub_str_list.append("lmgrd_file_id")
+                value_sub_str_list.append(lmgrd_file_id)
+
+        if vendor_daemon_file:
+            execute_commit("INSERT OR IGNORE INTO LicenseRelatedFiles (FileName) VALUES (?)", (vendor_daemon_file,))
+            vendor_daemon_file_id = execute_query("SELECT ExecutableFileId FROM LicenseRelatedFiles WHERE FileName=?", (vendor_daemon_file,))
+            if vendor_daemon_file_id:
+                vendor_daemon_file_id = vendor_daemon_file_id[0][0]
+                update_sub_str_list.append("vendor_daemon_file_id=?")
+                insert_sub_str_list.append("vendor_daemon_file_id")
+                value_sub_str_list.append(vendor_daemon_file_id)
+
+        if options_file:
+            # Check if options_file exists.
+            execute_commit("INSERT OR IGNORE INTO LicenseRelatedFiles (FileName) VALUES (?)", (options_file,))
+            options_file_id = execute_query("SELECT ExecutableFileId FROM LicenseRelatedFiles WHERE FileName=?", (options_file,))
+            if options_file_id:
+                options_file_id = options_file_id[0][0]
+                update_sub_str_list.append("options_file_id=?")
+                insert_sub_str_list.append("options_file_id")
+                value_sub_str_list.append(options_file_id)
+
+        if license_file_id:
+            # Update the existing record
+            #cursor.execute("UPDATE LicenseFiles SET hostname=?, hostid=?, lmgrd_port=?, vendor_daemon_port=?, lmgrd_file_id=?, vendor_daemon_file_id=?, options_file_id=? WHERE LicenseFileId=?", 
+            #               (hostname_entry.get(), hostid_entry.get(), lmgrd_port_entry.get(), vendor_daemon_port_entry.get(), lmgrd_file_id, vendor_daemon_file_id, options_file_id, license_file_id[0]))
+            if lmgrd_file or vendor_daemon_file or options_file:
+                param = (
+                    hostname_entry.get(), 
+                    hostid_entry.get(), 
+                    lmgrd_port_entry.get(), 
+                    vendor_daemon_port_entry.get(), 
+                    *value_sub_str_list, 
+                    license_file_id[0]
+                )
+                execute_commit(f"UPDATE LicenseFiles SET hostname=?, hostid=?, lmgrd_port=?, vendor_daemon_port=?, {','.join(update_sub_str_list)} WHERE LicenseFileId=?", param)
+            else:
+                execute_commit("UPDATE LicenseFiles SET hostname=?, hostid=?, lmgrd_port=?, vendor_daemon_port=? WHERE LicenseFileId=?", 
+                               (hostname_entry.get(), hostid_entry.get(), lmgrd_port_entry.get(), vendor_daemon_port_entry.get(), license_file_id[0]))
+        else:
+            # Insert a new record
+            #cursor.execute("INSERT INTO LicenseFiles (FileName, hostname, hostid, lmgrd_port, vendor_daemon_port, lmgrd_file_id, vendor_daemon_file_id, options_file_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
+            #               (license_file_combobox.get(), hostname_entry.get(), hostid_entry.get(), lmgrd_port_entry.get(), vendor_daemon_port_entry.get(), lmgrd_file_id, vendor_daemon_file_id, options_file_id))
+            if lmgrd_file or vendor_daemon_file or options_file:
+                param = (
+                    license_file_combobox.get(),
+                    hostname_entry.get(), 
+                    hostid_entry.get(), 
+                    lmgrd_port_entry.get(), 
+                    vendor_daemon_port_entry.get(), 
+                    *value_sub_str_list
+                )
+                execute_commit(f"INSERT INTO LicenseFiles (FileName, hostname, hostid, lmgrd_port, vendor_daemon_port, {','.join(insert_sub_str_list)}) VALUES (?, ?, ?, ?, ?, {','.join(['?'] * len(insert_sub_str_list))})", param)
+            else:
+                execute_commit("INSERT INTO LicenseFiles (FileName, hostname, hostid, lmgrd_port, vendor_daemon_port, lmgrd_file_id, vendor_daemon_file_id, options_file_id) VALUES (?, ?, ?, ?, ?)", 
+                               (license_file_combobox.get(), hostname_entry.get(), hostid_entry.get(), lmgrd_port_entry.get(), vendor_daemon_port_entry.get()))
+        
+        #conn.commit()
+        # Disable "Save" button after saved.
+        save_button['state'] = tk.DISABLED
+        tk.messagebox.showinfo("Info", "License file config saved successfully!")
 
 app = tk.Tk()
-app.title("License Info Retrieval")
+app.title("License Manager")
 
 notebook = ttk.Notebook(app)
 notebook.pack(pady=10, padx=10, expand=True, fill='both')
@@ -179,14 +369,12 @@ tab_feature = ttk.Frame(notebook)
 notebook.add(tab_feature, text="By Feature Name")
 
 feature_names = get_all_features()
-ttk.Label(tab_feature, text="Feature Name:").grid(row=0, column=0, sticky=tk.W, pady=5)
-feature_name_combobox = ttk.Combobox(tab_feature, values=feature_names)
+ttk.Label(tab_feature, text="Feature Name:").grid(row=0, column=0, sticky=tk.W, pady=5, padx=5)
+feature_name_combobox = ttk.Combobox(tab_feature, values=feature_names, width=30)
 feature_name_combobox.grid(row=0, column=1, pady=5, padx=5)
 ttk.Button(tab_feature, text="Search", command=on_search_by_feature).grid(row=0, column=2, pady=5, padx=5)
 
-tree_by_feature = ttk.Treeview(tab_feature, columns=("Index", "StartDate", "EndDate", "Quantity", "FileName", "ProductId"), show="headings")
-tree_by_feature.heading("Index", text="#")
-tree_by_feature.column("Index", width=30)  # Set width for the index column
+tree_by_feature = ttk.Treeview(tab_feature, columns=("StartDate", "EndDate", "Quantity", "FileName", "ProductId"), show="headings")
 tree_by_feature.heading("StartDate", text="Start Date")
 tree_by_feature.heading("EndDate", text="End Date")
 tree_by_feature.heading("Quantity", text="Quantity")
@@ -199,14 +387,12 @@ tab_product = ttk.Frame(notebook)
 notebook.add(tab_product, text="By Product Id")
 
 product_ids = get_all_products()
-ttk.Label(tab_product, text="Product Id:").grid(row=0, column=0, sticky=tk.W, pady=5)
-product_id_combobox = ttk.Combobox(tab_product, values=product_ids)
+ttk.Label(tab_product, text="Product Id:").grid(row=0, column=0, sticky=tk.W, pady=5, padx=5)
+product_id_combobox = ttk.Combobox(tab_product, values=product_ids, width=30)
 product_id_combobox.grid(row=0, column=1, pady=5, padx=5)
 ttk.Button(tab_product, text="Search", command=on_search_by_product).grid(row=0, column=2, pady=5, padx=5)
 
-tree_by_product = ttk.Treeview(tab_product, columns=("Index", "StartDate", "EndDate", "Quantity", "FileName", "ProductId"), show="headings")
-tree_by_product.heading("Index", text="#")
-tree_by_product.column("Index", width=30)  # Set width for the index column
+tree_by_product = ttk.Treeview(tab_product, columns=("StartDate", "EndDate", "Quantity", "FileName", "ProductId"), show="headings")
 tree_by_product.heading("StartDate", text="Start Date")
 tree_by_product.heading("EndDate", text="End Date")
 tree_by_product.heading("Quantity", text="Quantity")
@@ -214,15 +400,109 @@ tree_by_product.heading("FileName", text="License File")
 tree_by_product.heading("ProductId", text="Product Id")
 tree_by_product.grid(row=1, column=0, columnspan=3, pady=10, padx=5, sticky=(tk.W, tk.E))
 
+# Tab for License Settings
+tab_settings = ttk.Frame(notebook)
+notebook.add(tab_settings, text="License Settings")
+
+license_files = get_all_license_files()
+ttk.Label(tab_settings, text="License File:").grid(row=0, column=0, sticky=tk.W, pady=5, padx=5)
+license_file_combobox = ttk.Combobox(tab_settings, values=license_files, width=64)
+license_file_combobox.grid(row=0, column=1, pady=5, padx=5)
+license_file_combobox.bind("&lt;&lt;ComboboxSelected&gt;&gt;", load_license_info)
+
+ttk.Label(tab_settings, text="Hostname:").grid(row=1, column=0, sticky=tk.W, pady=5, padx=5)
+hostname_entry = ttk.Entry(tab_settings, width=64)
+hostname_entry.grid(row=1, column=1, pady=5, padx=5)
+
+ttk.Label(tab_settings, text="Host ID:").grid(row=2, column=0, sticky=tk.W, pady=5, padx=5)
+hostid_entry = ttk.Entry(tab_settings, width=64)
+hostid_entry.grid(row=2, column=1, pady=5, padx=5)
+
+ttk.Label(tab_settings, text="Lmgrd Port:").grid(row=3, column=0, sticky=tk.W, pady=5, padx=5)
+lmgrd_port_entry = ttk.Entry(tab_settings, width=64)
+lmgrd_port_entry.grid(row=3, column=1, pady=5, padx=5)
+
+ttk.Label(tab_settings, text="Vendor Daemon Port:").grid(row=4, column=0, sticky=tk.W, pady=5, padx=5)
+vendor_daemon_port_entry = ttk.Entry(tab_settings, width=64)
+vendor_daemon_port_entry.grid(row=4, column=1, pady=5, padx=5)
+
+license_related_files = get_all_license_related_files()
+ttk.Label(tab_settings, text="LMGRD FILE:").grid(row=5, column=0, sticky=tk.W, pady=5, padx=5)
+lmgrd_file_combobox = ttk.Combobox(tab_settings, values=license_related_files, width=64)
+lmgrd_file_combobox.grid(row=5, column=1, pady=5, padx=5)
+
+ttk.Label(tab_settings, text="VENDOR DAEMON FILE:").grid(row=6, column=0, sticky=tk.W, pady=5, padx=5)
+vendor_daemon_file_combobox = ttk.Combobox(tab_settings, values=license_related_files, width=64)
+vendor_daemon_file_combobox.grid(row=6, column=1, pady=5, padx=5)
+
+ttk.Label(tab_settings, text="OPTIONS FILE:").grid(row=7, column=0, sticky=tk.W, pady=5, padx=5)
+options_file_combobox = ttk.Combobox(tab_settings, values=license_related_files, width=64)
+options_file_combobox.grid(row=7, column=1, pady=5, padx=5)
+
+# Bind the check_inputs_filled function to the inputs
+hostname_entry.bind("&lt;KeyRelease&gt;", lambda e: check_inputs_filled())
+hostid_entry.bind("&lt;KeyRelease&gt;", lambda e: check_inputs_filled())
+lmgrd_port_entry.bind("&lt;KeyRelease&gt;", lambda e: check_inputs_filled())
+vendor_daemon_port_entry.bind("&lt;KeyRelease&gt;", lambda e: check_inputs_filled())
+lmgrd_file_combobox.bind("&lt;&lt;ComboboxSelected&gt;&gt;", lambda e: check_inputs_filled())
+vendor_daemon_file_combobox.bind("&lt;&lt;ComboboxSelected&gt;&gt;", lambda e: check_inputs_filled())
+options_file_combobox.bind("&lt;&lt;ComboboxSelected&gt;&gt;", lambda e: check_inputs_filled())
+
+save_button = ttk.Button(tab_settings, text="Save to DB", command=save_license_info, state=tk.DISABLED)
+save_button.grid(row=8, column=1, pady=10, padx=5, sticky=tk.E)
+
+copy_from_prev_button = ttk.Button(tab_settings, text="Copy From Previous File", command=copy_from_previous_file, state=tk.DISABLED)
+copy_from_prev_button.grid(row=9, column=1, pady=10, padx=5, sticky=tk.W)
+
+def modify_license_file():
+    license_file = license_file_combobox.get()
+    hostname = hostname_entry.get()
+    hostid = hostid_entry.get()
+    lmgrd_port = lmgrd_port_entry.get()
+    vendor_daemon_port = vendor_daemon_port_entry.get()
+    vendor_daemon_file = vendor_daemon_file_combobox.get()
+    options_file = options_file_combobox.get()
+
+    with open(license_file, 'r') as f:
+        lines = f.readlines()
+
+    modified = False
+    for i, line in enumerate(lines):
+        if line.startswith("SERVER"):
+            if line != f"SERVER {hostname} {hostid} {lmgrd_port}\n":
+                lines[i] = f"SERVER {hostname} {hostid} {lmgrd_port}\n"
+                modified = True
+        elif line.startswith("DAEMON"):
+            daemon_line = f"DAEMON cdslmd {vendor_daemon_file}"
+            if options_file:
+                daemon_line = daemon_line + f" OPTIONS={options_file}"
+            if vendor_daemon_port:
+                daemon_line = daemon_line + f" PORT={vendor_daemon_port}"
+            if options_file and line != f"{daemon_line}\n":
+                lines[i] = f"{daemon_line}\n"
+                modified = True
+
+    if modified:
+        with open(license_file, 'w') as f:
+            f.writelines(lines)
+        tk.messagebox.showinfo("Info", "License file modified successfully!")
+    else:
+        tk.messagebox.showinfo("Info", "License file is already up-to-date!")
+
+    # Disable modify_button
+    modify_button['state'] = tk.DISABLED
+
+# 在License Settings tab中添加Modify按钮
+modify_button = ttk.Button(tab_settings, text="Modify Lic File", command=modify_license_file, state=tk.DISABLED)
+modify_button.grid(row=9, column=1, pady=10, padx=5, sticky=tk.E)
+
 # About Tab
 tab_about = ttk.Frame(notebook)
 notebook.add(tab_about, text="关于")
 
-ttk.Label(tab_about, text="作者：wanlinwang").pack(pady=10)
-ttk.Label(tab_about, text="日期：Oct-16-2023").pack(pady=10)
-ttk.Label(tab_about, text="帮助：如有疑问，请联系wanlinwang").pack(pady=10)
-# Move the "关于" tab to the rightmost position
-notebook.tab(notebook.index("end")-1, state="normal")
+ttk.Label(tab_about, text="作者：wanlinwang").grid(row=0, column=0, pady=10, padx=10)
+ttk.Label(tab_about, text="日期：Oct-16-2023").grid(row=1, column=0, pady=10, padx=10)
+ttk.Label(tab_about, text="帮助：如有疑问，请联系wanlinwang").grid(row=2, column=0, pady=10, padx=10)
 
 app.mainloop()
 
