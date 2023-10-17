@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2023-10-16T16:04:02+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">License管理器应用</title><link href="https://www.icinfra.cn/blog/2023/license-manager-app/" rel="alternate" type="text/html" title="License管理器应用"/><published>2023-10-16T15:00:00+00:00</published><updated>2023-10-16T15:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/license-manager-app</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/license-manager-app/"><![CDATA[<p>读取License文件，并存入sqlite3数据库。</p> <pre><code class="language-python3">#!/Users/wanlinwang/spack/opt/spack/darwin-ventura-m1/apple-clang-14.0.3/python-3.10.8-b7rgkczw4yfgrkbgttbcbur3ksmwho5d/bin/python3
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2023-10-17T01:58:32+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">License管理器应用</title><link href="https://www.icinfra.cn/blog/2023/license-manager-app/" rel="alternate" type="text/html" title="License管理器应用"/><published>2023-10-16T15:00:00+00:00</published><updated>2023-10-16T15:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/license-manager-app</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/license-manager-app/"><![CDATA[<p>读取License文件，并存入sqlite3数据库。</p> <pre><code class="language-python3">#!/Users/wanlinwang/spack/opt/spack/darwin-ventura-m1/apple-clang-14.0.3/python-3.10.8-b7rgkczw4yfgrkbgttbcbur3ksmwho5d/bin/python3
 
 import sqlite3
 import re
@@ -87,6 +87,18 @@ if __name__ == "__main__":
 import sqlite3
 import tkinter as tk
 from tkinter import ttk
+import tkinter.font as tkFont
+
+def adjust_column_width(tree, columns):
+    font = tkFont.Font()
+    for column in columns:
+        width = tree.column(column, 'width')
+        for item in tree.get_children():
+            entry = tree.item(item, 'values')
+            if entry:
+                entry_width = font.measure(entry[columns.index(column)])
+                width = max(width, entry_width)
+        tree.column(column, width=width)
 
 def retrieve_license_info_by_feature(feature_name):
     conn = sqlite3.connect('license.db')
@@ -146,6 +158,7 @@ def on_search_by_feature():
     tree_by_feature.delete(*tree_by_feature.get_children())  # Clear previous results
     for index, result in enumerate(results, 1):
         tree_by_feature.insert("", "end", values=(index, *result))
+    adjust_column_width(tree_by_feature, tree_by_feature["columns"])
 
 def on_search_by_product():
     product_id = product_id_combobox.get()
@@ -153,6 +166,7 @@ def on_search_by_product():
     tree_by_product.delete(*tree_by_product.get_children())  # Clear previous results
     for index, result in enumerate(results, 1):
         tree_by_product.insert("", "end", values=(index, *result))
+    adjust_column_width(tree_by_product, tree_by_product["columns"])
 
 app = tk.Tk()
 app.title("License Info Retrieval")
