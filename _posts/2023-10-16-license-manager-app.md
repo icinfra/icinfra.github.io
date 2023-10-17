@@ -273,20 +273,19 @@ def copy_from_previous_file():
     vendor_daemon_port_entry.insert(0, vendor_daemon_port)
 
     # Fetch filenames for the file IDs
-    with get_db_connection() as conn:
-        cursor = conn.cursor()
-
-        cursor.execute("SELECT FileName FROM LicenseRelatedFiles WHERE ExecutableFileId=?", (lmgrd_file_id,))
-        lmgrd_file = cursor.fetchone()[0]
+    lmgrd_file = execute_query("SELECT FileName FROM LicenseRelatedFiles WHERE ExecutableFileId=?", (lmgrd_file_id,))
+    if lmgrd_file:
+        lmgrd_file = lmgrd_file[0]
         lmgrd_file_combobox.set(lmgrd_file)
-
-        cursor.execute("SELECT FileName FROM LicenseRelatedFiles WHERE ExecutableFileId=?", (vendor_daemon_file_id,))
-        vendor_daemon_file = cursor.fetchone()[0]
+    vendor_daemon_file = execute_query("SELECT FileName FROM LicenseRelatedFiles WHERE ExecutableFileId=?", (vendor_daemon_file_id,))
+    if vendor_daemon_file:
+        vendor_daemon_file = vendor_daemon_file[0]
         vendor_daemon_file_combobox.set(vendor_daemon_file)
 
-        if options_file_id:
-            cursor.execute("SELECT FileName FROM LicenseRelatedFiles WHERE ExecutableFileId=?", (options_file_id,))
-            options_file = cursor.fetchone()[0]
+    if options_file_id:
+        options_file = execute_query("SELECT FileName FROM LicenseRelatedFiles WHERE ExecutableFileId=?", (options_file_id,))
+        if options_file:
+            options_file = options_file[0]
             options_file_combobox.set(options_file)
 
     # Enable the "Copy From Previous File" button only when the other fields are empty
@@ -308,52 +307,69 @@ def save_license_info():
         insert_sub_str_list = []
         value_sub_str_list = []
         if lmgrd_file:
-            cursor.execute("INSERT OR IGNORE INTO LicenseRelatedFiles (FileName) VALUES (?)", (lmgrd_file,))
-            cursor.execute("SELECT ExecutableFileId FROM LicenseRelatedFiles WHERE FileName=?", (lmgrd_file,))
-            lmgrd_file_id = cursor.fetchone()[0]
-            update_sub_str_list.append("lmgrd_file_id=?")
-            insert_sub_str_list.append("lmgrd_file_id")
-            value_sub_str_list.append(lmgrd_file_id)
+            execute_commit("INSERT OR IGNORE INTO LicenseRelatedFiles (FileName) VALUES (?)", (lmgrd_file,))
+            lmgrd_file_id = execute_query("SELECT ExecutableFileId FROM LicenseRelatedFiles WHERE FileName=?", (lmgrd_file,))
+            if lmgrd_file_id:
+                lmgrd_file_id = lmgrd_file_id[0][0]
+                update_sub_str_list.append("lmgrd_file_id=?")
+                insert_sub_str_list.append("lmgrd_file_id")
+                value_sub_str_list.append(lmgrd_file_id)
 
         if vendor_daemon_file:
-            cursor.execute("INSERT OR IGNORE INTO LicenseRelatedFiles (FileName) VALUES (?)", (vendor_daemon_file,))
-            cursor.execute("SELECT ExecutableFileId FROM LicenseRelatedFiles WHERE FileName=?", (vendor_daemon_file,))
-            vendor_daemon_file_id = cursor.fetchone()[0]
-            update_sub_str_list.append("vendor_daemon_file_id=?")
-            insert_sub_str_list.append("vendor_daemon_file_id")
-            value_sub_str_list.append(vendor_daemon_file_id)
+            execute_commit("INSERT OR IGNORE INTO LicenseRelatedFiles (FileName) VALUES (?)", (vendor_daemon_file,))
+            vendor_daemon_file_id = execute_query("SELECT ExecutableFileId FROM LicenseRelatedFiles WHERE FileName=?", (vendor_daemon_file,))
+            if vendor_daemon_file_id:
+                vendor_daemon_file_id = vendor_daemon_file_id[0][0]
+                update_sub_str_list.append("vendor_daemon_file_id=?")
+                insert_sub_str_list.append("vendor_daemon_file_id")
+                value_sub_str_list.append(vendor_daemon_file_id)
 
         if options_file:
             # Check if options_file exists.
-            cursor.execute("INSERT OR IGNORE INTO LicenseRelatedFiles (FileName) VALUES (?)", (options_file,))
-            cursor.execute("SELECT ExecutableFileId FROM LicenseRelatedFiles WHERE FileName=?", (options_file,))
-            options_file_id = cursor.fetchone()[0]
-            update_sub_str_list.append("options_file_id=?")
-            insert_sub_str_list.append("options_file_id")
-            value_sub_str_list.append(options_file_id)
+            execute_commit("INSERT OR IGNORE INTO LicenseRelatedFiles (FileName) VALUES (?)", (options_file,))
+            options_file_id = execute_query("SELECT ExecutableFileId FROM LicenseRelatedFiles WHERE FileName=?", (options_file,))
+            if options_file_id:
+                options_file_id = options_file_id[0][0]
+                update_sub_str_list.append("options_file_id=?")
+                insert_sub_str_list.append("options_file_id")
+                value_sub_str_list.append(options_file_id)
 
         if license_file_id:
             # Update the existing record
             #cursor.execute("UPDATE LicenseFiles SET hostname=?, hostid=?, lmgrd_port=?, vendor_daemon_port=?, lmgrd_file_id=?, vendor_daemon_file_id=?, options_file_id=? WHERE LicenseFileId=?", 
             #               (hostname_entry.get(), hostid_entry.get(), lmgrd_port_entry.get(), vendor_daemon_port_entry.get(), lmgrd_file_id, vendor_daemon_file_id, options_file_id, license_file_id[0]))
             if lmgrd_file or vendor_daemon_file or options_file:
-                cursor.execute(f"UPDATE LicenseFiles SET hostname=?, hostid=?, lmgrd_port=?, vendor_daemon_port=?, {','.join(update_sub_str_list)} WHERE LicenseFileId=?", 
-                               (hostname_entry.get(), hostid_entry.get(), lmgrd_port_entry.get(), vendor_daemon_port_entry.get()) + tuple(value_sub_str_list) + (license_file_id[0],))
+                param = (
+                    hostname_entry.get(), 
+                    hostid_entry.get(), 
+                    lmgrd_port_entry.get(), 
+                    vendor_daemon_port_entry.get(), 
+                    *value_sub_str_list, 
+                    license_file_id[0]
+                )
+                execute_commit(f"UPDATE LicenseFiles SET hostname=?, hostid=?, lmgrd_port=?, vendor_daemon_port=?, {','.join(update_sub_str_list)} WHERE LicenseFileId=?", param)
             else:
-                cursor.execute("UPDATE LicenseFiles SET hostname=?, hostid=?, lmgrd_port=?, vendor_daemon_port=? WHERE LicenseFileId=?", 
+                execute_commit("UPDATE LicenseFiles SET hostname=?, hostid=?, lmgrd_port=?, vendor_daemon_port=? WHERE LicenseFileId=?", 
                                (hostname_entry.get(), hostid_entry.get(), lmgrd_port_entry.get(), vendor_daemon_port_entry.get(), license_file_id[0]))
         else:
             # Insert a new record
             #cursor.execute("INSERT INTO LicenseFiles (FileName, hostname, hostid, lmgrd_port, vendor_daemon_port, lmgrd_file_id, vendor_daemon_file_id, options_file_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
             #               (license_file_combobox.get(), hostname_entry.get(), hostid_entry.get(), lmgrd_port_entry.get(), vendor_daemon_port_entry.get(), lmgrd_file_id, vendor_daemon_file_id, options_file_id))
             if lmgrd_file or vendor_daemon_file or options_file:
-                cursor.execute(f"INSERT INTO LicenseFiles (FileName, hostname, hostid, lmgrd_port, vendor_daemon_port, {','.join(insert_sub_str_list)}) VALUES (?, ?, ?, ?, ?, {','.join(['?'] * len(insert_sub_str_list))})", 
-                               (license_file_combobox.get(), hostname_entry.get(), hostid_entry.get(), lmgrd_port_entry.get(), vendor_daemon_port_entry.get()) + tuple(value_sub_str_list))
+                param = (
+                    license_file_combobox.get(),
+                    hostname_entry.get(), 
+                    hostid_entry.get(), 
+                    lmgrd_port_entry.get(), 
+                    vendor_daemon_port_entry.get(), 
+                    *value_sub_str_list
+                )
+                execute_commit(f"INSERT INTO LicenseFiles (FileName, hostname, hostid, lmgrd_port, vendor_daemon_port, {','.join(insert_sub_str_list)}) VALUES (?, ?, ?, ?, ?, {','.join(['?'] * len(insert_sub_str_list))})", param)
             else:
-                cursor.execute("INSERT INTO LicenseFiles (FileName, hostname, hostid, lmgrd_port, vendor_daemon_port, lmgrd_file_id, vendor_daemon_file_id, options_file_id) VALUES (?, ?, ?, ?, ?)", 
+                execute_commit("INSERT INTO LicenseFiles (FileName, hostname, hostid, lmgrd_port, vendor_daemon_port, lmgrd_file_id, vendor_daemon_file_id, options_file_id) VALUES (?, ?, ?, ?, ?)", 
                                (license_file_combobox.get(), hostname_entry.get(), hostid_entry.get(), lmgrd_port_entry.get(), vendor_daemon_port_entry.get()))
         
-        conn.commit()
+        #conn.commit()
         # Disable "Save" button after saved.
         save_button['state'] = tk.DISABLED
         tk.messagebox.showinfo("Info", "License file config saved successfully!")
@@ -501,12 +517,10 @@ tab_about = ttk.Frame(notebook)
 notebook.add(tab_about, text="关于")
 
 ttk.Label(tab_about, text="作者：wanlinwang").grid(row=0, column=0, pady=10, padx=10)
-ttk.Label(tab_about, text="版本：v0.1 Oct-16-2023").grid(row=1, column=0, pady=10, padx=10)
-ttk.Label(tab_about, text="     v1.0 Oct-17-2023").grid(row=1, column=0, pady=10, padx=10)
+ttk.Label(tab_about, text="日期：Oct-16-2023").grid(row=1, column=0, pady=10, padx=10)
 ttk.Label(tab_about, text="帮助：如有疑问，请联系wanlinwang").grid(row=2, column=0, pady=10, padx=10)
 
 app.mainloop()
-
 
 ```
 
