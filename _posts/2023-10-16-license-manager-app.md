@@ -103,6 +103,18 @@ if __name__ == "__main__":
 import sqlite3
 import tkinter as tk
 from tkinter import ttk
+import tkinter.font as tkFont
+
+def adjust_column_width(tree, columns):
+    font = tkFont.Font()
+    for column in columns:
+        width = tree.column(column, 'width')
+        for item in tree.get_children():
+            entry = tree.item(item, 'values')
+            if entry:
+                entry_width = font.measure(entry[columns.index(column)])
+                width = max(width, entry_width)
+        tree.column(column, width=width)
 
 def retrieve_license_info_by_feature(feature_name):
     conn = sqlite3.connect('license.db')
@@ -162,6 +174,7 @@ def on_search_by_feature():
     tree_by_feature.delete(*tree_by_feature.get_children())  # Clear previous results
     for index, result in enumerate(results, 1):
         tree_by_feature.insert("", "end", values=(index, *result))
+    adjust_column_width(tree_by_feature, tree_by_feature["columns"])
 
 def on_search_by_product():
     product_id = product_id_combobox.get()
@@ -169,6 +182,7 @@ def on_search_by_product():
     tree_by_product.delete(*tree_by_product.get_children())  # Clear previous results
     for index, result in enumerate(results, 1):
         tree_by_product.insert("", "end", values=(index, *result))
+    adjust_column_width(tree_by_product, tree_by_product["columns"])
 
 app = tk.Tk()
 app.title("License Info Retrieval")
