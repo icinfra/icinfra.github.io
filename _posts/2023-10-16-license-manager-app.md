@@ -109,7 +109,18 @@ import tkinter as tk
 from tkinter import ttk
 from contextlib import contextmanager
 import tkinter.messagebox
+from datetime import datetime, timedelta
 
+def get_row_color(start_date, end_date):
+    current_date = datetime.now().date()
+    end_date_obj = datetime.strptime(end_date, "%d-%b-%Y").date()
+
+    if end_date_obj < current_date:
+        return "light gray"
+    elif current_date <= end_date_obj <= (current_date + timedelta(days=14)):
+        return "red"
+    else:
+        return "black"
 
 @contextmanager
 def get_db_connection():
@@ -169,15 +180,22 @@ def on_search_by_feature():
     tree_by_feature.delete(*tree_by_feature.get_children())  # Clear the treeview
     feature_name = feature_name_combobox.get()
     results = retrieve_license_info_by_feature(feature_name)
-    for result in results:
-        tree_by_feature.insert("", "end", values=result)
+    sorted_results = sorted(results, key=lambda x: datetime.strptime(x[1], "%d-%b-%Y"))
+    for result in sorted_results:
+        color = get_row_color(result[0], result[1])
+        tree_by_feature.insert("", "end", values=result, tags=(color,))
+        tree_by_feature.tag_configure(color, foreground=color)
+
 
 def on_search_by_product():
     tree_by_product.delete(*tree_by_product.get_children())  # Clear the treeview
     product_id = product_id_combobox.get()
     results = retrieve_license_info_by_product(product_id)
-    for result in results:
-        tree_by_product.insert("", "end", values=result)
+    sorted_results = sorted(results, key=lambda x: datetime.strptime(x[1], "%d-%b-%Y"))
+    for result in sorted_results:
+        color = get_row_color(result[0], result[1])
+        tree_by_product.insert("", "end", values=result, tags=(color,))
+        tree_by_product.tag_configure(color, foreground=color)
 
 def load_license_info(event):
     data = execute_query("SELECT hostname, hostid, lmgrd_port, vendor_daemon_port, lmgrd_file_id, vendor_daemon_file_id, options_file_id FROM LicenseFiles WHERE FileName=?", (license_file_combobox.get(),))
@@ -521,7 +539,6 @@ ttk.Label(tab_about, text="日期：Oct-16-2023").grid(row=1, column=0, pady=10,
 ttk.Label(tab_about, text="帮助：如有疑问，请联系wanlinwang").grid(row=2, column=0, pady=10, padx=10)
 
 app.mainloop()
-
 ```
 
 <img width="1068" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/eef82880-16c9-496f-a83d-dc64cd201bbd">
