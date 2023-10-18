@@ -11,3 +11,5 @@ categories: icenv
 在新版本subversion的通配匹配与精确匹配，路径有重叠时，顺序应为——通配在前，精确配置在后。
 
 ![image](https://github.com/icinfra/icinfra.github.io/assets/32032219/c096841d-993d-4329-b8be-46d74a5df3d5)
+
+参考文档：https://subversion.apache.org/docs/release-notes/1.10.html#authzperf
