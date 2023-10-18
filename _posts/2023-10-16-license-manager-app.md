@@ -541,9 +541,8 @@ ttk.Label(tab_about, text="帮助：如有疑问，请联系wanlinwang").grid(ro
 app.mainloop()
 ```
 
-<img width="1068" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/eef82880-16c9-496f-a83d-dc64cd201bbd">
+<img width="1038" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/9a394483-c67f-44c2-8a6b-6c8599a9e6cf">
 
-<img width="1067" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/1307cb85-589d-483e-adf8-50af00733c1a">
 
 <img width="1069" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/52258c17-dd58-418a-9908-ddc027a25fe5">
 
