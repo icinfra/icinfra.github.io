@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 解析FLEXnet License debug日志并存入数据库
+title: 解析FLEXlm lmutil lmstat输出并保存
 date: 2023-10-24 23:34+0800
 description: 
 tags: license
@@ -8,7 +8,67 @@ giscus_comments: true
 categories: icenv
 ---
 
-初始化数据库
+## 数据库表设计
+1. **user 表**:
+
+| 列名      | 数据类型        | 说明       |
+| --------- | --------------- | ---------- |
+| id        | INTEGER PRIMARY KEY | 主键      |
+| username  | TEXT            | 用户名     |
+
+
+2. **server 表**:
+
+| 列名      | 数据类型        | 说明       |
+| --------- | --------------- | ---------- |
+| id        | INTEGER PRIMARY KEY | 主键      |
+| hostname  | TEXT            | 主机名     |
+
+
+3. **vendor 表**:
+
+| 列名               | 数据类型        | 说明       |
+| ------------------ | --------------- | ---------- |
+| id                 | INTEGER PRIMARY KEY | 主键      |
+| vendor_daemon_name | TEXT            | 供应商守护进程名 |
+
+
+4. **license_type 表**:
+
+| 列名      | 数据类型        | 说明       |
+| --------- | --------------- | ---------- |
+| id        | INTEGER PRIMARY KEY | 主键      |
+| type      | TEXT            | 许可类型   |
+
+
+5. **feature 表**:
+
+| 列名         | 数据类型        | 说明       |
+| ------------ | --------------- | ---------- |
+| id           | INTEGER PRIMARY KEY | 主键      |
+| feature_name | TEXT            | 特性名称   |
+
+
+6. **license_usage_log 表**:
+
+| 列名           | 数据类型        | 说明                  |
+| -------------- | --------------- | --------------------- |
+| id             | INTEGER PRIMARY KEY | 主键                 |
+| user_id        | INTEGER        | 用户ID，外键           |
+| workstation_id | INTEGER        | 工作站ID，外键          |
+| sessionid      | INTEGER        | sessionid，从日志条目解析出来的                |
+| start_time     | TEXT           | 开始时间              |
+| end_time       | TEXT           | 结束时间              |
+| vendor_id      | INTEGER        | vendor ID，外键         |
+| lic_server_id  | INTEGER        | license server ID，外键    |
+| lic_type_id    | INTEGER        | license_type ID，外键        |
+| feature_id     | INTEGER        | feature ID，外键           |
+| additional_key | TEXT           | 部分feature有额外的key                |
+
+
+每个表格通过主键和外键相互关联，为日志解析和数据存储提供结构支持。
+
+## 初始化数据库
 ```python3
 #!/Users/wanlinwang/spack/opt/spack/darwin-ventura-m1/apple-clang-14.0.3/python-3.10.8-b7rgkczw4yfgrkbgttbcbur3ksmwho5d/bin/python3
 
@@ -86,7 +146,7 @@ conn.close()  # 关闭数据库连接
 
 ```
 
-每分钟执行，存入/更新数据库
+## 定期执行，存入/更新数据库
 ```python3
 #!/Users/wanlinwang/spack/opt/spack/darwin-ventura-m1/apple-clang-14.0.3/python-3.10.8-b7rgkczw4yfgrkbgttbcbur3ksmwho5d/bin/python3
 
@@ -177,7 +237,7 @@ if __name__ == "__main__":
 
 ```
 
-提供一个列子作为上面程序的测试数据：
+## 测试数据
 ```bash
     output = """Users of Affirma_sim_analysis_env:  (Total of 8 licenses issued;  Total of 3 licenses in use)
 
