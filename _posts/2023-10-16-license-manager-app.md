@@ -110,6 +110,7 @@ from tkinter import ttk
 from contextlib import contextmanager
 import tkinter.messagebox
 from datetime import datetime, timedelta
+from collections import defaultdict
 
 def get_row_color(start_date, end_date):
     current_date = datetime.now().date()
@@ -529,6 +530,78 @@ def modify_license_file():
 # 在License Settings tab中添加Modify按钮
 modify_button = ttk.Button(tab_settings, text="Modify Lic File", command=modify_license_file, state=tk.DISABLED)
 modify_button.grid(row=9, column=1, pady=10, padx=5, sticky=tk.E)
+
+# 比较两个License文件差异
+def compare_license_files():
+    file1 = license_file_combobox1.get()
+    file2 = license_file_combobox2.get()
+
+    if not file1 or not file2:
+        tk.messagebox.showerror("Error", "Please select both license files.")
+        return
+
+    data1 = retrieve_license_info_by_file(file1)
+    data2 = retrieve_license_info_by_file(file2)
+
+    # Convert data to a dictionary with product_id as key and list of date ranges as values
+    dict1 = defaultdict(list)
+    dict2 = defaultdict(list)
+
+    for item in data1:
+        dict1[item[4]].append(item)
+    for item in data2:
+        dict2[item[4]].append(item)
+
+    compare_tree.delete(*compare_tree.get_children())  # Clear the treeview
+
+    for product_id, date_ranges1 in dict1.items():
+        if product_id in dict2:
+            date_ranges2 = dict2[product_id]
+            for range1 in date_ranges1:
+                for range2 in date_ranges2:
+                    if range1 != range2:
+                        compare_tree.insert("", "end", values=(product_id, range1[2], range2[2], range1[0] + " to " + range1[1], range2[0] + " to " + range2[1]))
+            del dict2[product_id]
+        else:
+            for range1 in date_ranges1:
+                compare_tree.insert("", "end", values=(product_id, range1[2], "Not in File 2", range1[0] + " to " + range1[1], "Not in File 2"))
+
+    for product_id, date_ranges2 in dict2.items():
+        for range2 in date_ranges2:
+            compare_tree.insert("", "end", values=(product_id, "Not in File 1", range2[2], "Not in File 1", range2[0] + " to " + range2[1]))
+
+def retrieve_license_info_by_file(file_name):
+    query = """
+    SELECT pd.StartDate, pd.EndDate, pd.Quantity, lf.FileName, p.ProductId
+    FROM ProductDates pd
+    JOIN Products p ON pd.ProductId = p.ProductId
+    JOIN LicenseFiles lf ON pd.LicenseFileId = lf.LicenseFileId
+    WHERE lf.FileName = ?
+    """
+    return execute_query(query, (file_name,))
+
+# Code for New Tab for Comparing License Files
+tab_compare = ttk.Frame(notebook)
+notebook.add(tab_compare, text="Compare Lic Files")
+
+license_files = get_all_license_files()
+ttk.Label(tab_compare, text="License File 1:").grid(row=0, column=0, sticky=tk.W, pady=5, padx=5)
+license_file_combobox1 = ttk.Combobox(tab_compare, values=license_files, width=30)
+license_file_combobox1.grid(row=0, column=1, pady=5, padx=5)
+
+ttk.Label(tab_compare, text="License File 2:").grid(row=1, column=0, sticky=tk.W, pady=5, padx=5)
+license_file_combobox2 = ttk.Combobox(tab_compare, values=license_files, width=30)
+license_file_combobox2.grid(row=1, column=1, pady=5, padx=5)
+
+ttk.Button(tab_compare, text="Compare", command=compare_license_files).grid(row=2, column=0, columnspan=2, pady=5, padx=5)
+
+compare_tree = ttk.Treeview(tab_compare, columns=("ProductId", "Quantity1", "Quantity2", "DateRange1", "DateRange2"), show="headings")
+compare_tree.heading("ProductId", text="Product Id")
+compare_tree.heading("Quantity1", text="Quantity (File 1)")
+compare_tree.heading("Quantity2", text="Quantity (File 2)")
+compare_tree.heading("DateRange1", text="Date Range (File 1)")
+compare_tree.heading("DateRange2", text="Date Range (File 2)")
+compare_tree.grid(row=3, column=0, columnspan=2, pady=10, padx=5, sticky=(tk.W, tk.E))
 
 # About Tab
 tab_about = ttk.Frame(notebook)
