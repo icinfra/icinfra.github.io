@@ -111,6 +111,8 @@ from contextlib import contextmanager
 import tkinter.messagebox
 from datetime import datetime, timedelta
 from collections import defaultdict
+from tkinter import filedialog
+import openpyxl
 
 def get_row_color(start_date, end_date):
     current_date = datetime.now().date()
@@ -602,6 +604,99 @@ compare_tree.heading("Quantity2", text="Quantity (File 2)")
 compare_tree.heading("DateRange1", text="Date Range (File 1)")
 compare_tree.heading("DateRange2", text="Date Range (File 2)")
 compare_tree.grid(row=3, column=0, columnspan=2, pady=10, padx=5, sticky=(tk.W, tk.E))
+
+# License Acceptance
+def load_csv_file():
+    filepath = filedialog.askopenfilename(filetypes=[("CSV Files", "*.csv"), ("All Files", "*.*")])
+    if not filepath:
+        return
+
+    data = {}
+    with open(filepath, 'r') as file:
+        reader = csv.reader(file)
+        next(reader)  # skip header
+        for row in reader:
+            product_id, quantity = row
+            data[product_id] = int(quantity)
+
+    return data
+
+def compare_license_to_csv():
+    license_file = license_file_combobox3.get()
+    csv_data = load_csv_file()
+
+    if not license_file or not csv_data:
+        tk.messagebox.showerror("Error", "Please select both license file and CSV file.")
+        return
+
+    license_data = retrieve_license_info_by_file(license_file)
+
+    # Convert license data to a dictionary
+    license_dict = defaultdict(list)
+    for item in license_data:
+        license_dict[item[4]].append(item)
+
+    acceptance_tree.delete(*acceptance_tree.get_children())  # Clear the treeview
+
+    for product_id, quantity in csv_data.items():
+        if product_id in license_dict:
+            quantities = ", ".join([str(item[2]) for item in license_dict[product_id][-1::-1]])
+            date_ranges = ", ".join([str(item[2]) + ":" + item[0] + " to " + item[1] for item in license_dict[product_id][-1::-1]])
+            acceptance_tree.insert("", "end", values=(product_id, quantity, quantities, date_ranges))
+            del license_dict[product_id]
+        else:
+            acceptance_tree.insert("", "end", values=(product_id, quantity, "Not in License File", "Not in License File"))
+
+    for product_id, items in license_dict.items():
+        quantities = ", ".join([str(item[2]) for item in items[-1::-1]])
+        date_ranges = ", ".join([str(item[2]) + ":" + item[0] + " to " + item[1] for item in items[-1::-1]])
+        acceptance_tree.insert("", "end", values=(product_id, "Not in CSV", quantities, date_ranges))
+
+def export_to_excel():
+    file_name = tk.filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Excel files", "*.xlsx"), ("All Files", "*.*")])
+    if not file_name:
+        return
+
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "License Acceptance"
+
+    # Add headers
+    headers = ["Product ID", "CSV Quantity", "License Quantity", "Date Ranges"]
+    for col_num, header in enumerate(headers, 1):
+        col_letter = openpyxl.utils.get_column_letter(col_num)
+        ws[f"{col_letter}1"] = header
+        ws[f"{col_letter}1"].font = openpyxl.styles.Font(bold=True)
+
+    # Add data from the treeview
+    for row_num, row_id in enumerate(acceptance_tree.get_children(), 2):
+        row_data = acceptance_tree.item(row_id)["values"]
+        for col_num, cell_data in enumerate(row_data, 1):
+            ws.cell(row=row_num, column=col_num, value=cell_data)
+
+    wb.save(file_name)
+    tk.messagebox.showinfo("Info", f"Data exported to {file_name} successfully!")
+
+
+# Tab for License Acceptance
+tab_acceptance = ttk.Frame(notebook)
+notebook.add(tab_acceptance, text="License Acceptance")
+
+license_files = get_all_license_files()
+ttk.Label(tab_acceptance, text="License File:").grid(row=0, column=0, sticky=tk.W, pady=5, padx=5)
+license_file_combobox3 = ttk.Combobox(tab_acceptance, values=license_files, width=64)
+license_file_combobox3.grid(row=0, column=1, pady=5, padx=5)
+ttk.Button(tab_acceptance, text="Compare", command=compare_license_to_csv).grid(row=0, column=2, pady=5, padx=5)
+
+export_button = ttk.Button(tab_acceptance, text="Export to Excel", command=export_to_excel)
+export_button.grid(row=3, column=1, pady=10, padx=5, sticky=tk.E)
+
+acceptance_tree = ttk.Treeview(tab_acceptance, columns=("ProductId", "CSV QTY", "License QTY", "Date Ranges"), show="headings")
+acceptance_tree.heading("ProductId", text="Product Id")
+acceptance_tree.heading("CSV QTY", text="CSV QTY")
+acceptance_tree.heading("License QTY", text="License QTY")
+acceptance_tree.heading("Date Ranges", text="Date Ranges")
+acceptance_tree.grid(row=1, column=0, columnspan=3, pady=10, padx=5, sticky=(tk.W, tk.E))
 
 # About Tab
 tab_about = ttk.Frame(notebook)
