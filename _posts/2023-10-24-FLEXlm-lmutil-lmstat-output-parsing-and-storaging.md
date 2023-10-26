@@ -158,36 +158,44 @@ from datetime import datetime
 
 DB_PATH = 'license_logging.db'
 
-def run_lmstat():
-    cmd = "lmstat -a -c $CDS_LIC_FILE"
+def run_lmstat(CDS_LIC_FILE):
+    cmd = r"lmstat -a -c {CDS_LIC_FILE}"
     return subprocess.check_output(cmd, shell=True).decode('utf-8')
 
 def extract_data_from_output(output):
     features_data = []
-    pattern = re.compile(r'Users of (.*?):.*?vendor: (\w+),[^\n]*\n\s*vendor_string:\s*[^\n]+\n\s+([^\n]+)\s*\n(.*?)(?=Users|$)', re.DOTALL)
-    user_pattern = re.compile(r'(\w+) (\S+) .*?\S*:\S+ \((\S+)\) \((\S+)/(\d+) (\d+)\), start (\w+ \d+/\d+ \d+:\d+)')
-    
-    for feature, vendor, lic_type, users_info in pattern.findall(output):
-        for username, workstation, version, lic_server, port, session_id, start_time_str in user_pattern.findall(users_info):
-            # 1. 将年补上
-            start_time = datetime.strptime(start_time_str, "%a %m/%d %H:%M").replace(year=datetime.now().year)
-            # 2. 检查是否超过当前日期
-            if start_time > datetime.now():
-                # 3. 如果超过，则年份减一
-                start_time = start_time.replace(year=start_time.year - 1)
-            features_data.append({
-                "feature": feature.strip(),
-                "vendor": vendor,
-                "lic_type": lic_type,
-                "username": username,
-                "workstation": workstation,
-                "version": version,
-                "lic_server": lic_server,
-                "port": port,
-                "sessionid": session_id,
-                "start_time": start_time.strftime("%Y-%m-%d %H:%M:%S")
-            })
-    
+    lines = output.split('\n')
+    current_feature = None
+    for line in lines:
+        if 'Users of' in line:
+            # Get the feature name
+            current_feature = line.split()[2].strip(':')
+            lic_type = "unknown"
+        elif current_feature and current_feature in line:
+            vendor_info = re.search(r'.*vendor:\s*(\w+).*', line)
+            if vendor_info:
+                current_vendor = vendor_info.group(1)
+        elif "floating license" in line:
+            lic_type = "floating license"
+        elif current_feature and ', start' in line:
+            # 格式"user_01 y260.ic.cn y260.ic.cn:1.0 Xcelium Single Core Engine (v21.000) (y162/5280 801), start Thu 10/19 9:57"
+            user_info = re.search(r'(\w+)\s+([\w.]+)\s+[\w.]*:[\d.]+\s+[^(]*\(([\w.]+)\)\s+\(([\w]+)/(\d+)\s+(\d+)\),\s*start\s*(\w+ \d+/\d+ \d+:\d+)', line)
+            if user_info:
+                start_time = datetime.strptime(user_info.group(7), "%a %m/%d %H:%M").replace(year=datetime.now().year)
+                if start_time > datetime.now(): start_time = start_time.replace(year=start_time.year - 1)
+
+                features_data.append({
+                    "feature": current_feature,
+                    "vendor": current_vendor,
+                    "lic_type": lic_type,
+                    "username": user_info.group(1),
+                    "workstation": user_info.group(2),
+                    "version": user_info.group(3),
+                    "lic_server": user_info.group(4),
+                    "port": user_info.group(5),
+                    "sessionid": user_info.group(6),
+                    "start_time": start_time.strftime("%Y-%m-%d %H:%M:%S")
+                })
     return features_data
 
 def get_or_insert_id(cursor, table, column, value):
@@ -231,9 +239,11 @@ def update_database(data):
     conn.close()
 
 if __name__ == "__main__":
-    output = run_lmstat()
-    data = extract_data_from_output(output)
-    update_database(data)
+    CDS_LIC_FILE="5280@lic-server-01:5280@lic-server-02"
+    all_output = run_lmstat(CDS_LIC_FILE)
+    for output in re.split(r"-{8,}", all_output)
+        data = extract_data_from_output(output)
+        update_database(data)
 
 ```
 
@@ -245,17 +255,17 @@ if __name__ == "__main__":
   vendor_string: UHD:PERM
   floating license
 
-    qliu TENCENT64.site :11 (v16.000) (lic460/5280 101), start Wed 10/18 12:37
-    bli server-0431840.ic.cn server-0431840.ic.cn:1.0 (v16.000) (lic460/5280 716), start Wed 10/18 17:24
-    jwcai server-2381620.ic.cn server-2381620.ic.cn:4.0 (v16.000) (lic460/5280 2123), start Thu 10/19 6:56
+    user_01 TENCENT64.site :11 (v16.000) (lic460/5280 101), start Wed 10/18 12:37
+    user_02 server-0431840.ic.cn server-0431840.ic.cn:1.0 (v16.000) (lic460/5280 716), start Wed 10/18 17:24
+    user_03 server-2381620.ic.cn server-2381620.ic.cn:4.0 (v16.000) (lic460/5280 2123), start Thu 10/19 6:56
 
 Users of Xcelium_Single_Core:  (Total of 8 licenses issued;  Total of 3 licenses in use)
 
-  "Xcelium_Single_Core" v23.0, vendor: cdslmd, expiry: 15-jan-2024
+  "Xcelium_Single_Core" v21.000, vendor: cdslmd, expiry: 15-jan-2024
   vendor_string: UHD:PERM
   floating license
 
-    qliu TENCENT64.site :11 (v16.000) (lic460/5280 101), start Wed 10/18 12:37
-    sdqin TENCENT64.site :4 (v16.000) (lic460/5280 301), start Wed 10/18 12:37
-    tychen TENCENT64.site :80 (v16.000) (lic460/5280 401), start Wed 10/18 12:37"""
+    user_03 TENCENT64.site :11 Xcelium Single Core Engine (v21.000) (lic460/5280 101), start Wed 10/18 12:37
+    user_02 TENCENT64.site :4 Xcelium Single Core Engine (v21.000) (lic460/5280 301), start Wed 10/18 12:37
+    user_01 TENCENT64.site :80 Xcelium Single Core Engine (v21.000) (lic460/5280 401), start Wed 10/18 12:37"""
 ```
