@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 将已有的spack安装目录串起来，实现复用
-date: 2023-10-24 23:34+0800
+date: 2023-10-27 19:00+0800
 description: 
 tags: spack
 giscus_comments: true
