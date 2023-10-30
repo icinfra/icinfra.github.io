@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 离线环境构建bazel，如何解决外部依赖？
-date: 2023-10-27 19:00+0800
+date: 2023-10-30 16:53+0800
 description: 
 tags: bazel
 giscus_comments: true
