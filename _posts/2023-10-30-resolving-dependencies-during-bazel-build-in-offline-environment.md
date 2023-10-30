@@ -12,7 +12,7 @@ categories: icenv
 
 1. 在项目根目录执行`bazel fetch //... `，将所有外部依赖抓到本地的cache目录（`~/.cache/bazel`）下。将该目录传到内网服务器的对应目录。
 
-2. 如https://github.com/chipsalliance/riscv-dv这个项目，其`remotejdk11_linux`没有被步骤1下载，手动下载好到一个目录`/path/to/dependencies`。将该目录传到内网服务器。
+2. 如https://github.com/chipsalliance/riscv-dv 这个项目，其`remotejdk11_linux`没有被步骤1下载，手动下载好到一个目录`/path/to/dependencies`。将该目录传到内网服务器。
 
 3. 在内网服务器，执行构建命令 `bazel build --cxxopt='-std=c++17' --distdir=/path/to/dependencies //...` 
 
