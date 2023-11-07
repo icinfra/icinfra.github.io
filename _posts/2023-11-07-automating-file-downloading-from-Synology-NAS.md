@@ -88,3 +88,6 @@ if __name__ == "__main__":
         print(f"Downloading {link} with password {pw}")
         download(link, pw)
 ```
+
+运行，开始下载：
+![image](https://github.com/icinfra/icinfra.github.io/assets/32032219/9669aa6c-87fd-4fa3-a908-97a0bbce4570)
