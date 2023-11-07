@@ -1,0 +1,235 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title>Spack教程（基础） | IC Infra</title> <meta name="author" content="Wanlin Wang"> <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. "> <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website"> <link rel="stylesheet" href="/assets/css/bootstrap.min.css?a4b3f509e79c54a512b890d73235ef04"> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.css"> <link rel="stylesheet" href="/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5"> <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons"> <link rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?19f3075a2d19613090fe9e16b564e1fe" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e"> <link rel="canonical" href="https://www.icinfra.cn/blog/2022/spack-tutorial-basics/"> <link rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?e74e74bf055e5729d44a7d031a5ca6a5" media="none" id="highlight_theme_dark"> <script src="/assets/js/theme.js?96d6b3e1c3604aca8b6134c7afdd5db6"></script> <script src="/assets/js/dark_mode.js?9b17307bb950ffa2e34be0227f53558f"></script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/">IC Infra</a> <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse text-right" id="navbarNav"> <ul class="navbar-nav ml-auto flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about</a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">blog<span class="sr-only">(current)</span></a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">publications</a> </li> <li class="nav-item "> <a class="nav-link" href="/projects/">projects</a> </li> <li class="nav-item "> <a class="nav-link" href="/repositories/">repositories</a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">cv</a> </li> <li class="nav-item "> <a class="nav-link" href="/teaching/">teaching</a> </li> <li class="nav-item "> <a class="nav-link" href="/people/">people</a> </li> <li class="nav-item dropdown "> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">submenus</a> <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> <a class="dropdown-item" href="/publications/">publications</a> <div class="dropdown-divider"></div> <a class="dropdown-item" href="/projects/">projects</a> </div> </li> <li class="toggle-container"> <button id="light-toggle" title="Change theme"> <i class="fas fa-moon"></i> <i class="fas fa-sun"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5"> <div class="post"> <header class="post-header"> <h1 class="post-title">Spack教程（基础）</h1> <p class="post-meta">November 7, 2022</p> <p class="post-tags"> <a href="/blog/2022"> <i class="fas fa-calendar fa-sm"></i> 2022 </a>   ·   <a href="/blog/tag/spack"> <i class="fas fa-hashtag fa-sm"></i> spack</a>     ·   <a href="/blog/category/icenv"> <i class="fas fa-tag fa-sm"></i> icenv</a>   </p> </header> <article class="post-content"> <div id="markdown-content"> <h1 id="准备">准备</h1> <p>注：本教程均在Ubuntu:20.04镜像下演示。获取镜像并运行，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>wanlinwang@VM-119-18-tencentos ~]<span class="nv">$ </span>docker pull ubuntu:22.04
+22.04: Pulling from library/ubuntu
+aece8493d397: Pull <span class="nb">complete 
+</span>Digest: sha256:2b7412e6465c3c7fc5bb21d3e6f1917c167358449fecac8176c6e496e5c1f05f
+Status: Downloaded newer image <span class="k">for </span>ubuntu:22.04
+docker.io/library/ubuntu:22.04
+<span class="o">[</span>wanlinwang@VM-119-18-tencentos ~]<span class="nv">$ </span>docker run <span class="nt">-ti</span> ubuntu:22.04
+root@284b243a39ec:/# <span class="nb">cd
+</span>root@284b243a39ec:~#
+</code></pre></div></div> <p>安装相关依赖包（其中git用来与git仓库交互，python3用作spack的解析器，gcc gfortran fort77 g++ clang用作spack构建工具时的编译器，make构建），</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~# apt update
+root@284b243a39ec:~# apt <span class="nb">install </span>git python3
+root@284b243a39ec:~# apt <span class="nb">install </span>gcc gfortran fort77 g++ clang
+root@284b243a39ec:~# apt <span class="nb">install </span>make
+</code></pre></div></div> <p>下载spack，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~# git clone <span class="nt">--depth</span><span class="o">=</span>100 <span class="nt">--branch</span><span class="o">=</span>releases/v0.20 https://github.com/spack/spack.git ~/spack
+Cloning into <span class="s1">'/root/spack'</span>...
+remote: Enumerating objects: 19032, <span class="k">done</span><span class="nb">.</span>
+remote: Counting objects: 100% <span class="o">(</span>19032/19032<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+remote: Compressing objects: 100% <span class="o">(</span>10494/10494<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+remote: Total 19032 <span class="o">(</span>delta 2022<span class="o">)</span>, reused 12091 <span class="o">(</span>delta 1506<span class="o">)</span>, pack-reused 0
+Receiving objects: 100% <span class="o">(</span>19032/19032<span class="o">)</span>, 12.33 MiB | 15.21 MiB/s, <span class="k">done</span><span class="nb">.</span>
+Resolving deltas: 100% <span class="o">(</span>2022/2022<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+root@284b243a39ec:~# <span class="nb">cd</span> ~/spack
+</code></pre></div></div> <p>初始化，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~/spack# <span class="nb">.</span> share/spack/setup-env.sh
+root@284b243a39ec:~/spack# spack compiler find
+</code></pre></div></div> <h1 id="上手">上手</h1> <p><code class="language-plaintext highlighter-rouge">spack list</code>查看所有可用的包，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~/spack# spack list
+</code></pre></div></div> <p><img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/e3c28374-ff18-485f-ae6a-abb367890a02" alt="image"></p> <p><code class="language-plaintext highlighter-rouge">spack list</code>支持查询语句</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~/spack# spack list pytho<span class="k">*</span> <span class="c">#前缀匹配查询</span>
+python
+<span class="o">==&gt;</span> 1 packages
+root@284b243a39ec:~/spack# spack list pytho <span class="c">#模糊匹配查询</span>
+py-antlr4-python3-runtime    py-ipython                 py-mysql-connector-python  py-python-constraint  py-python-engineio    py-python-jose            py-python-louvain        py-python-memcached  py-python-socketio     py-python3-openid    py-systemd-python
+py-avro-python3              py-ipython-cluster-helper  py-openslide-python        py-python-crfsuite    py-python-fmask       py-python-json-logger     py-python-lsp-jsonrpc    py-python-multipart  py-python-sotools      py-python3-xlib      py-types-python-dateutil
+py-biopython                 py-ipython-genutils        py-psij-python             py-python-daemon      py-python-fsutil      py-python-keystoneclient  py-python-lsp-server     py-python-oauth2     py-python-subunit      py-pythonqwt         py-wxpython
+py-bx-python                 py-kb-python               py-python-benedict         py-python-dateutil    py-python-gitlab      py-python-ldap            py-python-lzo            py-python-picard     py-python-swiftclient  py-pythonsollya      python
+py-dnspython                 py-meson-python            py-python-bioformats       py-python-docs-theme  py-python-igraph      py-python-levenshtein     py-python-magic          py-python-ptrace     py-python-utils        py-saga-python       r-findpython
+py-gitpython                 py-mkdocstrings-python     py-python-box              py-python-dotenv      py-python-javabridge  py-python-libsbml         py-python-mapnik         py-python-rapidjson  py-python-xlib         py-scientificpython  xtensor-python
+py-google-api-python-client  py-mmtf-python             py-python-certifi-win32    py-python-editor      py-python-jenkins     py-python-logstash        py-python-markdown-math  py-python-slugify    py-python-xmp-toolkit  py-spython
+<span class="o">==&gt;</span> 76 packages
+</code></pre></div></div> <p>安装一个包，命名<code class="language-plaintext highlighter-rouge">spack install &lt;package_name&gt;</code></p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~/spack# spack <span class="nb">install </span>zlib
+<span class="o">==&gt;</span> Installing zlib-1.2.13-ivmy4r5hq6uijii4yspbffl2dutqdxgb
+<span class="o">==&gt;</span> No binary <span class="k">for </span>zlib-1.2.13-ivmy4r5hq6uijii4yspbffl2dutqdxgb found: installing from <span class="nb">source</span>
+<span class="o">==&gt;</span> Using cached archive: /root/spack/var/spack/cache/_source-cache/archive/b3/b3a24de97a8fdbc835b9833169501030b8977031bcb54b3b3ac13740f846ab30.tar.gz
+<span class="o">==&gt;</span> No patches needed <span class="k">for </span>zlib
+<span class="o">==&gt;</span> zlib: Executing phase: <span class="s1">'edit'</span>
+<span class="o">==&gt;</span> zlib: Executing phase: <span class="s1">'build'</span>
+<span class="o">==&gt;</span> zlib: Executing phase: <span class="s1">'install'</span>
+<span class="o">==&gt;</span> zlib: Successfully installed zlib-1.2.13-ivmy4r5hq6uijii4yspbffl2dutqdxgb
+  Stage: 0.04s.  Edit: 0.38s.  Build: 0.61s.  Install: 0.05s.  Post-install: 0.02s.  Total: 1.12s
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/zlib-1.2.13-ivmy4r5hq6uijii4yspbffl2dutqdxgb
+</code></pre></div></div> <p>Spack安装包时，支持从源码安装，或者从二进制缓存安装。二进制缓存的安全，由GPG签名保证。</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~/spack# spack mirror add tutorial /mirror
+root@284b243a39ec:~/spack# spack buildcache keys <span class="nt">--install</span> <span class="nt">--trust</span>
+<span class="o">==&gt;</span> Fetching file:///mirror/build_cache/_pgp/0ACDCFDA91DB974A68C3DDC2F85815B32355CB19.pub
+gpg: key F85815B32355CB19: public key <span class="s2">"e4s-uo-spack-01"</span> imported
+gpg: Total number processed: 1
+gpg:		   imported: 1
+gpg: inserting ownertrust of 6
+<span class="o">==&gt;</span> Fetching file:///mirror/build_cache/_pgp/2C8DD3224EF3573A42BD221FA8E0CA3C1C2ADA2F.pub
+gpg: key A8E0CA3C1C2ADA2F: 5 signatures not checked due to missing keys
+gpg: key A8E0CA3C1C2ADA2F: public key <span class="s2">"Spack Project Official Binaries &lt;maintainers@spack.io&gt;"</span> imported
+gpg: Total number processed: 1
+gpg:		   imported: 1
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:	1  signed:   0	trust: 0-, 0q, 0n, 0m, 0f, 1u
+gpg: inserting ownertrust of 6
+<span class="o">==&gt;</span> Fetching file:///mirror/build_cache/_pgp/78F3726939CA1B94893B66E8BC86F6FB94429164.pub
+gpg: key A8E0CA3C1C2ADA2F: 7 signatures not checked due to missing keys
+gpg: key A8E0CA3C1C2ADA2F: <span class="s2">"Spack Project Official Binaries &lt;maintainers@spack.io&gt;"</span> 3 new signatures
+gpg: key A8E0CA3C1C2ADA2F: <span class="s2">"Spack Project Official Binaries &lt;maintainers@spack.io&gt;"</span> 1 new subkey
+gpg: Total number processed: 1
+gpg:		new subkeys: 1
+gpg:	     new signatures: 3
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:	2  signed:   0	trust: 0-, 0q, 0n, 0m, 0f, 2u
+</code></pre></div></div> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spack <span class="nb">install </span>zlib %clang
+<span class="o">==&gt;</span> Installing zlib-1.2.13-gephbceg3rl2e77o46xyzlk5e4kd3gt3
+<span class="o">==&gt;</span> Fetching file:///mirror/build_cache/linux-ubuntu22.04-x86_64_v3-clang-14.0.0-zlib-1.2.13-gephbceg3rl2e77o46xyzlk5e4kd3gt3.spec.json.sig
+<span class="o">==&gt;</span> Fetching file:///mirror/build_cache/linux-ubuntu22.04-x86_64_v3/clang-14.0.0/zlib-1.2.13/linux-ubuntu22.04-x86_64_v3-clang-14.0.0-zlib-1.2.13-gephbceg3rl2e77o46xyzlk5e4kd3gt3.spack
+<span class="o">==&gt;</span> Extracting zlib-1.2.13-gephbceg3rl2e77o46xyzlk5e4kd3gt3 from binary cache
+<span class="o">==&gt;</span> zlib: Successfully installed zlib-1.2.13-gephbceg3rl2e77o46xyzlk5e4kd3gt3
+  Search: 0.00s.  Fetch: 0.11s.  Install: 0.02s.  Total: 0.13s
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-x86_64_v3/clang-14.0.0/zlib-1.2.13-gephbceg3rl2e77o46xyzlk5e4kd3gt3
+</code></pre></div></div> <p>在运行安装命令前，可以先查看有哪些版本，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~/spack# spack versions zlib
+<span class="o">==&gt;</span> Safe versions <span class="o">(</span>already checksummed<span class="o">)</span>:
+  1.2.13  1.2.12  1.2.11  1.2.8  1.2.3
+<span class="o">==&gt;</span> Remote versions <span class="o">(</span>not yet checksummed<span class="o">)</span>:
+  1.3     1.2.9    1.2.7.2  1.2.7    1.2.6    1.2.5.2  1.2.5    1.2.4.4  1.2.4.2  1.2.4    1.2.3.8  1.2.3.6  1.2.3.4  1.2.3.2  1.2.2.4  1.2.2.2  1.2.2    1.2.1.1  1.2.0.8  1.2.0.6  1.2.0.4  1.2.0.2  1.2.0  1.1.3  1.1.1  1.0.9  1.0.7  1.0.5  1.0.2  1.0-pre  0.95  0.93  0.91  0.71  0.8
+  1.2.10  1.2.7.3  1.2.7.1  1.2.6.1  1.2.5.3  1.2.5.1  1.2.4.5  1.2.4.3  1.2.4.1  1.2.3.9  1.2.3.7  1.2.3.5  1.2.3.3  1.2.3.1  1.2.2.3  1.2.2.1  1.2.1.2  1.2.1    1.2.0.7  1.2.0.5  1.2.0.3  1.2.0.1  1.1.4  1.1.2  1.1.0  1.0.8  1.0.6  1.0.4  1.0.1  0.99     0.94  0.92  0.79  0.9
+</code></pre></div></div> <p>安装时，可以传编译器flags，如cppflags, cflags, cxxflags, fflags, ldflags, 与 ldlibs 参数。</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~/spack# spack <span class="nb">install </span>zlib@1.2.8 <span class="nv">cflags</span><span class="o">=</span><span class="nt">-O3</span>
+<span class="o">==&gt;</span> Warning: using <span class="s2">"zlib@1.2.8"</span> which is a deprecated version
+<span class="o">==&gt;</span> Installing zlib-1.2.8-5o535gi4wwtrfcb3jcilmuelp57hnyxq
+<span class="o">==&gt;</span> No binary <span class="k">for </span>zlib-1.2.8-5o535gi4wwtrfcb3jcilmuelp57hnyxq found: installing from <span class="nb">source</span>
+<span class="o">==&gt;</span> Warning: zlib@1.2.8 is deprecated and may be removed <span class="k">in </span>a future Spack release.
+<span class="o">==&gt;</span>   Fetch anyway? <span class="o">[</span>y/N] y
+<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/36/36658cb768a54c1d4dec43c3116c27ed893e88b02ecfcb44f2166f9c0b7f2a0d.tar.gz
+<span class="o">==&gt;</span> No patches needed <span class="k">for </span>zlib
+<span class="o">==&gt;</span> zlib: Executing phase: <span class="s1">'edit'</span>
+<span class="o">==&gt;</span> zlib: Executing phase: <span class="s1">'build'</span>
+<span class="o">==&gt;</span> zlib: Executing phase: <span class="s1">'install'</span>
+<span class="o">==&gt;</span> zlib: Successfully installed zlib-1.2.8-5o535gi4wwtrfcb3jcilmuelp57hnyxq
+  Stage: 44.96s.  Edit: 0.38s.  Build: 0.56s.  Install: 0.07s.  Post-install: 0.02s.  Total: 46.01s
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/zlib-1.2.8-5o535gi4wwtrfcb3jcilmuelp57hnyxq
+</code></pre></div></div> <p><code class="language-plaintext highlighter-rouge">spack find</code>查看已安装的包，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~/spack# spack find
+<span class="nt">--</span> linux-ubuntu22.04-cascadelake / clang@14.0.0 <span class="nt">-----------------</span>
+zlib@1.2.12  zlib@1.2.13
+
+<span class="nt">--</span> linux-ubuntu22.04-cascadelake / gcc@11.4.0 <span class="nt">-------------------</span>
+zlib@1.2.8  zlib@1.2.13
+<span class="o">==&gt;</span> 4 installed packages
+root@284b243a39ec:~/spack# spack find <span class="nt">-lf</span>
+<span class="nt">--</span> linux-ubuntu22.04-cascadelake / clang@14.0.0 <span class="nt">-----------------</span>
+phqllhi zlib@1.2.12%clang   r5taitb zlib@1.2.13%clang 
+
+<span class="nt">--</span> linux-ubuntu22.04-cascadelake / gcc@11.4.0 <span class="nt">-------------------</span>
+5o535gi zlib@1.2.8%gcc  <span class="nv">cflags</span><span class="o">=</span><span class="s2">"-O3"</span>   ivmy4r5 zlib@1.2.13%gcc 
+<span class="o">==&gt;</span> 4 installed packages
+</code></pre></div></div> <p>Spack为每个spec都生成一个hash，任何不同版本组合都生成唯一的hash。</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~/spack# spack <span class="nb">install </span>tcl
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/zlib-1.2.13-ivmy4r5hq6uijii4yspbffl2dutqdxgb
+<span class="o">==&gt;</span> Installing tcl-8.6.12-m2wnkqeddps4xf5oyrxqd6i3lrvokfwp
+<span class="o">==&gt;</span> No binary <span class="k">for </span>tcl-8.6.12-m2wnkqeddps4xf5oyrxqd6i3lrvokfwp found: installing from <span class="nb">source</span>
+<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/26/26c995dd0f167e48b11961d891ee555f680c175f7173ff8cb829f4ebcde4c1a6.tar.gz
+<span class="o">==&gt;</span> No patches needed <span class="k">for </span>tcl
+<span class="o">==&gt;</span> tcl: Executing phase: <span class="s1">'autoreconf'</span>
+<span class="o">==&gt;</span> tcl: Executing phase: <span class="s1">'configure'</span>
+<span class="o">==&gt;</span> tcl: Executing phase: <span class="s1">'build'</span>
+<span class="o">==&gt;</span> tcl: Executing phase: <span class="s1">'install'</span>
+<span class="o">==&gt;</span> tcl: Successfully installed tcl-8.6.12-m2wnkqeddps4xf5oyrxqd6i3lrvokfwp
+  Stage: 14.43s.  Autoreconf: 0.00s.  Configure: 5.85s.  Build: 1m 2.43s.  Install: 3.53s.  Post-install: 0.59s.  Total: 1m 26.86s
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/tcl-8.6.12-m2wnkqeddps4xf5oyrxqd6i3lrvokfwp
+</code></pre></div></div> <p>使用<code class="language-plaintext highlighter-rouge">^</code>指定依赖</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~/spack# spack <span class="nb">install </span>tcl ^zlib@1.2.13 %clang
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/clang-14.0.0/zlib-1.2.13-r5taitbmvh5nzn2jqjo2f2mignhvrabe
+<span class="o">==&gt;</span> Installing tcl-8.6.12-lgob6rq7jo5q3dyd2qfhyrs3nk6ggpqe
+<span class="o">==&gt;</span> No binary <span class="k">for </span>tcl-8.6.12-lgob6rq7jo5q3dyd2qfhyrs3nk6ggpqe found: installing from <span class="nb">source</span>
+<span class="o">==&gt;</span> Using cached archive: /root/spack/var/spack/cache/_source-cache/archive/26/26c995dd0f167e48b11961d891ee555f680c175f7173ff8cb829f4ebcde4c1a6.tar.gz
+<span class="o">==&gt;</span> No patches needed <span class="k">for </span>tcl
+<span class="o">==&gt;</span> tcl: Executing phase: <span class="s1">'autoreconf'</span>
+<span class="o">==&gt;</span> tcl: Executing phase: <span class="s1">'configure'</span>
+<span class="o">==&gt;</span> tcl: Executing phase: <span class="s1">'build'</span>
+<span class="o">==&gt;</span> tcl: Executing phase: <span class="s1">'install'</span>
+<span class="o">==&gt;</span> tcl: Successfully installed tcl-8.6.12-lgob6rq7jo5q3dyd2qfhyrs3nk6ggpqe
+  Stage: 0.36s.  Autoreconf: 0.00s.  Configure: 10.13s.  Build: 1m 13.37s.  Install: 3.34s.  Post-install: 0.58s.  Total: 1m 27.82s
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/clang-14.0.0/tcl-8.6.12-lgob6rq7jo5q3dyd2qfhyrs3nk6ggpqe
+</code></pre></div></div> <p>使用<code class="language-plaintext highlighter-rouge">^/5o5</code>指定依赖的hash。如上所示，其中5o5是zlib@1.2.8%gcc的hash。</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~/spack# spack <span class="nb">install </span>tcl ^/5o5
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/zlib-1.2.8-5o535gi4wwtrfcb3jcilmuelp57hnyxq
+<span class="o">==&gt;</span> Installing tcl-8.6.12-o6wvao34ytjgbpy2kpf63x4c34wn45ub
+<span class="o">==&gt;</span> No binary <span class="k">for </span>tcl-8.6.12-o6wvao34ytjgbpy2kpf63x4c34wn45ub found: installing from <span class="nb">source</span>
+<span class="o">==&gt;</span> Using cached archive: /root/spack/var/spack/cache/_source-cache/archive/26/26c995dd0f167e48b11961d891ee555f680c175f7173ff8cb829f4ebcde4c1a6.tar.gz
+<span class="o">==&gt;</span> No patches needed <span class="k">for </span>tcl
+<span class="o">==&gt;</span> tcl: Executing phase: <span class="s1">'autoreconf'</span>
+<span class="o">==&gt;</span> tcl: Executing phase: <span class="s1">'configure'</span>
+<span class="o">==&gt;</span> tcl: Executing phase: <span class="s1">'build'</span>
+<span class="o">==&gt;</span> tcl: Executing phase: <span class="s1">'install'</span>
+<span class="o">==&gt;</span> tcl: Successfully installed tcl-8.6.12-o6wvao34ytjgbpy2kpf63x4c34wn45ub
+  Stage: 0.35s.  Autoreconf: 0.00s.  Configure: 6.08s.  Build: 1m 1.70s.  Install: 3.45s.  Post-install: 0.59s.  Total: 1m 12.21s
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/tcl-8.6.12-o6wvao34ytjgbpy2kpf63x4c34wn45ub
+</code></pre></div></div> <p><code class="language-plaintext highlighter-rouge">spack find</code>还支持<code class="language-plaintext highlighter-rouge">-d</code>，用来显示依赖关系。</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~/spack# spack find <span class="nt">-ldf</span>
+<span class="nt">--</span> linux-ubuntu22.04-cascadelake / clang@14.0.0 <span class="nt">-----------------</span>
+lgob6rq tcl@8.6.12%clang 
+r5taitb     zlib@1.2.13%clang 
+
+phqllhi zlib@1.2.12%clang 
+
+r5taitb zlib@1.2.13%clang 
+
+
+<span class="nt">--</span> linux-ubuntu22.04-cascadelake / gcc@11.4.0 <span class="nt">-------------------</span>
+o6wvao3 tcl@8.6.12%gcc 
+5o535gi     zlib@1.2.8%gcc  <span class="nv">cflags</span><span class="o">=</span><span class="s2">"-O3"</span> 
+
+m2wnkqe tcl@8.6.12%gcc 
+ivmy4r5     zlib@1.2.13%gcc 
+
+5o535gi zlib@1.2.8%gcc  <span class="nv">cflags</span><span class="o">=</span><span class="s2">"-O3"</span> 
+
+ivmy4r5 zlib@1.2.13%gcc 
+
+<span class="o">==&gt;</span> 7 installed packages
+</code></pre></div></div> <p>我们来安装一个更复杂的包——HDF5，默认情况下，会将MPI依赖也装上。</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~/spack# spack <span class="nb">install </span>hdf5
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/libpciaccess-0.17-pykx2euy2awtgyou2nnsjl2s6hi4n646
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/libiconv-1.17-yodoqmhmvqbqvjzl3s6snnatz6trv7iy
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/xz-5.4.1-dzgxjank6ou2hybibf5ub262lgc2lorn
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/zlib-1.2.13-ivmy4r5hq6uijii4yspbffl2dutqdxgb
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/ncurses-6.4-ujngusmjurwe2fa7l3b6kvt73gabtuor
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/numactl-2.0.14-r22sabf66foyohnzrm2vhslqhyvzaodc
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/bzip2-1.0.8-ddoyjf47vjlyagfc22epabwym5pymdr7
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/zstd-1.5.5-5e3alsszldfqzfm4bln3x2bxo63lgc5h
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/libxcrypt-4.4.33-gei6nykcbdwqnwkbtaapysokbdy5hsa5
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/pkgconf-1.9.5-sxbb6ve36mznc2trrpk4llouoi47yqlm
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/pigz-2.7-5gemoganu6n6ps7aca4llw5txrxgwcm7
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/openssl-1.1.1t-vmachqinwttmfsngz56nzjlsdxpvp7ki
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/libedit-3.1-20210216-d7fgamjkvusfpwqhdevl5u3ld2ajwelz
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/libxml2-2.10.3-5mmkszwox2ca75c274cebzp7yizhvant
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/tar-1.34-tfgqkhebvyigwree5sh4jxtt2r6ebkhn
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/libevent-2.1.12-zt3qad4mu4mlsfmedkakxw7ue4ekrudc
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/hwloc-2.9.1-fcfzcph73hlkt23vthevpninsi7jbfdp
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/gettext-0.21.1-y3smi3ultsqlwsrwzcykwzl52h4eekhg
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/pmix-4.2.3-h55tf5zun6v6kxuszej6imea7sfb7lku
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/krb5-1.20.1-imoj7v4sveupl2komhnb655d3jjxeyez
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/openssh-9.3p1-pi6fj3d4bnbsvdzjygatwmeppme2e57o
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/openmpi-4.1.5-z2lpbjfjf72tikfaxfuq7keby327rang
+<span class="o">==&gt;</span> Installing hdf5-1.14.1-2-gqyhwfo3iyea3sdekxcolo5qrnnuzlqn
+<span class="o">==&gt;</span> No binary <span class="k">for </span>hdf5-1.14.1-2-gqyhwfo3iyea3sdekxcolo5qrnnuzlqn found: installing from <span class="nb">source</span>
+<span class="o">==&gt;</span> Fetching https://mirror.spack.io/_source-cache/archive/cb/cbe93f275d5231df28ced9549253793e40cd2b555e3d288df09d7b89a9967b07.tar.gz
+<span class="o">==&gt;</span> Ran patch<span class="o">()</span> <span class="k">for </span>hdf5
+<span class="o">==&gt;</span> hdf5: Executing phase: <span class="s1">'cmake'</span>
+<span class="o">==&gt;</span> hdf5: Executing phase: <span class="s1">'build'</span>
+<span class="o">==&gt;</span> hdf5: Executing phase: <span class="s1">'install'</span>
+<span class="o">==&gt;</span> hdf5: Successfully installed hdf5-1.14.1-2-gqyhwfo3iyea3sdekxcolo5qrnnuzlqn
+  Stage: 31.03s.  Cmake: 11.47s.  Build: 30.78s.  Install: 0.90s.  Post-install: 0.20s.  Total: 1m 14.55s
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/hdf5-1.14.1-2-gqyhwfo3iyea3sdekxcolo5qrnnuzlqn
+</code></pre></div></div> <p>Spack包也有build选项，通过+或~/-</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~/spack# spack <span class="nb">install </span>hdf5~mpi
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/ncurses-6.4-ujngusmjurwe2fa7l3b6kvt73gabtuor
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/zlib-1.2.13-ivmy4r5hq6uijii4yspbffl2dutqdxgb
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/gmake-4.4.1-264topq36ww6abmwthbd7pouu65v7nwm
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/pkgconf-1.9.5-sxbb6ve36mznc2trrpk4llouoi47yqlm
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/openssl-1.1.1t-vmachqinwttmfsngz56nzjlsdxpvp7ki
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/cmake-3.26.3-ttvpnusqvmowfgfwiwil7dgkmkjaiqp5
+<span class="o">==&gt;</span> Installing hdf5-1.14.1-2-thweeqbqmd7uqugx6iswe56zarcgg554
+<span class="o">==&gt;</span> No binary <span class="k">for </span>hdf5-1.14.1-2-thweeqbqmd7uqugx6iswe56zarcgg554 found: installing from <span class="nb">source</span>
+<span class="o">==&gt;</span> Using cached archive: /root/spack/var/spack/cache/_source-cache/archive/cb/cbe93f275d5231df28ced9549253793e40cd2b555e3d288df09d7b89a9967b07.tar.gz
+<span class="o">==&gt;</span> Ran patch<span class="o">()</span> <span class="k">for </span>hdf5
+<span class="o">==&gt;</span> hdf5: Executing phase: <span class="s1">'cmake'</span>
+<span class="o">==&gt;</span> hdf5: Executing phase: <span class="s1">'build'</span>
+<span class="o">==&gt;</span> hdf5: Executing phase: <span class="s1">'install'</span>
+<span class="o">==&gt;</span> hdf5: Successfully installed hdf5-1.14.1-2-thweeqbqmd7uqugx6iswe56zarcgg554
+  Stage: 0.83s.  Cmake: 10.69s.  Build: 27.12s.  Install: 0.88s.  Post-install: 0.18s.  Total: 39.84s
+<span class="o">[</span>+] /root/spack/opt/spack/linux-ubuntu22.04-cascadelake/gcc-11.4.0/hdf5-1.14.1-2-thweeqbqmd7uqugx6iswe56zarcgg554
+</code></pre></div></div> <p>Spack还可以通过^来指定依赖</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@284b243a39ec:~/spack# spack <span class="nb">install </span>hdf5+hl+mpi ^mpich
+</code></pre></div></div> <p>Spack可以打印依赖的单向无环图(DAG)</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spack graph hdf5+hl+mpi ^mpich
+</code></pre></div></div> <p>再安装一个更复杂的，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spack <span class="nb">install </span>trilinos
+</code></pre></div></div> <p>这个直接依赖有23个，依赖又有自己的依赖。经验丰富的用户可能也需要花几天、几周来完成，而spack一条命令几秒钟搞定。</p> <p>DAG输出到PDF文件，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spack graph <span class="nt">--dot</span> trilinos | dot <span class="nt">-Tpdf</span> <span class="o">&gt;</span> trilinos_graph.pdf
+</code></pre></div></div> <p>uninstall包</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spack uninstall
+</code></pre></div></div> <p><code class="language-plaintext highlighter-rouge">spack find</code>也支持高级查询，包括</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spack find ^mpich <span class="c">#查询依赖mpich的包</span>
+spack find <span class="nv">cflags</span><span class="o">=</span><span class="nt">-O3</span> <span class="c">#查询带这个编译选项的</span>
+</code></pre></div></div> <p>将spack安装的gcc加入spack编译器列表里，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spack compiler add <span class="s2">"</span><span class="si">$(</span>spack location <span class="nt">-i</span> gcc@12<span class="si">)</span><span class="s2">"</span>
+</code></pre></div></div> <p>将gcc编译器移出spack编译器列表，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spack compiler remove gcc@12
+</code></pre></div></div> </div> </article> <br> <hr> <br> <ul class="list-disc pl-8"></ul> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <li class="my-2"> <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/offline-packages-installing/">离线自动化安装开源工具的方案探索</a> </li> <li class="my-2"> <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2022/how-to-install-gcc/">如何安装GCC？</a> </li> <li class="my-2"> <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/lsf-job-dispatching/">LSF如何将job分散到集群运行</a> </li> <li class="my-2"> <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/license-manager-app/">License管理器应用</a> </li> <li class="my-2"> <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/FLEXlm-lmutil-lmstat-output-parsing-and-storaging/">解析FLEXlm lmutil lmstat输出并保存</a> </li> <div id="giscus_thread" style="max-width: 800px; margin: 0 auto;"> <script>let giscusTheme=localStorage.getItem("theme"),giscusAttributes={src:"https://giscus.app/client.js","data-repo":"icinfra/icinfra.github.io","data-repo-id":"R_kgDOJCjOsg","data-category":"Q&A","data-category-id":"DIC_kwDOJCjOss4CUimo","data-mapping":"pathname","data-strict":"1","data-reactions-enabled":"1","data-emit-metadata":"0","data-input-position":"bottom","data-theme":giscusTheme,"data-lang":"en",crossorigin:"anonymous",async:""},giscusScript=document.createElement("script");Object.entries(giscusAttributes).forEach(([t,a])=>giscusScript.setAttribute(t,a)),document.getElementById("giscus_thread").appendChild(giscusScript);</script> <noscript>Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript" rel="external nofollow noopener" target="_blank">comments powered by giscus.</a> </noscript> </div> </div> </div> <footer class="fixed-bottom"> <div class="container mt-0"> © Copyright 2023 Wanlin Wang. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. Last updated: November 07, 2023. </div> </footer> <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> <script src="/assets/js/bootstrap.bundle.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@4/imagesloaded.pkgd.min.js"></script> <script defer src="/assets/js/masonry.js" type="text/javascript"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.8/dist/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script> <script defer src="/assets/js/zoom.js?7b30caa5023af4af8408a472dc4e1ebb"></script> <script defer src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script> <script src="/assets/js/no_defer.js?d633890033921b33e0ceb13d22340a9c"></script> <script defer src="/assets/js/common.js?acdb9690d7641b2f8d40529018c71a01"></script> <script defer src="/assets/js/copy_code.js?c9d9dd48933de3831b3ee5ec9c209cac" type="text/javascript"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script type="text/javascript">window.MathJax={tex:{tags:"ams"}};</script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script> <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> <script type="text/javascript">function progressBarSetup(){"max"in document.createElement("progress")?(initializeProgressElement(),$(document).on("scroll",function(){progressBar.attr({value:getCurrentScrollPosition()})}),$(window).on("resize",initializeProgressElement)):(resizeProgressBar(),$(document).on("scroll",resizeProgressBar),$(window).on("resize",resizeProgressBar))}function getCurrentScrollPosition(){return $(window).scrollTop()}function initializeProgressElement(){let e=$("#navbar").outerHeight(!0);$("body").css({"padding-top":e}),$("progress-container").css({"padding-top":e}),progressBar.css({top:e}),progressBar.attr({max:getDistanceToScroll(),value:getCurrentScrollPosition()})}function getDistanceToScroll(){return $(document).height()-$(window).height()}function resizeProgressBar(){progressBar.css({width:getWidthPercentage()+"%"})}function getWidthPercentage(){return getCurrentScrollPosition()/getDistanceToScroll()*100}const progressBar=$("#progress");window.onload=function(){setTimeout(progressBarSetup,50)};</script> </body> </html>
