@@ -1,4 +1,78 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2023-11-07T15:24:22+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">获取git仓库的tags列表</title><link href="https://www.icinfra.cn/blog/2023/get-all-tags-for-git-repos/" rel="alternate" type="text/html" title="获取git仓库的tags列表"/><published>2023-11-03T14:28:00+00:00</published><updated>2023-11-03T14:28:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/get-all-tags-for-git-repos</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/get-all-tags-for-git-repos/"><![CDATA[<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/bin/env python3
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2023-11-08T01:46:04+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">自动化下载群晖共享的文件</title><link href="https://www.icinfra.cn/blog/2023/automating-file-downloading-from-Synology-NAS/" rel="alternate" type="text/html" title="自动化下载群晖共享的文件"/><published>2023-11-07T15:28:00+00:00</published><updated>2023-11-07T15:28:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/automating-file-downloading-from-Synology-NAS</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/automating-file-downloading-from-Synology-NAS/"><![CDATA[<p>接到需求，需要从合作伙伴提供的群晖NAS上，批量下载大量文件。手动下载太费事费时，没有价值；并且PC的带宽有限，只能将批量串行下载，手动的话中间容易出现空闲，导致总的下载时长很长。</p> <p>因此写了脚本做自动化下载，如下：</p> <pre><code class="language-python3">from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+import time
+import pandas as pd
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
+def is_download_completed(directory):
+    """
+    Check if all files in the specified directory have finished downloading.
+    """
+    for filename in os.listdir(directory):
+        # 下载过程中，临时文件的名字是.crdownload，因此这里判断是否有这样的文件
+        if filename.endswith('.crdownload') or filename.endswith('.part'):
+            return False
+    return True
+
+def download(link, pw):
+    # 设置Chrome选项以静默模式运行（无界面模式）
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+
+    # 设置下载文件的默认目录到 F:\Downloads
+    prefs = {
+        "download.default_directory": r"F:\Downloads",  # 使用原始字符串来避免转义
+        "download.prompt_for_download": False,
+        "download.directory_upgrade": True,
+        "safebrowsing_for_trusted_sources_enabled": False,
+        "safebrowsing.enabled": False
+    }
+    chrome_options.add_experimental_option("prefs", prefs)
+
+    # 初始化WebDriver
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=chrome_options)
+
+    # 打开登录页面
+    driver.get(link)
+
+    # 填写登录信息并提交表单
+    wait = WebDriverWait(driver, 10)
+    password_field = wait.until(EC.element_to_be_clickable((By.ID, "login_passwd")))
+    password_field.send_keys(pw)
+    driver.find_element(By.ID, "ext-gen62").click()
+
+    # 等待页面加载
+    time.sleep(5)
+
+    # 定位到下载链接并点击
+    download_link = driver.find_element(By.ID, "ext-gen71")
+    download_link.click()
+
+    # 等待文件下载完成
+    while not is_download_completed(download_path):
+        time.sleep(1)  # 每隔1秒检查一次
+
+    # 关闭浏览器
+    driver.quit()
+
+
+if __name__ == "__main__":
+    # 指定Excel文件的路径
+    file_path = "F:\\Downloads\\files2download_from_Synology.xlsx"
+    df = pd.read_excel(file_path, usecols=['链接', '密码'], engine='openpyxl')
+
+    for _, row in df.iterrows():
+        link, pw = *row
+        print(f"Downloading {link} with password {pw}")
+        download(link, pw)
+</code></pre> <p>运行，开始下载： <img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/9669aa6c-87fd-4fa3-a908-97a0bbce4570" alt="image"/></p>]]></content><author><name></name></author><category term="icenv"/><category term="automation"/><summary type="html"><![CDATA[接到需求，需要从合作伙伴提供的群晖NAS上，批量下载大量文件。手动下载太费事费时，没有价值；并且PC的带宽有限，只能将批量串行下载，手动的话中间容易出现空闲，导致总的下载时长很长。]]></summary></entry><entry><title type="html">gcc编译时无法提示没有这样的指令</title><link href="https://www.icinfra.cn/blog/2023/no-such-instruction/" rel="alternate" type="text/html" title="gcc编译时无法提示没有这样的指令"/><published>2023-11-07T15:28:00+00:00</published><updated>2023-11-07T15:28:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/no-such-instruction</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/no-such-instruction/"><![CDATA[<p><img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/d7f3c00b-e674-4ffa-91f1-5e4a1d860dfe" alt="image"/></p> <p>由于编译的gcc，没有将binutils编进去，从而它使用了系统下的as (binutils提供的)汇编命令。而系统下的as命令版本太低，不识别新CPU的flag。</p> <p>解决方法是：重新编gcc，将新版本的binutils编进去了。</p>]]></content><author><name></name></author><category term="icenv"/><category term="gcc"/><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">获取git仓库的tags列表</title><link href="https://www.icinfra.cn/blog/2023/get-all-tags-for-git-repos/" rel="alternate" type="text/html" title="获取git仓库的tags列表"/><published>2023-11-03T14:28:00+00:00</published><updated>2023-11-03T14:28:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/get-all-tags-for-git-repos</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/get-all-tags-for-git-repos/"><![CDATA[<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/bin/env python3
 </span>
 
 <span class="kn">import</span> <span class="n">requests</span>
@@ -347,4 +421,4 @@ Users of Xcelium_Single_Core:  (Total of 8 licenses issued;  Total of 3 licenses
 <span class="nv">$ </span>xfconf-query <span class="nt">-c</span> xfwm4 <span class="nt">-p</span> /general/scroll_workspaces
 <span class="nb">true</span>
 <span class="nv">$ </span>xfconf-query <span class="nt">-c</span> xfwm4 <span class="nt">-p</span> /general/scroll_workspaces <span class="nt">-s</span> <span class="nb">false</span>
-</code></pre></div></div> <h2 id="图形化设置">图形化设置</h2> <p><img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/57bad2bf-437e-48cf-b757-427db75b262f" alt="截图_1698030251259"/></p>]]></content><author><name></name></author><category term="icenv"/><category term="xfce4"/><summary type="html"><![CDATA[在xfce4桌面，鼠标滚轮禁止切换workspace：]]></summary></entry><entry><title type="html">VNC分辨率与缩放率设置</title><link href="https://www.icinfra.cn/blog/2023/vnc-resolution-and-scaling-factor/" rel="alternate" type="text/html" title="VNC分辨率与缩放率设置"/><published>2023-10-23T04:34:00+00:00</published><updated>2023-10-23T04:34:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/vnc-resolution-and-scaling-factor</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/vnc-resolution-and-scaling-factor/"><![CDATA[<h1 id="在4k显示器">在4k显示器</h1> <p>原样4k显示：</p> <p><img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/2885a9a4-8b95-422e-b48c-c131d12fc4f5" alt="截图_16980330461380"/></p> <p>修改到2k显示：</p> <p><img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/11266dd6-a0fa-4cf1-b2e7-0ddc12689120" alt="截图_16980333371142"/></p>]]></content><author><name></name></author><category term="icenv"/><category term="vnc"/><summary type="html"><![CDATA[在4k显示器]]></summary></entry><entry><title type="html">nfs v4的问题</title><link href="https://www.icinfra.cn/blog/2023/nfs-v4-problem/" rel="alternate" type="text/html" title="nfs v4的问题"/><published>2023-10-18T11:49:00+00:00</published><updated>2023-10-18T11:49:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/nfs-v4-problem</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/nfs-v4-problem/"><![CDATA[<p>由于nfs v4的misbehavior导致NFS Store Pool for Session exhausted.</p> <p><img width="527" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/e1c0d7b1-25b5-46ff-8fa9-1dcd8e122574"/></p> <p>https://kb.netapp.com/onprem/ontap/da/NAS/Unable_to_mount_volume_using_NFSv4.1_due_to_NFS_Store_Pool_for_Session_exhausted</p> <p><img width="885" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/556d293d-22f4-4edf-b73e-359377426306"/></p> <p><img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/64d55e25-8feb-4d83-954b-538ffb478a59" alt="image"/></p> <p>https://kb.netapp.com/onprem/ontap/da/NAS/Unable_to_mount_volume_using_NFSv4.1_due_to_NFS_Store_Pool_for_Session_exhausted</p>]]></content><author><name></name></author><category term="icenv"/><category term="nfs"/><summary type="html"><![CDATA[由于nfs v4的misbehavior导致NFS Store Pool for Session exhausted.]]></summary></entry></feed>
+</code></pre></div></div> <h2 id="图形化设置">图形化设置</h2> <p><img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/57bad2bf-437e-48cf-b757-427db75b262f" alt="截图_1698030251259"/></p>]]></content><author><name></name></author><category term="icenv"/><category term="xfce4"/><summary type="html"><![CDATA[在xfce4桌面，鼠标滚轮禁止切换workspace：]]></summary></entry></feed>
