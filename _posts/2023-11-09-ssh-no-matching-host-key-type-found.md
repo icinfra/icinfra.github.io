@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ssh时提示no matching host key type found. Their offer: rsa-sha2-512,rsa-sha2-256
+title: ssh时提示no matching host key type found. Their offer\: rsa-sha2-512,rsa-sha2-256
 date: 2023-11-09 09:56+0800
 description: 
 tags: ssh
