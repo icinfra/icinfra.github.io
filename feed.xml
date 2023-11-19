@@ -1,5 +1,81 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2023-11-09T02:00:33+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html"></title><link href="https://www.icinfra.cn/blog/2023/2023-11-09-ssh-no-matching-host-key-type-found/" rel="alternate" type="text/html" title=""/><published>2023-11-09T02:00:33+00:00</published><updated>2023-11-09T02:00:33+00:00</updated><id>https://www.icinfra.cn/blog/2023/2023-11-09-ssh-no-matching-host-key-type-found</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/2023-11-09-ssh-no-matching-host-key-type-found/"><![CDATA[<p><img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/efa4d0dd-93f1-4c86-91ae-8fa70939106d" alt="image"/></p> <p>遇到这样提示时，可以手动指定HostKeyAlgorithms，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while </span><span class="nb">true</span><span class="p">;</span> <span class="k">do </span>ssh <span class="nt">-N</span> <span class="nt">-D</span> 1080 <span class="nt">-i</span> /drives/c/Users/wanlinwang/.ssh/id_rsa <span class="nt">-o</span> <span class="nv">HostKeyAlgorithms</span><span class="o">=</span>+rsa-sha2-512 wanlinwang@open<span class="p">;</span> <span class="k">done</span>
-</code></pre></div></div>]]></content><author><name></name></author></entry><entry><title type="html">chat.openai.com提示Unable to load history</title><link href="https://www.icinfra.cn/blog/2023/chatgpt-unable-to-load-history/" rel="alternate" type="text/html" title="chat.openai.com提示Unable to load history"/><published>2023-11-08T15:00:00+00:00</published><updated>2023-11-08T15:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/chatgpt-unable-to-load-history</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/chatgpt-unable-to-load-history/"><![CDATA[<p>今天chat.openai.com登录后，提示Unable to load history</p> <p><img width="283" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/7294fb08-91e1-4f6d-8759-46e0c8cefd17"/></p> <p>打开F12发现很多403 forbidden的：原来是访问的部分URI，被openai block了。</p> <p>解决方法：VPS访问openai之间，再用WARP套一层，openai没那么容易去封WARP如此大的公网IP池。</p>]]></content><author><name></name></author><category term="icenv"/><category term="chatgpt"/><summary type="html"><![CDATA[今天chat.openai.com登录后，提示Unable to load history]]></summary></entry><entry><title type="html">自动化下载群晖共享的文件</title><link href="https://www.icinfra.cn/blog/2023/automating-file-downloading-from-Synology-NAS/" rel="alternate" type="text/html" title="自动化下载群晖共享的文件"/><published>2023-11-07T15:28:00+00:00</published><updated>2023-11-07T15:28:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/automating-file-downloading-from-Synology-NAS</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/automating-file-downloading-from-Synology-NAS/"><![CDATA[<p>接到需求，需要从合作伙伴提供的群晖NAS上，批量下载大量文件。手动下载太费事费时，没有价值；并且PC的带宽有限，只能将批量串行下载，手动的话中间容易出现空闲，导致总的下载时长很长。</p> <p>因此写了脚本做自动化下载，如下：</p> <pre><code class="language-python3">from selenium import webdriver
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2023-11-19T13:48:05+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">ssh时提示no matching host key type found. Their offer：rsa-sha2-512,rsa-sha2-256</title><link href="https://www.icinfra.cn/blog/2023/ssh-no-matching-host-key-type-found/" rel="alternate" type="text/html" title="ssh时提示no matching host key type found. Their offer：rsa-sha2-512,rsa-sha2-256"/><published>2023-11-09T01:56:00+00:00</published><updated>2023-11-09T01:56:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/ssh-no-matching-host-key-type-found</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/ssh-no-matching-host-key-type-found/"><![CDATA[<p><img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/efa4d0dd-93f1-4c86-91ae-8fa70939106d" alt="image"/></p> <p>遇到这样提示时，可以手动指定HostKeyAlgorithms，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while </span><span class="nb">true</span><span class="p">;</span> <span class="k">do </span>ssh <span class="nt">-N</span> <span class="nt">-D</span> 1080 <span class="nt">-i</span> /drives/c/Users/wanlinwang/.ssh/id_rsa <span class="nt">-o</span> <span class="nv">HostKeyAlgorithms</span><span class="o">=</span>+rsa-sha2-512 wanlinwang@open<span class="p">;</span> <span class="k">done</span>
+</code></pre></div></div>]]></content><author><name></name></author><category term="icenv"/><category term="ssh"/><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Rocky Linux 8 上安装图形化界面</title><link href="https://www.icinfra.cn/blog/2023/install-Xfce-and-TurboVNC-on-Rocky-Linux-8/" rel="alternate" type="text/html" title="Rocky Linux 8 上安装图形化界面"/><published>2023-11-09T01:56:00+00:00</published><updated>2023-11-09T01:56:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/install-Xfce-and-TurboVNC-on-Rocky-Linux-8</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/install-Xfce-and-TurboVNC-on-Rocky-Linux-8/"><![CDATA[<h2 id="xfce桌面环境">XFCE桌面环境</h2> <p>XFCE 桌面环境作为通用桌面环境 (CDE) 的一个分支而创建，体现了模块化和可重用性的传统 Unix 哲学。您可以在几乎任何版本的 Linux 上安装 XFCE，包括 Rocky Linux。</p> <p>它也是最易于与替代窗口管理器（例如 Awesome 或 i3）结合使用的桌面环境之一。然而，此过程将帮助您启动并运行 Rocky Linux 和更典型的 XFCE 安装。</p> <h2 id="先决条件">先决条件</h2> <p>工作站或笔记本电脑 希望运行 XFCE 作为桌面而不是默认的 GNOME 桌面</p> <h2 id="安装-rocky-linux-最小化">安装 Rocky Linux 最小化</h2> <p>在本节中，您需要成为 root 用户，或者能够sudo提升您的权限。</p> <p>在安装 Rocky Linux 时，我们使用了以下几组软件包：</p> <ul> <li>Minimal</li> <li>Standard</li> </ul> <h2 id="运行系统更新">运行系统更新</h2> <p>首先，运行服务器更新命令。系统将重建存储库缓存。通过这种方式，系统 cab 可以识别可用的包。</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dnf update
+</code></pre></div></div> <h2 id="启用dnf仓库">启用dnf仓库</h2> <p>您需要 EPEL 存储库中的 XFCE 非官方存储库才能在 Rocky 8.x 版本上运行。</p> <p>通过输入以下内容启用此dnf仓库：</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dnf <span class="nb">install </span>epel-release
+</code></pre></div></div> <p>回答“Y”即可安装。</p> <p>您还需要 Powertools 和 lightdm 仓库。现在启用这些：</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dnf config-manager <span class="nt">--set-enabled</span> powertools
+dnf copr <span class="nb">enable </span>stenstorp/lightdm
+</code></pre></div></div> <p>同样，您将看到有关dnf仓库库的警告消息。继续并回答Y提示。</p> <h2 id="检查群内可用的环境和工具">检查群内可用的环境和工具</h2> <p>现在dnf仓库已启用，请运行以下命令来检查所有内容。</p> <p>首先，检查您的存储库列表：</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dnf repolist
+</code></pre></div></div> <p>您应该得到以下信息，显示所有已启用的存储库：</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>appstream                                                        Rocky Linux 8 - AppStream
+baseos                                                           Rocky Linux 8 - BaseOS
+copr:copr.fedorainfracloud.org:stenstorp:lightdm                 Copr repo <span class="k">for </span>lightdm owned by stenstorp
+epel                                                             Extra Packages <span class="k">for </span>Enterprise Linux 8 - x86_64
+epel-modular                                                     Extra Packages <span class="k">for </span>Enterprise Linux Modular 8 - x86_64
+extras                                                           Rocky Linux 8 - Extras
+powertools                                                       Rocky Linux 8 - PowerTools
+</code></pre></div></div> <p>运行以下命令来检查 XFCE：</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dnf grouplist
+</code></pre></div></div> <p>您应该在列表底部看到“Xfce”。</p> <p>再运行<code class="language-plaintext highlighter-rouge">dnf update</code>一次以确保所有启用的存储库都读入系统。</p> <h2 id="安装包">安装包</h2> <p>要安装 XFCE，请运行：</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dnf groupinstall <span class="s2">"xfce"</span>
+</code></pre></div></div> <p>还要安装 <code class="language-plaintext highlighter-rouge">lightdm</code>：</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dnf <span class="nb">install </span>lightdm
+</code></pre></div></div> <h2 id="最后步骤">最后步骤</h2> <p>gdm在<code class="language-plaintext highlighter-rouge">dnf groupinstall "xfce"</code>期间添加并启用，需要禁用它：</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl disable gdm
+</code></pre></div></div> <p>现在您可以启用<code class="language-plaintext highlighter-rouge">lightdm</code>：</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl <span class="nb">enable </span>lightdm
+</code></pre></div></div> <p>您需要在启动后告诉系统仅使用图形用户界面。将默认目标系统设置为GUI界面：</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl set-default graphical.target
+</code></pre></div></div> <p>然后重新启动：</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>reboot
+</code></pre></div></div> <p>您最终应该在 XFCE GUI 中看到登录提示，当您登录时，您将拥有所有 XFCE 环境。</p> <h2 id="命令集合">命令集合</h2> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 安装xfce环境</span>
+dnf update
+dnf <span class="nb">install </span>epel-release
+dnf config-manager <span class="nt">--set-enabled</span> powertools
+dnf copr <span class="nb">enable </span>stenstorp/lightdm
+dnf groupinstall <span class="s2">"xfce"</span>
+dnf groupinstall <span class="s2">"Fonts"</span>
+dnf <span class="nb">install </span>lightdm
+systemctl disable gdm
+systemctl <span class="nb">enable </span>lightdm
+
+<span class="c"># 安装TurboVNC</span>
+<span class="nv">TIMESTAMP</span><span class="o">=</span><span class="sb">`</span><span class="nb">date</span> +%Y%m%d%H%M%S<span class="sb">`</span>
+ 
+yum <span class="nt">-y</span> <span class="nb">install </span>wget
+yum <span class="nt">-y</span> <span class="nb">install </span>perl
+ 
+<span class="c"># firewalld</span>
+systemctl disable firewalld <span class="nt">--now</span>
+ 
+<span class="c"># selinux</span>
+<span class="nb">sed</span> <span class="nt">-i_bak</span><span class="sb">`</span><span class="nb">date</span> +%Y%m%d%H%M%S<span class="sb">`</span> <span class="se">\</span>
+    <span class="s1">'s/^\s*SELINUX=.*/SELINUX=disabled/g'</span> <span class="se">\</span>
+/etc/selinux/config
+ 
+<span class="c"># add a file to disable non-privilege users' powermanagement</span>
+<span class="nb">mkdir</span> <span class="nt">-p</span> /etc/xdg/xfce4/kiosk
+<span class="nb">cat</span> <span class="o">&gt;</span> /etc/xdg/xfce4/kiosk/kioskrc <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh">
+[xfce4-session]
+Shutdown=root
+</span><span class="no">EOF
+ 
+</span><span class="c"># setup for TurboVNC</span>
+wget https://turbovnc.org/pmwiki/uploads/Downloads/TurboVNC.repo <span class="nt">-O</span> /etc/yum.repos.d/TurboVNC.repo
+yum <span class="nt">-y</span> <span class="nb">install </span>turbovnc
+ 
+<span class="c"># modify conf for TurboVNC</span>
+<span class="nb">sed</span> <span class="nt">-i_bak</span><span class="k">${</span><span class="nv">TIMESTAMP</span><span class="k">}</span> <span class="se">\</span>
+    <span class="nt">-e</span> <span class="s1">'s/#\s*$wm = .*/$wm = "xfce";/g'</span> <span class="se">\</span>
+    <span class="nt">-e</span> <span class="s1">'s/#\s*$serverArgs = .*/$serverArgs = "-listen tcp";/g'</span> <span class="se">\</span>
+    <span class="nt">-e</span> <span class="s1">'s/#\s*$securityTypes = .*/$securityTypes = "TLSOtp, TLSPlain, X509Otp, X509Plain,OTP, UnixLogin, Plain";/g'</span> <span class="se">\</span>
+    /etc/turbovncserver.conf
+ 
+<span class="nb">sed</span> <span class="nt">-i_bak</span><span class="k">${</span><span class="nv">TIMESTAMP</span><span class="k">}</span> <span class="se">\</span>
+    <span class="nt">-e</span> <span class="s1">'s/^#\s*permitted-security-types = .*/permitted-security-types =  TLSOtp, TLSPlain, X509Otp, X509Plain, OTP/g'</span> <span class="se">\</span>
+    /etc/turbovncserver-security.conf
+ 
+<span class="c"># modify conf for ssh and sshd</span>
+<span class="nb">echo</span> <span class="s2">"AcceptEnv DISPLAY"</span> <span class="o">&gt;&gt;</span> /etc/ssh/sshd_config
+systemctl restart sshd
+<span class="nb">echo</span> <span class="s2">"SendEnv   DISPLAY"</span> <span class="o">&gt;&gt;</span> /etc/ssh/ssh_config
+ 
+<span class="c"># swicth to grahphical</span>
+systemctl set-default graphical.target
+systemctl isolate graphical.target
+
+reboot
+</code></pre></div></div> <h2 id="结论">结论</h2> <p>XFCE 是一个具有简单界面的轻量环境。它是 Rocky Linux 上默认 GNOME 桌面的替代方案。</p> <h2 id="资料">资料</h2> <p>https://docs.rockylinux.org/guides/desktop/xfce_installation/</p>]]></content><author><name></name></author><category term="icenv"/><category term="xfce"/><summary type="html"><![CDATA[XFCE桌面环境 XFCE 桌面环境作为通用桌面环境 (CDE) 的一个分支而创建，体现了模块化和可重用性的传统 Unix 哲学。您可以在几乎任何版本的 Linux 上安装 XFCE，包括 Rocky Linux。]]></summary></entry><entry><title type="html">chat.openai.com提示Unable to load history</title><link href="https://www.icinfra.cn/blog/2023/chatgpt-unable-to-load-history/" rel="alternate" type="text/html" title="chat.openai.com提示Unable to load history"/><published>2023-11-08T15:00:00+00:00</published><updated>2023-11-08T15:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/chatgpt-unable-to-load-history</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/chatgpt-unable-to-load-history/"><![CDATA[<p>今天chat.openai.com登录后，提示Unable to load history</p> <p><img width="283" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/7294fb08-91e1-4f6d-8759-46e0c8cefd17"/></p> <p>打开F12发现很多403 forbidden的：原来是访问的部分URI，被openai block了。</p> <p>解决方法：VPS访问openai之间，再用WARP套一层，openai没那么容易去封WARP如此大的公网IP池。</p>]]></content><author><name></name></author><category term="icenv"/><category term="chatgpt"/><summary type="html"><![CDATA[今天chat.openai.com登录后，提示Unable to load history]]></summary></entry><entry><title type="html">自动化下载群晖共享的文件</title><link href="https://www.icinfra.cn/blog/2023/automating-file-downloading-from-Synology-NAS/" rel="alternate" type="text/html" title="自动化下载群晖共享的文件"/><published>2023-11-07T15:28:00+00:00</published><updated>2023-11-07T15:28:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/automating-file-downloading-from-Synology-NAS</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/automating-file-downloading-from-Synology-NAS/"><![CDATA[<p>接到需求，需要从合作伙伴提供的群晖NAS上，批量下载大量文件。手动下载太费事费时，没有价值；并且PC的带宽有限，只能将批量串行下载，手动的话中间容易出现空闲，导致总的下载时长很长。</p> <p>因此写了脚本做自动化下载，如下：</p> <pre><code class="language-python3">from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -222,194 +298,4 @@ upstreams:
     install_tree: /tools/opensrc/spack-0.20.0/opt/spack
     modules:
       tcl: /tools/opensrc/spack-0.20.0/share/spack/modules
-</code></pre></div></div>]]></content><author><name></name></author><category term="icenv"/><category term="spack"/><summary type="html"><![CDATA[根据这里 https://spack.readthedocs.io/en/latest/chain.html 介绍，可以将一个或多个已存在的spack安装目录串起来，实现复用。 这在spack版本升级时非常有用，spack在不定期地迭代更新，但是每一个spack版本默认将包安装在其 opt/spack/ 目录下，如果想升级版本时则无法利用旧版本已安装的那些包。利用该特性，可以实现对旧版本spack已安装的包的复用。]]></summary></entry><entry><title type="html">解析FLEXlm lmutil lmstat输出并保存</title><link href="https://www.icinfra.cn/blog/2023/FLEXlm-lmutil-lmstat-output-parsing-and-storaging/" rel="alternate" type="text/html" title="解析FLEXlm lmutil lmstat输出并保存"/><published>2023-10-24T15:34:00+00:00</published><updated>2023-10-24T15:34:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/FLEXlm-lmutil-lmstat-output-parsing-and-storaging</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/FLEXlm-lmutil-lmstat-output-parsing-and-storaging/"><![CDATA[<h2 id="数据库表设计">数据库表设计</h2> <ol> <li><strong>user 表</strong>:</li> </ol> <table> <thead> <tr> <th>列名</th> <th>数据类型</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td>id</td> <td>INTEGER PRIMARY KEY</td> <td>主键</td> </tr> <tr> <td>username</td> <td>TEXT</td> <td>用户名</td> </tr> </tbody> </table> <ol> <li><strong>server 表</strong>:</li> </ol> <table> <thead> <tr> <th>列名</th> <th>数据类型</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td>id</td> <td>INTEGER PRIMARY KEY</td> <td>主键</td> </tr> <tr> <td>hostname</td> <td>TEXT</td> <td>主机名</td> </tr> </tbody> </table> <ol> <li><strong>vendor 表</strong>:</li> </ol> <table> <thead> <tr> <th>列名</th> <th>数据类型</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td>id</td> <td>INTEGER PRIMARY KEY</td> <td>主键</td> </tr> <tr> <td>vendor_daemon_name</td> <td>TEXT</td> <td>供应商守护进程名</td> </tr> </tbody> </table> <ol> <li><strong>license_type 表</strong>:</li> </ol> <table> <thead> <tr> <th>列名</th> <th>数据类型</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td>id</td> <td>INTEGER PRIMARY KEY</td> <td>主键</td> </tr> <tr> <td>type</td> <td>TEXT</td> <td>许可类型</td> </tr> </tbody> </table> <ol> <li><strong>feature 表</strong>:</li> </ol> <table> <thead> <tr> <th>列名</th> <th>数据类型</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td>id</td> <td>INTEGER PRIMARY KEY</td> <td>主键</td> </tr> <tr> <td>feature_name</td> <td>TEXT</td> <td>特性名称</td> </tr> </tbody> </table> <ol> <li><strong>license_usage_log 表</strong>:</li> </ol> <table> <thead> <tr> <th>列名</th> <th>数据类型</th> <th>说明</th> </tr> </thead> <tbody> <tr> <td>id</td> <td>INTEGER PRIMARY KEY</td> <td>主键</td> </tr> <tr> <td>user_id</td> <td>INTEGER</td> <td>用户ID，外键</td> </tr> <tr> <td>workstation_id</td> <td>INTEGER</td> <td>工作站ID，外键</td> </tr> <tr> <td>sessionid</td> <td>INTEGER</td> <td>sessionid，从日志条目解析出来的</td> </tr> <tr> <td>start_time</td> <td>TEXT</td> <td>开始时间</td> </tr> <tr> <td>end_time</td> <td>TEXT</td> <td>结束时间</td> </tr> <tr> <td>vendor_id</td> <td>INTEGER</td> <td>vendor ID，外键</td> </tr> <tr> <td>lic_server_id</td> <td>INTEGER</td> <td>license server ID，外键</td> </tr> <tr> <td>lic_type_id</td> <td>INTEGER</td> <td>license_type ID，外键</td> </tr> <tr> <td>feature_id</td> <td>INTEGER</td> <td>feature ID，外键</td> </tr> <tr> <td>additional_key</td> <td>TEXT</td> <td>部分feature有额外的key</td> </tr> </tbody> </table> <p>每个表格通过主键和外键相互关联，为日志解析和数据存储提供结构支持。</p> <h2 id="初始化数据库">初始化数据库</h2> <pre><code class="language-python3">#!/Users/wanlinwang/spack/opt/spack/darwin-ventura-m1/apple-clang-14.0.3/python-3.10.8-b7rgkczw4yfgrkbgttbcbur3ksmwho5d/bin/python3
-
-
-import sqlite3
-
-conn = sqlite3.connect('license_logging.db')  # 创建或连接到license.db数据库
-cursor = conn.cursor()
-
-# 创建user表
-cursor.execute('''
-CREATE TABLE IF NOT EXISTS user (
-    id INTEGER PRIMARY KEY,
-    username TEXT
-)
-''')
-
-# 创建server表
-cursor.execute('''
-CREATE TABLE IF NOT EXISTS server (
-    id INTEGER PRIMARY KEY,
-    hostname TEXT
-)
-''')
-
-# 创建vendor表
-cursor.execute('''
-CREATE TABLE IF NOT EXISTS vendor (
-    id INTEGER PRIMARY KEY,
-    vendor_daemon_name TEXT
-)
-''')
-
-# 创建license_type表
-cursor.execute('''
-CREATE TABLE IF NOT EXISTS license_type (
-    id INTEGER PRIMARY KEY,
-    type TEXT
-)
-''')
-
-# 创建feature表
-cursor.execute('''
-CREATE TABLE IF NOT EXISTS feature (
-    id INTEGER PRIMARY KEY,
-    feature_name TEXT
-)
-''')
-
-# 创建license_usage_log表，它将其他表关联起来
-cursor.execute('''
-CREATE TABLE IF NOT EXISTS license_usage_log(
-    id INTEGER PRIMARY KEY,
-    user_id INTEGER,
-    workstation_id INTEGER,
-    sessionid INTEGER,
-    start_time TEXT,
-    end_time TEXT,
-    vendor_id INTEGER,
-    lic_server_id INTEGER,
-    lic_type_id INTEGER,
-    feature_id INTEGER,
-    additional_key TEXT,
-    FOREIGN KEY(user_id) REFERENCES user(id),
-    FOREIGN KEY(workstation_id) REFERENCES server(id),
-    FOREIGN KEY(vendor_id) REFERENCES vendor(id),
-    FOREIGN KEY(lic_server_id) REFERENCES server(id),
-    FOREIGN KEY(lic_type_id) REFERENCES license_type(id),
-    FOREIGN KEY(feature_id) REFERENCES feature(id)
-)
-''')
-
-conn.commit()  # 提交创建表的操作
-conn.close()  # 关闭数据库连接
-
-</code></pre> <h2 id="定期执行存入更新数据库">定期执行，存入/更新数据库</h2> <pre><code class="language-python3">#!/Users/wanlinwang/spack/opt/spack/darwin-ventura-m1/apple-clang-14.0.3/python-3.10.8-b7rgkczw4yfgrkbgttbcbur3ksmwho5d/bin/python3
-
-
-import sqlite3
-import subprocess
-import re
-from datetime import datetime
-
-DB_PATH = 'license_logging.db'
-
-def run_lmstat(CDS_LIC_FILE):
-    cmd = r"lmstat -a -c {CDS_LIC_FILE}"
-    return subprocess.check_output(cmd, shell=True).decode('utf-8')
-
-def extract_data_from_output(output):
-    features_data = []
-    lines = output.split('\n')
-    current_feature = None
-    for line in lines:
-        if 'Users of' in line:
-            # Get the feature name
-            current_feature = line.split()[2].strip(':')
-            lic_type = "unknown"
-        elif current_feature and current_feature in line:
-            vendor_info = re.search(r'.*vendor:\s*(\w+).*', line)
-            if vendor_info:
-                current_vendor = vendor_info.group(1)
-        elif "floating license" in line:
-            lic_type = "floating license"
-        elif current_feature and ', start' in line:
-            # 格式"user_01 y260.ic.cn y260.ic.cn:1.0 Xcelium Single Core Engine (v21.000) (y162/5280 801), start Thu 10/19 9:57"
-            user_info = re.search(r'(\w+)\s+([\w.]+)\s+[\w.]*:[\d.]+\s+[^(]*\(([\w.]+)\)\s+\(([\w]+)/(\d+)\s+(\d+)\),\s*start\s*(\w+ \d+/\d+ \d+:\d+)', line)
-            if user_info:
-                start_time = datetime.strptime(user_info.group(7), "%a %m/%d %H:%M").replace(year=datetime.now().year)
-                if start_time &gt; datetime.now(): start_time = start_time.replace(year=start_time.year - 1)
-
-                features_data.append({
-                    "feature": current_feature,
-                    "vendor": current_vendor,
-                    "lic_type": lic_type,
-                    "username": user_info.group(1),
-                    "workstation": user_info.group(2),
-                    "version": user_info.group(3),
-                    "lic_server": user_info.group(4),
-                    "port": user_info.group(5),
-                    "sessionid": user_info.group(6),
-                    "start_time": start_time.strftime("%Y-%m-%d %H:%M:%S")
-                })
-    return features_data
-
-def get_or_insert_id(cursor, table, column, value):
-    cursor.execute(f'SELECT id FROM {table} WHERE {column}=?', (value,))
-    result = cursor.fetchone()
-    if not result:
-        cursor.execute(f'INSERT INTO {table}({column}) VALUES (?)', (value,))
-        return cursor.lastrowid
-    return result[0]
-
-def update_database(data):
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    
-    for entry in data:
-        # Resolve foreign key dependencies
-        user_id = get_or_insert_id(cursor, 'user', 'username', entry['username'])
-        feature_id = get_or_insert_id(cursor, 'feature', 'feature_name', entry['feature'])
-        vendor_id = get_or_insert_id(cursor, 'vendor', 'vendor_daemon_name', entry['vendor'])
-        lic_type_id = get_or_insert_id(cursor, 'license_type', 'type', entry['lic_type'])
-        workstation_id = get_or_insert_id(cursor, 'server', 'hostname', entry['workstation'])
-        lic_server_id = get_or_insert_id(cursor, 'server', 'hostname', entry['lic_server'])
-
-        # Check if entry exists in license_usage_log
-        cursor.execute('''SELECT id FROM license_usage_log WHERE feature_id=? AND start_time=? AND sessionid=?''',
-                       (feature_id, entry["start_time"], entry["sessionid"]))
-        log_id = cursor.fetchone()
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        if log_id:
-            # Update end_time
-            cursor.execute('UPDATE license_usage_log SET end_time=? WHERE id=?', 
-                           (timestamp, log_id[0]))
-        else:
-            # Insert new entry
-            cursor.execute('''
-                INSERT INTO license_usage_log(user_id, workstation_id, start_time, end_time, vendor_id, lic_server_id, lic_type_id, feature_id, sessionid) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''', 
-                (user_id, workstation_id, entry["start_time"], timestamp, vendor_id, lic_server_id, lic_type_id, feature_id, entry["sessionid"]))
-
-    conn.commit()
-    conn.close()
-
-if __name__ == "__main__":
-    CDS_LIC_FILE="5280@lic-server-01:5280@lic-server-02"
-    all_output = run_lmstat(CDS_LIC_FILE)
-    for output in re.split(r"-{8,}", all_output)
-        data = extract_data_from_output(output)
-        update_database(data)
-
-</code></pre> <h2 id="测试数据">测试数据</h2> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    output <span class="o">=</span> <span class="s2">"""Users of Affirma_sim_analysis_env:  (Total of 8 licenses issued;  Total of 3 licenses in use)
-
-  "</span>Affirma_sim_analysis_env<span class="s2">" v23.0, vendor: cdslmd, expiry: 15-jan-2024
-  vendor_string: UHD:PERM
-  floating license
-
-    user_01 TENCENT64.site :11 (v16.000) (lic460/5280 101), start Wed 10/18 12:37
-    user_02 server-0431840.ic.cn server-0431840.ic.cn:1.0 (v16.000) (lic460/5280 716), start Wed 10/18 17:24
-    user_03 server-2381620.ic.cn server-2381620.ic.cn:4.0 (v16.000) (lic460/5280 2123), start Thu 10/19 6:56
-
-Users of Xcelium_Single_Core:  (Total of 8 licenses issued;  Total of 3 licenses in use)
-
-  "</span>Xcelium_Single_Core<span class="s2">" v21.000, vendor: cdslmd, expiry: 15-jan-2024
-  vendor_string: UHD:PERM
-  floating license
-
-    user_03 TENCENT64.site :11 Xcelium Single Core Engine (v21.000) (lic460/5280 101), start Wed 10/18 12:37
-    user_02 TENCENT64.site :4 Xcelium Single Core Engine (v21.000) (lic460/5280 301), start Wed 10/18 12:37
-    user_01 TENCENT64.site :80 Xcelium Single Core Engine (v21.000) (lic460/5280 401), start Wed 10/18 12:37"""</span>
-</code></pre></div></div>]]></content><author><name></name></author><category term="icenv"/><category term="license"/><summary type="html"><![CDATA[数据库表设计 user 表:]]></summary></entry></feed>
+</code></pre></div></div>]]></content><author><name></name></author><category term="icenv"/><category term="spack"/><summary type="html"><![CDATA[根据这里 https://spack.readthedocs.io/en/latest/chain.html 介绍，可以将一个或多个已存在的spack安装目录串起来，实现复用。 这在spack版本升级时非常有用，spack在不定期地迭代更新，但是每一个spack版本默认将包安装在其 opt/spack/ 目录下，如果想升级版本时则无法利用旧版本已安装的那些包。利用该特性，可以实现对旧版本spack已安装的包的复用。]]></summary></entry></feed>
