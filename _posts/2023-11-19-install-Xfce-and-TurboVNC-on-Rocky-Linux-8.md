@@ -113,7 +113,7 @@ reboot
 
 ## 命令集合
 ```bash
-安装xfce环境
+# 安装xfce环境
 dnf update
 dnf install epel-release
 dnf config-manager --set-enabled powertools
