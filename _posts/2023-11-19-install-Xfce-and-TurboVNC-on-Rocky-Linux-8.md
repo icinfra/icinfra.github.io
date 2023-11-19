@@ -113,6 +113,7 @@ reboot
 
 ## 命令集合
 ```bash
+安装xfce环境
 dnf update
 dnf install epel-release
 dnf config-manager --set-enabled powertools
@@ -122,7 +123,52 @@ dnf groupinstall "Fonts"
 dnf install lightdm
 systemctl disable gdm
 systemctl enable lightdm
+
+# 安装TurboVNC
+TIMESTAMP=`date +%Y%m%d%H%M%S`
+ 
+yum -y install wget
+yum -y install perl
+ 
+# firewalld
+systemctl disable firewalld --now
+ 
+# selinux
+sed -i_bak`date +%Y%m%d%H%M%S` \
+    's/^\s*SELINUX=.*/SELINUX=disabled/g' \
+/etc/selinux/config
+ 
+# add a file to disable non-privilege users' powermanagement
+mkdir -p /etc/xdg/xfce4/kiosk
+cat > /etc/xdg/xfce4/kiosk/kioskrc << EOF
+[xfce4-session]
+Shutdown=root
+EOF
+ 
+# setup for TurboVNC
+wget https://turbovnc.org/pmwiki/uploads/Downloads/TurboVNC.repo -O /etc/yum.repos.d/TurboVNC.repo
+yum -y install turbovnc
+ 
+# modify conf for TurboVNC
+sed -i_bak${TIMESTAMP} \
+    -e 's/#\s*$wm = .*/$wm = "xfce";/g' \
+    -e 's/#\s*$serverArgs = .*/$serverArgs = "-listen tcp";/g' \
+    -e 's/#\s*$securityTypes = .*/$securityTypes = "TLSOtp, TLSPlain, X509Otp, X509Plain,OTP, UnixLogin, Plain";/g' \
+    /etc/turbovncserver.conf
+ 
+sed -i_bak${TIMESTAMP} \
+    -e 's/^#\s*permitted-security-types = .*/permitted-security-types =  TLSOtp, TLSPlain, X509Otp, X509Plain, OTP/g' \
+    /etc/turbovncserver-security.conf
+ 
+# modify conf for ssh and sshd
+echo "AcceptEnv DISPLAY" >> /etc/ssh/sshd_config
+systemctl restart sshd
+echo "SendEnv   DISPLAY" >> /etc/ssh/ssh_config
+ 
+# swicth to grahphical
 systemctl set-default graphical.target
+systemctl isolate graphical.target
+
 reboot
 ```
 
