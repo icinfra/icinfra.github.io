@@ -78,3 +78,10 @@ GID:             admins (1451400000)
 LENGTH:          0
 ```
 可以看到，成功了。
+
+# 参考资料
+https://dun.github.io/munge/
+
+https://github.com/dun/munge/wiki/Installation-Guide#securing-the-installation
+
+https://github.com/dun/munge/wiki/Man-7-munge
