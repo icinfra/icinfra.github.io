@@ -16,7 +16,6 @@ categories: icenv
 </div>
 
 相关定制的文件，如下
-```bash
 [wanlinwang@Tweak-new-group-effective-on-new-terminal-on-centos6 ~]$ cat ~/.gconf/apps/gnome-terminal/profiles/Default/%gconf.xml
 <?xml version="1.0"?>
 <gconf>
@@ -94,7 +93,7 @@ if ( $current_group != $expect_group ) then
     newgrp $expect_group
 endif
 unset current_group expect_group
-```
+
 
 
 第二个视频，演示krusader可以在生效后的gnome-terminal里，打开新群组才可以访问的文件夹。
@@ -106,9 +105,7 @@ unset current_group expect_group
 </div>
 
 安装命令，如下
-```bash
 EPEL      sudo yum install epel-release
 Krusader  sudo yum localinstall http://rpms.plnet.rs/plnet-centos6-x86_64/RPMS.plnet-compiled/krusader-2.3.0-0.1.beta1.el6.x86_64.rpm
 Gedit     sudo yum install gedit
-```
 
