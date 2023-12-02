@@ -1,4 +1,82 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2023-12-01T15:16:43+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">新加群组如何在terminal与文件</title><link href="https://www.icinfra.cn/blog/2023/enable-newly-added-on-newly-created-gnome-terminal/" rel="alternate" type="text/html" title="新加群组如何在terminal与文件"/><published>2023-11-30T21:01:00+00:00</published><updated>2023-11-30T21:01:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/enable-newly-added-on-newly-created-gnome-terminal</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/enable-newly-added-on-newly-created-gnome-terminal/"><![CDATA[<p>第一个视频，演示新加入的群组，可以在新开的gnome-terminal里生效。</p> <div class="row mt-3"> <div class="col-sm mt-3 mt-md-0"> <figure> <iframe src="https://youtu.be/WN7R-qALXcI" class="img-fluid rounded z-depth-1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" width="auto" height="auto"/> </figure> </div> </div> <p>相关定制的文件，如下 [wanlinwang@Tweak-new-group-effective-on-new-terminal-on-centos6 ~]$ cat ~/.gconf/apps/gnome-terminal/profiles/Default/%gconf.xml &lt;?xml version=”1.0”?&gt;</p> <gconf> <entry name="custom_command" mtime="1701352260" type="string"> <stringvalue>/bin/csh -c &quot; ~/scan_new_grp.csh; exec /bin/csh &quot;</stringvalue> </entry> <entry name="use_custom_command" mtime="1701352260" type="bool" value="true"/> <entry name="palette" mtime="1701352260" type="string"> <stringvalue>#2E2E34343636:#CCCC00000000:#4E4E9A9A0606:#C4C4A0A00000:#34346565A4A4:#757550507B7B:#060698209A9A:#D3D3D7D7CFCF:#555557575353:#EFEF29292929:#8A8AE2E23434:#FCFCE9E94F4F:#72729F9FCFCF:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC</stringvalue> </entry> <entry name="background_color" mtime="1701352260" type="string"> <stringvalue>#FFFFFFFFDDDD</stringvalue> </entry> <entry name="visible_name" mtime="1701352260" type="string"> <stringvalue>Default</stringvalue> </entry> <entry name="bold_color" mtime="1701352260" type="string"> <stringvalue>#000000000000</stringvalue> </entry> <entry name="foreground_color" mtime="1701352260" type="string"> <stringvalue>#000000000000</stringvalue> </entry> </gconf> <p>[wanlinwang@Tweak-new-group-effective-on-new-terminal-on-centos6 ~]$ cat ~/scan_new_grp.csh #!/bin/csh</p> <h1 id="wanlinwang">wanlinwang</h1> <h1 id="nov-30-2023">Nov 30, 2023</h1> <p>set CSHRC=~/.cshrc if (! -e “$CSHRC”) then touch “$CSHRC” endif</p> <h1 id="获取当前用户的主群组">获取当前用户的主群组</h1> <p>set primary_group=<code class="language-plaintext highlighter-rouge">id -gn</code></p> <h1 id="获取当前用户的全部群组">获取当前用户的全部群组</h1> <p>set current_groups=<code class="language-plaintext highlighter-rouge">id -Gn</code></p> <h1 id="获取登录时的群组">获取登录时的群组</h1> <p>set login_groups=<code class="language-plaintext highlighter-rouge">id -Gn $USER</code></p> <h1 id="创建临时文件">创建临时文件</h1> <p>set temp1=<code class="language-plaintext highlighter-rouge">mktemp</code> set temp2=<code class="language-plaintext highlighter-rouge">mktemp</code></p> <h1 id="将群组信息写入临时文件">将群组信息写入临时文件</h1> <p>echo $current_groups | tr ‘ ‘ ‘\n’ | sort &gt; $temp1 echo $login_groups | tr ‘ ‘ ‘\n’ | sort &gt; $temp2</p> <h1 id="使用comm比较文件内容">使用comm比较文件内容</h1> <p>set new_group=<code class="language-plaintext highlighter-rouge">comm -13 $temp1 $temp2</code></p> <h1 id="删除临时文件">删除临时文件</h1> <p>rm -f $temp1 rm -f $temp2</p> <p>if (“$new_group” != “”) then # 确保定义restore_primary_grp这个别名 grep -q “alias restore_primary_grp newgrp “ “$CSHRC” if ($status == 0) then sed -i “/alias restore_primary_grp/c\alias restore_primary_grp newgrp $primary_group” “$CSHRC” else echo “#auto added by wanlinwang.\nalias restore_primary_grp newgrp $primary_group” » “$CSHRC” endif # 切换群组，使得生效 newgrp $new_group endif [wanlinwang@Tweak-new-group-effective-on-new-terminal-on-centos6 ~]$ cat .cshrc</p> <h1 id="切换到primary群组">切换到primary群组。</h1> <p>set current_group=<code class="language-plaintext highlighter-rouge">id -g -n</code> set expect_group=”wanlinwang” if ( $current_group != $expect_group ) then newgrp $expect_group endif unset current_group expect_group</p> <p>第二个视频，演示krusader可以在生效后的gnome-terminal里，打开新群组才可以访问的文件夹。</p> <div class="row mt-3"> <div class="col-sm mt-3 mt-md-0"> <figure> <iframe src="https://youtu.be/nG5YelsFeAs" class="img-fluid rounded z-depth-1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" width="auto" height="auto"/> </figure> </div> </div> <p>安装命令，如下 EPEL sudo yum install epel-release Krusader sudo yum localinstall http://rpms.plnet.rs/plnet-centos6-x86_64/RPMS.plnet-compiled/krusader-2.3.0-0.1.beta1.el6.x86_64.rpm Gedit sudo yum install gedit</p>]]></content><author><name></name></author><category term="icenv"/><category term="group"/><summary type="html"><![CDATA[新加群组，在新开的gnome-terminal里自动生效]]></summary></entry><entry><title type="html">slurm安装</title><link href="https://www.icinfra.cn/blog/2023/installing-slurm/" rel="alternate" type="text/html" title="slurm安装"/><published>2023-11-29T03:00:00+00:00</published><updated>2023-11-29T03:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/installing-slurm</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/installing-slurm/"><![CDATA[<h1 id="提前并运行munge">提前并运行munge</h1> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@offline-almalinux8-193-computing slurm-23.11.0]# ./configure <span class="nt">--prefix</span><span class="o">=</span>/tools/OSS/Slurm/23.11.0 <span class="nt">--with-munge</span>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2023-12-02T00:35:57+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">新加群组如何在terminal与文件</title><link href="https://www.icinfra.cn/blog/2023/enable-newly-added-on-newly-created-gnome-terminal/" rel="alternate" type="text/html" title="新加群组如何在terminal与文件"/><published>2023-11-30T21:01:00+00:00</published><updated>2023-11-30T21:01:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/enable-newly-added-on-newly-created-gnome-terminal</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/enable-newly-added-on-newly-created-gnome-terminal/"><![CDATA[<p>第一个视频，演示新加入的群组，可以在新开的gnome-terminal里生效。</p> <div class="row mt-3"> <div class="col-sm mt-3 mt-md-0"> <figure> <iframe src="https://youtu.be/WN7R-qALXcI" class="img-fluid rounded z-depth-1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" width="auto" height="auto"/> </figure> </div> </div> <p>相关定制的文件，如下 [wanlinwang@Tweak-new-group-effective-on-new-terminal-on-centos6 ~]$ cat ~/.gconf/apps/gnome-terminal/profiles/Default/%gconf.xml &lt;?xml version=”1.0”?&gt;</p> <gconf> <entry name="custom_command" mtime="1701352260" type="string"> <stringvalue>/bin/csh -c &quot; ~/scan_new_grp.csh; exec /bin/csh &quot;</stringvalue> </entry> <entry name="use_custom_command" mtime="1701352260" type="bool" value="true"/> <entry name="palette" mtime="1701352260" type="string"> <stringvalue>#2E2E34343636:#CCCC00000000:#4E4E9A9A0606:#C4C4A0A00000:#34346565A4A4:#757550507B7B:#060698209A9A:#D3D3D7D7CFCF:#555557575353:#EFEF29292929:#8A8AE2E23434:#FCFCE9E94F4F:#72729F9FCFCF:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC</stringvalue> </entry> <entry name="background_color" mtime="1701352260" type="string"> <stringvalue>#FFFFFFFFDDDD</stringvalue> </entry> <entry name="visible_name" mtime="1701352260" type="string"> <stringvalue>Default</stringvalue> </entry> <entry name="bold_color" mtime="1701352260" type="string"> <stringvalue>#000000000000</stringvalue> </entry> <entry name="foreground_color" mtime="1701352260" type="string"> <stringvalue>#000000000000</stringvalue> </entry> </gconf> <p>[wanlinwang@Tweak-new-group-effective-on-new-terminal-on-centos6 ~]$ cat ~/scan_new_grp.csh #!/bin/csh</p> <h1 id="wanlinwang">wanlinwang</h1> <h1 id="nov-30-2023">Nov 30, 2023</h1> <p>set CSHRC=~/.cshrc if (! -e “$CSHRC”) then touch “$CSHRC” endif</p> <h1 id="获取当前用户的主群组">获取当前用户的主群组</h1> <p>set primary_group=<code class="language-plaintext highlighter-rouge">id -gn</code></p> <h1 id="获取当前用户的全部群组">获取当前用户的全部群组</h1> <p>set current_groups=<code class="language-plaintext highlighter-rouge">id -Gn</code></p> <h1 id="获取登录时的群组">获取登录时的群组</h1> <p>set login_groups=<code class="language-plaintext highlighter-rouge">id -Gn $USER</code></p> <h1 id="创建临时文件">创建临时文件</h1> <p>set temp1=<code class="language-plaintext highlighter-rouge">mktemp</code> set temp2=<code class="language-plaintext highlighter-rouge">mktemp</code></p> <h1 id="将群组信息写入临时文件">将群组信息写入临时文件</h1> <p>echo $current_groups | tr ‘ ‘ ‘\n’ | sort &gt; $temp1 echo $login_groups | tr ‘ ‘ ‘\n’ | sort &gt; $temp2</p> <h1 id="使用comm比较文件内容">使用comm比较文件内容</h1> <p>set new_group=<code class="language-plaintext highlighter-rouge">comm -13 $temp1 $temp2</code></p> <h1 id="删除临时文件">删除临时文件</h1> <p>rm -f $temp1 rm -f $temp2</p> <p>if (“$new_group” != “”) then # 确保定义restore_primary_grp这个别名 grep -q “alias restore_primary_grp newgrp “ “$CSHRC” if ($status == 0) then sed -i “/alias restore_primary_grp/c\alias restore_primary_grp newgrp $primary_group” “$CSHRC” else echo “#auto added by wanlinwang.\nalias restore_primary_grp newgrp $primary_group” » “$CSHRC” endif # 切换群组，使得生效 newgrp $new_group endif [wanlinwang@Tweak-new-group-effective-on-new-terminal-on-centos6 ~]$ cat .cshrc</p> <h1 id="切换到primary群组">切换到primary群组。</h1> <p>set current_group=<code class="language-plaintext highlighter-rouge">id -g -n</code> set expect_group=”wanlinwang” if ( $current_group != $expect_group ) then newgrp $expect_group endif unset current_group expect_group</p> <p>第二个视频，演示krusader可以在生效后的gnome-terminal里，打开新群组才可以访问的文件夹。</p> <div class="row mt-3"> <div class="col-sm mt-3 mt-md-0"> <figure> <iframe src="https://youtu.be/nG5YelsFeAs" class="img-fluid rounded z-depth-1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" width="auto" height="auto"/> </figure> </div> </div> <p>安装命令，如下 EPEL sudo yum install epel-release Krusader sudo yum localinstall http://rpms.plnet.rs/plnet-centos6-x86_64/RPMS.plnet-compiled/krusader-2.3.0-0.1.beta1.el6.x86_64.rpm Gedit sudo yum install gedit</p>]]></content><author><name></name></author><category term="icenv"/><category term="group"/><summary type="html"><![CDATA[新加群组，在新开的gnome-terminal里自动生效]]></summary></entry><entry><title type="html">已开启的gnome桌面如何进入群组为新加群组且权限为770的文件夹</title><link href="https://www.icinfra.cn/blog/2023/how-to-enable-newly-added-group-on-existing-gnome-desktop/" rel="alternate" type="text/html" title="已开启的gnome桌面如何进入群组为新加群组且权限为770的文件夹"/><published>2023-11-30T03:00:00+00:00</published><updated>2023-11-30T03:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/how-to-enable-newly-added-group-on-existing-gnome-desktop</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/how-to-enable-newly-added-group-on-existing-gnome-desktop/"><![CDATA[<h1 id="场景说明">场景说明</h1> <p>令芯片设计环境的研发人员经常头疼的一件事，维护完群组后，无法在Linux桌面生效。支持人员频繁接到这样的case，只能建议ta：</p> <ul> <li>run ‘newgrp newly-added-group-name’, or</li> <li>logout the vnc and login again.</li> </ul> <p>在遵循Linux桌面设计范式的前提下，本文我们尽量做到让用户无感地让新加群组生效。</p> <h1 id="环境说明">环境说明</h1> <p>CentOS 6.10, Gnome, Krusader</p> <h1 id="效果演示">效果演示</h1> <p>定制完毕后，</p> <ul> <li><strong>新开terminal，新群组就生效了</strong>。无需用户做任何操作。</li> <li><strong>在新开terminal里打开krusader，可以浏览与编辑文件</strong>。</li> </ul> <p><img width="1920" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/69c5e444-1905-4b90-9ea4-3282f15d20ec"/></p> <h1 id="代码示例">代码示例</h1> <h2 id="新terminal生效新群组">新terminal生效新群组</h2> <p>用户只需要运行一次本脚本即可。也可以管理员将~/.flush_groups.csh文件放至NFS，用户家目录.cshrc文件去source即可。</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="c"># Author:      wanlinwang</span>
+<span class="c"># Date  :      Nov 30, 2023</span>
+<span class="c"># Description: This script is to make newly added group(s) available in newly created gnome-terminal on CentOS 6.10. Run me once.</span>
+
+
+<span class="c"># Update .cshrc.</span>
+<span class="nv">CSHRC</span><span class="o">=</span>~/.cshrc
+<span class="k">if</span> <span class="o">[</span> <span class="o">!</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$CSHRC</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+    </span><span class="nb">touch</span> <span class="s2">"</span><span class="nv">$CSHRC</span><span class="s2">"</span>
+<span class="k">fi</span>
+<span class="c"># The line to add if it doesn't exist</span>
+<span class="nv">LINE</span><span class="o">=</span><span class="s2">"source ~/.flush_groups.csh"</span>
+<span class="k">if</span> <span class="o">!</span> <span class="nb">grep</span> <span class="nt">-Fxq</span> <span class="s2">"</span><span class="nv">$LINE</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$CSHRC</span><span class="s2">"</span><span class="p">;</span> <span class="k">then</span>
+    <span class="c"># If the line doesn't exist, add it to the file</span>
+    <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$LINE</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> <span class="s2">"</span><span class="nv">$CSHRC</span><span class="s2">"</span>
+<span class="k">fi</span>
+
+
+<span class="c"># Add ~/.flush_groups.csh</span>
+<span class="nb">cat</span> <span class="o">&gt;</span> ~/.flush_groups.csh <span class="o">&lt;&lt;</span> <span class="sh">'</span><span class="no">EOF</span><span class="sh">'
+#!/bin/csh
+
+# Writen by wanlinwang.
+# Date: Dec 1, 2023
+# Description: 支持自动将新增群组刷新到新terminal中，对研发人员透明。提升研发人员效率，降低支持工作量。
+
+if ( ! </span><span class="nv">$?</span><span class="sh">new_grp_array) then
+
+    # 获取当前用户在当前session的主群组以及全部群组
+    setenv primary_group  `id -gn`
+    set    current_groups=`sh -c 'id -Gn 2&gt; /dev/null'`
+    
+    # 获取当前用户最新的全部群组
+    set login_groups=`sh -c 'id -Gn </span><span class="nv">$USER</span><span class="sh"> 2&gt; /dev/null'`
+    
+    # 创建临时文件，并将群组信息写入临时文件
+    set temp1=`mktemp`
+    set temp2=`mktemp`
+    echo </span><span class="nv">$current_groups</span><span class="sh"> | tr ' ' '</span><span class="se">\n</span><span class="sh">' | sort &gt; </span><span class="nv">$temp1</span><span class="sh">
+    echo </span><span class="nv">$login_groups</span><span class="sh"> | tr ' ' '</span><span class="se">\n</span><span class="sh">' | sort &gt; </span><span class="nv">$temp2</span><span class="sh">
+    
+    # 使用comm比较文件内容
+    #set new_group=`comm -13 </span><span class="nv">$temp1</span><span class="sh"> </span><span class="nv">$temp2</span><span class="sh">`
+    setenv new_grp_array `comm -13 </span><span class="nv">$temp1</span><span class="sh"> </span><span class="nv">$temp2</span><span class="sh"> | tr '</span><span class="se">\n</span><span class="sh">' ' '`
+    
+    # 删除临时文件
+    rm -f </span><span class="nv">$temp1</span><span class="sh"> </span><span class="nv">$temp2</span><span class="sh">
+endif
+
+# iterate new_grp_array
+if ("</span><span class="nv">$new_grp_array</span><span class="sh">" != "") then
+    set new_group=`echo </span><span class="nv">$new_grp_array</span><span class="sh"> | awk '{print </span><span class="nv">$1</span><span class="sh">}'`
+    setenv new_grp_array `echo </span><span class="nv">$new_grp_array</span><span class="sh"> | awk '{</span><span class="nv">$1</span><span class="sh">=""; print </span><span class="nv">$0</span><span class="sh">}' | sed 's/^[ </span><span class="se">\t</span><span class="sh">]*//'`
+
+    if ("</span><span class="nv">$new_group</span><span class="sh">" != "") then
+        # 切换群组，使其生效
+        newgrp </span><span class="nv">$new_group</span><span class="sh">
+    endif
+else
+    set current_group=`id -gn`
+    if ( </span><span class="nv">$?</span><span class="sh">primary_group ) then
+        if ( "</span><span class="nv">$primary_group</span><span class="sh">" != "</span><span class="nv">$current_group</span><span class="sh">" ) then
+            newgrp </span><span class="nv">$primary_group</span><span class="sh">
+        endif
+    endif
+    unset current_group
+    unsetenv primary_group
+endif
+
+unsetenv new_grp_array
+</span><span class="no">
+EOF
+
+</span></code></pre></div></div> <h2 id="krusader">krusader</h2> <p>按需，需要联网。如果离线环境则手动下载回来安装。</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install krusader, a file manager. If you want to use this tool, please contact your system administrator to install.</span>
+<span class="nb">sudo </span>yum <span class="nb">install </span>epel-release
+<span class="nb">sudo </span>yum localinstall http://rpms.plnet.rs/plnet-centos6-x86_64/RPMS.plnet-compiled/krusader-2.3.0-0.1.beta1.el6.x86_64.rpm
+</code></pre></div></div>]]></content><author><name></name></author><category term="icenv"/><category term="group"/><summary type="html"><![CDATA[场景说明 令芯片设计环境的研发人员经常头疼的一件事，维护完群组后，无法在Linux桌面生效。支持人员频繁接到这样的case，只能建议ta： run ‘newgrp newly-added-group-name’, or logout the vnc and login again.]]></summary></entry><entry><title type="html">slurm安装</title><link href="https://www.icinfra.cn/blog/2023/installing-slurm/" rel="alternate" type="text/html" title="slurm安装"/><published>2023-11-29T03:00:00+00:00</published><updated>2023-11-29T03:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/installing-slurm</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/installing-slurm/"><![CDATA[<h1 id="提前并运行munge">提前并运行munge</h1> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@offline-almalinux8-193-computing slurm-23.11.0]# ./configure <span class="nt">--prefix</span><span class="o">=</span>/tools/OSS/Slurm/23.11.0 <span class="nt">--with-munge</span>
 <span class="o">[</span>root@offline-almalinux8-193-computing slurm-23.11.0]# make <span class="o">&amp;&amp;</span> make <span class="nb">install</span>
 </code></pre></div></div> <h1 id="配置">配置</h1> <p>到<a href="https://slurm.schedmd.com/configurator.html">Slurm Configuration Tool</a>定制，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># slurm.conf file generated by configurator.html.</span>
 <span class="c"># Put this file on all nodes of your cluster.</span>
@@ -193,91 +271,7 @@ offline-almalinux8-197-computing.icinfra.cn      1    debug<span class="k">*</sp
 </code></pre></div></div> <h2 id="查看作业">查看作业</h2> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>cloud-user@offline-almalinux8-197-computing ~]<span class="nv">$ </span>/tools/OSS/Slurm/23.11.0/bin/sstat 2
 JobID         MaxVMSize  MaxVMSizeNode  MaxVMSizeTask  AveVMSize     MaxRSS MaxRSSNode MaxRSSTask     AveRSS MaxPages MaxPagesNode   MaxPagesTask   AvePages     MinCPU MinCPUNode MinCPUTask     AveCPU   NTasks AveCPUFreq ReqCPUFreqMin ReqCPUFreqMax ReqCPUFreqGov ConsumedEnergy  MaxDiskRead MaxDiskReadNode MaxDiskReadTask  AveDiskRead MaxDiskWrite MaxDiskWriteNode MaxDiskWriteTask AveDiskWrite TRESUsageInAve TRESUsageInMax TRESUsageInMaxNode TRESUsageInMaxTask TRESUsageInMin TRESUsageInMinNode TRESUsageInMinTask TRESUsageInTot TRESUsageOutAve TRESUsageOutMax TRESUsageOutMaxNode TRESUsageOutMaxTask TRESUsageOutMin TRESUsageOutMinNode TRESUsageOutMinTask TRESUsageOutTot 
 <span class="nt">------------</span> <span class="nt">----------</span> <span class="nt">--------------</span> <span class="nt">--------------</span> <span class="nt">----------</span> <span class="nt">----------</span> <span class="nt">----------</span> <span class="nt">----------</span> <span class="nt">----------</span> <span class="nt">--------</span> <span class="nt">------------</span> <span class="nt">--------------</span> <span class="nt">----------</span> <span class="nt">----------</span> <span class="nt">----------</span> <span class="nt">----------</span> <span class="nt">----------</span> <span class="nt">--------</span> <span class="nt">----------</span> <span class="nt">-------------</span> <span class="nt">-------------</span> <span class="nt">-------------</span> <span class="nt">--------------</span> <span class="nt">------------</span> <span class="nt">---------------</span> <span class="nt">---------------</span> <span class="nt">------------</span> <span class="nt">------------</span> <span class="nt">----------------</span> <span class="nt">----------------</span> <span class="nt">------------</span> <span class="nt">--------------</span> <span class="nt">--------------</span> <span class="nt">------------------</span> <span class="nt">------------------</span> <span class="nt">--------------</span> <span class="nt">------------------</span> <span class="nt">------------------</span> <span class="nt">--------------</span> <span class="nt">---------------</span> <span class="nt">---------------</span> <span class="nt">-------------------</span> <span class="nt">-------------------</span> <span class="nt">---------------</span> <span class="nt">-------------------</span> <span class="nt">-------------------</span> <span class="nt">---------------</span>
-</code></pre></div></div> <h1 id="参考资料">参考资料</h1> <p>https://slurm.schedmd.com/quickstart_admin.html#build_install #slurm的构建与安装</p> <p>https://www.icinfra.cn/blog/2023/setting-up-munge-on-almalinux8/ #munge的安装</p>]]></content><author><name></name></author><category term="icenv"/><category term="slurm"/><summary type="html"><![CDATA[提前并运行munge [root@offline-almalinux8-193-computing slurm-23.11.0]# ./configure --prefix=/tools/OSS/Slurm/23.11.0 --with-munge [root@offline-almalinux8-193-computing slurm-23.11.0]# make &amp;&amp; make install]]></summary></entry><entry><title type="html">已开启的gnome桌面如何进入群组为新加群组且权限为770的文件夹</title><link href="https://www.icinfra.cn/blog/2023/how-to-enable-newly-added-group-on-existing-gnome-desktop/" rel="alternate" type="text/html" title="已开启的gnome桌面如何进入群组为新加群组且权限为770的文件夹"/><published>2023-11-29T03:00:00+00:00</published><updated>2023-11-29T03:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/how-to-enable-newly-added-group-on-existing-gnome-desktop</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/how-to-enable-newly-added-group-on-existing-gnome-desktop/"><![CDATA[<h1 id="场景说明">场景说明</h1> <p>令芯片设计环境的研发人员经常头疼的一件事，维护完群组后，无法在Linux桌面生效。支持人员频繁接到这样的case，只能建议ta：</p> <ul> <li>run ‘newgrp newly-added-group-name’, or</li> <li>logout the vnc and login again.</li> </ul> <p>在遵循Linux桌面设计范式的前提下，本文我们尽量做到让用户无感地让新加群组生效。</p> <h1 id="环境说明">环境说明</h1> <p>CentOS 6.10, Gnome, Krusader</p> <h1 id="效果演示">效果演示</h1> <p>定制完毕后，</p> <ul> <li><strong>新开terminal，新群组就生效了</strong>。无需用户做任何操作。</li> <li><strong>在新开terminal里打开krusader，可以浏览与编辑文件</strong>。</li> </ul> <p><img width="1920" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/69c5e444-1905-4b90-9ea4-3282f15d20ec"/></p> <h1 id="脚本定制">脚本定制</h1> <p>用户只需要运行一次本脚本即可。</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
-
-<span class="c"># Author:      wanlinwang</span>
-<span class="c"># Date  :      Nov 30, 2023</span>
-<span class="c"># Description: This script is to make newly added group(s) available in newly created gnome-terminal on CentOS 6.10. Run me once.</span>
-
-
-<span class="c"># Update .cshrc to newgrp primary_group.</span>
-<span class="nb">cat</span> <span class="o">&gt;&gt;</span> ~/.cshrc <span class="o">&lt;&lt;</span> <span class="sh">'</span><span class="no">EOF</span><span class="sh">'
-set current_group=`id -g -n`
-if ( </span><span class="nv">$?</span><span class="sh">primary_group ) then
-    if ( </span><span class="nv">$primary_group</span><span class="sh"> != </span><span class="nv">$current_group</span><span class="sh"> ) then
-        newgrp </span><span class="nv">$primary_group</span><span class="sh">
-    endif
-endif
-unset    current_group
-unsetenv primary_group
-</span><span class="no">EOF
-
-
-</span><span class="c"># Create the custom script</span>
-<span class="nb">cat</span> <span class="o">&gt;</span> ~/scan_new_grp.csh <span class="o">&lt;&lt;</span> <span class="sh">'</span><span class="no">EOF</span><span class="sh">'
-#!/bin/csh
-# Auto-generated by wanlinwang.
-
-# 获取当前用户在当前session的主群组以及全部群组
-setenv primary_group  `id -gn`
-set    current_groups=`id -Gn`
-
-# 获取当前用户最新的全部群组
-set login_groups=`id -Gn </span><span class="nv">$USER</span><span class="sh">`
-
-# 创建临时文件，并将群组信息写入临时文件
-set temp1=`mktemp`
-set temp2=`mktemp`
-echo </span><span class="nv">$current_groups</span><span class="sh"> | tr ' ' '</span><span class="se">\n</span><span class="sh">' | sort &gt; </span><span class="nv">$temp1</span><span class="sh">
-echo </span><span class="nv">$login_groups</span><span class="sh"> | tr ' ' '</span><span class="se">\n</span><span class="sh">' | sort &gt; </span><span class="nv">$temp2</span><span class="sh">
-
-# 使用comm比较文件内容
-set new_group=`comm -13 </span><span class="nv">$temp1</span><span class="sh"> </span><span class="nv">$temp2</span><span class="sh">`
-
-# 删除临时文件
-rm -f </span><span class="nv">$temp1</span><span class="sh"> </span><span class="nv">$temp2</span><span class="sh">
-
-if ("</span><span class="nv">$new_group</span><span class="sh">" != "") then
-    # 切换群组，使其生效
-    newgrp </span><span class="nv">$new_group</span><span class="sh">
-endif
-</span><span class="no">EOF
-</span><span class="nb">chmod </span>0755 ~/scan_new_grp.csh
-
-
-<span class="c"># Update the gnome-terminal configuration</span>
-<span class="nb">mkdir</span> <span class="nt">-p</span> ~/.gconf/apps/gnome-terminal/profiles/Default/
-<span class="nb">cat</span> <span class="o">&gt;</span> ~/.gconf/apps/gnome-terminal/profiles/Default/%gconf.xml <span class="o">&lt;&lt;</span> <span class="sh">'</span><span class="no">EOF</span><span class="sh">'
-&lt;?xml version="1.0"?&gt;
-&lt;gconf&gt;
-	&lt;entry name="custom_command" mtime="1701352260" type="string"&gt;
-		&lt;stringvalue&gt;/bin/csh -c &amp;quot; ~/scan_new_grp.csh; exec /bin/csh &amp;quot;&lt;/stringvalue&gt;
-	&lt;/entry&gt;
-	&lt;entry name="use_custom_command" mtime="1701352260" type="bool" value="true"/&gt;
-	&lt;entry name="palette" mtime="1701352260" type="string"&gt;
-		&lt;stringvalue&gt;#2E2E34343636:#CCCC00000000:#4E4E9A9A0606:#C4C4A0A00000:#34346565A4A4:#757550507B7B:#060698209A9A:#D3D3D7D7CFCF:#555557575353:#EFEF29292929:#8A8AE2E23434:#FCFCE9E94F4F:#72729F9FCFCF:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC&lt;/stringvalue&gt;
-	&lt;/entry&gt;
-	&lt;entry name="background_color" mtime="1701352260" type="string"&gt;
-		&lt;stringvalue&gt;#FFFFFFFFDDDD&lt;/stringvalue&gt;
-	&lt;/entry&gt;
-	&lt;entry name="visible_name" mtime="1701352260" type="string"&gt;
-		&lt;stringvalue&gt;Default&lt;/stringvalue&gt;
-	&lt;/entry&gt;
-	&lt;entry name="bold_color" mtime="1701352260" type="string"&gt;
-		&lt;stringvalue&gt;#000000000000&lt;/stringvalue&gt;
-	&lt;/entry&gt;
-	&lt;entry name="foreground_color" mtime="1701352260" type="string"&gt;
-		&lt;stringvalue&gt;#000000000000&lt;/stringvalue&gt;
-	&lt;/entry&gt;
-&lt;/gconf&gt;
-</span><span class="no">EOF
-
-
-</span><span class="c"># Install krusader, a file manager. If you want to use this tool, please contact your system administrator to install.</span>
-<span class="c">#sudo yum install epel-release</span>
-<span class="c">#sudo yum localinstall http://rpms.plnet.rs/plnet-centos6-x86_64/RPMS.plnet-compiled/krusader-2.3.0-0.1.beta1.el6.x86_64.rpm</span>
-
-</code></pre></div></div>]]></content><author><name></name></author><category term="icenv"/><category term="group"/><summary type="html"><![CDATA[场景说明 令芯片设计环境的研发人员经常头疼的一件事，维护完群组后，无法在Linux桌面生效。支持人员频繁接到这样的case，只能建议ta： run ‘newgrp newly-added-group-name’, or logout the vnc and login again.]]></summary></entry><entry><title type="html">git ssh通过squid proxy访问</title><link href="https://www.icinfra.cn/blog/2023/ssh-over-squid-proxy/" rel="alternate" type="text/html" title="git ssh通过squid proxy访问"/><published>2023-11-28T09:51:00+00:00</published><updated>2023-11-28T09:51:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/ssh-over-squid-proxy</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/ssh-over-squid-proxy/"><![CDATA[<h1 id="背景">背景</h1> <p>现有IDC服务器A，仅可访问内网。以及一台云服务器B，可通过NAT访问外网，以及被A访问。</p> <h1 id="需求">需求</h1> <p>A服务器需要访问github.com，做代码开发的上传下载。</p> <p><img width="278" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/d313a295-54d1-4a9f-9873-3b8ec50526d5"/></p> <h1 id="配置squid">配置squid</h1> <p>在B服务器上安装squid，配置/etc/squid/squid.conf，将这两行加到前面，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+</code></pre></div></div> <h1 id="参考资料">参考资料</h1> <p>https://slurm.schedmd.com/quickstart_admin.html#build_install #slurm的构建与安装</p> <p>https://www.icinfra.cn/blog/2023/setting-up-munge-on-almalinux8/ #munge的安装</p>]]></content><author><name></name></author><category term="icenv"/><category term="slurm"/><summary type="html"><![CDATA[提前并运行munge [root@offline-almalinux8-193-computing slurm-23.11.0]# ./configure --prefix=/tools/OSS/Slurm/23.11.0 --with-munge [root@offline-almalinux8-193-computing slurm-23.11.0]# make &amp;&amp; make install]]></summary></entry><entry><title type="html">git ssh通过squid proxy访问</title><link href="https://www.icinfra.cn/blog/2023/ssh-over-squid-proxy/" rel="alternate" type="text/html" title="git ssh通过squid proxy访问"/><published>2023-11-28T09:51:00+00:00</published><updated>2023-11-28T09:51:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/ssh-over-squid-proxy</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/ssh-over-squid-proxy/"><![CDATA[<h1 id="背景">背景</h1> <p>现有IDC服务器A，仅可访问内网。以及一台云服务器B，可通过NAT访问外网，以及被A访问。</p> <h1 id="需求">需求</h1> <p>A服务器需要访问github.com，做代码开发的上传下载。</p> <p><img width="278" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/d313a295-54d1-4a9f-9873-3b8ec50526d5"/></p> <h1 id="配置squid">配置squid</h1> <p>在B服务器上安装squid，配置/etc/squid/squid.conf，将这两行加到前面，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
 acl Safe_ports port 22 <span class="c"># ssh</span>
 acl SSL_ports port 22 <span class="c"># ssh</span>
 </code></pre></div></div> <h1 id="启动squid">启动squid</h1> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl <span class="nb">enable </span>squid <span class="nt">--now</span>
