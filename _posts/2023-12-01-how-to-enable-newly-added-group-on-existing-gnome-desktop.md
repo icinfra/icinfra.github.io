@@ -88,13 +88,13 @@ if ("$new_grp_array" != "") then
 
     if ("$new_group" != "") then
         # 切换群组，使其生效
-        newgrp $new_group
+        exec newgrp $new_group
     endif
 else
     set current_group=`id -gn`
     if ( $?primary_group ) then
         if ( "$primary_group" != "$current_group" ) then
-            newgrp $primary_group
+            exec newgrp $primary_group
         endif
     endif
     unset current_group
