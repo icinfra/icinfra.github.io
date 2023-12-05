@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  已开启的gnome桌面如何进入群组为新加群组且权限为770的文件夹
+title:  
 date: 2023-11-30 11:00+0800
 description: 
 tags: group
