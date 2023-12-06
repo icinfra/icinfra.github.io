@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2023-12-05T02:24:19+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">Cadence COSLITE Product</title><link href="https://www.icinfra.cn/blog/2023/what-is-coslite/" rel="alternate" type="text/html" title="Cadence COSLITE Product"/><published>2023-12-05T02:00:00+00:00</published><updated>2023-12-05T02:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/what-is-coslite</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/what-is-coslite/"><![CDATA[<h1 id="coslite是什么">COSLITE是什么</h1> <p>在验收License时，看到多出来一个COSLITE Product。从https://e2e.ti.com/support/tools/simulation-hardware-system-design-tools-group/sim-hw-system-design/f/simulation-hardware-system-design-tools-forum/952521/pspice-for-ti-warning-lmc-07708-unable-to-validate-licenses 查看到，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">########################################################################</span>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2023-12-06T06:10:22+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">Cadence COSLITE Product</title><link href="https://www.icinfra.cn/blog/2023/what-is-coslite/" rel="alternate" type="text/html" title="Cadence COSLITE Product"/><published>2023-12-05T02:00:00+00:00</published><updated>2023-12-05T02:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/what-is-coslite</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/what-is-coslite/"><![CDATA[<h1 id="coslite是什么">COSLITE是什么</h1> <p>在验收License时，看到多出来一个COSLITE Product。从https://e2e.ti.com/support/tools/simulation-hardware-system-design-tools-group/sim-hw-system-design/f/simulation-hardware-system-design-tools-forum/952521/pspice-for-ti-warning-lmc-07708-unable-to-validate-licenses 查看到，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">########################################################################</span>
 <span class="c">#     COSLITE INFORMATION</span>
 <span class="c">########################################################################</span>
 <span class="c">#</span>
@@ -11,13 +11,13 @@
 <span class="c"># For any further questions, please use the feedback option in the</span>
 <span class="c"># https://support.cadence.com site and someone from the product team will get</span>
 <span class="c"># back to you.</span>
-</code></pre></div></div> <p>它是允许一些数字工具不经登录就可访问CadenceHelp的一个Product。</p>]]></content><author><name></name></author><category term="icenv"/><category term="eda"/><summary type="html"><![CDATA[COSLITE是什么 在验收License时，看到多出来一个COSLITE Product。从https://e2e.ti.com/support/tools/simulation-hardware-system-design-tools-group/sim-hw-system-design/f/simulation-hardware-system-design-tools-forum/952521/pspice-for-ti-warning-lmc-07708-unable-to-validate-licenses 查看到，]]></summary></entry><entry><title type="html">新加群组如何在terminal与文件</title><link href="https://www.icinfra.cn/blog/2023/enable-newly-added-on-newly-created-gnome-terminal/" rel="alternate" type="text/html" title="新加群组如何在terminal与文件"/><published>2023-11-30T21:01:00+00:00</published><updated>2023-11-30T21:01:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/enable-newly-added-on-newly-created-gnome-terminal</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/enable-newly-added-on-newly-created-gnome-terminal/"><![CDATA[<p>第一个视频，演示新加入的群组，可以在新开的gnome-terminal里生效。</p> <div class="row mt-3"> <div class="col-sm mt-3 mt-md-0"> <figure> <iframe src="https://youtu.be/WN7R-qALXcI" class="img-fluid rounded z-depth-1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" width="auto" height="auto"/> </figure> </div> </div> <p>相关定制的文件，如下 [wanlinwang@Tweak-new-group-effective-on-new-terminal-on-centos6 ~]$ cat ~/.gconf/apps/gnome-terminal/profiles/Default/%gconf.xml &lt;?xml version=”1.0”?&gt;</p> <gconf> <entry name="custom_command" mtime="1701352260" type="string"> <stringvalue>/bin/csh -c &quot; ~/scan_new_grp.csh; exec /bin/csh &quot;</stringvalue> </entry> <entry name="use_custom_command" mtime="1701352260" type="bool" value="true"/> <entry name="palette" mtime="1701352260" type="string"> <stringvalue>#2E2E34343636:#CCCC00000000:#4E4E9A9A0606:#C4C4A0A00000:#34346565A4A4:#757550507B7B:#060698209A9A:#D3D3D7D7CFCF:#555557575353:#EFEF29292929:#8A8AE2E23434:#FCFCE9E94F4F:#72729F9FCFCF:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC</stringvalue> </entry> <entry name="background_color" mtime="1701352260" type="string"> <stringvalue>#FFFFFFFFDDDD</stringvalue> </entry> <entry name="visible_name" mtime="1701352260" type="string"> <stringvalue>Default</stringvalue> </entry> <entry name="bold_color" mtime="1701352260" type="string"> <stringvalue>#000000000000</stringvalue> </entry> <entry name="foreground_color" mtime="1701352260" type="string"> <stringvalue>#000000000000</stringvalue> </entry> </gconf> <p>[wanlinwang@Tweak-new-group-effective-on-new-terminal-on-centos6 ~]$ cat ~/scan_new_grp.csh #!/bin/csh</p> <h1 id="wanlinwang">wanlinwang</h1> <h1 id="nov-30-2023">Nov 30, 2023</h1> <p>set CSHRC=~/.cshrc if (! -e “$CSHRC”) then touch “$CSHRC” endif</p> <h1 id="获取当前用户的主群组">获取当前用户的主群组</h1> <p>set primary_group=<code class="language-plaintext highlighter-rouge">id -gn</code></p> <h1 id="获取当前用户的全部群组">获取当前用户的全部群组</h1> <p>set current_groups=<code class="language-plaintext highlighter-rouge">id -Gn</code></p> <h1 id="获取登录时的群组">获取登录时的群组</h1> <p>set login_groups=<code class="language-plaintext highlighter-rouge">id -Gn $USER</code></p> <h1 id="创建临时文件">创建临时文件</h1> <p>set temp1=<code class="language-plaintext highlighter-rouge">mktemp</code> set temp2=<code class="language-plaintext highlighter-rouge">mktemp</code></p> <h1 id="将群组信息写入临时文件">将群组信息写入临时文件</h1> <p>echo $current_groups | tr ‘ ‘ ‘\n’ | sort &gt; $temp1 echo $login_groups | tr ‘ ‘ ‘\n’ | sort &gt; $temp2</p> <h1 id="使用comm比较文件内容">使用comm比较文件内容</h1> <p>set new_group=<code class="language-plaintext highlighter-rouge">comm -13 $temp1 $temp2</code></p> <h1 id="删除临时文件">删除临时文件</h1> <p>rm -f $temp1 rm -f $temp2</p> <p>if (“$new_group” != “”) then # 确保定义restore_primary_grp这个别名 grep -q “alias restore_primary_grp newgrp “ “$CSHRC” if ($status == 0) then sed -i “/alias restore_primary_grp/c\alias restore_primary_grp newgrp $primary_group” “$CSHRC” else echo “#auto added by wanlinwang.\nalias restore_primary_grp newgrp $primary_group” » “$CSHRC” endif # 切换群组，使得生效 newgrp $new_group endif [wanlinwang@Tweak-new-group-effective-on-new-terminal-on-centos6 ~]$ cat .cshrc</p> <h1 id="切换到primary群组">切换到primary群组。</h1> <p>set current_group=<code class="language-plaintext highlighter-rouge">id -g -n</code> set expect_group=”wanlinwang” if ( $current_group != $expect_group ) then newgrp $expect_group endif unset current_group expect_group</p> <p>第二个视频，演示krusader可以在生效后的gnome-terminal里，打开新群组才可以访问的文件夹。</p> <div class="row mt-3"> <div class="col-sm mt-3 mt-md-0"> <figure> <iframe src="https://youtu.be/nG5YelsFeAs" class="img-fluid rounded z-depth-1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" width="auto" height="auto"/> </figure> </div> </div> <p>安装命令，如下 EPEL sudo yum install epel-release Krusader sudo yum localinstall http://rpms.plnet.rs/plnet-centos6-x86_64/RPMS.plnet-compiled/krusader-2.3.0-0.1.beta1.el6.x86_64.rpm Gedit sudo yum install gedit</p>]]></content><author><name></name></author><category term="icenv"/><category term="group"/><summary type="html"><![CDATA[新加群组，在新开的gnome-terminal里自动生效]]></summary></entry><entry><title type="html">How To Enable Newly Added Group On Existing Linux Desktop</title><link href="https://www.icinfra.cn/blog/2023/how-to-enable-newly-added-group-on-existing-linux-desktop/" rel="alternate" type="text/html" title="How To Enable Newly Added Group On Existing Linux Desktop"/><published>2023-11-30T03:00:00+00:00</published><updated>2023-11-30T03:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/how-to-enable-newly-added-group-on-existing-linux-desktop</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/how-to-enable-newly-added-group-on-existing-linux-desktop/"><![CDATA[<h1 id="场景说明">场景说明</h1> <p>令芯片设计环境的研发人员经常头疼的一件事，维护完群组后，无法在Linux桌面生效。支持人员频繁接到这样的case，只能建议ta：</p> <ul> <li>run ‘newgrp newly-added-group-name’, or</li> <li>logout the vnc and login again.</li> </ul> <p>在遵循Linux桌面设计范式的前提下，本文我们尽量做到让用户无感地让新加群组生效。</p> <h1 id="环境说明">环境说明</h1> <p>CentOS 6.10, Gnome, Krusader</p> <h1 id="效果演示">效果演示</h1> <p>定制完毕后，</p> <ul> <li><strong>新开terminal，新群组就生效了</strong>。无需用户做任何操作。</li> <li><strong>在新开terminal里打开krusader，可以浏览与编辑文件</strong>。</li> </ul> <p><img width="1920" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/69c5e444-1905-4b90-9ea4-3282f15d20ec"/></p> <h1 id="代码示例">代码示例</h1> <h2 id="新terminal生效新群组">新terminal生效新群组</h2> <p>用户只需要运行一次本脚本即可。也可以管理员将~/.flush_groups.csh文件放至NFS，用户家目录.cshrc文件去source即可。</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+</code></pre></div></div> <p>它是允许一些数字工具不经登录就可访问CadenceHelp的一个Product。</p>]]></content><author><name></name></author><category term="icenv"/><category term="eda"/><summary type="html"><![CDATA[COSLITE是什么 在验收License时，看到多出来一个COSLITE Product。从https://e2e.ti.com/support/tools/simulation-hardware-system-design-tools-group/sim-hw-system-design/f/simulation-hardware-system-design-tools-forum/952521/pspice-for-ti-warning-lmc-07708-unable-to-validate-licenses 查看到，]]></summary></entry><entry><title type="html">How To Enable Newly Added Group On Existing Linux Desktop</title><link href="https://www.icinfra.cn/blog/2023/how-to-enable-newly-added-group-on-existing-linux-desktop/" rel="alternate" type="text/html" title="How To Enable Newly Added Group On Existing Linux Desktop"/><published>2023-11-30T03:00:00+00:00</published><updated>2023-11-30T03:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/how-to-enable-newly-added-group-on-existing-linux-desktop</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/how-to-enable-newly-added-group-on-existing-linux-desktop/"><![CDATA[<h1 id="场景说明">场景说明</h1> <p>令芯片设计环境的研发人员经常头疼的一件事，维护完群组后，无法在Linux桌面生效。支持人员频繁接到这样的case，只能建议ta：</p> <ul> <li>run ‘newgrp newly-added-group-name’, or</li> <li>logout the vnc and login again.</li> </ul> <p>在遵循Linux桌面设计范式的前提下，本文我们尽量做到让用户无感地让新加群组生效。</p> <h1 id="环境说明">环境说明</h1> <p>CentOS 6.10, Gnome, Krusader</p> <h1 id="效果演示">效果演示</h1> <p>定制完毕后，</p> <ul> <li><strong>新开terminal，新群组就生效了</strong>。无需用户做任何操作。</li> <li><strong>在新开terminal里打开krusader，可以浏览与编辑文件</strong>。</li> </ul> <p><img width="1920" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/69c5e444-1905-4b90-9ea4-3282f15d20ec"/></p> <h1 id="代码示例">代码示例</h1> <h2 id="新terminal生效新群组">新terminal生效新群组</h2> <p>用户只需要运行一次本脚本即可。也可以管理员将<code class="language-plaintext highlighter-rouge">~/.flush_groups.[c]sh</code>文件放至NFS，用户家目录<code class="language-plaintext highlighter-rouge">.[c|ba]shrc</code>文件去source即可。</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
 
 <span class="c"># Author:      wanlinwang</span>
 <span class="c"># Date  :      Nov 30, 2023</span>
 <span class="c"># Description: This script is to make newly added group(s) available in newly created gnome-terminal on CentOS 6.10. Run me once.</span>
 
-
+<span class="c">#################</span>
 <span class="c"># Update .cshrc.</span>
 <span class="nv">CSHRC</span><span class="o">=</span>~/.cshrc
 <span class="k">if</span> <span class="o">[</span> <span class="o">!</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$CSHRC</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
@@ -29,7 +29,6 @@
     <span class="c"># If the line doesn't exist, add it to the file</span>
     <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$LINE</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> <span class="s2">"</span><span class="nv">$CSHRC</span><span class="s2">"</span>
 <span class="k">fi</span>
-
 
 <span class="c"># Add ~/.flush_groups.csh</span>
 <span class="nb">cat</span> <span class="o">&gt;</span> ~/.flush_groups.csh <span class="o">&lt;&lt;</span> <span class="sh">'</span><span class="no">EOF</span><span class="sh">'
@@ -83,9 +82,72 @@ else
 endif
 
 unsetenv new_grp_array
-</span><span class="no">
-EOF
+</span><span class="no">EOF
 
+</span><span class="c">#################</span>
+<span class="c"># Update .bashrc.</span>
+<span class="nv">BASHRC</span><span class="o">=</span>~/.bashrc
+<span class="k">if</span> <span class="o">[</span> <span class="o">!</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$BASHRC</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+    </span><span class="nb">touch</span> <span class="s2">"</span><span class="nv">$BASHRC</span><span class="s2">"</span>
+<span class="k">fi</span>
+<span class="c"># The line to add if it doesn't exist</span>
+<span class="nv">LINE</span><span class="o">=</span><span class="s2">"source ~/.flush_groups.sh"</span>
+<span class="k">if</span> <span class="o">!</span> <span class="nb">grep</span> <span class="nt">-Fxq</span> <span class="s2">"</span><span class="nv">$LINE</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$BASHRC</span><span class="s2">"</span><span class="p">;</span> <span class="k">then</span>
+    <span class="c"># If the line doesn't exist, add it to the file</span>
+    <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$LINE</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> <span class="s2">"</span><span class="nv">$BASHRC</span><span class="s2">"</span>
+<span class="k">fi</span>
+
+<span class="c"># Add ~/.flush_groups.sh</span>
+<span class="nb">cat</span> <span class="o">&gt;</span> ~/.flush_groups.sh <span class="o">&lt;&lt;</span> <span class="sh">'</span><span class="no">EOF</span><span class="sh">'
+# Written by wanlinwang.
+# Date: Dec 6, 2023
+# Description: Automates the process of refreshing newly added groups in new terminal sessions.
+
+# Check if new groups array exists
+if [ -z "</span><span class="nv">$new_grp_array</span><span class="sh">" ]; then
+
+    # Retrieve the current user's primary group and all groups in the current session
+    primary_group=</span><span class="si">$(</span><span class="nb">id</span> <span class="nt">-gn</span><span class="si">)</span><span class="sh">
+    current_groups=</span><span class="si">$(</span><span class="nb">id</span> <span class="nt">-Gn</span> 2&gt;/dev/null<span class="si">)</span><span class="sh">
+
+    # Get the current user's latest complete group list
+    login_groups=</span><span class="si">$(</span><span class="nb">id</span> <span class="nt">-Gn</span> <span class="nv">$USER</span> 2&gt;/dev/null<span class="si">)</span><span class="sh">
+    
+    # Create temporary files and write group information into them
+    temp1=</span><span class="si">$(</span><span class="nb">mktemp</span><span class="si">)</span><span class="sh">
+    temp2=</span><span class="si">$(</span><span class="nb">mktemp</span><span class="si">)</span><span class="sh">
+    echo </span><span class="nv">$current_groups</span><span class="sh"> | tr ' ' '</span><span class="se">\n</span><span class="sh">' | sort &gt; "</span><span class="nv">$temp1</span><span class="sh">"
+    echo </span><span class="nv">$login_groups</span><span class="sh"> | tr ' ' '</span><span class="se">\n</span><span class="sh">' | sort &gt; "</span><span class="nv">$temp2</span><span class="sh">"
+    
+    # Compare file contents using 'comm'
+    new_grp_array=</span><span class="si">$(</span><span class="nb">comm</span> <span class="nt">-13</span> <span class="s2">"</span><span class="nv">$temp1</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$temp2</span><span class="s2">"</span> | <span class="nb">tr</span> <span class="s1">'\n'</span> <span class="s1">' '</span><span class="si">)</span><span class="sh">
+    
+    # Delete temporary files
+    rm -f "</span><span class="nv">$temp1</span><span class="sh">" "</span><span class="nv">$temp2</span><span class="sh">"
+fi
+
+# Iterate over new_grp_array
+if [ ! -z "</span><span class="nv">$new_grp_array</span><span class="sh">" ]; then
+    new_group=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$new_grp_array</span> | <span class="nb">awk</span> <span class="s1">'{print $1}'</span><span class="si">)</span><span class="sh">
+    new_grp_array=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nv">$new_grp_array</span> | <span class="nb">awk</span> <span class="s1">'{$1=""; print $0}'</span> | <span class="nb">sed</span> <span class="s1">'s/^[ \t]*//'</span><span class="si">)</span><span class="sh">
+
+    if [ ! -z "</span><span class="nv">$new_group</span><span class="sh">" ]; then
+        # Switch to the new group to activate it
+        exec newgrp </span><span class="nv">$new_group</span><span class="sh">
+    fi
+else
+    current_group=</span><span class="si">$(</span><span class="nb">id</span> <span class="nt">-gn</span><span class="si">)</span><span class="sh">
+    if [ -n "</span><span class="nv">$primary_group</span><span class="sh">" ]; then
+        if [ "</span><span class="nv">$primary_group</span><span class="sh">" != "</span><span class="nv">$current_group</span><span class="sh">" ]; then
+            exec newgrp </span><span class="nv">$primary_group</span><span class="sh">
+        fi
+    fi
+    unset current_group
+    unset primary_group
+fi
+
+unset new_grp_array
+</span><span class="no">EOF
 </span></code></pre></div></div> <h2 id="krusader">krusader</h2> <p>按需，需要联网。如果离线环境则手动下载回来安装。</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install krusader, a file manager. If you want to use this tool, please contact your system administrator to install.</span>
 <span class="nb">sudo </span>yum <span class="nb">install </span>epel-release
 <span class="nb">sudo </span>yum localinstall http://rpms.plnet.rs/plnet-centos6-x86_64/RPMS.plnet-compiled/krusader-2.3.0-0.1.beta1.el6.x86_64.rpm
@@ -475,4 +537,4 @@ if __name__ == "__main__":
         link, pw = *row
         print(f"Downloading {link} with password {pw}")
         download(link, pw)
-</code></pre> <p>运行，开始下载： <img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/9669aa6c-87fd-4fa3-a908-97a0bbce4570" alt="image"/></p>]]></content><author><name></name></author><category term="icenv"/><category term="automation"/><summary type="html"><![CDATA[接到需求，需要从合作伙伴提供的群晖NAS上，批量下载大量文件。手动下载太费事费时，没有价值；并且PC的带宽有限，只能将批量串行下载，手动的话中间容易出现空闲，导致总的下载时长很长。]]></summary></entry></feed>
+</code></pre> <p>运行，开始下载： <img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/9669aa6c-87fd-4fa3-a908-97a0bbce4570" alt="image"/></p>]]></content><author><name></name></author><category term="icenv"/><category term="automation"/><summary type="html"><![CDATA[接到需求，需要从合作伙伴提供的群晖NAS上，批量下载大量文件。手动下载太费事费时，没有价值；并且PC的带宽有限，只能将批量串行下载，手动的话中间容易出现空闲，导致总的下载时长很长。]]></summary></entry><entry><title type="html">gcc编译时无法提示没有这样的指令</title><link href="https://www.icinfra.cn/blog/2023/no-such-instruction/" rel="alternate" type="text/html" title="gcc编译时无法提示没有这样的指令"/><published>2023-11-07T15:28:00+00:00</published><updated>2023-11-07T15:28:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/no-such-instruction</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/no-such-instruction/"><![CDATA[<p><img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/d7f3c00b-e674-4ffa-91f1-5e4a1d860dfe" alt="image"/></p> <p>由于编译的gcc，没有将binutils编进去，从而它使用了系统下的as (binutils提供的)汇编命令。而系统下的as命令版本太低，不识别新CPU的flag。</p> <p>解决方法是：重新编gcc，将新版本的binutils编进去了。</p>]]></content><author><name></name></author><category term="icenv"/><category term="gcc"/><summary type="html"><![CDATA[]]></summary></entry></feed>
