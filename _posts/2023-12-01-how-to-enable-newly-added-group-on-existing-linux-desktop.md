@@ -122,11 +122,11 @@ cat > ~/.flush_groups.sh << 'EOF'
 # Date: Dec 6, 2023
 # Description: Automates the process of refreshing newly added groups in new terminal sessions.
 
-# Check if new groups array is empty
-if [ -z "${new_groups[@]}" ]; then
+# Check if new groups array exists
+if [ -z "$new_grp_array" ]; then
 
     # Retrieve the current user's primary group and all groups in the current session
-    primary_group=$(id -gn 2>/dev/null)
+    primary_group=$(id -gn)
     current_groups=$(id -Gn 2>/dev/null)
 
     # Get the current user's latest complete group list
@@ -139,37 +139,33 @@ if [ -z "${new_groups[@]}" ]; then
     echo $login_groups | tr ' ' '\n' | sort > "$temp2"
     
     # Compare file contents using 'comm'
-    readarray -t new_groups < <(comm -13 "$temp1" "$temp2")
+    new_grp_array=$(comm -13 "$temp1" "$temp2" | tr '\n' ' ')
     
     # Delete temporary files
     rm -f "$temp1" "$temp2"
 fi
 
-# Initialize the index as an environment variable
-export index_of_new_grps=0
-
-# Iterate over new_groups array using the index
-while [ $index_of_new_grps -lt ${#new_groups[@]} ]; do
-    new_group=${new_groups[$index_of_new_grps]}
-    index_of_new_grps=$((index_of_new_grps + 1))
+# Iterate over new_grp_array
+if [ ! -z "$new_grp_array" ]; then
+    new_group=$(echo $new_grp_array | awk '{print $1}')
+    new_grp_array=$(echo $new_grp_array | awk '{$1=""; print $0}' | sed 's/^[ \t]*//')
 
     if [ ! -z "$new_group" ]; then
         # Switch to the new group to activate it
         exec newgrp $new_group
-        # After newgrp, the script will resume from here in the new subshell
-        # The index index_of_new_grps will continue from its current value
     fi
-done
-
-current_group=$(id -gn)
-if [ -n "$primary_group" ]; then
-    if [ "$primary_group" != "$current_group" ]; then
-        exec newgrp $primary_group
+else
+    current_group=$(id -gn)
+    if [ -n "$primary_group" ]; then
+        if [ "$primary_group" != "$current_group" ]; then
+            exec newgrp $primary_group
+        fi
     fi
+    unset current_group
+    unset primary_group
 fi
-unset current_group
-unset primary_group
-unset index_of_new_grps
+
+unset new_grp_array
 EOF
 ```
 
