@@ -1,4 +1,111 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2023-12-10T02:11:16+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">谷歌芯片设计团队如何利用GCP？</title><link href="https://www.icinfra.cn/blog/2023/how-does-google-chip-design-team-utilize-cloud/" rel="alternate" type="text/html" title="谷歌芯片设计团队如何利用GCP？"/><published>2023-12-10T02:00:00+00:00</published><updated>2023-12-10T02:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/how-does-google-chip-design-team-utilize-cloud</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/how-does-google-chip-design-team-utilize-cloud/"><![CDATA[<h1 id="参考资料">参考资料</h1> <p>March 29, 2023 <a href="https://cloud.google.com/blog/products/containers-kubernetes/google-chip-design-team-migrates-to-google-cloud-infrastructure">Google chip design team benefits from move to Google Cloud</a></p> <p>May 28, 2021 <a href="https://cloud.google.com/blog/products/compute/faster-chip-design-with-hybrid-silicon-workflows">Never miss a tapeout: Faster chip design with Google Cloud</a></p> <p>December 23, 2020 <a href="https://cloud.google.com/blog/products/compute/scale-up-your-eda-flows-on-google-cloud">Scale your EDA flows: How Google Cloud enables faster verification</a></p> <p>January 20, 2022 <a href="https://cloud.google.com/blog/products/operations/write-and-deploy-cloud-monitoring-alert-notifications-to-third-party-services">https://cloud.google.com/blog/products/operations/write-and-deploy-cloud-monitoring-alert-notifications-to-third-party-services</a></p>]]></content><author><name></name></author><category term="icenv"/><category term="chip"/><summary type="html"><![CDATA[参考资料 March 29, 2023 Google chip design team benefits from move to Google Cloud]]></summary></entry><entry><title type="html">Cadence COSLITE Product</title><link href="https://www.icinfra.cn/blog/2023/what-is-coslite/" rel="alternate" type="text/html" title="Cadence COSLITE Product"/><published>2023-12-05T02:00:00+00:00</published><updated>2023-12-05T02:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/what-is-coslite</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/what-is-coslite/"><![CDATA[<h1 id="coslite是什么">COSLITE是什么</h1> <p>在验收License时，看到多出来一个COSLITE Product。从https://e2e.ti.com/support/tools/simulation-hardware-system-design-tools-group/sim-hw-system-design/f/simulation-hardware-system-design-tools-forum/952521/pspice-for-ti-warning-lmc-07708-unable-to-validate-licenses 查看到，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">########################################################################</span>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2023-12-17T09:30:30+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">FreeIPA运行于容器</title><link href="https://www.icinfra.cn/blog/2023/deploy-freeipa-with-docker/" rel="alternate" type="text/html" title="FreeIPA运行于容器"/><published>2023-12-17T02:00:00+00:00</published><updated>2023-12-17T02:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/deploy-freeipa-with-docker</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/deploy-freeipa-with-docker/"><![CDATA[<h1 id="freeipa-server在almalinux-8容器的初始化与运行">FreeIPA Server在almalinux-8容器的初始化与运行</h1> <p>1）初始化安装</p> <ul> <li>生成数据文件夹，存放在/data/ipa-data目录</li> <li>直接使用宿主机网络 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> <span class="nt">-p</span> /data/ipa-data
+podman run <span class="se">\</span>
+<span class="nt">--rm</span> <span class="se">\</span>
+<span class="nt">--shm-size</span><span class="o">=</span>2GB <span class="se">\</span>
+<span class="nt">--name</span> ipa-01.icinfra.cn <span class="se">\</span>
+<span class="nt">--net</span> host <span class="se">\</span>
+<span class="nt">-ti</span> <span class="se">\</span>
+<span class="nt">-h</span> ipa-01.icinfra.cn <span class="se">\</span>
+<span class="nt">--read-only</span> <span class="se">\</span>
+<span class="nt">-e</span> <span class="nv">PASSWORD</span><span class="o">=</span>Secret123 <span class="se">\</span>
+<span class="nt">-v</span> /data/ipa-data:/data:Z <span class="se">\</span>
+<span class="nt">--dns</span><span class="o">=</span>127.0.0.1 <span class="se">\</span>
+<span class="nt">-e</span> <span class="nv">TZ</span><span class="o">=</span>Asia/Shanghai <span class="se">\</span>
+<span class="nt">-v</span> /etc/localtime:/etc/localtime:ro <span class="se">\</span>
+<span class="nt">--add-host</span><span class="o">=</span>ipa-01.icinfra.cn:172.16.0.13 <span class="se">\</span>
+docker.io/freeipa/freeipa-server:almalinux-8 <span class="se">\</span>
+<span class="nt">--allow-zone-overlap</span> <span class="se">\</span>
+<span class="nt">--no-ntp</span>
+</code></pre></div> </div> <p>其中， podman的选项与参数，</p> </li> <li><code class="language-plaintext highlighter-rouge">/data/ipa-data</code>用于存放于ipa相关的配置文件与数据。</li> <li><code class="language-plaintext highlighter-rouge">--rm</code>使得容器停止就删除。由于配置文件与数据都持久化到了<code class="language-plaintext highlighter-rouge">/data/ipa-data</code>，因此容器是无状态容器，可以随时删除并重新运行一个。</li> <li><code class="language-plaintext highlighter-rouge">--shm-size=2GB</code>如果不指定，默认分配64MB共享内存。</li> <li><code class="language-plaintext highlighter-rouge">--name ipa-01.icinfra.cn</code>用于指定容器名称。</li> <li><code class="language-plaintext highlighter-rouge">--net host</code>使用宿主机的网络。</li> <li><code class="language-plaintext highlighter-rouge">ti</code>分配tty，以及交互式。</li> <li><code class="language-plaintext highlighter-rouge">-h ipa-01.icinfra.cn</code>容器内的主机名。</li> <li><code class="language-plaintext highlighter-rouge">--read-only</code>使根文件系统只读。状态全部持久化到<code class="language-plaintext highlighter-rouge">/data/ipa-data</code>。</li> <li><code class="language-plaintext highlighter-rouge">-e PASSWROD=Secret123</code>传入PASSWORD环境变量。</li> <li><code class="language-plaintext highlighter-rouge">-v /data/ipa-data:/data:Z</code>将卷绑定挂载到容器中。</li> <li><code class="language-plaintext highlighter-rouge">--dns=127.0.0.1</code>修改/etc/resolv.conf文件内容</li> <li><code class="language-plaintext highlighter-rouge">--add-host=ipa-01.icinfra.cn:172.16.0.13</code>/etc/hosts增加一行</li> </ul> <p>ipa-server-install的选项与参数，</p> <ul> <li><code class="language-plaintext highlighter-rouge">--allow-zone-overlap</code></li> <li><code class="language-plaintext highlighter-rouge">--no-ntp</code></li> </ul> <p>修改DNS Server配置并重启，使得允许全部查询。</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@ipa-01 /]# <span class="nb">cat</span> /etc/named/ipa-options-ext.conf
+/<span class="k">*</span> User customization <span class="k">for </span>BIND named
+ <span class="k">*</span>
+ <span class="k">*</span> This file is included <span class="k">in</span> /etc/named.conf and is not modified during IPA
+ <span class="k">*</span> upgrades.
+ <span class="k">*</span>
+ <span class="k">*</span> It must only contain <span class="s2">"options"</span> settings. Any other setting must be
+ <span class="k">*</span> configured <span class="k">in</span> /data/etc/named/ipa-ext.conf.
+ <span class="k">*</span>
+ <span class="k">*</span> Examples:
+ <span class="k">*</span> allow-recursion <span class="o">{</span> trusted_network<span class="p">;</span> <span class="o">}</span><span class="p">;</span>
+ <span class="k">*</span> allow-query-cache <span class="o">{</span> trusted_network<span class="p">;</span> <span class="o">}</span><span class="p">;</span>
+ <span class="k">*</span>/
+
+/<span class="k">*</span> turns on IPv6 <span class="k">for </span>port 53, IPv4 is on by default <span class="k">for </span>all ifaces <span class="k">*</span>/
+listen-on-v6 <span class="o">{</span> any<span class="p">;</span> <span class="o">}</span><span class="p">;</span>
+
+/<span class="k">*</span> dnssec-enable is obsolete and <span class="s1">'yes'</span> by default <span class="k">*</span>/
+dnssec-validation no<span class="p">;</span>
+allow-query <span class="o">{</span> any<span class="p">;</span> <span class="o">}</span><span class="p">;</span>
+<span class="o">[</span>root@ipa-01 /]# systemctl status | <span class="nb">grep </span>name
+           ├─948 <span class="nb">grep</span> <span class="nt">--color</span><span class="o">=</span>auto name
+             ├─named-pkcs11.service
+             │ └─286 /usr/sbin/named-pkcs11 <span class="nt">-u</span> named <span class="nt">-c</span> /etc/named.conf
+<span class="o">[</span>root@ipa-01 /]# systemctl restart named-pkcs11
+</code></pre></div></div> <p>2) 在后台运行 去掉交互式，增加<code class="language-plaintext highlighter-rouge">-d</code></p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>podman stop <span class="sb">`</span>podman ps <span class="nt">-q</span><span class="sb">`</span> <span class="c">#停止刚才交互式运行的容器。</span>
+podman run <span class="se">\</span>
+<span class="nt">--rm</span> <span class="se">\</span>
+<span class="nt">--shm-size</span><span class="o">=</span>2GB <span class="se">\</span>
+<span class="nt">--name</span> ipa-01.icinfra.cn <span class="se">\</span>
+<span class="nt">--net</span> host <span class="se">\</span>
+<span class="nt">-d</span> <span class="se">\</span>
+<span class="nt">-h</span> ipa-01.icinfra.cn <span class="se">\</span>
+<span class="nt">--read-only</span> <span class="se">\</span>
+<span class="nt">-e</span> <span class="nv">PASSWORD</span><span class="o">=</span>Secret123 <span class="se">\</span>
+<span class="nt">-v</span> /data/ipa-data:/data:Z <span class="se">\</span>
+<span class="nt">--dns</span><span class="o">=</span>127.0.0.1 <span class="se">\</span>
+<span class="nt">-e</span> <span class="nv">TZ</span><span class="o">=</span>Asia/Shanghai <span class="se">\</span>
+<span class="nt">-v</span> /etc/localtime:/etc/localtime:ro <span class="se">\</span>
+<span class="nt">--add-host</span><span class="o">=</span>ipa-01.icinfra.cn:172.16.0.13 <span class="se">\</span>
+docker.io/freeipa/freeipa-server:almalinux-8 <span class="se">\</span>
+<span class="nt">--allow-zone-overlap</span> <span class="se">\</span>
+<span class="nt">--no-ntp</span>
+</code></pre></div></div> <p>增加DNS Forwarder， <img width="1036" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/2e9cb448-2e7e-49c5-9ae3-6896cc9f69de"/></p> <h1 id="freeipa-client在almalinux-8安装与使用">FreeIPA Client在almalinux-8安装与使用</h1> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@Copy-of-VM-AlmaLinux8-tmpl-cloudinit-gui-5 ~]# <span class="nb">cat</span> /etc/resolv.conf
+<span class="p">;</span> Created by cloud-init on instance boot automatically, <span class="k">do </span>not edit.
+<span class="p">;</span>
+<span class="c"># Generated by NetworkManager</span>
+search lan icinfra.cn
+nameserver 172.16.0.13
+<span class="o">[</span>root@Copy-of-VM-AlmaLinux8-tmpl-cloudinit-gui-5 ~]# ipa-client-install <span class="nt">--hostname</span><span class="o">=</span>ipa-client-001.icinfra.cn <span class="nt">--server</span><span class="o">=</span>ipa-01.icinfra.cn <span class="nt">--domain</span><span class="o">=</span>icinfra.cn <span class="nt">--realm</span><span class="o">=</span>ICINFRA.CN <span class="nt">--principal</span><span class="o">=</span>admin <span class="nt">--password</span><span class="o">=</span>Secret123 <span class="nt">--unattended</span>
+This program will <span class="nb">set </span>up IPA client.
+Version 4.9.12
+
+Client <span class="nb">hostname</span>: ipa-client-001.icinfra.cn
+Realm: ICINFRA.CN
+DNS Domain: icinfra.cn
+IPA Server: ipa-01.icinfra.cn
+BaseDN: <span class="nv">dc</span><span class="o">=</span>icinfra,dc<span class="o">=</span>cn
+
+Synchronizing <span class="nb">time
+</span>No SRV records of NTP servers found and no NTP server or pool address was provided.
+Using default chrony configuration.
+Attempting to <span class="nb">sync time </span>with chronyc.
+Time synchronization was successful.
+Successfully retrieved CA cert
+    Subject:     <span class="nv">CN</span><span class="o">=</span>Certificate Authority,O<span class="o">=</span>ICINFRA.CN
+    Issuer:      <span class="nv">CN</span><span class="o">=</span>Certificate Authority,O<span class="o">=</span>ICINFRA.CN
+    Valid From:  2023-12-17 03:55:11
+    Valid Until: 2043-12-17 03:55:11
+
+Enrolled <span class="k">in </span>IPA realm ICINFRA.CN
+Created /etc/ipa/default.conf
+Configured /etc/sssd/sssd.conf
+Systemwide CA database updated.
+Hostname <span class="o">(</span>ipa-client-001.icinfra.cn<span class="o">)</span> does not have A/AAAA record.
+Missing reverse record<span class="o">(</span>s<span class="o">)</span> <span class="k">for </span>address<span class="o">(</span>es<span class="o">)</span>: 172.16.0.78.
+Adding SSH public key from /etc/ssh/ssh_host_rsa_key.pub
+Adding SSH public key from /etc/ssh/ssh_host_ecdsa_key.pub
+Adding SSH public key from /etc/ssh/ssh_host_ed25519_key.pub
+SSSD enabled
+Configured /etc/openldap/ldap.conf
+Configured /etc/ssh/ssh_config
+Configured /etc/ssh/sshd_config
+Configuring icinfra.cn as NIS domain.
+Configured /etc/krb5.conf <span class="k">for </span>IPA realm ICINFRA.CN
+Client configuration complete.
+The ipa-client-install <span class="nb">command </span>was successful
+<span class="o">[</span>root@Copy-of-VM-AlmaLinux8-tmpl-cloudinit-gui-5 ~]# <span class="nb">id </span>admin
+<span class="nv">uid</span><span class="o">=</span>196400000<span class="o">(</span>admin<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>196400000<span class="o">(</span>admins<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>196400000<span class="o">(</span>admins<span class="o">)</span>
+</code></pre></div></div>]]></content><author><name></name></author><category term="icenv"/><category term="ipa"/><summary type="html"><![CDATA[FreeIPA Server在almalinux-8容器的初始化与运行 1）初始化安装 生成数据文件夹，存放在/data/ipa-data目录 直接使用宿主机网络 mkdir -p /data/ipa-data podman run \ --rm \ --shm-size=2GB \ --name ipa-01.icinfra.cn \ --net host \ -ti \ -h ipa-01.icinfra.cn \ --read-only \ -e PASSWORD=Secret123 \ -v /data/ipa-data:/data:Z \ --dns=127.0.0.1 \ -e TZ=Asia/Shanghai \ -v /etc/localtime:/etc/localtime:ro \ --add-host=ipa-01.icinfra.cn:172.16.0.13 \ docker.io/freeipa/freeipa-server:almalinux-8 \ --allow-zone-overlap \ --no-ntp 其中， podman的选项与参数， /data/ipa-data用于存放于ipa相关的配置文件与数据。 --rm使得容器停止就删除。由于配置文件与数据都持久化到了/data/ipa-data，因此容器是无状态容器，可以随时删除并重新运行一个。 --shm-size=2GB如果不指定，默认分配64MB共享内存。 --name ipa-01.icinfra.cn用于指定容器名称。 --net host使用宿主机的网络。 ti分配tty，以及交互式。 -h ipa-01.icinfra.cn容器内的主机名。 --read-only使根文件系统只读。状态全部持久化到/data/ipa-data。 -e PASSWROD=Secret123传入PASSWORD环境变量。 -v /data/ipa-data:/data:Z将卷绑定挂载到容器中。 --dns=127.0.0.1修改/etc/resolv.conf文件内容 --add-host=ipa-01.icinfra.cn:172.16.0.13/etc/hosts增加一行]]></summary></entry><entry><title type="html">谷歌芯片设计团队如何利用GCP？</title><link href="https://www.icinfra.cn/blog/2023/how-does-google-chip-design-team-utilize-cloud/" rel="alternate" type="text/html" title="谷歌芯片设计团队如何利用GCP？"/><published>2023-12-10T02:00:00+00:00</published><updated>2023-12-10T02:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/how-does-google-chip-design-team-utilize-cloud</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/how-does-google-chip-design-team-utilize-cloud/"><![CDATA[<h1 id="参考资料">参考资料</h1> <p>March 29, 2023 <a href="https://cloud.google.com/blog/products/containers-kubernetes/google-chip-design-team-migrates-to-google-cloud-infrastructure">Google chip design team benefits from move to Google Cloud</a></p> <p>May 28, 2021 <a href="https://cloud.google.com/blog/products/compute/faster-chip-design-with-hybrid-silicon-workflows">Never miss a tapeout: Faster chip design with Google Cloud</a></p> <p>December 23, 2020 <a href="https://cloud.google.com/blog/products/compute/scale-up-your-eda-flows-on-google-cloud">Scale your EDA flows: How Google Cloud enables faster verification</a></p> <p>January 20, 2022 <a href="https://cloud.google.com/blog/products/operations/write-and-deploy-cloud-monitoring-alert-notifications-to-third-party-services">https://cloud.google.com/blog/products/operations/write-and-deploy-cloud-monitoring-alert-notifications-to-third-party-services</a></p>]]></content><author><name></name></author><category term="icenv"/><category term="chip"/><summary type="html"><![CDATA[参考资料 March 29, 2023 Google chip design team benefits from move to Google Cloud]]></summary></entry><entry><title type="html">Cadence COSLITE Product</title><link href="https://www.icinfra.cn/blog/2023/what-is-coslite/" rel="alternate" type="text/html" title="Cadence COSLITE Product"/><published>2023-12-05T02:00:00+00:00</published><updated>2023-12-05T02:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/what-is-coslite</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/what-is-coslite/"><![CDATA[<h1 id="coslite是什么">COSLITE是什么</h1> <p>在验收License时，看到多出来一个COSLITE Product。从https://e2e.ti.com/support/tools/simulation-hardware-system-design-tools-group/sim-hw-system-design/f/simulation-hardware-system-design-tools-forum/952521/pspice-for-ti-warning-lmc-07708-unable-to-validate-licenses 查看到，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">########################################################################</span>
 <span class="c">#     COSLITE INFORMATION</span>
 <span class="c">########################################################################</span>
 <span class="c">#</span>
@@ -463,78 +570,4 @@ systemctl set-default graphical.target
 systemctl isolate graphical.target
 
 reboot
-</code></pre></div></div> <h2 id="结论">结论</h2> <p>XFCE 是一个具有简单界面的轻量环境。它是 Rocky Linux 上默认 GNOME 桌面的替代方案。</p> <h2 id="资料">资料</h2> <p>https://docs.rockylinux.org/guides/desktop/xfce_installation/</p>]]></content><author><name></name></author><category term="icenv"/><category term="xfce"/><summary type="html"><![CDATA[XFCE桌面环境 XFCE 桌面环境作为通用桌面环境 (CDE) 的一个分支而创建，体现了模块化和可重用性的传统 Unix 哲学。您可以在几乎任何版本的 Linux 上安装 XFCE，包括 Rocky Linux。]]></summary></entry><entry><title type="html">chat.openai.com提示Unable to load history</title><link href="https://www.icinfra.cn/blog/2023/chatgpt-unable-to-load-history/" rel="alternate" type="text/html" title="chat.openai.com提示Unable to load history"/><published>2023-11-08T15:00:00+00:00</published><updated>2023-11-08T15:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/chatgpt-unable-to-load-history</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/chatgpt-unable-to-load-history/"><![CDATA[<p>今天chat.openai.com登录后，提示Unable to load history</p> <p><img width="283" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/7294fb08-91e1-4f6d-8759-46e0c8cefd17"/></p> <p>打开F12发现很多403 forbidden的：原来是访问的部分URI，被openai block了。</p> <p>解决方法：VPS访问openai之间，再用WARP套一层，openai没那么容易去封WARP如此大的公网IP池。</p>]]></content><author><name></name></author><category term="icenv"/><category term="chatgpt"/><summary type="html"><![CDATA[今天chat.openai.com登录后，提示Unable to load history]]></summary></entry><entry><title type="html">自动化下载群晖共享的文件</title><link href="https://www.icinfra.cn/blog/2023/automating-file-downloading-from-Synology-NAS/" rel="alternate" type="text/html" title="自动化下载群晖共享的文件"/><published>2023-11-07T15:28:00+00:00</published><updated>2023-11-07T15:28:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/automating-file-downloading-from-Synology-NAS</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/automating-file-downloading-from-Synology-NAS/"><![CDATA[<p>接到需求，需要从合作伙伴提供的群晖NAS上，批量下载大量文件。手动下载太费事费时，没有价值；并且PC的带宽有限，只能将批量串行下载，手动的话中间容易出现空闲，导致总的下载时长很长。</p> <p>因此写了脚本做自动化下载，如下：</p> <pre><code class="language-python3">from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options
-import time
-import pandas as pd
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
-
-def is_download_completed(directory):
-    """
-    Check if all files in the specified directory have finished downloading.
-    """
-    for filename in os.listdir(directory):
-        # 下载过程中，临时文件的名字是.crdownload，因此这里判断是否有这样的文件
-        if filename.endswith('.crdownload') or filename.endswith('.part'):
-            return False
-    return True
-
-def download(link, pw):
-    # 设置Chrome选项以静默模式运行（无界面模式）
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")
-
-    # 设置下载文件的默认目录到 F:\Downloads
-    prefs = {
-        "download.default_directory": r"F:\Downloads",  # 使用原始字符串来避免转义
-        "download.prompt_for_download": False,
-        "download.directory_upgrade": True,
-        "safebrowsing_for_trusted_sources_enabled": False,
-        "safebrowsing.enabled": False
-    }
-    chrome_options.add_experimental_option("prefs", prefs)
-
-    # 初始化WebDriver
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=chrome_options)
-
-    # 打开登录页面
-    driver.get(link)
-
-    # 填写登录信息并提交表单
-    wait = WebDriverWait(driver, 10)
-    password_field = wait.until(EC.element_to_be_clickable((By.ID, "login_passwd")))
-    password_field.send_keys(pw)
-    driver.find_element(By.ID, "ext-gen62").click()
-
-    # 等待页面加载
-    time.sleep(5)
-
-    # 定位到下载链接并点击
-    download_link = driver.find_element(By.ID, "ext-gen71")
-    download_link.click()
-
-    # 等待文件下载完成
-    while not is_download_completed(download_path):
-        time.sleep(1)  # 每隔1秒检查一次
-
-    # 关闭浏览器
-    driver.quit()
-
-
-if __name__ == "__main__":
-    # 指定Excel文件的路径
-    file_path = "F:\\Downloads\\files2download_from_Synology.xlsx"
-    df = pd.read_excel(file_path, usecols=['链接', '密码'], engine='openpyxl')
-
-    for _, row in df.iterrows():
-        link, pw = *row
-        print(f"Downloading {link} with password {pw}")
-        download(link, pw)
-</code></pre> <p>运行，开始下载： <img src="https://github.com/icinfra/icinfra.github.io/assets/32032219/9669aa6c-87fd-4fa3-a908-97a0bbce4570" alt="image"/></p>]]></content><author><name></name></author><category term="icenv"/><category term="automation"/><summary type="html"><![CDATA[接到需求，需要从合作伙伴提供的群晖NAS上，批量下载大量文件。手动下载太费事费时，没有价值；并且PC的带宽有限，只能将批量串行下载，手动的话中间容易出现空闲，导致总的下载时长很长。]]></summary></entry></feed>
+</code></pre></div></div> <h2 id="结论">结论</h2> <p>XFCE 是一个具有简单界面的轻量环境。它是 Rocky Linux 上默认 GNOME 桌面的替代方案。</p> <h2 id="资料">资料</h2> <p>https://docs.rockylinux.org/guides/desktop/xfce_installation/</p>]]></content><author><name></name></author><category term="icenv"/><category term="xfce"/><summary type="html"><![CDATA[XFCE桌面环境 XFCE 桌面环境作为通用桌面环境 (CDE) 的一个分支而创建，体现了模块化和可重用性的传统 Unix 哲学。您可以在几乎任何版本的 Linux 上安装 XFCE，包括 Rocky Linux。]]></summary></entry><entry><title type="html">chat.openai.com提示Unable to load history</title><link href="https://www.icinfra.cn/blog/2023/chatgpt-unable-to-load-history/" rel="alternate" type="text/html" title="chat.openai.com提示Unable to load history"/><published>2023-11-08T15:00:00+00:00</published><updated>2023-11-08T15:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/chatgpt-unable-to-load-history</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/chatgpt-unable-to-load-history/"><![CDATA[<p>今天chat.openai.com登录后，提示Unable to load history</p> <p><img width="283" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/7294fb08-91e1-4f6d-8759-46e0c8cefd17"/></p> <p>打开F12发现很多403 forbidden的：原来是访问的部分URI，被openai block了。</p> <p>解决方法：VPS访问openai之间，再用WARP套一层，openai没那么容易去封WARP如此大的公网IP池。</p>]]></content><author><name></name></author><category term="icenv"/><category term="chatgpt"/><summary type="html"><![CDATA[今天chat.openai.com登录后，提示Unable to load history]]></summary></entry></feed>
