@@ -29,7 +29,7 @@ categories: icenv
 
    - 检查SCL服务器调试日志文件以查找启动错误。
    - 确保lmgrd和snpslmd已正确启动，没有出现"SSS"错误。
-   - 如果调试日志文件中存在与SSS相关的错误消息，需要采取相应的措施来解决问题。多个Synopsys License被管理员合并完后，经常出现如下错误。则需要确保每个License File只含最多一块SSS and/or 最多一块SSST。
+   - 如果调试日志文件中存在与SSS相关的错误消息，需要采取相应的措施来解决问题。多个Synopsys License被管理员合并完后，经常出现如下错误。请确保每个License File含[0,1]个SSS feature块，以及[0,n]个SSST feature块。
      ![image](https://github.com/icinfra/icinfra.github.io/assets/32032219/315ab578-6172-4dfa-a9c8-5effea716657)
 
 
@@ -40,7 +40,7 @@ categories: icenv
 
 这些是对License管理的一些重要事项的总结。详细的指南和步骤可以在提供的PDF文档中找到。
 
-不像Cadence家每个hostid提供一个完整的License文件，Synopsys家的License是可合并的（购买的与临时的合并，除此之外的其余场景避免合并）。这里提供一个合并脚本，供参考：
+不像Cadence家每个hostid提供一个完整的License文件，Synopsys家的License是可合并的（一个购买的，与一个或多个临时的合并，除此之外的其余场景避免合并）。这里提供一个合并脚本，供参考：
 
 ```python
 #!/bin/python3
