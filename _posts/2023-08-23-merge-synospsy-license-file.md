@@ -10,41 +10,44 @@ categories: icenv
 
 
 
-# 对Synopsys License管理
+# 对Synopsys License File的管理
 
 1. 修改从Synopsys获取的密钥：
 
    - 只能修改许可证文件中的SERVER和VENDOR行，确保SERVER行包含正确的服务器主机名，VENDOR行包含snpslmd守护程序的完整路径。
    - 任何更改都必须以ASCII文本格式保存。
-   - 不要添加、删除或修改许可证文件中的任何INCREMENT行，这样做会使许可证无效。
-   - 如果从Synopsys获取临时密钥，可以将其附加到现有的许可证文件中，但需要删除重复的SERVER、VENDOR和USE_SERVER行。
+   - 不要添加、删除或修改许可证文件中的任何INCREMENT行，这样做会使License无效。
+   - 如果从Synopsys获取临时密钥，可以将其附加到现有购买的License文件中，但需要删除重复的SERVER、VENDOR和USE_SERVER行。
 
-1. 使用sssverify实用程序验证密钥：
+1. 使用sssverify程序验证密钥：
 
    - 在使用来自Synopsys的任何新密钥文件之前，运行"SCL sssverify"实用程序来检查文件中的任何错误。
-   - 如果许可证文件没有错误，您将看到类似以下消息的输出："License file integrity check PASSED"。
-   - 如果许可证文件损坏，您将收到相应的错误消息，并建议不使用该许可证文件。
+   - 如果License文件没有错误，您将看到类似以下消息的输出："License file integrity check PASSED"。
+   - 如果License文件损坏，您将收到相应的错误消息，并建议不使用该License文件。
 
-1. 确认SCL正在提供许可证：
+1. 确认SCL正在提供License Feature：
 
    - 检查SCL服务器调试日志文件以查找启动错误。
    - 确保lmgrd和snpslmd已正确启动，没有出现"SSS"错误。
-   - 如果调试日志文件中存在与SSS相关的错误消息，需要采取相应的措施来解决问题。
+   - 如果调试日志文件中存在与SSS相关的错误消息，需要采取相应的措施来解决问题。多个Synopsys License被管理员合并完后，经常出现如下错误。则需要确保每个License File只含最多一块SSS and/or 最多一块SSST。
+     ![image](https://github.com/icinfra/icinfra.github.io/assets/32032219/315ab578-6172-4dfa-a9c8-5effea716657)
+
 
 1. 管理临时密钥：
 
-   - 临时密钥需要SSST功能。维护一个单独的服务器来存储临时密钥，以防止其被后续的生产密钥无效化。
+   - 临时密钥需要SSST功能。最好放在单独的服务器，以防止其被后续的生产密钥覆盖。
    - 添加或删除临时密钥时，必须作为一个块进行操作，而不是单独处理每个密钥。
 
 这些是对License管理的一些重要事项的总结。详细的指南和步骤可以在提供的PDF文档中找到。
 
-不像Cadence家每个hostid提供一个完整的License文件，Synopsys家的License是可合并的。这里提供一个合并脚本，供参考：
+不像Cadence家每个hostid提供一个完整的License文件，Synopsys家的License是可合并的（购买的与临时的合并，除此之外的其余场景避免合并）。这里提供一个合并脚本，供参考：
 
 ```python
 #!/bin/python3
 
 # Author: wanlinwang
 # Date: 23-Aug-2023
+# 本程序对未到期的feature进行合并。TODO：尚未考虑多个SSS与SSST块的场景，26-Dec-2023
 
 import sys
 import datetime
@@ -106,4 +109,4 @@ if __name__ == "__main__":
 ```
 
 # 参考资料
-https://www.synopsys.com/content/dam/synopsys/support/documents/licensing/scl-license-verification.pdf
+[Synopsys License Verification](https://www.synopsys.com/content/dam/synopsys/support/documents/licensing/scl-license-verification.pdf)
