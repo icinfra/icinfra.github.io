@@ -40,8 +40,89 @@ categories: icenv
 
 这些是对License管理的一些重要事项的总结。详细的指南和步骤可以在提供的PDF文档中找到。
 
-不像Cadence家每个hostid提供一个完整的License文件，Synopsys家的License是可合并的（一个购买的，与一个或多个临时的合并，除此之外的其余场景避免合并）。这里提供一个合并脚本，供参考：
+不像Cadence家每个hostid提供一个完整的License文件，Synopsys家的License是可合并的（一个购买的，与一个或多个临时的合并，除此之外的其余场景避免合并）。这里提供合并脚本，供参考：
 
+新版本
+```python3
+#!/bin/env python3
+# Author: wanlinwang
+# Date: 27-Dec-2023
+# Synopsys License文件合并，遵循：合并后的文件，保留最多一个有效期内的SSS及其feature，保留零个或多个有效期内的SSST及其feature。
+
+import argparse
+import re
+from datetime import datetime
+
+def parse_feature_block(block):
+    feature_name_and_expiration_date = re.search(r"INCREMENT (\w+) \w+ \S+ (\d{2}-\w{3}-\d{4})", block)
+    transaction_id_match = re.search(r"SN=[RT]K:[\w-]+:[\w-]+:(\d+)", block)
+
+    feature_name    = feature_name_and_expiration_date.group(1) if feature_name_and_expiration_date else None
+    expiration_date = feature_name_and_expiration_date.group(2) if feature_name_and_expiration_date else None
+    transaction_id  = transaction_id_match.group(1) if transaction_id_match else None
+
+    expiration_date = datetime.strptime(expiration_date, "%d-%b-%Y") if expiration_date else None
+
+    return {
+        "name": feature_name,
+        "transaction_id": transaction_id,
+        "expiration_date": expiration_date,
+        "block": block
+    }
+
+def parse_license_file(file_content):
+    blocks = file_content.split("INCREMENT")[1:]
+    blocks = [f"INCREMENT {b.strip()}" for b in blocks]
+    return [parse_feature_block(block) for block in blocks]
+
+def is_block_expired(block):
+    return block['expiration_date'] and datetime.now() > block['expiration_date']
+
+def merge_features(license_files_contents):
+    all_blocks = []
+    for file_content in license_files_contents:
+        all_blocks.extend(parse_license_file(file_content))
+
+    sss_blocks = [b for b in all_blocks if b['name'] == 'SSS' and not is_block_expired(b)]
+    ssst_blocks = [b for b in all_blocks if b['name'] == 'SSST' and not is_block_expired(b)]
+
+    # Keep only the latest SSS block
+    if sss_blocks:
+        latest_sss = max(sss_blocks, key=lambda b: b['expiration_date'])
+        sss_transaction_id = latest_sss['transaction_id']
+        sss_related_blocks = [b for b in all_blocks if b['transaction_id'] == sss_transaction_id]
+    else:
+        sss_related_blocks = []
+
+    # Keep all non-expired SSST blocks and their associated features
+    ssst_transaction_ids = set(b['transaction_id'] for b in ssst_blocks)
+    ssst_related_blocks = [b for b in all_blocks if b['transaction_id'] in ssst_transaction_ids]
+
+    merged_content = [b['block'] for b in sss_related_blocks + ssst_related_blocks]
+
+    return "\n".join(merged_content)
+
+def main():
+    parser = argparse.ArgumentParser(description="Merge Synopsys license files.")
+    parser.add_argument('-i', '--input', nargs='+', required=True, help="Input license files")
+    parser.add_argument('-o', '--output', required=True, help="Output merged license file")
+
+    args = parser.parse_args()
+    license_files = args.input
+    output_file = args.output
+
+    license_contents = [open(file_path, 'r').read() for file_path in license_files]
+
+    merged_license = merge_features(license_contents)
+    with open(output_file, "w") as f:
+        f.write(merged_license)
+
+if __name__ == "__main__":
+    main()
+
+```
+
+旧版本
 ```python
 #!/bin/python3
 
