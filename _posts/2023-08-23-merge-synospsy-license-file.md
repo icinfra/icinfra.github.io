@@ -49,6 +49,45 @@ categories: icenv
 # Date: 27-Dec-2023
 # Synopsys License文件合并，遵循：合并后的文件，保留最多一个有效期内的SSS及其feature，保留零个或多个有效期内的SSST及其feature。
 
+# 程序流程图
+"""
++---------------------------+
+| Parse Command Line Args   |
+| - Use argparse            |
+| - Accept -i and -o flags  |
++---------------------------+
+             |
+             V
++---------------------------+
+| Read and Parse License    |
+| Files                     |
+| - Read each input file    |
+| - Split into feature      |
+|   blocks                  |
+| - Parse for name, trans-  |
+|   action ID, and exp. date|
++---------------------------+
+             |
+             V
++---------------------------+
+| Process and Merge         |
+| Features                  |
+| - Classify as SSS or SSST |
+| - Keep latest non-expired |
+|   SSS & related features  |
+| - Keep all non-expired    |
+|   SSST & related features |
++---------------------------+
+             |
+             V
++---------------------------+
+| Output Merged License     |
+| Content                   |
+| - Write to specified      |
+|   output file             |
++---------------------------+
+"""
+
 import argparse
 import re
 from datetime import datetime
