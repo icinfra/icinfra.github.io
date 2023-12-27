@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  如何使用vim插件
-date: 2023-12-17 22:20+0800
+date: 2023-12-27 15:20+0800
 description: 
 tags: vim
 giscus_comments: true
