@@ -9,12 +9,21 @@ categories: icenv
 ---
 
 # 背景
-FreeIPA系统里，默认Certificate Authority certificate的有效期为20年，host or service certificate有效期为2年。
+FreeIPA服务器，默认Certificate Authority certificate的有效期为20年，host or service certificate有效期为2年。
 
 # 场景
-假如certificate过期了，如何更新已过期的证书？
+FreeIPA服务器在安装时，默认使用了Certmonger来auto renew证书。但有些公司**出于安全需求，禁止了auto renew**的策略。假如没有打开auto renew，
+- 如何手动更新即将过期的certificate？
+- 如何手动修复已经过期的certificate？
 
-# 环境准备
+# 更新即将过期的certificate
+IPA >= 4.1，在FreeIPA服务器执行`ipa-cacert-manage renew`。其余旧版本，请参考[^1]
+例子：略。
+
+[^1]: https://www.freeipa.org/page/Howto/CA_Certificate_Renewal
+
+# 修复已经过期的certificate
+## 环境准备
 - 参考[CentOS 7.9上部署高可用FreeIPA服务器](https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7/)一文，安装好FreeIPA服务器与客户端。
 - 在FreeIPA服务器与客户端，分别操作：将时间同步服务断开，并将时间设置到将来的2年后，以模拟证书过期。命令如下：
 ```bash
@@ -48,7 +57,7 @@ ipa: INFO: The ipactl command was successful
 ```
   这时候执行ipa user-find会提示错误。
 
-# 更新证书
+## 更新证书
 在FreeIPA服务器上，执行`sudo ipa-cert-fix`修复过期的证书。
 ```bash
 [root@ipa-server-01 ~]# ipa-cert-fix 
@@ -172,8 +181,7 @@ ipa-otpd Service: RUNNING
 ipa-dnskeysyncd Service: RUNNING
 ipa: INFO: The ipactl command was successful
 ```
-
+完成。
 
 # 参考资料
-https://www.freeipa.org/page/Howto/CA_Certificate_Renewal
 https://www.freeipa.org/page/Certificate_renewal
