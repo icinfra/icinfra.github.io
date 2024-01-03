@@ -185,3 +185,7 @@ ipa: INFO: The ipactl command was successful
 
 # 参考资料
 https://www.freeipa.org/page/Certificate_renewal
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/identity_management_guide/certmonger-tracking-certs
+
+https://frasertweedale.github.io/blog-redhat/posts/2019-12-12-certmonger-disable-auto-renew.html
