@@ -156,3 +156,7 @@ The ipa-client-install command was successful
 uid=196400000(admin) gid=196400000(admins) groups=196400000(admins)
 ```
 
+# 参考资料
+https://quay.io/repository/freeipa/freeipa-server?tab=info
+
+https://github.com/freeipa/freeipa-container
