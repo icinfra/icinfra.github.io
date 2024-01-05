@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  CentOS 7 & 8 EOL事宜，以及替代方案介绍
-date: 2024-01-03 15:20+0800
+date: 2024-01-05 11:20+0800
 description: 
 tags: os
 giscus_comments: true
