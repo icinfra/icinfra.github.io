@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Rocky Linux 8 上安装图形化界面
+title: Rocky/Alma Linux 8 上安装图形化界面
 date: 2023-11-09 09:56+0800
 description: 
 tags: xfce
