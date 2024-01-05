@@ -146,7 +146,7 @@ Shutdown=root
 EOF
  
 # setup for TurboVNC
-wget https://turbovnc.org/pmwiki/uploads/Downloads/TurboVNC.repo -O /etc/yum.repos.d/TurboVNC.repo
+wget https://raw.githubusercontent.com/TurboVNC/repo/main/TurboVNC.repo -O /etc/yum.repos.d/TurboVNC.repo
 yum -y install turbovnc
  
 # modify conf for TurboVNC
