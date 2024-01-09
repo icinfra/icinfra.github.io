@@ -1,4 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2024-01-09T02:55:17+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">CentOS 7 &amp;amp; 8 EOL事宜，以及替代方案介绍</title><link href="https://www.icinfra.cn/blog/2024/centos-7-and-8-eol/" rel="alternate" type="text/html" title="CentOS 7 &amp;amp; 8 EOL事宜，以及替代方案介绍"/><published>2024-01-05T03:20:00+00:00</published><updated>2024-01-05T03:20:00+00:00</updated><id>https://www.icinfra.cn/blog/2024/centos-7-and-8-eol</id><content type="html" xml:base="https://www.icinfra.cn/blog/2024/centos-7-and-8-eol/"><![CDATA[<h1 id="背景">背景</h1> <p>截止至2023年末，芯片设计公司，除了少量订阅RHEL用作发生故障时的救命稻草，普遍在使用CentOS操作系统（RHEL的一个衍生发行版），其中以CentOS 7居多，少部分技术债较低的团队“尝鲜”了CentOS 8操作系统。甚至因历史项目依赖的工具链版本较旧，还有不少CentOS 6.10的存量系统。</p> <p>根据<a href="https://www.redhat.com/en/events/webinar/centos-linux-reaching-its-end-life-now-what">CentOS Linux is reaching its end of life. Now what?</a>官方公布消息来看，CentOS 8已在2021.12.31不再更新发布，CentOS Stream 8将于2024.05.31不再更新发布，CentOS 7将于2024.06.30不再更新发布。企业内正在使用的系统EOL后，企业的IT管理员应该如何应对？</p> <h1 id="分析">分析</h1> <h1 id="总结">总结</h1> <h1 id="参考资料">参考资料</h1>]]></content><author><name></name></author><category term="icenv"/><category term="os"/><summary type="html"><![CDATA[背景 截止至2023年末，芯片设计公司，除了少量订阅RHEL用作发生故障时的救命稻草，普遍在使用CentOS操作系统（RHEL的一个衍生发行版），其中以CentOS 7居多，少部分技术债较低的团队“尝鲜”了CentOS 8操作系统。甚至因历史项目依赖的工具链版本较旧，还有不少CentOS 6.10的存量系统。]]></summary></entry><entry><title type="html">FreeIPA/IdM服务器（即将/已）过期的证书的处理方法</title><link href="https://www.icinfra.cn/blog/2024/ipa-expired-certificates-renewal/" rel="alternate" type="text/html" title="FreeIPA/IdM服务器（即将/已）过期的证书的处理方法"/><published>2024-01-03T07:20:00+00:00</published><updated>2024-01-03T07:20:00+00:00</updated><id>https://www.icinfra.cn/blog/2024/ipa-expired-certificates-renewal</id><content type="html" xml:base="https://www.icinfra.cn/blog/2024/ipa-expired-certificates-renewal/"><![CDATA[<h1 id="背景">背景</h1> <p>FreeIPA/IdM服务器，默认Certificate Authority certificate的有效期为20年，host or service certificate有效期为2年。FreeIPA/IdM服务器在安装时，默认使用了Certmonger来auto renew证书。</p> <h1 id="场景">场景</h1> <p>有些公司<strong>出于安全需求，禁止了auto renew</strong>的策略。假如没有打开auto renew，</p> <ul> <li>如何手动更新即将过期的certificate？</li> <li>如何手动修复已经过期的certificate？</li> </ul> <h1 id="更新即将过期的certificate">更新即将过期的certificate</h1> <p>参考<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>，IPA &gt;= 4.1，在FreeIPA服务器执行<code class="language-plaintext highlighter-rouge">ipa-cacert-manage renew</code>。IPA &lt; 4.1的例子：略。</p> <h1 id="修复已经过期的certificate">修复已经过期的certificate</h1> <h2 id="测试环境">测试环境</h2> <p>这里构建一个测试环境，模拟证书过期的场景。</p> <ul> <li>参考<a href="https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7/">CentOS 7.9上部署高可用FreeIPA服务器</a>一文，安装好FreeIPA服务器与客户端。 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@CentOS7-ipa-server ~]<span class="nv">$ </span>kinit admin
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2024-01-09T02:59:46+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">升级ipa并保持用户原密码</title><link href="https://www.icinfra.cn/blog/2024/upgrading-ipa-server-without-changing-end-user-password/" rel="alternate" type="text/html" title="升级ipa并保持用户原密码"/><published>2024-01-09T02:50:00+00:00</published><updated>2024-01-09T02:50:00+00:00</updated><id>https://www.icinfra.cn/blog/2024/upgrading-ipa-server-without-changing-end-user-password</id><content type="html" xml:base="https://www.icinfra.cn/blog/2024/upgrading-ipa-server-without-changing-end-user-password/"><![CDATA[<h1 id="背景">背景</h1> <p>由于<a href="https://www.icinfra.cn/blog/2024/centos-7-and-8-eol/">CentOS 7/8的EOL</a>，IC设计环境的IT底座————操作系统，其升级被提上日程。其中涉及到在旧版本操作系统上的FreeIPA的升级。</p> <h1 id="思考">思考</h1> <p>开始，我想着在一台新操作系统上做fresh FreeIPA installation，给升级上去的操作系统使用即可。 后来，考虑在过渡期间需要维护两套FreeIPA，需要从旧FreeIPA里同步用户/群组到新FreeIPA，并且两套系统内用户的密码还不能够保持统一。从红帽官网，找了升级的相关资料，决定使用Replica的方式来使得新旧FreeIPA数据同步，也能够保持用户的密码一致，降低用户的上手成本。</p> <h1 id="升级方案">升级方案</h1> <h2 id="架构图">架构图</h2> <p>升级的过渡期间，FreeIPA master-replica架构图，如下所示：</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+---------------------+            +----------------------------+
+|                     |            |                            |
+|   CentOS 7 VM       |            |    AlmaLinux 8 VM          |
+|                     |            |                            |
+|   +-------------+   |            |   +--------------------+   |
+|   |             |   |            |   |                    |   |
+|   | FreeIPA     |   |            |   | AlmaLinux 8        |   |
+|   | Server      |   | Replication|   | Container          |   |
+|   | <span class="o">(</span>Master<span class="o">)</span>    |   |------------&gt;   |                    |   |
+|   +-------------+   |            |   | +----------------+ |   |
+|                     |            |   | |                | |   |
++---------------------+            |   | | FreeIPA        | |   |
+                                   |   | | Server         | |   |
+                                   |   | | <span class="o">(</span>Replica<span class="o">)</span>      | |   |
+                                   |   | +----------------+ |   |
+                                   |   |                    |   |
+                                   |   +--------------------+   |
+                                   |                            |
+                                   +----------------------------+
+
+</code></pre></div></div> <p>其中，CentOS 7 VM里的是直接安装启动的FreeIPA Server。在AlmaLinux 8 VM里运行的AlmaLinux 8 Container里运行FreeIPA Server Replica。</p> <p>这里使用容器来承载新FreeIPA Server，主要考虑到容器环境可以做到标准化，数据通过持久化到容器宿主机（AlmaLinux 8 VM）的目录下，再定期快照备份容器宿主机（AlmaLinux 8 VM）。</p> <h2 id="相关命令">相关命令</h2> <p>暂略。</p> <h1 id="测试项">测试项</h1> <h2 id="用户群组同步">用户/群组同步</h2> <p>包括用户/群组的ID/Subordinate ID以及相关信息的同步。需要注意的是，CentOS 7 VM里自带的FreeIPA Server是不支持Subordinate ID的，因此需要加强对它的测试————比如在AlmaLinux 8 Container上的FreeIPA Server创建的Subordinate ID能否被持久化保存，并被正常使用。</p> <h2 id="域名解析">域名解析</h2> <h2 id="时间同步">时间同步</h2> <h2 id="其它项">其它项</h2> <h1 id="参考资料">参考资料</h1> <p><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/migrating_to_identity_management_on_rhel_8/ref_migrating-to-idm-on-rhel-8-from-freeipa-on-non-rhel-linux-distributions_migrating-to-idm-from-external-sources">IdM从非RHEL发行版迁移至RHEL8</a></p> <p><a href="https://www.freeipa.org/page/V4/Replica_Setup">FreeIPA Replica Setup</a></p> <p><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/installing_identity_management/installing-an-ipa-replica_installing-identity-management#installing-an-idm-replica-with-integrated-dns-and-a-ca_install-replica">IdM Replica安装</a></p>]]></content><author><name></name></author><category term="icenv"/><category term="ipa"/><summary type="html"><![CDATA[背景 由于CentOS 7/8的EOL，IC设计环境的IT底座————操作系统，其升级被提上日程。其中涉及到在旧版本操作系统上的FreeIPA的升级。]]></summary></entry><entry><title type="html">CentOS 7 &amp;amp; 8 EOL事宜，以及替代方案介绍</title><link href="https://www.icinfra.cn/blog/2024/centos-7-and-8-eol/" rel="alternate" type="text/html" title="CentOS 7 &amp;amp; 8 EOL事宜，以及替代方案介绍"/><published>2024-01-05T03:20:00+00:00</published><updated>2024-01-05T03:20:00+00:00</updated><id>https://www.icinfra.cn/blog/2024/centos-7-and-8-eol</id><content type="html" xml:base="https://www.icinfra.cn/blog/2024/centos-7-and-8-eol/"><![CDATA[<h1 id="背景">背景</h1> <p>截止至2023年末，芯片设计公司，除了少量订阅RHEL用作发生故障时的救命稻草，普遍在使用CentOS操作系统（RHEL的一个衍生发行版），其中以CentOS 7居多，少部分技术债较低的团队“尝鲜”了CentOS 8操作系统。甚至因历史项目依赖的工具链版本较旧，还有不少CentOS 6.10的存量系统。</p> <p>根据<a href="https://www.redhat.com/en/events/webinar/centos-linux-reaching-its-end-life-now-what">CentOS Linux is reaching its end of life. Now what?</a>官方公布消息来看，CentOS 8已在2021.12.31不再更新发布，CentOS Stream 8将于2024.05.31不再更新发布，CentOS 7将于2024.06.30不再更新发布。企业内正在使用的系统EOL后，企业的IT管理员应该如何应对？</p> <h1 id="分析">分析</h1> <h1 id="总结">总结</h1> <h1 id="参考资料">参考资料</h1>]]></content><author><name></name></author><category term="icenv"/><category term="os"/><summary type="html"><![CDATA[背景 截止至2023年末，芯片设计公司，除了少量订阅RHEL用作发生故障时的救命稻草，普遍在使用CentOS操作系统（RHEL的一个衍生发行版），其中以CentOS 7居多，少部分技术债较低的团队“尝鲜”了CentOS 8操作系统。甚至因历史项目依赖的工具链版本较旧，还有不少CentOS 6.10的存量系统。]]></summary></entry><entry><title type="html">FreeIPA/IdM服务器（即将/已）过期的证书的处理方法</title><link href="https://www.icinfra.cn/blog/2024/ipa-expired-certificates-renewal/" rel="alternate" type="text/html" title="FreeIPA/IdM服务器（即将/已）过期的证书的处理方法"/><published>2024-01-03T07:20:00+00:00</published><updated>2024-01-03T07:20:00+00:00</updated><id>https://www.icinfra.cn/blog/2024/ipa-expired-certificates-renewal</id><content type="html" xml:base="https://www.icinfra.cn/blog/2024/ipa-expired-certificates-renewal/"><![CDATA[<h1 id="背景">背景</h1> <p>FreeIPA/IdM服务器，默认Certificate Authority certificate的有效期为20年，host or service certificate有效期为2年。FreeIPA/IdM服务器在安装时，默认使用了Certmonger来auto renew证书。</p> <h1 id="场景">场景</h1> <p>有些公司<strong>出于安全需求，禁止了auto renew</strong>的策略。假如没有打开auto renew，</p> <ul> <li>如何手动更新即将过期的certificate？</li> <li>如何手动修复已经过期的certificate？</li> </ul> <h1 id="更新即将过期的certificate">更新即将过期的certificate</h1> <p>参考<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>，IPA &gt;= 4.1，在FreeIPA服务器执行<code class="language-plaintext highlighter-rouge">ipa-cacert-manage renew</code>。IPA &lt; 4.1的例子：略。</p> <h1 id="修复已经过期的certificate">修复已经过期的certificate</h1> <h2 id="测试环境">测试环境</h2> <p>这里构建一个测试环境，模拟证书过期的场景。</p> <ul> <li>参考<a href="https://www.icinfra.cn/blog/2023/freeipa-ha-on-centos7/">CentOS 7.9上部署高可用FreeIPA服务器</a>一文，安装好FreeIPA服务器与客户端。 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>centos@CentOS7-ipa-server ~]<span class="nv">$ </span>kinit admin
 Password <span class="k">for </span>admin@ICINFRA.CN: 
 <span class="o">[</span>centos@CentOS7-ipa-server ~]<span class="nv">$ </span>ipa user-find
 <span class="nt">--------------</span>
@@ -410,199 +430,4 @@ unset new_grp_array
 </span></code></pre></div></div> <h2 id="krusader">krusader</h2> <p>按需，需要联网。如果离线环境则手动下载回来安装。</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install krusader, a file manager. If you want to use this tool, please contact your system administrator to install.</span>
 <span class="nb">sudo </span>yum <span class="nb">install </span>epel-release
 <span class="nb">sudo </span>yum localinstall http://rpms.plnet.rs/plnet-centos6-x86_64/RPMS.plnet-compiled/krusader-2.3.0-0.1.beta1.el6.x86_64.rpm
-</code></pre></div></div>]]></content><author><name></name></author><category term="icenv"/><category term="group"/><summary type="html"><![CDATA[场景说明 令芯片设计环境的研发人员经常头疼的一件事，维护完群组后，无法在Linux桌面生效。支持人员频繁接到这样的case，只能建议ta： run ‘newgrp newly-added-group-name’, or logout the vnc and login again.]]></summary></entry><entry><title type="html">slurm安装</title><link href="https://www.icinfra.cn/blog/2023/installing-slurm/" rel="alternate" type="text/html" title="slurm安装"/><published>2023-11-29T03:00:00+00:00</published><updated>2023-11-29T03:00:00+00:00</updated><id>https://www.icinfra.cn/blog/2023/installing-slurm</id><content type="html" xml:base="https://www.icinfra.cn/blog/2023/installing-slurm/"><![CDATA[<h1 id="提前并运行munge">提前并运行munge</h1> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@offline-almalinux8-193-computing slurm-23.11.0]# ./configure <span class="nt">--prefix</span><span class="o">=</span>/tools/OSS/Slurm/23.11.0 <span class="nt">--with-munge</span>
-<span class="o">[</span>root@offline-almalinux8-193-computing slurm-23.11.0]# make <span class="o">&amp;&amp;</span> make <span class="nb">install</span>
-</code></pre></div></div> <h1 id="配置">配置</h1> <p>到<a href="https://slurm.schedmd.com/configurator.html">Slurm Configuration Tool</a>定制，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># slurm.conf file generated by configurator.html.</span>
-<span class="c"># Put this file on all nodes of your cluster.</span>
-<span class="c"># See the slurm.conf man page for more information.</span>
-<span class="c">#</span>
-<span class="nv">ClusterName</span><span class="o">=</span>ic-design-cluster-001
-<span class="nv">SlurmctldHost</span><span class="o">=</span>offline-almalinux8-193-computing.icinfra.cn
-<span class="nv">SlurmctldHost</span><span class="o">=</span>offline-almalinux8-194-computing.icinfra.cn
-<span class="c">#</span>
-<span class="c">#DisableRootJobs=NO</span>
-<span class="c">#EnforcePartLimits=NO</span>
-<span class="c">#Epilog=</span>
-<span class="c">#EpilogSlurmctld=</span>
-<span class="c">#FirstJobId=1</span>
-<span class="c">#MaxJobId=67043328</span>
-<span class="c">#GresTypes=</span>
-<span class="c">#GroupUpdateForce=0</span>
-<span class="c">#GroupUpdateTime=600</span>
-<span class="c">#JobFileAppend=0</span>
-<span class="c">#JobRequeue=1</span>
-<span class="c">#JobSubmitPlugins=lua</span>
-<span class="c">#KillOnBadExit=0</span>
-<span class="c">#LaunchType=launch/slurm</span>
-<span class="c">#Licenses=foo*4,bar</span>
-<span class="c">#MailProg=/bin/mail</span>
-<span class="c">#MaxJobCount=10000</span>
-<span class="c">#MaxStepCount=40000</span>
-<span class="c">#MaxTasksPerNode=512</span>
-<span class="c">#MpiDefault=</span>
-<span class="c">#MpiParams=ports=#-#</span>
-<span class="c">#PluginDir=</span>
-<span class="c">#PlugStackConfig=</span>
-<span class="c">#PrivateData=jobs</span>
-<span class="nv">ProctrackType</span><span class="o">=</span>proctrack/cgroup
-<span class="c">#Prolog=</span>
-<span class="c">#PrologFlags=</span>
-<span class="c">#PrologSlurmctld=</span>
-<span class="c">#PropagatePrioProcess=0</span>
-<span class="c">#PropagateResourceLimits=</span>
-<span class="c">#PropagateResourceLimitsExcept=</span>
-<span class="c">#RebootProgram=</span>
-<span class="nv">ReturnToService</span><span class="o">=</span>1
-<span class="nv">SlurmctldPidFile</span><span class="o">=</span>/var/run/slurmctld.pid
-<span class="nv">SlurmctldPort</span><span class="o">=</span>6817
-<span class="nv">SlurmdPidFile</span><span class="o">=</span>/var/run/slurmd.pid
-<span class="nv">SlurmdPort</span><span class="o">=</span>6818
-<span class="nv">SlurmdSpoolDir</span><span class="o">=</span>/var/spool/slurmd
-<span class="nv">SlurmUser</span><span class="o">=</span>slurm
-<span class="c">#SlurmdUser=root</span>
-<span class="c">#SrunEpilog=</span>
-<span class="c">#SrunProlog=</span>
-<span class="nv">StateSaveLocation</span><span class="o">=</span>/var/spool/slurmctld
-<span class="c">#SwitchType=</span>
-<span class="c">#TaskEpilog=</span>
-<span class="nv">TaskPlugin</span><span class="o">=</span>task/affinity,task/cgroup
-<span class="c">#TaskProlog=</span>
-<span class="c">#TopologyPlugin=topology/tree</span>
-<span class="c">#TmpFS=/tmp</span>
-<span class="c">#TrackWCKey=no</span>
-<span class="c">#TreeWidth=</span>
-<span class="c">#UnkillableStepProgram=</span>
-<span class="c">#UsePAM=0</span>
-<span class="c">#</span>
-<span class="c">#</span>
-<span class="c"># TIMERS</span>
-<span class="c">#BatchStartTimeout=10</span>
-<span class="c">#CompleteWait=0</span>
-<span class="c">#EpilogMsgTime=2000</span>
-<span class="c">#GetEnvTimeout=2</span>
-<span class="c">#HealthCheckInterval=0</span>
-<span class="c">#HealthCheckProgram=</span>
-<span class="nv">InactiveLimit</span><span class="o">=</span>0
-<span class="nv">KillWait</span><span class="o">=</span>30
-<span class="c">#MessageTimeout=10</span>
-<span class="c">#ResvOverRun=0</span>
-<span class="nv">MinJobAge</span><span class="o">=</span>300
-<span class="c">#OverTimeLimit=0</span>
-<span class="nv">SlurmctldTimeout</span><span class="o">=</span>120
-<span class="nv">SlurmdTimeout</span><span class="o">=</span>300
-<span class="c">#UnkillableStepTimeout=60</span>
-<span class="c">#VSizeFactor=0</span>
-<span class="nv">Waittime</span><span class="o">=</span>0
-<span class="c">#</span>
-<span class="c">#</span>
-<span class="c"># SCHEDULING</span>
-<span class="c">#DefMemPerCPU=0</span>
-<span class="c">#MaxMemPerCPU=0</span>
-<span class="c">#SchedulerTimeSlice=30</span>
-<span class="nv">SchedulerType</span><span class="o">=</span>sched/backfill
-<span class="nv">SelectType</span><span class="o">=</span><span class="k">select</span>/cons_tres
-<span class="c">#</span>
-<span class="c">#</span>
-<span class="c"># JOB PRIORITY</span>
-<span class="c">#PriorityFlags=</span>
-<span class="c">#PriorityType=priority/multifactor</span>
-<span class="c">#PriorityDecayHalfLife=</span>
-<span class="c">#PriorityCalcPeriod=</span>
-<span class="c">#PriorityFavorSmall=</span>
-<span class="c">#PriorityMaxAge=</span>
-<span class="c">#PriorityUsageResetPeriod=</span>
-<span class="c">#PriorityWeightAge=</span>
-<span class="c">#PriorityWeightFairshare=</span>
-<span class="c">#PriorityWeightJobSize=</span>
-<span class="c">#PriorityWeightPartition=</span>
-<span class="c">#PriorityWeightQOS=</span>
-<span class="c">#</span>
-<span class="c">#</span>
-<span class="c"># LOGGING AND ACCOUNTING</span>
-<span class="c">#AccountingStorageEnforce=0</span>
-<span class="c">#AccountingStorageHost=</span>
-<span class="c">#AccountingStoragePass=</span>
-<span class="c">#AccountingStoragePort=</span>
-<span class="c">#AccountingStorageType=</span>
-<span class="c">#AccountingStorageUser=</span>
-<span class="c">#AccountingStoreFlags=</span>
-<span class="c">#JobCompHost=</span>
-<span class="c">#JobCompLoc=</span>
-<span class="c">#JobCompParams=</span>
-<span class="c">#JobCompPass=</span>
-<span class="c">#JobCompPort=</span>
-<span class="nv">JobCompType</span><span class="o">=</span>jobcomp/none
-<span class="c">#JobCompUser=</span>
-<span class="c">#JobContainerType=</span>
-<span class="nv">JobAcctGatherFrequency</span><span class="o">=</span>30
-<span class="c">#JobAcctGatherType=</span>
-<span class="nv">SlurmctldDebug</span><span class="o">=</span>info
-<span class="nv">SlurmctldLogFile</span><span class="o">=</span>/var/log/slurmctld.log
-<span class="nv">SlurmdDebug</span><span class="o">=</span>info
-<span class="nv">SlurmdLogFile</span><span class="o">=</span>/var/log/slurmd.log
-<span class="c">#SlurmSchedLogFile=</span>
-<span class="c">#SlurmSchedLogLevel=</span>
-<span class="c">#DebugFlags=</span>
-<span class="c">#</span>
-<span class="c">#</span>
-<span class="c"># POWER SAVE SUPPORT FOR IDLE NODES (optional)</span>
-<span class="c">#SuspendProgram=</span>
-<span class="c">#ResumeProgram=</span>
-<span class="c">#SuspendTimeout=</span>
-<span class="c">#ResumeTimeout=</span>
-<span class="c">#ResumeRate=</span>
-<span class="c">#SuspendExcNodes=</span>
-<span class="c">#SuspendExcParts=</span>
-<span class="c">#SuspendRate=</span>
-<span class="c">#SuspendTime=</span>
-<span class="c">#</span>
-<span class="c">#</span>
-<span class="c"># COMPUTE NODES</span>
-<span class="nv">NodeName</span><span class="o">=</span>offline-almalinux8-19[5-7]-computing.icinfra.cn <span class="nv">State</span><span class="o">=</span>UNKNOWN
-<span class="nv">PartitionName</span><span class="o">=</span>debug <span class="nv">Nodes</span><span class="o">=</span>ALL <span class="nv">Default</span><span class="o">=</span>YES <span class="nv">MaxTime</span><span class="o">=</span>INFINITE <span class="nv">State</span><span class="o">=</span>UP
-</code></pre></div></div> <h1 id="运行controller">运行Controller</h1> <p>前台运行，看是否有报错</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>cloud-user@offline-almalinux8-193-computing ~]<span class="nv">$ </span><span class="nb">sudo</span> /tools/OSS/Slurm/23.11.0/sbin/slurmctld <span class="nt">-D</span>
-slurmctld: fatal: <span class="nb">mkdir</span><span class="o">(</span>/var/spool/slurmctld<span class="o">)</span>: Permission denied
-</code></pre></div></div> <p>提示无权限，这里创建并修改owner，</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>cloud-user@offline-almalinux8-193-computing ~]<span class="nv">$ </span><span class="nb">sudo mkdir</span> /var/spool/slurmctld <span class="o">&amp;&amp;</span> <span class="nb">sudo chown </span>slurm /var/spool/slurmctld
-</code></pre></div></div> <p>前台运行</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>cloud-user@offline-almalinux8-193-computing ~]<span class="nv">$ </span><span class="nb">sudo</span> /tools/OSS/Slurm/23.11.0/sbin/slurmctld <span class="nt">-D</span>
-slurmctld: error: Configured MailProg is invalid
-slurmctld: slurmctld version 23.11.0 started on cluster ic-design-cluster-001
-slurmctld: error: _shutdown_bu_thread:send/recv offline-almalinux8-194-computing.icinfra.cn: Connection refused
-slurmctld: No memory enforcing mechanism configured.
-slurmctld: error: Could not open node state file /var/spool/slurmctld/node_state: No such file or directory
-slurmctld: error: NOTE: Trying backup state save file. Information may be lost!
-slurmctld: No node state file <span class="o">(</span>/var/spool/slurmctld/node_state.old<span class="o">)</span> to recover
-slurmctld: error: Could not open job state file /var/spool/slurmctld/job_state: No such file or directory
-slurmctld: error: NOTE: Trying backup state save file. Jobs may be lost!
-slurmctld: No job state file <span class="o">(</span>/var/spool/slurmctld/job_state.old<span class="o">)</span> to recover
-slurmctld: <span class="k">select</span>/cons_tres: select_p_node_init: <span class="k">select</span>/cons_tres SelectTypeParameters not specified, using default value: CR_Core_Memory
-slurmctld: <span class="k">select</span>/cons_tres: part_data_create_array: <span class="k">select</span>/cons_tres: preparing <span class="k">for </span>1 partitions
-slurmctld: error: Could not open reservation state file /var/spool/slurmctld/resv_state: No such file or directory
-slurmctld: error: NOTE: Trying backup state save file. Reservations may be lost
-slurmctld: No reservation state file <span class="o">(</span>/var/spool/slurmctld/resv_state.old<span class="o">)</span> to recover
-slurmctld: error: Could not open trigger state file /var/spool/slurmctld/trigger_state: No such file or directory
-slurmctld: error: NOTE: Trying backup state save file. Triggers may be lost!
-slurmctld: No trigger state file <span class="o">(</span>/var/spool/slurmctld/trigger_state.old<span class="o">)</span> to recover
-slurmctld: Reinitializing job accounting state
-slurmctld: <span class="k">select</span>/cons_tres: select_p_reconfigure: <span class="k">select</span>/cons_tres: reconfigure
-slurmctld: <span class="k">select</span>/cons_tres: part_data_create_array: <span class="k">select</span>/cons_tres: preparing <span class="k">for </span>1 partitions
-slurmctld: Running as primary controller
-</code></pre></div></div> <p>后台运行</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>cloud-user@offline-almalinux8-193-computing ~]<span class="nv">$ </span><span class="nb">sudo</span> /tools/OSS/Slurm/23.11.0/sbin/slurmctld
-</code></pre></div></div> <h1 id="运行database">运行Database</h1> <p>略</p> <h1 id="运行compute-nodes">运行Compute Nodes</h1> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>cloud-user@offline-almalinux8-193-computing ~]<span class="nv">$ </span><span class="nb">sudo</span> /tools/OSS/Slurm/23.11.0/sbin/slurmctld
-</code></pre></div></div> <h1 id="使用">使用</h1> <h2 id="查看任务队列">查看任务队列</h2> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>cloud-user@offline-almalinux8-197-computing ~]<span class="nv">$ </span>/tools/OSS/Slurm/23.11.0/bin/squeue 
-             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST<span class="o">(</span>REASON<span class="o">)</span>
-                 2     debug     wrap cloud-us  R    1:27:49      1 offline-almalinux8-195-computing.icinfra.cn
-</code></pre></div></div> <h2 id="查看slurm集群信息">查看Slurm集群信息</h2> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>cloud-user@offline-almalinux8-197-computing ~]<span class="nv">$ </span>/tools/OSS/Slurm/23.11.0/bin/sinfo 
-PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
-debug<span class="k">*</span>       up   infinite      1  alloc offline-almalinux8-195-computing.icinfra.cn
-debug<span class="k">*</span>       up   infinite      2   idle offline-almalinux8-196-computing.icinfra.cn,offline-almalinux8-197-computing.icinfra.cn
-<span class="o">[</span>cloud-user@offline-almalinux8-194-computing ~]<span class="nv">$ </span>/tools/OSS/Slurm/23.11.0/bin/sinfo <span class="nt">-Nl</span>
-Tue Nov 28 23:53:20 2023
-NODELIST                                     NODES PARTITION       STATE CPUS    S:C:T MEMORY TMP_DISK WEIGHT AVAIL_FE REASON              
-offline-almalinux8-195-computing.icinfra.cn      1    debug<span class="k">*</span>   allocated 1       1:1:1      1        0      1   <span class="o">(</span>null<span class="o">)</span> none                
-offline-almalinux8-196-computing.icinfra.cn      1    debug<span class="k">*</span>   allocated 1       1:1:1      1        0      1   <span class="o">(</span>null<span class="o">)</span> none                
-offline-almalinux8-197-computing.icinfra.cn      1    debug<span class="k">*</span>        idle 1       1:1:1      1        0      1   <span class="o">(</span>null<span class="o">)</span> none   
-</code></pre></div></div> <h2 id="提交作业">提交作业</h2> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>cloud-user@offline-almalinux8-197-computing ~]<span class="nv">$ </span>/tools/OSS/Slurm/23.11.0/bin/sbatch <span class="nt">--wrap</span><span class="o">=</span><span class="s2">"sleep 36000"</span>
-</code></pre></div></div> <h2 id="查看作业">查看作业</h2> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>cloud-user@offline-almalinux8-197-computing ~]<span class="nv">$ </span>/tools/OSS/Slurm/23.11.0/bin/sstat 2
-JobID         MaxVMSize  MaxVMSizeNode  MaxVMSizeTask  AveVMSize     MaxRSS MaxRSSNode MaxRSSTask     AveRSS MaxPages MaxPagesNode   MaxPagesTask   AvePages     MinCPU MinCPUNode MinCPUTask     AveCPU   NTasks AveCPUFreq ReqCPUFreqMin ReqCPUFreqMax ReqCPUFreqGov ConsumedEnergy  MaxDiskRead MaxDiskReadNode MaxDiskReadTask  AveDiskRead MaxDiskWrite MaxDiskWriteNode MaxDiskWriteTask AveDiskWrite TRESUsageInAve TRESUsageInMax TRESUsageInMaxNode TRESUsageInMaxTask TRESUsageInMin TRESUsageInMinNode TRESUsageInMinTask TRESUsageInTot TRESUsageOutAve TRESUsageOutMax TRESUsageOutMaxNode TRESUsageOutMaxTask TRESUsageOutMin TRESUsageOutMinNode TRESUsageOutMinTask TRESUsageOutTot 
-<span class="nt">------------</span> <span class="nt">----------</span> <span class="nt">--------------</span> <span class="nt">--------------</span> <span class="nt">----------</span> <span class="nt">----------</span> <span class="nt">----------</span> <span class="nt">----------</span> <span class="nt">----------</span> <span class="nt">--------</span> <span class="nt">------------</span> <span class="nt">--------------</span> <span class="nt">----------</span> <span class="nt">----------</span> <span class="nt">----------</span> <span class="nt">----------</span> <span class="nt">----------</span> <span class="nt">--------</span> <span class="nt">----------</span> <span class="nt">-------------</span> <span class="nt">-------------</span> <span class="nt">-------------</span> <span class="nt">--------------</span> <span class="nt">------------</span> <span class="nt">---------------</span> <span class="nt">---------------</span> <span class="nt">------------</span> <span class="nt">------------</span> <span class="nt">----------------</span> <span class="nt">----------------</span> <span class="nt">------------</span> <span class="nt">--------------</span> <span class="nt">--------------</span> <span class="nt">------------------</span> <span class="nt">------------------</span> <span class="nt">--------------</span> <span class="nt">------------------</span> <span class="nt">------------------</span> <span class="nt">--------------</span> <span class="nt">---------------</span> <span class="nt">---------------</span> <span class="nt">-------------------</span> <span class="nt">-------------------</span> <span class="nt">---------------</span> <span class="nt">-------------------</span> <span class="nt">-------------------</span> <span class="nt">---------------</span>
-</code></pre></div></div> <h1 id="参考资料">参考资料</h1> <p>https://slurm.schedmd.com/quickstart_admin.html#build_install #slurm的构建与安装</p> <p>https://www.icinfra.cn/blog/2023/setting-up-munge-on-almalinux8/ #munge的安装</p>]]></content><author><name></name></author><category term="icenv"/><category term="slurm"/><summary type="html"><![CDATA[提前并运行munge [root@offline-almalinux8-193-computing slurm-23.11.0]# ./configure --prefix=/tools/OSS/Slurm/23.11.0 --with-munge [root@offline-almalinux8-193-computing slurm-23.11.0]# make &amp;&amp; make install]]></summary></entry></feed>
+</code></pre></div></div>]]></content><author><name></name></author><category term="icenv"/><category term="group"/><summary type="html"><![CDATA[场景说明 令芯片设计环境的研发人员经常头疼的一件事，维护完群组后，无法在Linux桌面生效。支持人员频繁接到这样的case，只能建议ta： run ‘newgrp newly-added-group-name’, or logout the vnc and login again.]]></summary></entry></feed>
