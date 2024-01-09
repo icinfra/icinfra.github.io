@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 升级ipa并保持用户原密码
-date: 2024-01-09 11:00+0800
+date: 2024-01-09 10:50+0800
 description: 
 tags: ipa
 giscus_comments: true
@@ -59,5 +59,7 @@ categories: icenv
 
 # 参考资料
 [IdM从非RHEL发行版迁移至RHEL8](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/migrating_to_identity_management_on_rhel_8/ref_migrating-to-idm-on-rhel-8-from-freeipa-on-non-rhel-linux-distributions_migrating-to-idm-from-external-sources)
+
 [FreeIPA Replica Setup](https://www.freeipa.org/page/V4/Replica_Setup)
+
 [IdM Replica安装](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/installing_identity_management/installing-an-ipa-replica_installing-identity-management#installing-an-idm-replica-with-integrated-dns-and-a-ca_install-replica)
