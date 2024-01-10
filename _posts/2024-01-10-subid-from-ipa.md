@@ -15,13 +15,7 @@ categories: icenv
 ## FreeIPA服务端配置
 <img width="1789" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/9cf91777-121c-463b-a246-58a580b39ff7">
 
-## FreeIPA客户端配置
-```bash
-[root@almalinux-8-ipa-client ~]#  grep subid /etc/nsswitch.conf
-subid: sss
-```
-
-## 验证
+## FreeIPA客户端配置与验证
 ```bash
 [root@almalinux-8-ipa-client ~]# su - wanlinwang
 Last login: Wed Jan 10 02:36:13 EST 2024 on pts/0
@@ -46,7 +40,7 @@ Copying blob a307d6ecc620 done
 Error: copying system image from manifest list: writing blob: adding layer with blob "sha256:a307d6ecc6205dfa11d2874af9adb7e3fc244a429e00e8e3df90534d4cf0f3f8": processing tar file(potentially insufficient UIDs or GIDs available in user namespace (requested 65534:65534 for /home): Check /etc/subuid and /etc/subgid if configured locally and run "podman system migrate": lchown /home: invalid argument): exit status 1
 [wanlinwang@almalinux-8-ipa-client ~]$ exit
 logout
-[root@almalinux-8-ipa-client ~]# vi /etc/nsswitch.conf
+[root@almalinux-8-ipa-client ~]# vi /etc/nsswitch.conf #在/etc/nsswitch.conf配置文件里增加了subid:sss
 [root@almalinux-8-ipa-client ~]# grep subid /etc/nsswitch.conf
 subid:      sss
 [root@almalinux-8-ipa-client ~]# su - wanlinwang
