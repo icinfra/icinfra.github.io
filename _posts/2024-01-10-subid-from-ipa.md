@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 升级ipa并保持用户与群组等数据同步，降低用户上手成本
+title: 打开ipa用户的subid(subordinate id)以运行rootless容器
 date: 2024-01-10 11:30+0800
 description: 
 tags: ipa
