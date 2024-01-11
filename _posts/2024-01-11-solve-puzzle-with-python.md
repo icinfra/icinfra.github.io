@@ -14,7 +14,9 @@ categories: icenv
 ![image](https://github.com/icinfra/icinfra.github.io/assets/32032219/da1af0c3-3ff2-4c9f-9bec-9611c4099d71)
 
 谜题出现于20240111，**疯狂星期四**。
-![image](https://github.com/icinfra/icinfra.github.io/assets/32032219/86359502-9412-46c2-9c5b-e425eae20b7c)
+![image](https://github.com/icinfra/icinfra.github.io/assets/32032219/3c6f5a25-c6a8-4807-b35d-142f806e7d61)
+
+
 
 # 思路
 编程来解决这个问题。
