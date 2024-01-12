@@ -107,3 +107,5 @@ https://opensource.com/users/rhatdan  红帽工程师的主页，容器相关的
 https://opensource.com/article/19/5/shortcomings-rootless-containers  rootless容器的缺点
 
 https://github.com/containers/podman/blob/main/rootless.md  rootless容器的缺点
+
+https://man7.org/linux/man-pages/man7/capabilities.7.html  CAP_DAC_OVERRIDE 资料
