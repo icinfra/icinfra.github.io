@@ -50,6 +50,28 @@ NFS 协议没有用户命名空间的概念，也无法知道作为 UID 1000 运
 
 现在，如果您有一个在 NFS 共享上创建文件的正常进程，并且没有利用用户命名空间功能，则一切正常。当容器内的进程需要在 NFS 共享上执行需要特殊功能访问的操作时，问题就出现了。在这种情况下，远程内核将不知道该功能，并且很可能会拒绝访问。
 
+## 案例
+```bash
+wanlinwang@h74ba78:/home/wanlinwang/ podman --version
+podman version 4.4.1
+wanlinwang@h74ba78:/home/wanlinwang/ podman unshare cat /proc/self/uid_map  
+         0       1157          1
+         1 2147483648      65536
+wanlinwang@h74ba78:/home/wanlinwang/ podman run -ti -v /home/wanlinwang/podman-volume:/mnt mirrors.tencent.com/sysbox/busybox bash
+Trying to pull mirrors.tencent.com/sysbox/busybox:latest...
+Getting image source signatures
+Copying blob b71f96345d44 done  
+ERRO[0000] While applying layer: ApplyLayer stdout:  stderr: setting up pivot dir: mkdir /home/wanlinwang/.local/share/containers/storage/vfs/dir/5b8c72934dfc08c7d2bd707e93197550f06c0751023dabb3a045b723c5e7b373/.pivot_root2193543684: permission denied exit status 1 
+Error: writing blob: adding layer with blob "sha256:b71f96345d44b237decc0c2d6c2f9ad0d17fde83dad7579608f1f0764d9686f2": ApplyLayer stdout:  stderr: setting up pivot dir: mkdir /home/wanlinwang/.local/share/containers/storage/vfs/dir/5b8c72934dfc08c7d2bd707e93197550f06c0751023dabb3a045b723c5e7b373/.pivot_root2193543684: permission denied exit status 1
+wanlinwang@h74ba78:/home/wanlinwang/ mkdir -p /home/wanlinwang/.local/share/containers/storage/vfs/dir/5b8c72934dfc08c7d2bd707e93197550f06c0751023dabb3a045b723c5e7b373/.pivot_root2193543684
+wanlinwang@h74ba78:/home/wanlinwang/ podman run -ti -v /home/wanlinwang/podman-volume:/mnt mirrors.tencent.com/sysbox/busybox bash
+Trying to pull mirrors.tencent.com/sysbox/busybox:latest...
+Getting image source signatures
+Copying blob b71f96345d44 done  
+Copying blob b71f96345d44 done  
+Error: writing blob: adding layer with blob "sha256:b71f96345d44b237decc0c2d6c2f9ad0d17fde83dad7579608f1f0764d9686f2": ApplyLayer stdout:  stderr: lchown /home: operation not permitted exit status 1
+```
+
 ## 如何使 NFS 与无根 Podman 一起工作？
 
 有几种方法可以在 NFS 共享上设置用户的主目录以使用无根 Podman。
