@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Registry作为pull through cache服务器
+title: Pull-Through Cache Docker Registry实践
 date: 2024-01-17 16:30+0800
 description: 
 tags: registry
@@ -20,7 +20,7 @@ categories: icenv
 ```
 
 # 配置
-## Pull-Through Cache Docker Registry
+## Pull-through cache docker registry
 根据 https://docs.docker.com/docker-hub/mirror/#run-a-registry-as-a-pull-through-cache 介绍，配置`/etc/docker/registry/config.yml`文件里的`proxy.remoteurl`为外部registry。
 
 registry容器可以通过传入REGISTRY_PROXY_REMOTEURL环境变量来完成配置，命令如下：
