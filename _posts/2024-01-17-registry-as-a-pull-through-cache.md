@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Registry作为pull through cache服务器
-date: 2024-01-15 16:30+0800
+date: 2024-01-17 16:30+0800
 description: 
 tags: registry
 giscus_comments: true
@@ -21,9 +21,11 @@ categories: icenv
 
 # 配置
 ## registry
-根据 https://docs.docker.com/docker-hub/mirror/ 介绍，可以通过运行以下容器，来设置这样的registry。
+根据 https://docs.docker.com/docker-hub/mirror/#run-a-registry-as-a-pull-through-cache 介绍，配置`/etc/docker/registry/config.yml`文件里的`proxy.remoteurl`为外部registry。
+
+registry容器可以通过传入REGISTRY_PROXY_REMOTEURL环境变量来完成配置，命令如下：
 ```bash
-podman run -d -p 5000:5000 --name registry-cache -e REGISTRY_PROXY_REMOTEURL=https://docker.io registry:2
+podman run -d -p 5000:5000 --name registry-cache -e REGISTRY_PROXY_REMOTEURL=https://registry-1.docker.io registry:2
 ```
 
 ## podman
