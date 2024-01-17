@@ -40,6 +40,6 @@ EOF
 完毕。
 
 # 附
-1. podman push显示unsupported。
+1. https://distribution.github.io/distribution/about/configuration/ 这里提到，podman push到pull-through cache是不支持的。满足“禁止用户push”的需求。
 2. 容器镜像层不能放在NFS，用户数据可以通过-v映射NFS目录进去使用。
-3. 需要打开subordinate ID
+3. 需要打开subordinate ID。
