@@ -12,15 +12,15 @@ categories: icenv
 容器在risc-v社区比较流行。这里介绍容器在研发环境的实践，能够单向拉取镜像运行，不能推送。
 
 ```bash
-+-----------------+        +------------------------------+       +-----------+
-| Upstream Docker |        | Pull-Through Cache           |       | Client    |
-| Registry        |        | Docker Registry              |       | (host001) |
-| (docker.io)     | -----> | (registry.icinfra.cn:5000)   | ----> |           |
-+-----------------+        +------------------------------+       +-----------+
++------------------------------------+        +------------------------------+       +-----------+
+| Upstream Docker                    |        | Pull-Through Cache           |       | Client    |
+| Registry                           |        | Docker Registry              |       | (host001) |
+| (https://registry-1.docker.io)     | -----> | (registry.icinfra.cn:5000)   | ----> |           |
++------------------------------------+        +------------------------------+       +-----------+
 ```
 
 # 配置
-## registry
+## Pull-Through Cache Docker Registry
 根据 https://docs.docker.com/docker-hub/mirror/#run-a-registry-as-a-pull-through-cache 介绍，配置`/etc/docker/registry/config.yml`文件里的`proxy.remoteurl`为外部registry。
 
 registry容器可以通过传入REGISTRY_PROXY_REMOTEURL环境变量来完成配置，命令如下：
@@ -28,8 +28,8 @@ registry容器可以通过传入REGISTRY_PROXY_REMOTEURL环境变量来完成配
 podman run -d -p 5000:5000 --name registry-cache -e REGISTRY_PROXY_REMOTEURL=https://registry-1.docker.io registry:2
 ```
 
-## podman
-配置registry地址，让podman使用。
+## Client
+在客户端侧配置registry地址，让podman或docker命令使用。
 ```bash
 cat > ~/.config/containers/registries.conf <<EOF
 [registries.insecure]
