@@ -55,29 +55,20 @@ cat > ~/.flush_groups.csh << 'EOF'
 
 # Writen by wanlinwang.
 # Date: Dec 1, 2023
-# Description: 支持自动将新增群组刷新到新terminal中，对研发人员透明。提升研发人员效率，降低支持工作量。
+# Description: Dec 1, 2023：支持自动将新增群组刷新到新terminal中，对研发人员透明。提升研发人员效率，降低支持工作量。
+#              Jan 24, 2024：去掉临时文件的读写，以子shell(bash)来替代，以提升性能。
 
 if ( ! $?new_grp_array) then
 
     # 获取当前用户在当前session的主群组以及全部群组
     setenv primary_group  `id -gn`
-    set    current_groups=`sh -c 'id -Gn 2> /dev/null'`
-    
+    set    current_groups=`sh -c 'id -Gn 2> /dev/null' | tr ' ' '\n' | sort`
+   
     # 获取当前用户最新的全部群组
-    set login_groups=`sh -c 'id -Gn $USER 2> /dev/null'`
-    
-    # 创建临时文件，并将群组信息写入临时文件
-    set temp1=`mktemp`
-    set temp2=`mktemp`
-    echo $current_groups | tr ' ' '\n' | sort > $temp1
-    echo $login_groups | tr ' ' '\n' | sort > $temp2
-    
-    # 使用comm比较文件内容
-    #set new_group=`comm -13 $temp1 $temp2`
-    setenv new_grp_array `comm -13 $temp1 $temp2 | tr '\n' ' '`
-    
-    # 删除临时文件
-    rm -f $temp1 $temp2
+    set login_groups=`sh -c 'id -Gn $USER 2> /dev/null' | tr ' ' '\n' | sort`
+   
+    # 使用comm比较临时变量的内容
+    setenv new_grp_array `bash --noprofile -c "comm -13 <(echo $current_groups) <(echo $login_groups) | tr '\n' ' '"`
 endif
 
 # iterate new_grp_array
@@ -102,7 +93,6 @@ endif
 
 unsetenv new_grp_array
 EOF
-
 #################
 # Update .bashrc.
 BASHRC=~/.bashrc
@@ -127,22 +117,13 @@ if [ -z "$new_grp_array" ]; then
 
     # Retrieve the current user's primary group and all groups in the current session
     primary_group=$(id -gn)
-    current_groups=$(id -Gn 2>/dev/null)
+    current_groups=$(id -Gn 2>/dev/null| tr ' ' '\n' | sort)
 
     # Get the current user's latest complete group list
-    login_groups=$(id -Gn $USER 2>/dev/null)
-    
-    # Create temporary files and write group information into them
-    temp1=$(mktemp)
-    temp2=$(mktemp)
-    echo $current_groups | tr ' ' '\n' | sort > "$temp1"
-    echo $login_groups | tr ' ' '\n' | sort > "$temp2"
-    
+    login_groups=$(id -Gn $USER 2>/dev/null| tr ' ' '\n' | sort)
+
     # Compare file contents using 'comm'
-    new_grp_array=$(comm -13 "$temp1" "$temp2" | tr '\n' ' ')
-    
-    # Delete temporary files
-    rm -f "$temp1" "$temp2"
+    export new_grp_array=$(comm -13 <(echo $current_groups) <(echo $login_groups) | tr '\n' ' ')
 fi
 
 # Iterate over new_grp_array
@@ -170,7 +151,8 @@ EOF
 ```
 
 ## krusader
-按需，需要联网。如果离线环境则手动下载回来安装。
+这是一个可以继承当前shell群组的文件浏览器。需要联网。如果离线环境则手动下载回来安装。
+
 ```bash
 # Install krusader, a file manager. If you want to use this tool, please contact your system administrator to install.
 sudo yum install epel-release
