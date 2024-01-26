@@ -22,10 +22,11 @@ categories:
 3. 在Git Bash中，输入下面的命令（用你的实际情况替换`<username>`,`<proxy-server>`和`<port>`）：  
     ```  
     ssh -D <port> -N <username>@<proxy-server>  
+    ```
+
+   如： 
     ```  
-    例如：  
-    ```  
-    ssh -D 8080 -N user@proxy-server.com  
+    while true; do ssh -i /drives/c/Users/wanlinwang/.ssh/id_rsa -N -D 1080 root@rn-5bxxxx.thesre.lol; done
     ```  
    这条命令将在本地的8080端口上启动一个SOCKS代理，所有通过此代理的流量都将通过`proxy-server.com`服务器传输。
    如下图所示：
@@ -56,7 +57,7 @@ categories:
 
 4. 输入情景模式的名称，例如“SOCKS Proxy”，然后选择“代理服务器”。
 
-5. 在“代理协议和服务器”部分，选择SOCKS5，输入`127.0.0.1`作为服务器地址，端口设置为你在第一步中选择的端口，例如`8080`。
+5. 在“代理协议和服务器”部分，选择SOCKS5，输入`127.0.0.1`作为服务器地址，端口设置为你在第一步中选择的端口，例如`1080`。
 
 6. 点击左侧的“自动切换”，然后在“规则列表规则”中添加一条新的规则。在“主机通配符”中输入`*.openai.com`，然后在“情景模式”中选择你刚刚创建的“SOCKS Proxy”。
 
