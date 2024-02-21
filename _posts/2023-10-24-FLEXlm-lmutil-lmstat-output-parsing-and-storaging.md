@@ -159,7 +159,7 @@ from datetime import datetime
 DB_PATH = 'license_logging.db'
 
 def run_lmstat(CDS_LIC_FILE):
-    cmd = r"lmstat -a -c {CDS_LIC_FILE}"
+    cmd = f"lmstat -a -c {CDS_LIC_FILE}"
     return subprocess.check_output(cmd, shell=True).decode('utf-8')
 
 def extract_data_from_output(output):
@@ -241,7 +241,7 @@ def update_database(data):
 if __name__ == "__main__":
     CDS_LIC_FILE="5280@lic-server-01:5280@lic-server-02"
     all_output = run_lmstat(CDS_LIC_FILE)
-    for output in re.split(r"-{8,}", all_output)
+    for output in re.split(r"-{8,}", all_output):
         data = extract_data_from_output(output)
         update_database(data)
 
