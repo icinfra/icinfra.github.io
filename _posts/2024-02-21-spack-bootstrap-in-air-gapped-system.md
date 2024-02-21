@@ -49,3 +49,7 @@ $ spack install gcc@13.2.0 +binutils
 ==> Installing gmake-4.4.1-7xujubssqx5cedh3lnbz7nhzgn2kjpyh [1/30]
 ==> No binary for gmake-4.4.1-7xujubssqx5cedh3lnbz7nhzgn2kjpyh found: installing from source
 ```
+
+
+# 参考资料
+https://spack.readthedocs.io/en/latest/bootstrapping.html#creating-a-mirror-for-air-gapped-systems
