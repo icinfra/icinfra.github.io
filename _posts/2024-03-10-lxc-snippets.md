@@ -50,9 +50,19 @@ lxc.net.0.ipv4.gateway = 192.168.122.1
 
 ## Creating a bridge NIC
 ```bash
+# temperary
 yum install bridge-utils
 brctl addbr br0
 ip addr add 192.168.122.1/24 dev br0
+# persist it
+cat /etc/sysconfig/network-scripts/ifcfg-br0 
+DEVICE=br0
+TYPE=Bridge
+ONBOOT=yes
+BOOTPROTO=static
+IPADDR=192.168.122.1
+NETMASK=255.255.255.0
+DELAY=0
 ```
 
 ## Firewall(DNAT and FORWARD)
