@@ -120,3 +120,11 @@ firewall-cmd --zone=public --add-masquerade --permanent
 firewall-cmd --reload
 firewall-cmd --list-all
 ```
+
+## mount directories in LXC
+```bash
+$ tail -2 /var/lib/lxc/almalinux8/config 
+lxc.mount.entry = /tools /var/lib/lxc/almalinux8/rootfs/tools none bind 0 0
+lxc.mount.entry = /licenses /var/lib/lxc/almalinux8/rootfs/licenses none bind 0 0
+$ mkdir /var/lib/lxc/almalinux8/rootfs/tools /var/lib/lxc/almalinux8/rootfs/licenses
+```
