@@ -12,7 +12,7 @@ categories: icenv
 ## lxc commands
 ```bash
 lxc-ls # list all instances
-DOWNLOAD_KEYSERVER="hkp://kerserver.ubuntu.com" lxc-create -n almalinux8-lic -B lvm --vgname vg01 --thinpool almalinux8-lic -t download -- -d almalinux -r 8 -a amd64  #创建lv给容器的根目录使用，这样容器的根目录inode就是2了。
+DOWNLOAD_KEYSERVER="hkp://kerserver.ubuntu.com" lxc-create -n almalinux8-lic -B lvm --vgname vg01 --thinpool almalinux8-lic -t download -- -d almalinux -r 8 -a amd64  #创建lv给容器的根目录使用，这样容器的根目录inode就是2了
 lxc-start -n almalinux8 # start the instance
 lxc-info -n almalinux8 # get the instance info
 lxc-attach -n almalinux8 # attach to the instance
@@ -35,8 +35,8 @@ lxc.include = /usr/share/lxc/config/common.conf
 lxc.arch = x86_64
 
 # Container specific configuration
-lxc.rootfs.path = dir:/var/lib/lxc/almalinux8/rootfs #如果是lvm，则这里是另外的值。
-lxc.uts.name = almalinux8
+lxc.rootfs.path = lvm:/dev/vg01/almalinux8-lic
+lxc.uts.name = almalinux8-lic
 
 # Network configuration
 lxc.net.0.type = veth
@@ -46,6 +46,10 @@ lxc.net.0.hwaddr = 12:34:56:78:90:ab
 lxc.net.0.ipv4.address = 192.168.122.2/24
 lxc.net.0.ipv4.gateway = 192.168.122.1
 
+# Mount enties
+lxc.mount.entry = /software software none bind,create=dir 0 0
+lxc.mount.entry = /tools tools none bind,create=dir 0 0
+lxc.mount.entry = /licenses licenses none bind,create=dir 0 0
 ```
 
 ## Creating a bridge NIC
