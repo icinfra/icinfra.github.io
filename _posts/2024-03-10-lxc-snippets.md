@@ -13,10 +13,10 @@ categories: icenv
 ```bash
 lxc-ls # list all instances
 DOWNLOAD_KEYSERVER="hkp://kerserver.ubuntu.com" lxc-create -n almalinux8-lic -B lvm --vgname vg01 --thinpool almalinux8-lic -t download -- -d almalinux -r 8 -a amd64  #创建lv给容器的根目录使用，这样容器的根目录inode就是2了
-lxc-start -n almalinux8 # start the instance
-lxc-info -n almalinux8 # get the instance info
-lxc-attach -n almalinux8 # attach to the instance
-lxc-stop -n almalinux8 # stop the instance
+lxc-start -n almalinux8-lic # start the instance
+lxc-info -n almalinux8-lic # get the instance info
+lxc-attach -n almalinux8-lic # attach to the instance
+lxc-stop -n almalinux8-lic # stop the instance
 ```
 ## customizing config for container
 ```bash
@@ -130,4 +130,78 @@ firewall-cmd --list-all
 $ tail -2 /var/lib/lxc/almalinux8/config 
 lxc.mount.entry = /tools /var/lib/lxc/almalinux8/rootfs/tools none bind,create=dir 0 0
 lxc.mount.entry = /licenses /var/lib/lxc/almalinux8/rootfs/licenses none bind,create=dir 0 0
+```
+
+
+## 其它相关资料
+https://serverfault.com/q/922532 https://serverfault.com/a/1024360
+
+```
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <dlfcn.h>
+#include <string.h>
+
+static int is_root = 0;
+static int d_ino = -1;
+
+static DIR *(*orig_opendir)(const char *name);
+static int (*orig_closedir)(DIR *dirp);
+static struct dirent *(*orig_readdir)(DIR *dirp);
+
+DIR *opendir(const char *name) {
+  if (strcmp(name, "/") == 0) {
+    is_root = 1;
+  }
+
+  return orig_opendir(name);
+}
+
+
+int closedir(DIR *dirp) {
+  is_root = 0;
+  return orig_closedir(dirp);
+}
+
+struct dirent *readdir(DIR *dirp) {
+  struct dirent *r = orig_readdir(dirp);
+  if (is_root && r) {
+    if (strcmp(r->d_name, ".") == 0) {
+      r->d_ino = d_ino;
+    } else if (strcmp(r->d_name, "..") == 0) {
+      r->d_ino = d_ino;
+    }
+  }
+  return r;
+}
+
+static __attribute__((constructor)) void init_methods() {
+  orig_opendir = dlsym(RTLD_NEXT, "opendir");
+  orig_closedir = dlsym(RTLD_NEXT, "closedir");
+  orig_readdir = dlsym(RTLD_NEXT, "readdir");
+  DIR *d = orig_opendir("/");
+  struct dirent *e = orig_readdir(d);
+  while (e) {
+    if (strcmp(e->d_name, ".") == 0) {
+      d_ino = e->d_ino;
+      break;
+    }
+    e = orig_readdir(d);
+  }
+  orig_closedir(d);
+  if (d_ino == -1) {
+    puts("Failed to determine root directory inode number");
+    exit(EXIT_FAILURE);
+  }
+}
+```
+
+```bash
+gcc -ldl -shared -fPIC snpslmd-ld-preload.c -o snpslmd-ld-preload.so
+vi snpslmd
+#!/bin/sh
+export LD_PRELOAD=snpslmd-ld-preload.so
+exec /path/to/original_snpslmd "$@"
 ```
