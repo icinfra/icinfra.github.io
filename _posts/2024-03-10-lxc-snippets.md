@@ -12,7 +12,7 @@ categories: icenv
 ## lxc commands
 ```bash
 lxc-ls # list all instances
-DOWNLOAD_KEYSERVER="hkp://kerserver.ubuntu.com" lxc-create -n almalinux8 -B lvm --vgname vg01 --thinpool almalinux8 -t download -- -d almalinux -r 8 -a amd64
+DOWNLOAD_KEYSERVER="hkp://kerserver.ubuntu.com" lxc-create -n almalinux8 -B lvm --vgname vg01 --thinpool almalinux8 --fssize=20G -t download -- -d almalinux -r 8 -a amd64
 lxc-start -n almalinux8 # start the instance
 lxc-info -n almalinux8 # get the instance info
 lxc-attach -n almalinux8 # attach to the instance
