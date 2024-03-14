@@ -21,8 +21,8 @@ lxc-stop -n almalinux8 # stop the instance
 注意：需创建lv给容器的根目录来运行FlexNet lic。除创建lv的方法，还可以参考文末"其它相关资料"。用以解决启动时报错：
 > Cannot open daemon lock file\
 > EXITING DUE TO SIGNAL 41 Exit reason 9\
-> ***lmd exited with status 41 (Exited because another server was running)\
-> MULTIPLE "***lmd" license server systems running.\
+> \*\*\*lmd exited with status 41 (Exited because another server was running)\
+> MULTIPLE "\*\*\*lmd" license server systems running.\
 > Please kill, and run lmreread
 >
 > This error probbly results from either:
