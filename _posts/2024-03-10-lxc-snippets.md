@@ -137,13 +137,6 @@ firewall-cmd --reload
 firewall-cmd --list-all
 ```
 
-## mount directories in LXC
-```bash
-$ tail -2 /var/lib/lxc/almalinux8/config 
-lxc.mount.entry = /tools /var/lib/lxc/almalinux8/rootfs/tools none bind,create=dir 0 0
-lxc.mount.entry = /licenses /var/lib/lxc/almalinux8/rootfs/licenses none bind,create=dir 0 0
-```
-
 
 ## 其它相关资料
 来源 https://serverfault.com/q/922532 https://serverfault.com/a/1024360
