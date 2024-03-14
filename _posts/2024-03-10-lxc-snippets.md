@@ -12,12 +12,24 @@ categories: icenv
 ## lxc commands
 ```bash
 lxc-ls # list all instances
-DOWNLOAD_KEYSERVER="hkp://kerserver.ubuntu.com" lxc-create -n almalinux8-lic -B lvm --vgname vg01 --thinpool almalinux8-lic -t download -- -d almalinux -r 8 -a amd64  #创建lv给容器的根目录使用，这样容器的根目录inode就是2了
-lxc-start -n almalinux8-lic # start the instance
-lxc-info -n almalinux8-lic # get the instance info
-lxc-attach -n almalinux8-lic # attach to the instance
-lxc-stop -n almalinux8-lic # stop the instance
+DOWNLOAD_KEYSERVER="hkp://kerserver.ubuntu.com" lxc-create -n almalinux8 -B lvm --vgname vg01 --thinpool almalinux8 -t download -- -d almalinux -r 8 -a amd64
+lxc-start -n almalinux8 # start the instance
+lxc-info -n almalinux8 # get the instance info
+lxc-attach -n almalinux8 # attach to the instance
+lxc-stop -n almalinux8 # stop the instance
 ```
+注意：需创建lv给容器的根目录来运行FlexNet lic。除创建lv的方法，还可以参考文末"其它相关资料"。用以解决启动时报错：
+> Cannot open daemon lock file
+> EXITING DUE TO SIGNAL 41 Exit reason 9
+> ***lmd exited with status 41 (Exited because another server was running)
+> MULTIPLE "***lmd" license server systems running.
+> Please kill, and run lmreread
+>
+> This error probbly results from either:
+>   1. Another copy of the license server manager (lmgrd) is running.
+>   2. A prior license server manager (lmgrd) was killed with "kill -9"
+
+
 ## customizing config for container
 ```bash
 vi /var/lib/lxc/almalinux8/config
@@ -35,8 +47,8 @@ lxc.include = /usr/share/lxc/config/common.conf
 lxc.arch = x86_64
 
 # Container specific configuration
-lxc.rootfs.path = lvm:/dev/vg01/almalinux8-lic
-lxc.uts.name = almalinux8-lic
+lxc.rootfs.path = lvm:/dev/vg01/almalinux8
+lxc.uts.name = almalinux8
 
 # Network configuration
 lxc.net.0.type = veth
@@ -134,8 +146,7 @@ lxc.mount.entry = /licenses /var/lib/lxc/almalinux8/rootfs/licenses none bind,cr
 
 
 ## 其它相关资料
-https://serverfault.com/q/922532 https://serverfault.com/a/1024360
-
+来源 https://serverfault.com/q/922532 https://serverfault.com/a/1024360
 ```
 #define _GNU_SOURCE
 #include <stdio.h>
