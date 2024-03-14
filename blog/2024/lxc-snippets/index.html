@@ -68,7 +68,7 @@ COMMIT
 :POSTROUTING ACCEPT <span class="o">[</span>0:0]
 <span class="nt">-A</span> PREROUTING <span class="nt">-p</span> tcp <span class="nt">-m</span> tcp <span class="nt">--dport</span> 5280 <span class="nt">-j</span> DNAT <span class="nt">--to-destination</span> 192.168.122.2:5280
 <span class="nt">-A</span> PREROUTING <span class="nt">-p</span> tcp <span class="nt">-m</span> tcp <span class="nt">--dport</span> 3000 <span class="nt">-j</span> DNAT <span class="nt">--to-destination</span> 192.168.122.2:3000
-<span class="nt">-A</span> POSTROUTING <span class="nt">-o</span> &lt;外部网络接口&gt; <span class="nt">-j</span> MASQUERADE
+<span class="nt">-A</span> POSTROUTING <span class="nt">-o</span> &lt;外部网络接口&gt; <span class="nt">-j</span> MASQUERADE <span class="c">#给容器利用nat上网使用。</span>
 COMMIT
 
 <span class="k">*</span>filter
@@ -82,8 +82,8 @@ COMMIT
 <span class="nt">-A</span> INPUT <span class="nt">-j</span> REJECT <span class="nt">--reject-with</span> icmp-host-prohibited
 <span class="nt">-A</span> FORWARD <span class="nt">-d</span> 192.168.122.2/32 <span class="nt">-p</span> tcp <span class="nt">-m</span> tcp <span class="nt">--dport</span> 5280 <span class="nt">-j</span> ACCEPT
 <span class="nt">-A</span> FORWARD <span class="nt">-d</span> 192.168.122.2/32 <span class="nt">-p</span> tcp <span class="nt">-m</span> tcp <span class="nt">--dport</span> 3000 <span class="nt">-j</span> ACCEPT
-<span class="nt">-A</span> FORWARD <span class="nt">-i</span> br0 <span class="nt">-o</span> &lt;外部网络接口&gt; <span class="nt">-j</span> ACCEPT
-<span class="nt">-A</span> FORWARD <span class="nt">-i</span> &lt;外部网络接口&gt; <span class="nt">-o</span> br0 <span class="nt">-m</span> state <span class="nt">--state</span> RELATED,ESTABLISHED <span class="nt">-j</span> ACCEPT
+<span class="nt">-A</span> FORWARD <span class="nt">-i</span> br0 <span class="nt">-o</span> &lt;外部网络接口&gt; <span class="nt">-j</span> ACCEPT <span class="c">#给容器利用nat上网使用；端口转发</span>
+<span class="nt">-A</span> FORWARD <span class="nt">-i</span> &lt;外部网络接口&gt; <span class="nt">-o</span> br0 <span class="nt">-m</span> state <span class="nt">--state</span> RELATED,ESTABLISHED <span class="nt">-j</span> ACCEPT <span class="c">#给容器利用nat上网使用；端口转发</span>
 <span class="nt">-A</span> FORWARD <span class="nt">-j</span> REJECT <span class="nt">--reject-with</span> icmp-host-prohibited
 <span class="nt">-A</span> OUTPUT <span class="nt">-o</span> lo <span class="nt">-j</span> ACCEPT
 COMMIT
