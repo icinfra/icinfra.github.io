@@ -94,9 +94,6 @@ firewall-cmd <span class="nt">--zone</span><span class="o">=</span>public <span 
 firewall-cmd <span class="nt">--zone</span><span class="o">=</span>public <span class="nt">--add-masquerade</span> <span class="nt">--permanent</span>
 firewall-cmd <span class="nt">--reload</span>
 firewall-cmd <span class="nt">--list-all</span>
-</code></pre></div></div> <h2 id="mount-directories-in-lxc">mount directories in LXC</h2> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">tail</span> <span class="nt">-2</span> /var/lib/lxc/almalinux8/config 
-lxc.mount.entry <span class="o">=</span> /tools /var/lib/lxc/almalinux8/rootfs/tools none <span class="nb">bind</span>,create<span class="o">=</span><span class="nb">dir </span>0 0
-lxc.mount.entry <span class="o">=</span> /licenses /var/lib/lxc/almalinux8/rootfs/licenses none <span class="nb">bind</span>,create<span class="o">=</span><span class="nb">dir </span>0 0
 </code></pre></div></div> <h2 id="其它相关资料">其它相关资料</h2> <p>来源 https://serverfault.com/q/922532 https://serverfault.com/a/1024360</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define _GNU_SOURCE
 #include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
