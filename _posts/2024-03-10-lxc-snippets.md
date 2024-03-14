@@ -105,7 +105,7 @@ COMMIT
 :POSTROUTING ACCEPT [0:0]
 -A PREROUTING -p tcp -m tcp --dport 5280 -j DNAT --to-destination 192.168.122.2:5280
 -A PREROUTING -p tcp -m tcp --dport 3000 -j DNAT --to-destination 192.168.122.2:3000
--A POSTROUTING -o br0 -j MASQUERADE
+-A POSTROUTING -o <外部网络接口> -j MASQUERADE
 COMMIT
 
 *filter
@@ -119,7 +119,8 @@ COMMIT
 -A INPUT -j REJECT --reject-with icmp-host-prohibited
 -A FORWARD -d 192.168.122.2/32 -p tcp -m tcp --dport 5280 -j ACCEPT
 -A FORWARD -d 192.168.122.2/32 -p tcp -m tcp --dport 3000 -j ACCEPT
--A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A FORWARD -i br0 -o <外部网络接口> -j ACCEPT
+-A FORWARD -i <外部网络接口> -o br0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 -A FORWARD -j REJECT --reject-with icmp-host-prohibited
 -A OUTPUT -o lo -j ACCEPT
 COMMIT
