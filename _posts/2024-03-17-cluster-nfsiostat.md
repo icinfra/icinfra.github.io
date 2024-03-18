@@ -94,8 +94,8 @@ def main():
             df_mp = df_unique[df_unique['mount_point'] == mount_point]
             
             # 对指定列进行降序排序
-            if 'M' in df_mp.columns and 'F' in df_mp.columns:
-                df_mp = df_mp.sort_values(by=['M', 'F'], ascending=[False, False])
+            if 'write_kB/s' in df_mp.columns and 'read_kB/s' in df_mp.columns:
+                df_mp = df_mp.sort_values(by=['write_kB/s', 'read_kB/s'], ascending=[False, False])
             
             # 创建工作表并写入数据
             sheet_name = mount_point.replace(":/", "_")[0:31]
