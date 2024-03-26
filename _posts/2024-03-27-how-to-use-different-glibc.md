@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  how to use different glibc
+title:  如何使用不同版本的glibc而不导致系统崩溃
 date:   2024-03-27 07:45:00+0800
 description: 
 tags: glibc
