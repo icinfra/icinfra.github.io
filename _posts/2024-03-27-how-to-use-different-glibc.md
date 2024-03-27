@@ -11,6 +11,15 @@ categories: icenv
 # 背景
 IC设计环境需要使用大量的开源工具。快速迭代的开源工具往往在开发时依赖于高版本的库，如glibc库。但IC设计环境主流还在使用CentOS 7.9，系统自带的glibc不满足运行条件。
 
+报错样例：
+```bash
+./myapp: /lib/i686/libc.so.6: version `GLIBC_2.3' not found (required by ./myapp)
+./myapp: /lib/i686/libpthread.so.0: version `GLIBC_2.3.2' not found (required by ./myapp)
+./myapp: /lib/i686/libc.so.6: version `GLIBC_2.3' not found (required by ./libxerces-c.so.27)
+./myapp: /lib/ld-linux.so.2: version `GLIBC_2.3' not found (required by ./libstdc++.so.6)
+./myapp: /lib/i686/libc.so.6: version `GLIBC_2.3' not found (required by ./libstdc++.so.6)
+```
+
 通常，为了满足运行条件，IT向业务提供一台自带高版本 glibc 的操作系统使用。如果仅仅为了运行小部分不常用的软件，这种方式成本较高。
 
 而另一种粗暴的做法：下载高版本glibc源码并直接执行./configure &$ make && make install进行升级，将导致运维人“从勇士变为烈士”。
@@ -43,6 +52,8 @@ patchelf --set-interpreter /path/to/newglibc_lib_dir/ld-linux.so.2 --set-rpath /
 ```
 
 # 参考资料
+https://lwn.net/Articles/631631/ ELF二进制可执行文件的介绍，包括解析器的介绍
+
 https://stackoverflow.com/a/44710599
 
 https://stackoverflow.com/a/851229
