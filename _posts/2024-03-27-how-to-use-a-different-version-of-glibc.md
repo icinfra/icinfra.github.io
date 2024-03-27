@@ -43,6 +43,8 @@ patchelf --set-interpreter /path/to/newglibc_lib_dir/ld-linux.so.2 --set-rpath /
 ```
 
 # 参考资料
+https://lwn.net/Articles/631631/ ELF二进制可执行文件的介绍，包括解析器的介绍
+
 https://stackoverflow.com/a/44710599
 
 https://stackoverflow.com/a/851229
