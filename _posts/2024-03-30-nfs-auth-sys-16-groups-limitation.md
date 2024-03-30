@@ -110,8 +110,8 @@ vs1::> vserver services name-service getxxbyy getgrlist -node <node_name> -vserv
 vs1::> vserver nfs credentials show -node <node_name> -vserver <svm_name> -unix-user-name <username>
 ```
 
-# 相关
-通过在服务端去Name Service去查找用户的群组，也解决了用户新群组在旧VNC Session不生效的问题：即使用户在terminal里执行groups没显示到新群组，但用户能访问新群组才有权限访问的目录，因为检查群组的这个步骤在服务端完成。
+# 总结
+上述从服务端去Name Service查的做法，不去改NFS RPC传输的数据结构，而是服务端自行去查一下。这同时也解决了用户新群组在旧VNC Session不生效的问题：即使用户在terminal里执行groups没显示到新群组，但用户能访问新群组才有权限访问的目录，因为检查群组的这个步骤在服务端完成。
 
 # 参考资料:
 https://thinksystem.lenovofiles.com/storage/help/index.jsp?topic=%2Fnfs_file_access_reference_guide%2F1D3D018C-DF37-4C87-A789-58526A46B1A9_.html
