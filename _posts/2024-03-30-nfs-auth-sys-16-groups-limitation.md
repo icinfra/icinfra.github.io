@@ -62,6 +62,7 @@ vs1::> vserver services name-service ns-switch show
 ```
 
 3）通过这两个选项，来打开超过16群组的支持。
+
 <img width="963" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/21a28943-c730-4099-ac97-afd5abfc0fde">
 
 ```bash
@@ -79,6 +80,7 @@ vs1     enabled                  512
 ```
 
 4）调整缓存失效期限
+
 某用户打开了NetApp对超过16群组的支持，超过16群组的用户，假设群组是加了很久的，则work；假设群组是刚加入的，则不work。该用户很纳闷，为何会有这么奇怪的现象，于是又关掉了对超过16群组的支持。
 
 经过分析，是Name Service缓存、凭据缓存失效期限过长。而用户验证时，在新加群组几分钟内去验证的，此时缓存还是旧的，因此不work。可根据业务容忍度，适当地调整缓存失效时间。
