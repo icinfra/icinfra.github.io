@@ -123,3 +123,6 @@ https://kb.netapp.com/onprem/ontap/da/NAS/How_does_AUTH_SYS_Extended_Groups_chan
 https://datatracker.ietf.org/doc/html/rfc5531 P25 defines authsys_parms data structure, which limit the number of secondary groups up to 16.
 
 https://access.redhat.com/articles/625273
+
+# 致谢
+感谢EDACAD社区资深成员的对于该问题激烈讨论与分享。
