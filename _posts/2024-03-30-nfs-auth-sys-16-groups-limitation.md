@@ -11,7 +11,30 @@ categories: icenv
 # 背景
 NFS使用AUTH_SYS时有16群组限制，使用AUTH_GSS时有32群组限制。
 
-从RFC5531可以查阅到authsys_parms数据结构定义，
+很多IC设计公司，使用AUTH_SYS方式，都有遇到超过16个群组无法使用的问题。
+
+# 分析
+## 问题现象
+```bash
+[wanlinwang@VM-AlmaLinux8-tmpl-wanlinwang ~]$ id #从返回结果可知，q是第16群组，r是第17群组。
+uid=1001(wanlinwang) gid=1001(p) groups=1001(p),1002(system),1003(b),1004(c),1005(d),1006(e),1007(f),1008(h),1009(i),1010(j),1011(k),1012(l),1013(m),1014(n),1015(o),1016(q),1017(r),1018(s),1019(a),1020(z)
+[wanlinwang@VM-AlmaLinux8-tmpl-wanlinwang ~]$ ls -ld /tools/{testq,a}
+drwxrwx--- 2 root r 2 Mar 31 11:16 /tools/a
+drwxrwx--- 2 root q 2 Mar 31 11:16 /tools/testq
+[wanlinwang@VM-AlmaLinux8-tmpl-wanlinwang ~]$ cd /tools/a
+-bash: cd: /tools/a: Permission denied
+[wanlinwang@VM-AlmaLinux8-tmpl-wanlinwang ~]$ cd /tools/testq
+[wanlinwang@VM-AlmaLinux8-tmpl-wanlinwang testq]$ 
+
+```
+
+## RPC包分析
+认证方式是AUTH_UNIX（AUTH_SYS），只传递了16个群组。
+
+<img width="985" alt="image" src="https://github.com/icinfra/icinfra.github.io/assets/32032219/a0573e83-3f9c-4ec0-b45e-657f376582b1">
+
+## 源码分析
+从RFC5531 authsys_parms数据结构可看出，gids数组大小为16，
 ```c
          struct authsys_parms {
             unsigned int stamp;
@@ -20,26 +43,6 @@ NFS使用AUTH_SYS时有16群组限制，使用AUTH_GSS时有32群组限制。
             unsigned int gid;
             unsigned int gids<16>;
          };
-```
-
-# 问题
-很多IC设计公司，使用AUTH_SYS方式，都有遇到超过16个群组无法使用的问题。问题现象如下，
-```bash
-$ groups
-p system b c d e f h i j k l m n o q r s a z
-# Note:
-# q is the 16th group.
-# r is the 17th group. "permission denied" reported, see below.
-$ ls -al
-total 88
-drwxrwxr-x    3 nobody   nobody        16384  Mar  3 10:33 .
-drwxr-xr-x   81 bin      bin           12288  Mar  4 10:24 ..
-drwxrwx---    2 b        q             16384  Mar  3 13:37 testq
-drwxrwx---    2 b        r             16384  Mar  3 13:37 a
-$ cd a
-ksh: a: permission denied
-$ cd testq
-
 ```
 
 # 解决方案
