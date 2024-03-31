@@ -126,5 +126,7 @@ https://access.redhat.com/articles/625273
 
 https://docs.netapp.com/us-en/ontap/nfs-config/configure-name-service-switch-table-task.html
 
+https://kb.netapp.com/onprem/ontap/da/NAS/NFS_access_is_getting_denied_after_enabling_auth-sys-extended-groups
+
 # 致谢
 感谢EDACAD社区资深成员的对于该问题激烈讨论与分享。
