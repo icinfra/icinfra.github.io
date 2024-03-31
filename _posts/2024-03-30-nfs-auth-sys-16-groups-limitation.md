@@ -124,5 +124,7 @@ https://datatracker.ietf.org/doc/html/rfc5531 P25 defines authsys_parms data str
 
 https://access.redhat.com/articles/625273
 
+https://docs.netapp.com/us-en/ontap/nfs-config/configure-name-service-switch-table-task.html
+
 # 致谢
 感谢EDACAD社区资深成员的对于该问题激烈讨论与分享。
