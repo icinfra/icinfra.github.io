@@ -103,9 +103,9 @@ COMMIT
 :INPUT ACCEPT [0:0]
 :OUTPUT ACCEPT [0:0]
 :POSTROUTING ACCEPT [0:0]
--A PREROUTING -p tcp -m tcp --dport 5280 -j DNAT --to-destination 192.168.122.2:5280
--A PREROUTING -p tcp -m tcp --dport 3000 -j DNAT --to-destination 192.168.122.2:3000
--A POSTROUTING -o <外部网络接口> -j MASQUERADE #给容器利用nat上网使用。
+-A PREROUTING -p tcp -m tcp --dport 5280 -j DNAT --to-destination 192.168.122.2:5280 #DNAT
+-A PREROUTING -p tcp -m tcp --dport 3000 -j DNAT --to-destination 192.168.122.2:3000 #DNAT
+-A POSTROUTING -o <外部网络接口> -j MASQUERADE #DNAT
 COMMIT
 
 *filter
@@ -119,8 +119,8 @@ COMMIT
 -A INPUT -j REJECT --reject-with icmp-host-prohibited
 -A FORWARD -d 192.168.122.2/32 -p tcp -m tcp --dport 5280 -j ACCEPT
 -A FORWARD -d 192.168.122.2/32 -p tcp -m tcp --dport 3000 -j ACCEPT
--A FORWARD -i br0 -o <外部网络接口> -j ACCEPT #给容器利用nat上网使用；端口转发
--A FORWARD -i <外部网络接口> -o br0 -m state --state RELATED,ESTABLISHED -j ACCEPT #给容器利用nat上网使用；端口转发
+-A FORWARD -i br0 -o <外部网络接口> -j ACCEPT #容器经SNAT上网。
+-A FORWARD -i <外部网络接口> -o br0 -m state --state RELATED,ESTABLISHED -j ACCEPT #SNAT and DNAT 的连接状态保持。
 -A FORWARD -j REJECT --reject-with icmp-host-prohibited
 -A OUTPUT -o lo -j ACCEPT
 COMMIT
