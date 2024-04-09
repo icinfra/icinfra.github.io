@@ -52,7 +52,7 @@ lxc.uts.name = almalinux8
 
 # Network configuration
 lxc.net.0.type = veth
-lxc.net.0.link = br0
+lxc.net.0.link = virbr0
 lxc.net.0.flags = up
 lxc.net.0.hwaddr = 12:34:56:78:90:ab
 lxc.net.0.ipv4.address = 192.168.122.2/24
@@ -68,11 +68,11 @@ lxc.mount.entry = /licenses licenses none bind,create=dir 0 0
 ```bash
 # temperary
 yum install bridge-utils
-brctl addbr br0
-ip addr add 192.168.122.1/24 dev br0
+brctl addbr virbr0
+ip addr add 192.168.122.1/24 dev virbr0
 # persist it
-cat /etc/sysconfig/network-scripts/ifcfg-br0 
-DEVICE=br0
+cat /etc/sysconfig/network-scripts/ifcfg-virbr0 
+DEVICE=virbr0
 TYPE=Bridge
 ONBOOT=yes
 BOOTPROTO=static
@@ -105,7 +105,7 @@ COMMIT
 :POSTROUTING ACCEPT [0:0]
 -A PREROUTING -p tcp -m tcp --dport 5280 -j DNAT --to-destination 192.168.122.2:5280 #DNAT
 -A PREROUTING -p tcp -m tcp --dport 3000 -j DNAT --to-destination 192.168.122.2:3000 #DNAT
--A POSTROUTING -o <外部网络接口> -j MASQUERADE #DNAT
+-A POSTROUTING -o virbr0 -j MASQUERADE #DNAT
 COMMIT
 
 *filter
@@ -119,8 +119,8 @@ COMMIT
 -A INPUT -j REJECT --reject-with icmp-host-prohibited
 -A FORWARD -d 192.168.122.2/32 -p tcp -m tcp --dport 5280 -j ACCEPT
 -A FORWARD -d 192.168.122.2/32 -p tcp -m tcp --dport 3000 -j ACCEPT
--A FORWARD -i br0 -o <外部网络接口> -j ACCEPT #容器经SNAT上网。
--A FORWARD -i <外部网络接口> -o br0 -m state --state RELATED,ESTABLISHED -j ACCEPT #SNAT and DNAT 的连接状态保持。
+-A FORWARD -i virbr0 -o <外部网络接口> -j ACCEPT #容器经SNAT上网。
+-A FORWARD -i <外部网络接口> -o virbr0 -m state --state RELATED,ESTABLISHED -j ACCEPT #SNAT and DNAT 的连接状态保持。
 -A FORWARD -j REJECT --reject-with icmp-host-prohibited
 -A OUTPUT -o lo -j ACCEPT
 COMMIT
