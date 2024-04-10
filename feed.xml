@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2024-04-10T13:24:41+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">lxc缓存到期</title><link href="https://www.icinfra.cn/blog/2024/lxc-cache-expired/" rel="alternate" type="text/html" title="lxc缓存到期"/><published>2024-04-09T04:30:00+00:00</published><updated>2024-04-09T04:30:00+00:00</updated><id>https://www.icinfra.cn/blog/2024/lxc-cache-expired</id><content type="html" xml:base="https://www.icinfra.cn/blog/2024/lxc-cache-expired/"><![CDATA[<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@lxc-host ~]# <span class="nv">DOWNLOAD_KEYSERVER</span><span class="o">=</span><span class="s2">"hkp://keyserver.ubuntu.com"</span> lxc-create <span class="nt">-n</span> slurm-master-node <span class="nt">-t</span> download <span class="nt">--</span> <span class="nt">-d</span> almalinux <span class="nt">-r</span> 8 <span class="nt">-a</span> amd64 <span class="c">#提示过期了</span>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2024-04-10T13:56:54+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">lxc缓存到期</title><link href="https://www.icinfra.cn/blog/2024/lxc-cache-expired/" rel="alternate" type="text/html" title="lxc缓存到期"/><published>2024-04-09T04:30:00+00:00</published><updated>2024-04-09T04:30:00+00:00</updated><id>https://www.icinfra.cn/blog/2024/lxc-cache-expired</id><content type="html" xml:base="https://www.icinfra.cn/blog/2024/lxc-cache-expired/"><![CDATA[<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@lxc-host ~]# <span class="nv">DOWNLOAD_KEYSERVER</span><span class="o">=</span><span class="s2">"hkp://keyserver.ubuntu.com"</span> lxc-create <span class="nt">-n</span> slurm-master-node <span class="nt">-t</span> download <span class="nt">--</span> <span class="nt">-d</span> almalinux <span class="nt">-r</span> 8 <span class="nt">-a</span> amd64 <span class="c">#提示过期了</span>
 The cached copy has expired, re-downloading...
 Setting up the GPG keyring
 ERROR: Unable to fetch GPG key from keyserver
@@ -265,19 +265,10 @@ lxc.net.0.ipv4.gateway <span class="o">=</span> 192.168.122.1
 lxc.mount.entry <span class="o">=</span> /software software none <span class="nb">bind</span>,create<span class="o">=</span><span class="nb">dir </span>0 0
 lxc.mount.entry <span class="o">=</span> /tools tools none <span class="nb">bind</span>,create<span class="o">=</span><span class="nb">dir </span>0 0
 lxc.mount.entry <span class="o">=</span> /licenses licenses none <span class="nb">bind</span>,create<span class="o">=</span><span class="nb">dir </span>0 0
-</code></pre></div></div> <h2 id="creating-a-bridge-nic">Creating a bridge NIC</h2> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># temperary</span>
-yum <span class="nb">install </span>bridge-utils
-brctl addbr virbr0
-ip addr add 192.168.122.1/24 dev virbr0
-<span class="c"># persist it</span>
-<span class="nb">cat</span> /etc/sysconfig/network-scripts/ifcfg-virbr0 
-<span class="nv">DEVICE</span><span class="o">=</span>virbr0
-<span class="nv">TYPE</span><span class="o">=</span>Bridge
-<span class="nv">ONBOOT</span><span class="o">=</span><span class="nb">yes
-</span><span class="nv">BOOTPROTO</span><span class="o">=</span>static
-<span class="nv">IPADDR</span><span class="o">=</span>192.168.122.1
-<span class="nv">NETMASK</span><span class="o">=</span>255.255.255.0
-<span class="nv">DELAY</span><span class="o">=</span>0
+</code></pre></div></div> <h2 id="creating-a-bridge-nic-named-virbr0">Creating a bridge NIC named virbr0</h2> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># NetworkManager</span>
+nmcli con add <span class="nb">type </span>bridge ifname virbr0 con-name virbr0
+nmcli con mod virbr0 ipv4.addresses 192.168.122.1/24 ipv4.method manual
+nmcli con up virbr0
 </code></pre></div></div> <h2 id="firewalldnat-and-forward">Firewall(DNAT and FORWARD)</h2> <h3 id="iptables">iptables</h3> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Generated by iptables-save</span>
 <span class="k">*</span>raw
 :PREROUTING ACCEPT <span class="o">[</span>0:0]
