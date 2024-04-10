@@ -8,6 +8,11 @@ giscus_comments: true
 categories: icenv
 ---
 
+## lxc installation
+```bash
+dnf install epel-release
+dnf install lxc lxc-doc lxc-templates
+```
 
 ## lxc commands
 ```bash
