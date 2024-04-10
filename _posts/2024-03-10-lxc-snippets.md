@@ -69,21 +69,12 @@ lxc.mount.entry = /tools tools none bind,create=dir 0 0
 lxc.mount.entry = /licenses licenses none bind,create=dir 0 0
 ```
 
-## Creating a bridge NIC
+## Creating a bridge NIC named virbr0
 ```bash
-# temperary
-yum install bridge-utils
-brctl addbr virbr0
-ip addr add 192.168.122.1/24 dev virbr0
-# persist it
-cat /etc/sysconfig/network-scripts/ifcfg-virbr0 
-DEVICE=virbr0
-TYPE=Bridge
-ONBOOT=yes
-BOOTPROTO=static
-IPADDR=192.168.122.1
-NETMASK=255.255.255.0
-DELAY=0
+# NetworkManager
+nmcli con add type bridge ifname virbr0 con-name virbr0
+nmcli con mod virbr0 ipv4.addresses 192.168.122.1/24 ipv4.method manual
+nmcli con up virbr0
 ```
 
 ## Firewall(DNAT and FORWARD)
