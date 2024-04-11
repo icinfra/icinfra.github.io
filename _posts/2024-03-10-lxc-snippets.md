@@ -120,6 +120,8 @@ COMMIT
 -A PREROUTING -p tcp -m tcp --dport 5280 -j DNAT --to-destination 192.168.122.2:5280 #DNAT
 -A PREROUTING -p tcp -m tcp --dport 3000 -j DNAT --to-destination 192.168.122.2:3000 #DNAT
 -A POSTROUTING -o virbr0 -j MASQUERADE #DNAT
+# SNAT
+-A POSTROUTING -s 192.168.122.3/32 -o eth0 -j MASQUERADE
 COMMIT
 
 *filter
@@ -129,12 +131,13 @@ COMMIT
 -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 -A INPUT -p icmp -j ACCEPT
 -A INPUT -i lo -j ACCEPT
--A INPUT -p tcp -m tcp --dport 5280 -j ACCEPT
 -A INPUT -j REJECT --reject-with icmp-host-prohibited
+# SNAT
+-A FORWARD -s 192.168.122.3/32 -j ACCEPT
+# DNAT
 -A FORWARD -d 192.168.122.2/32 -p tcp -m tcp --dport 5280 -j ACCEPT
 -A FORWARD -d 192.168.122.2/32 -p tcp -m tcp --dport 3000 -j ACCEPT
--A FORWARD -i virbr0 -o <外部网络接口> -j ACCEPT #容器经SNAT上网。
--A FORWARD -i <外部网络接口> -o virbr0 -m state --state RELATED,ESTABLISHED -j ACCEPT #SNAT and DNAT 的连接状态保持。
+-A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
 -A FORWARD -j REJECT --reject-with icmp-host-prohibited
 -A OUTPUT -o lo -j ACCEPT
 COMMIT
