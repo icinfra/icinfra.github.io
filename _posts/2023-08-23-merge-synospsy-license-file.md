@@ -110,7 +110,7 @@ def parse_feature_block(block):
     }
 
 def parse_license_file(file_content):
-    blocks = file_content.split("INCREMENT")[1:]
+    blocks = re.split(r'(?<!#)INCREMENT', file_content)[1:]
     blocks = [f"INCREMENT {b.strip()}" for b in blocks]
     return [parse_feature_block(block) for block in blocks]
 
