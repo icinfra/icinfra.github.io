@@ -1,4 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2024-06-09T07:16:03+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">lxc缓存到期</title><link href="https://www.icinfra.cn/blog/2024/lxc-cache-expired/" rel="alternate" type="text/html" title="lxc缓存到期"/><published>2024-04-09T04:30:00+00:00</published><updated>2024-04-09T04:30:00+00:00</updated><id>https://www.icinfra.cn/blog/2024/lxc-cache-expired</id><content type="html" xml:base="https://www.icinfra.cn/blog/2024/lxc-cache-expired/"><![CDATA[<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@lxc-host ~]# <span class="nv">DOWNLOAD_KEYSERVER</span><span class="o">=</span><span class="s2">"hkp://keyserver.ubuntu.com"</span> lxc-create <span class="nt">-n</span> slurm-master-node <span class="nt">-t</span> download <span class="nt">--</span> <span class="nt">-d</span> almalinux <span class="nt">-r</span> 8 <span class="nt">-a</span> amd64 <span class="c">#提示过期了</span>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="https://www.icinfra.cn/feed.xml" rel="self" type="application/atom+xml"/><link href="https://www.icinfra.cn/" rel="alternate" type="text/html" hreflang="en"/><updated>2024-07-14T06:53:13+00:00</updated><id>https://www.icinfra.cn/feed.xml</id><title type="html">IC Infra</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">ontap模拟器</title><link href="https://www.icinfra.cn/blog/2024/ontap-simulator/" rel="alternate" type="text/html" title="ontap模拟器"/><published>2024-07-14T06:40:00+00:00</published><updated>2024-07-14T06:40:00+00:00</updated><id>https://www.icinfra.cn/blog/2024/ontap-simulator</id><content type="html" xml:base="https://www.icinfra.cn/blog/2024/ontap-simulator/"><![CDATA[<h1 id="一下载模拟器">一、下载模拟器</h1> <p><strong>参考《Simulate_ONTAP_9-14-1_Installation_and_Setup_Guide.pdf》P4的指导，登录网站进行下载。</strong></p> <p><img src="https://github.com/user-attachments/assets/a5c4910e-3805-4601-b659-3799cf6e19d4" alt="image"/></p> <h1 id="二传入pve并解压转换">二、传入pve，并解压转换</h1> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 解压</span>
+<span class="nb">tar</span> <span class="nt">-xvf</span> vsim-netapp-DOT9.14.1-cm_nodar.ova
+
+<span class="c"># 解压后的文件列表，其中ovf文件里定义了虚拟机的物理规格。</span>
+vsim-NetAppDOT-simulate-disk1.vmdk
+vsim-NetAppDOT-simulate-disk2.vmdk
+vsim-NetAppDOT-simulate-disk3.vmdk
+vsim-NetAppDOT-simulate-disk4.vmdk
+vsim-NetAppDOT-simulate.mf
+vsim-NetAppDOT-simulate.ovf
+
+<span class="c"># 转换vmdk为qcow2，能被导入到kvm平台。</span>
+qemu-img convert <span class="nt">-f</span> vmdk <span class="nt">-O</span> qcow2 vsim-NetAppDOT-simulate-disk1.vmdk disk1.qcow2
+qemu-img convert <span class="nt">-f</span> vmdk <span class="nt">-O</span> qcow2 vsim-NetAppDOT-simulate-disk2.vmdk disk2.qcow2
+qemu-img convert <span class="nt">-f</span> vmdk <span class="nt">-O</span> qcow2 vsim-NetAppDOT-simulate-disk3.vmdk disk3.qcow2
+qemu-img convert <span class="nt">-f</span> vmdk <span class="nt">-O</span> qcow2 vsim-NetAppDOT-simulate-disk4.vmdk disk4.qcow2
+</code></pre></div></div> <h1 id="三查看虚拟机需求并创建虚拟机">三、查看虚拟机需求，并创建虚拟机</h1> <p>查看vsim-NetAppDOT-simulate.ovf文件，可以看虚拟机规格，特别的是</p> <ul> <li>创建4个网卡，网卡类型为e1000</li> <li>IDE 控制器</li> </ul> <p><img src="https://github.com/user-attachments/assets/edac64ff-f6ff-46cf-b758-af2945ca5c88" alt="image"/></p> <p><img src="https://github.com/user-attachments/assets/78a6f853-995c-4fca-beec-f6ada0a05acc" alt="image"/></p> <p><img src="https://github.com/user-attachments/assets/998e6654-56e7-4cdc-aacc-d4c739ba865b" alt="image"/></p> <p><img src="https://github.com/user-attachments/assets/2a570e0d-7fc0-4067-932f-53456de24133" alt="image"/></p> <p><img src="https://github.com/user-attachments/assets/64e50b00-d7cc-472a-8d24-b411ed01730b" alt="image"/></p> <p><img src="https://github.com/user-attachments/assets/eb6cfe63-b9b5-4de0-8a05-f78d6eb5783a" alt="image"/></p> <p><img src="https://github.com/user-attachments/assets/58e3db6c-7593-4b72-a747-6bce19c83827" alt="image"/></p> <p><img src="https://github.com/user-attachments/assets/113f13ce-30a6-47d1-af7e-ee3d2a8f2434" alt="image"/></p> <p>点完成，然后创建4个e1000的网卡</p> <p><img src="https://github.com/user-attachments/assets/4ba64a94-382a-48a5-a17e-75ca01b77717" alt="image"/></p> <h1 id="四在proxmox命令行导入磁盘到虚拟机随后attach并设置启动项">四、在proxmox命令行，导入磁盘到虚拟机。随后attach并设置启动项</h1> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>qm importdisk 120701001 disk1.qcow2 local-xfs
+qm importdisk 120701001 disk2.qcow2 local-xfs
+qm importdisk 120701001 disk3.qcow2 local-xfs
+qm importdisk 120701001 disk4.qcow2 local-xfs
+</code></pre></div></div> <p><img src="https://github.com/user-attachments/assets/b56fed13-1007-4390-b8b9-87fa7e90db9c" alt="image"/></p> <p>attach时选择ide控制器</p> <p><img src="https://github.com/user-attachments/assets/deab4991-0249-496a-892c-7fb2c0c54a9f" alt="image"/></p> <p>设置启动项</p> <p><img src="https://github.com/user-attachments/assets/e006f525-e184-48b0-b2b6-47fb8b200062" alt="image"/></p> <h1 id="五启动">五、启动</h1> <p><img src="https://github.com/user-attachments/assets/0975cd7f-45ea-4c81-b3b4-20a63bfb3edc" alt="image"/></p> <p>输入admin，然后执行halt命令，然后将虚拟机stop掉，重启进入到配置模式：</p> <h1 id="六配置">六、配置</h1> <p><img src="https://github.com/user-attachments/assets/d76abbf4-76e3-4cdd-bd17-a7ce6bea3ae9" alt="image"/></p> <p>后面就可以通过web来配置了。</p> <p><img src="https://github.com/user-attachments/assets/ffe6eabf-9aa8-4c03-b78e-e58e8de7c09f" alt="image"/></p> <p><img src="https://github.com/user-attachments/assets/16f52862-d533-4be4-b5db-4b62e8d14992" alt="image"/></p> <p>配置完毕后，自动跳到集群管理IP的web页面</p> <p><img src="https://github.com/user-attachments/assets/7c4ec572-319d-4011-8f40-d562345a34fd" alt="image"/></p> <p><img src="https://github.com/user-attachments/assets/22b0f04b-4c55-4dc6-9cbe-f2c9a9dfde35" alt="image"/></p> <p>至此，ontap模拟器搭建完毕。</p> <h1 id="七配置netapp">七、配置NetApp</h1> <h2 id="配置许可证">配置许可证</h2> <p><img src="https://github.com/user-attachments/assets/62ca9bf4-35de-43fa-94e4-71d1cdfc7841" alt="image"/></p> <p>贴入许可证</p> <p><img src="https://github.com/user-attachments/assets/563f8a1d-3107-4b3d-9b04-238067fc0d9a" alt="image"/></p> <h2 id="准备存储">准备存储</h2> <p><img src="https://github.com/user-attachments/assets/3bb3f6dd-4303-406c-b730-9b74049568cc" alt="image"/></p> <p><img src="https://github.com/user-attachments/assets/4c47c7ad-6ba0-4cea-b7a5-ad9a2cb76b75" alt="image"/></p> <h2 id="配置协议">配置协议</h2> <p><img src="https://github.com/user-attachments/assets/544adfcf-0866-4acb-9a38-91d3be8b9ef2" alt="image"/></p> <p><img src="https://github.com/user-attachments/assets/c4a02a27-0a8b-4918-ac44-7e9c6516edc6" alt="image"/></p> <h2 id="配置存储">配置存储</h2> <p><img src="https://github.com/user-attachments/assets/7211cbea-ab47-4947-bcde-ab490491b38a" alt="image"/></p> <p><img src="https://github.com/user-attachments/assets/3bd2e5aa-9838-4f92-bb94-7a1b7ede7fdb" alt="image"/></p> <p><img src="https://github.com/user-attachments/assets/a1d7a8a7-9024-4219-b80e-8e470f5ba502" alt="image"/></p> <h1 id="八挂载使用">八、挂载使用</h1> <p><img src="https://github.com/user-attachments/assets/da23b0c5-fe7b-4073-a2f7-7c01ab70f852" alt="image"/></p> <h1 id="九给svm配置ldap">九、给svm配置LDAP</h1> <p><img src="https://github.com/user-attachments/assets/256ef67c-1834-445a-86d5-16ab4640feef" alt="image"/></p>]]></content><author><name></name></author><category term="icenv"/><category term="storage"/><summary type="html"><![CDATA[一、下载模拟器]]></summary></entry><entry><title type="html">lxc缓存到期</title><link href="https://www.icinfra.cn/blog/2024/lxc-cache-expired/" rel="alternate" type="text/html" title="lxc缓存到期"/><published>2024-04-09T04:30:00+00:00</published><updated>2024-04-09T04:30:00+00:00</updated><id>https://www.icinfra.cn/blog/2024/lxc-cache-expired</id><content type="html" xml:base="https://www.icinfra.cn/blog/2024/lxc-cache-expired/"><![CDATA[<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@lxc-host ~]# <span class="nv">DOWNLOAD_KEYSERVER</span><span class="o">=</span><span class="s2">"hkp://keyserver.ubuntu.com"</span> lxc-create <span class="nt">-n</span> slurm-master-node <span class="nt">-t</span> download <span class="nt">--</span> <span class="nt">-d</span> almalinux <span class="nt">-r</span> 8 <span class="nt">-a</span> amd64 <span class="c">#提示过期了</span>
 The cached copy has expired, re-downloading...
 Setting up the GPG keyring
 ERROR: Unable to fetch GPG key from keyserver
@@ -227,175 +247,4 @@ execve<span class="o">(</span><span class="s2">"/software/Cadence/XCELIUM/23.09/
 strace: <span class="nb">exec</span>: No such file or directory
 +++ exited with 1 +++
 </code></pre></div></div> <p>sulotion</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>dnf <span class="nb">install </span>lsb
-</code></pre></div></div>]]></content><author><name></name></author><category term="icenv"/><category term="lic"/><summary type="html"><![CDATA[$ strace -s 512 /software/Cadence/XCELIUM/23.09/tools.lnx86/bin/64bit/lmgrd -c cadence.txt execve("/software/Cadence/XCELIUM/23.09/tools.lnx86/bin/64bit/lmgrd", ["/software/Cadence/XCELIUM/23.09/tools.lnx86/bin/64bit/lmgrd", "-c", "cadence.txt"], 0x7fff138508d0 /* 33 vars */) = -1 ENOENT (No such file or directory) strace: exec: No such file or directory +++ exited with 1 +++]]></summary></entry><entry><title type="html">LXC</title><link href="https://www.icinfra.cn/blog/2024/lxc-snippets/" rel="alternate" type="text/html" title="LXC"/><published>2024-03-10T00:30:00+00:00</published><updated>2024-03-10T00:30:00+00:00</updated><id>https://www.icinfra.cn/blog/2024/lxc-snippets</id><content type="html" xml:base="https://www.icinfra.cn/blog/2024/lxc-snippets/"><![CDATA[<h2 id="lxc-installation">lxc installation</h2> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dnf <span class="nb">install </span>epel-release
-dnf <span class="nb">install </span>lxc lxc-doc lxc-templates
-</code></pre></div></div> <h2 id="lxc-commands">lxc commands</h2> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lxc-ls <span class="c"># list all instances</span>
-<span class="nv">DOWNLOAD_KEYSERVER</span><span class="o">=</span><span class="s2">"hkp://keyserver.ubuntu.com"</span> lxc-create <span class="nt">-n</span> almalinux8 <span class="nt">-B</span> lvm <span class="nt">--vgname</span> vg01 <span class="nt">--thinpool</span> almalinux8 <span class="nt">--fssize</span><span class="o">=</span>20G <span class="nt">-t</span> download <span class="nt">--</span> <span class="nt">-d</span> almalinux <span class="nt">-r</span> 8 <span class="nt">-a</span> amd64
-lxc-start <span class="nt">-n</span> almalinux8 <span class="c"># start the instance</span>
-lxc-info <span class="nt">-n</span> almalinux8 <span class="c"># get the instance info</span>
-lxc-attach <span class="nt">-n</span> almalinux8 <span class="c"># attach to the instance</span>
-lxc-stop <span class="nt">-n</span> almalinux8 <span class="c"># stop the instance</span>
-</code></pre></div></div> <p>注意：需创建lv给容器的根目录来运行FlexNet lic。除创建lv的方法，还可以参考文末”其它相关资料”。用以解决启动时报错：</p> <blockquote> <p>Cannot open daemon lock file<br/> EXITING DUE TO SIGNAL 41 Exit reason 9<br/> ***lmd exited with status 41 (Exited because another server was running)<br/> MULTIPLE “***lmd” license server systems running.<br/> Please kill, and run lmreread</p> <p>This error probbly results from either:</p> <ol> <li>Another copy of the license server manager (lmgrd) is running.</li> <li>A prior license server manager (lmgrd) was killed with “kill -9”</li> </ol> </blockquote> <h2 id="customizing-config-for-container">customizing config for container</h2> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /var/lib/lxc/almalinux8/config
-<span class="c"># Template used to create this container: /usr/share/lxc/templates/lxc-download</span>
-<span class="c"># Parameters passed to the template: --dist almalinux --release 8 --arch amd64</span>
-<span class="c"># For additional config options, please look at lxc.container.conf(5)</span>
-
-<span class="c"># Uncomment the following line to support nesting containers:</span>
-<span class="c">#lxc.include = /usr/share/lxc/config/nesting.conf</span>
-<span class="c"># (Be aware this has security implications)</span>
-
-
-<span class="c"># Distribution configuration</span>
-lxc.include <span class="o">=</span> /usr/share/lxc/config/common.conf
-lxc.arch <span class="o">=</span> x86_64
-
-<span class="c"># Container specific configuration</span>
-lxc.rootfs.path <span class="o">=</span> lvm:/dev/vg01/almalinux8
-lxc.uts.name <span class="o">=</span> almalinux8
-
-<span class="c"># Network configuration</span>
-lxc.net.0.type <span class="o">=</span> veth
-lxc.net.0.link <span class="o">=</span> virbr0
-lxc.net.0.flags <span class="o">=</span> up
-lxc.net.0.hwaddr <span class="o">=</span> 12:34:56:78:90:ab
-lxc.net.0.ipv4.address <span class="o">=</span> 192.168.122.2/24
-lxc.net.0.ipv4.gateway <span class="o">=</span> 192.168.122.1
-
-<span class="c"># Mount enties</span>
-lxc.mount.entry <span class="o">=</span> /software software none <span class="nb">bind</span>,create<span class="o">=</span><span class="nb">dir </span>0 0
-lxc.mount.entry <span class="o">=</span> /tools tools none <span class="nb">bind</span>,create<span class="o">=</span><span class="nb">dir </span>0 0
-lxc.mount.entry <span class="o">=</span> /licenses licenses none <span class="nb">bind</span>,create<span class="o">=</span><span class="nb">dir </span>0 0
-</code></pre></div></div> <h2 id="creating-a-bridge-nic-named-virbr0">Creating a bridge NIC named virbr0</h2> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># NetworkManager</span>
-nmcli con add <span class="nb">type </span>bridge ifname virbr0 con-name virbr0
-nmcli con mod virbr0 ipv4.addresses 192.168.122.1/24 ipv4.method manual
-nmcli con up virbr0
-</code></pre></div></div> <h2 id="firewalldnat-and-forward">Firewall(DNAT and FORWARD)</h2> <h2 id="enable-ipv4-forwarding-which-needed-by-nat">enable ipv4 forwarding which needed by NAT</h2> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@lxc-host ~]# <span class="nb">cat</span> /proc/sys/net/ipv4/ip_forward
-0
-<span class="o">[</span>root@lxc-host ~]# <span class="nb">echo</span> <span class="s2">"net.ipv4.ip_forward = 1"</span> <span class="o">&gt;&gt;</span> /etc/sysctl.conf 
-<span class="o">[</span>root@lxc-host ~]# sysctl <span class="nt">-p</span>
-kernel.sysrq <span class="o">=</span> 1
-sysctl: cannot <span class="nb">stat</span> /proc/sys/net/ipv6/conf/all/disable_ipv6: No such file or directory
-sysctl: cannot <span class="nb">stat</span> /proc/sys/net/ipv6/conf/default/disable_ipv6: No such file or directory
-sysctl: cannot <span class="nb">stat</span> /proc/sys/net/ipv6/conf/lo/disable_ipv6: No such file or directory
-kernel.numa_balancing <span class="o">=</span> 0
-kernel.shmmax <span class="o">=</span> 68719476736
-kernel.printk <span class="o">=</span> 5
-net.ipv4.ip_forward <span class="o">=</span> 1
-<span class="o">[</span>root@lxc-host ~]# <span class="nb">cat</span> /proc/sys/net/ipv4/ip_forward
-1
-</code></pre></div></div> <h3 id="iptables">iptables</h3> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Generated by iptables-save</span>
-<span class="k">*</span>raw
-:PREROUTING ACCEPT <span class="o">[</span>0:0]
-:OUTPUT ACCEPT <span class="o">[</span>0:0]
-COMMIT
-
-<span class="k">*</span>mangle
-:PREROUTING ACCEPT <span class="o">[</span>0:0]
-:INPUT ACCEPT <span class="o">[</span>0:0]
-:FORWARD ACCEPT <span class="o">[</span>0:0]
-:OUTPUT ACCEPT <span class="o">[</span>0:0]
-:POSTROUTING ACCEPT <span class="o">[</span>0:0]
-COMMIT
-
-<span class="k">*</span>nat
-:PREROUTING ACCEPT <span class="o">[</span>0:0]
-:INPUT ACCEPT <span class="o">[</span>0:0]
-:OUTPUT ACCEPT <span class="o">[</span>0:0]
-:POSTROUTING ACCEPT <span class="o">[</span>0:0]
-<span class="nt">-A</span> PREROUTING <span class="nt">-p</span> tcp <span class="nt">-m</span> tcp <span class="nt">--dport</span> 5280 <span class="nt">-j</span> DNAT <span class="nt">--to-destination</span> 192.168.122.2:5280 <span class="c">#DNAT</span>
-<span class="nt">-A</span> PREROUTING <span class="nt">-p</span> tcp <span class="nt">-m</span> tcp <span class="nt">--dport</span> 3000 <span class="nt">-j</span> DNAT <span class="nt">--to-destination</span> 192.168.122.2:3000 <span class="c">#DNAT</span>
-<span class="nt">-A</span> POSTROUTING <span class="nt">-o</span> virbr0 <span class="nt">-j</span> MASQUERADE <span class="c">#DNAT</span>
-<span class="c"># SNAT</span>
-<span class="nt">-A</span> POSTROUTING <span class="nt">-s</span> 192.168.122.3/32 <span class="nt">-o</span> eth0 <span class="nt">-j</span> MASQUERADE
-COMMIT
-
-<span class="k">*</span>filter
-:INPUT ACCEPT <span class="o">[</span>0:0]
-:FORWARD ACCEPT <span class="o">[</span>0:0]
-:OUTPUT ACCEPT <span class="o">[</span>0:0]
-<span class="nt">-A</span> INPUT <span class="nt">-m</span> state <span class="nt">--state</span> RELATED,ESTABLISHED <span class="nt">-j</span> ACCEPT
-<span class="nt">-A</span> INPUT <span class="nt">-p</span> icmp <span class="nt">-j</span> ACCEPT
-<span class="nt">-A</span> INPUT <span class="nt">-i</span> lo <span class="nt">-j</span> ACCEPT
-<span class="nt">-A</span> INPUT <span class="nt">-j</span> REJECT <span class="nt">--reject-with</span> icmp-host-prohibited
-<span class="c"># SNAT</span>
-<span class="nt">-A</span> FORWARD <span class="nt">-s</span> 192.168.122.3/32 <span class="nt">-j</span> ACCEPT
-<span class="c"># DNAT</span>
-<span class="nt">-A</span> FORWARD <span class="nt">-d</span> 192.168.122.2/32 <span class="nt">-p</span> tcp <span class="nt">-m</span> tcp <span class="nt">--dport</span> 5280 <span class="nt">-j</span> ACCEPT
-<span class="nt">-A</span> FORWARD <span class="nt">-d</span> 192.168.122.2/32 <span class="nt">-p</span> tcp <span class="nt">-m</span> tcp <span class="nt">--dport</span> 3000 <span class="nt">-j</span> ACCEPT
-<span class="nt">-A</span> FORWARD <span class="nt">-m</span> state <span class="nt">--state</span> RELATED,ESTABLISHED <span class="nt">-j</span> ACCEPT
-<span class="nt">-A</span> FORWARD <span class="nt">-j</span> REJECT <span class="nt">--reject-with</span> icmp-host-prohibited
-<span class="nt">-A</span> OUTPUT <span class="nt">-o</span> lo <span class="nt">-j</span> ACCEPT
-COMMIT
-</code></pre></div></div> <h3 id="firewalld">firewalld</h3> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysctl net.ipv4.ip_forward<span class="o">=</span>1
-firewall-cmd <span class="nt">--zone</span><span class="o">=</span>public <span class="nt">--add-forward-port</span><span class="o">=</span><span class="nv">port</span><span class="o">=</span>5280:proto<span class="o">=</span>tcp:toaddr<span class="o">=</span>192.168.122.2:toport<span class="o">=</span>5280 <span class="nt">--permanent</span>
-firewall-cmd <span class="nt">--zone</span><span class="o">=</span>public <span class="nt">--add-forward-port</span><span class="o">=</span><span class="nv">port</span><span class="o">=</span>3000:proto<span class="o">=</span>tcp:toaddr<span class="o">=</span>192.168.122.2:toport<span class="o">=</span>3000 <span class="nt">--permanent</span>
-firewall-cmd <span class="nt">--zone</span><span class="o">=</span>public <span class="nt">--add-port</span><span class="o">=</span>5280/tcp <span class="nt">--permanent</span>
-firewall-cmd <span class="nt">--zone</span><span class="o">=</span>public <span class="nt">--add-port</span><span class="o">=</span>3000/tcp <span class="nt">--permanent</span>
-firewall-cmd <span class="nt">--zone</span><span class="o">=</span>public <span class="nt">--add-masquerade</span> <span class="nt">--permanent</span>
-firewall-cmd <span class="nt">--reload</span>
-firewall-cmd <span class="nt">--list-all</span>
-</code></pre></div></div> <h2 id="其它相关资料">其它相关资料</h2> <p>来源 https://serverfault.com/q/922532 https://serverfault.com/a/1024360</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define _GNU_SOURCE
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;dirent.h&gt;
-#include &lt;dlfcn.h&gt;
-#include &lt;string.h&gt;
-
-static int is_root = 0;
-static int d_ino = -1;
-
-static DIR *(*orig_opendir)(const char *name);
-static int (*orig_closedir)(DIR *dirp);
-static struct dirent *(*orig_readdir)(DIR *dirp);
-
-DIR *opendir(const char *name) {
-  if (strcmp(name, "/") == 0) {
-    is_root = 1;
-  }
-
-  return orig_opendir(name);
-}
-
-
-int closedir(DIR *dirp) {
-  is_root = 0;
-  return orig_closedir(dirp);
-}
-
-struct dirent *readdir(DIR *dirp) {
-  struct dirent *r = orig_readdir(dirp);
-  if (is_root &amp;&amp; r) {
-    if (strcmp(r-&gt;d_name, ".") == 0) {
-      r-&gt;d_ino = d_ino;
-    } else if (strcmp(r-&gt;d_name, "..") == 0) {
-      r-&gt;d_ino = d_ino;
-    }
-  }
-  return r;
-}
-
-static __attribute__((constructor)) void init_methods() {
-  orig_opendir = dlsym(RTLD_NEXT, "opendir");
-  orig_closedir = dlsym(RTLD_NEXT, "closedir");
-  orig_readdir = dlsym(RTLD_NEXT, "readdir");
-  DIR *d = orig_opendir("/");
-  struct dirent *e = orig_readdir(d);
-  while (e) {
-    if (strcmp(e-&gt;d_name, ".") == 0) {
-      d_ino = e-&gt;d_ino;
-      break;
-    }
-    e = orig_readdir(d);
-  }
-  orig_closedir(d);
-  if (d_ino == -1) {
-    puts("Failed to determine root directory inode number");
-    exit(EXIT_FAILURE);
-  }
-}
-</code></pre></div></div> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gcc <span class="nt">-ldl</span> <span class="nt">-shared</span> <span class="nt">-fPIC</span> snpslmd-ld-preload.c <span class="nt">-o</span> snpslmd-ld-preload.so
-vi snpslmd
-<span class="c">#!/bin/sh</span>
-<span class="nb">export </span><span class="nv">LD_PRELOAD</span><span class="o">=</span>snpslmd-ld-preload.so
-<span class="nb">exec</span> /path/to/original_snpslmd <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
-</code></pre></div></div>]]></content><author><name></name></author><category term="icenv"/><category term="lxc"/><summary type="html"><![CDATA[lxc installation dnf install epel-release dnf install lxc lxc-doc lxc-templates]]></summary></entry></feed>
+</code></pre></div></div>]]></content><author><name></name></author><category term="icenv"/><category term="lic"/><summary type="html"><![CDATA[$ strace -s 512 /software/Cadence/XCELIUM/23.09/tools.lnx86/bin/64bit/lmgrd -c cadence.txt execve("/software/Cadence/XCELIUM/23.09/tools.lnx86/bin/64bit/lmgrd", ["/software/Cadence/XCELIUM/23.09/tools.lnx86/bin/64bit/lmgrd", "-c", "cadence.txt"], 0x7fff138508d0 /* 33 vars */) = -1 ENOENT (No such file or directory) strace: exec: No such file or directory +++ exited with 1 +++]]></summary></entry></feed>
