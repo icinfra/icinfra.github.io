@@ -40,8 +40,8 @@ endif
 source /tools/oss/spack/opt/spack/linux-almalinux8-x86_64_v4/gcc-8.5.0/environment-modules-5.4.0-uiudomq3q3xmgulxntqouamwlt6krxpa/init/csh
 setenv MODULEPATH /tools/oss/spack/share/spack/modules/linux-almalinux8-x86_64_v4
 
-# For init desktop.
-if ($?SHLVL && $SHLVL == 1 && ! $?SSH_TTY && ("$HOST" =~ icinfra-cn-*)) then
+# For init desktop. Here we assume "icinfra-cn-" is the desktop hostname's prefix.
+if ($?SHLVL && $SHLVL == 1 && ! $?SSH_TTY && ("$HOSTNAME" =~ icinfra-cn-*)) then
     echo "Info: exiting..." >> $log_file
     exit
 endif
