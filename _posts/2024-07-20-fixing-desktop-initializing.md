@@ -42,7 +42,6 @@ setenv MODULEPATH /tools/oss/spack/share/spack/modules/linux-almalinux8-x86_64_v
 
 # For init desktop. Here we assume "icinfra-cn-" is the desktop hostname's prefix.
 if ($?SHLVL && $SHLVL == 1 && ! $?SSH_TTY && ("$HOSTNAME" =~ icinfra-cn-*)) then
-    echo "Info: exiting..." >> $log_file
     exit
 endif
 
