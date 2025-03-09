@@ -70,10 +70,7 @@ SSH password:
 
 # etxsvr EULA
 分别访问 etx_servers 的管理后台（如第一台，是 https://172.31.0.130:8443/etx/admin），然后同意 EULA。
-![image](https://github.com/user-attachments/assets/bc2d9169-8339-4a30-b7c9-83d9bf4307f4)
-![image](https://github.com/user-attachments/assets/20e4d3b0-0941-43ee-a299-ab855f8423eb)
 ![image](https://github.com/user-attachments/assets/4593be2b-3de6-4a87-b456-1bdf55e59e57)
-![image](https://github.com/user-attachments/assets/596dafb0-fd63-4105-ad90-501c04b140ec)
 
 
 # etxsvr配置
