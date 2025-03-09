@@ -12,19 +12,14 @@ categories: icenv
 ```
 [centos_hosts]
 centos110 ansible_host=172.31.0.110
-centos111 ansible_host=172.31.0.111
 centos112 ansible_host=172.31.0.112
-centos113 ansible_host=172.31.0.113
 
 [rocky_hosts]
 rocky120 ansible_host=172.31.0.120
 rocky121 ansible_host=172.31.0.121
 rocky122 ansible_host=172.31.0.122
-rocky123 ansible_host=172.31.0.123
 rocky130 ansible_host=172.31.0.130
-rocky131 ansible_host=172.31.0.131
 rocky132 ansible_host=172.31.0.132
-rocky133 ansible_host=172.31.0.133
 
 [etx_servers]
 rocky130
@@ -51,8 +46,6 @@ rocky132
 ├── playbooks
 │   ├── deploy_etxcn.yml
 │   ├── deploy_etxsvr.yml
-│   ├── response.etxcn.txt
-│   └── test_delete_error_nodes.yml
 ├── roles
 │   ├── etxcn_deployment
 │   ├── etxcn_purge_error_nodes
