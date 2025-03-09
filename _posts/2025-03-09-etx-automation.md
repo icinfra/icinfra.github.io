@@ -71,25 +71,30 @@ rocky132
 ansible-playbook -i inventory.ini playbooks/deploy_etxsvr.yml --ask-pass
 SSH password: 
 ```
-![alt text](https://github.com/icinfra/icinfra.github.io/assets/img/etx-automation-image.png)
+![image](https://github.com/user-attachments/assets/3044c370-e747-4d88-a072-37ed31e7058a)
+
 注：省略部分截图
 
 # etxsvr EULA
 分别访问 etx_servers 的管理后台（如第一台，是 https://172.31.0.130:8443/etx/admin），然后同意 EULA。
-![alt text](https://github.com/icinfra/icinfra.github.io/assets/img/etx-automation-image-1.png)
-![alt text](https://github.com/icinfra/icinfra.github.io/assets/img/etx-automation-image-2.png)
-![alt text](https://github.com/icinfra/icinfra.github.io/assets/img/etx-automation-image-3.png)
-![alt text](https://github.com/icinfra/icinfra.github.io/assets/img/etx-automation-image-4.png)
+![image](https://github.com/user-attachments/assets/bc2d9169-8339-4a30-b7c9-83d9bf4307f4)
+![image](https://github.com/user-attachments/assets/20e4d3b0-0941-43ee-a299-ab855f8423eb)
+![image](https://github.com/user-attachments/assets/4593be2b-3de6-4a87-b456-1bdf55e59e57)
+![image](https://github.com/user-attachments/assets/596dafb0-fd63-4105-ad90-501c04b140ec)
+
 
 # etxsvr配置
 ## License
-![alt text](https://github.com/icinfra/icinfra.github.io/assets/img/etx-automation-image-6.png)
+![image](https://github.com/user-attachments/assets/80edcd6d-79e9-432c-b3d5-34f8c16b6f83)
+
 
 ## Authentication
-![alt text](https://github.com/icinfra/icinfra.github.io/assets/img/etx-automation-image-7.png)
+![image](https://github.com/user-attachments/assets/a75124a5-864a-406d-9864-90ea73548e7a)
+
 
 ## Profile
-![alt text](https://github.com/icinfra/icinfra.github.io/assets/img/etx-automation-image-9.png)
+![image](https://github.com/user-attachments/assets/f2e0180a-dfd0-453d-b0b8-39d3e9c93cac)
+
 
 # etxcn 安装
 ```
@@ -97,9 +102,11 @@ SSH password:
 SSH password: 
 Vault password: 
 ```
-![alt text](https://github.com/icinfra/icinfra.github.io/assets/img/etx-automation-image-5.png)
+![image](https://github.com/user-attachments/assets/943af876-4159-496b-8436-19b506345346)
+
 注：省略部分截图
 
-![alt text](https://github.com/icinfra/icinfra.github.io/assets/img/etx-automation-image-8.png)
+![image](https://github.com/user-attachments/assets/f6082803-f95c-4b87-bc80-1ccfd2c7cfb6)
+
 
 至此，可以用域账户，使用刚才建立的 Profile 接入了。
