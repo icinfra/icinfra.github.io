@@ -64,9 +64,7 @@ rocky132
 ansible-playbook -i inventory.ini playbooks/deploy_etxsvr.yml --ask-pass
 SSH password: 
 ```
-![image](https://github.com/user-attachments/assets/3044c370-e747-4d88-a072-37ed31e7058a)
 
-注：省略部分截图
 
 # etxsvr EULA
 分别访问 etx_servers 的管理后台（如第一台，是 https://172.31.0.130:8443/etx/admin），然后同意 EULA。
@@ -92,10 +90,6 @@ SSH password:
 SSH password: 
 Vault password: 
 ```
-![image](https://github.com/user-attachments/assets/943af876-4159-496b-8436-19b506345346)
-
-注：省略部分截图
-
 ![image](https://github.com/user-attachments/assets/f6082803-f95c-4b87-bc80-1ccfd2c7cfb6)
 
 
