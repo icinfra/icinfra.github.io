@@ -97,7 +97,8 @@ systemctl disable gdm
 现在您可以启用`lightdm`：
 
 ```bash
-systemctl enable lightdm
+sed -r -i 's#^user-sessions=.*#user-sessions=xfce#g' /etc/lightdm/lightdm.conf
+systemctl enable lightdm --now
 ```
 您需要在启动后告诉系统仅使用图形用户界面。将默认目标系统设置为GUI界面：
 
@@ -122,7 +123,9 @@ dnf groupinstall "xfce"
 dnf groupinstall "Fonts"
 dnf install lightdm
 systemctl disable gdm
-systemctl enable lightdm
+
+sed -r -i 's#^user-sessions=.*#user-sessions=xfce#g' /etc/lightdm/lightdm.conf
+systemctl enable lightdm --now
 
 # 安装TurboVNC
 TIMESTAMP=`date +%Y%m%d%H%M%S`
