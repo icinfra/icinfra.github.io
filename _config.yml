@@ -38,6 +38,7 @@ social:
   email: wanlin.wang@foxmail.com # change to your email address
   links:
     # The first element serves as the copyright owner's link
+    - https://x.com/wanlinwang
     - https://github.com/wanlinwang # change to your GitHub homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
