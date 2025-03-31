@@ -13,6 +13,3 @@ categories: icenv
 
 # 安装
 ![](/assets/img/cursor安装步骤%20Snipaste_2023-03-17_16-56-03.png)
-
-# 使用
-{% include youtubePlayer.html id="T6KjDZvZcwM" %}
