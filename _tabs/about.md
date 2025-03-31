@@ -4,12 +4,10 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-> 本站专注于IT技术研究与分享.
+> This site focuses on IT technology research and sharing.
 {: .prompt-tip }
 
-站主曾就职于海思，所在团队管理海思全球的IT/CAD基础环境；在鹅厂的IC Design & Verification team的IT/CAD职位，对IT架构与前沿技术的应用与调优感兴趣。主导IC设计环境的建设与优化，负责in-house的工具与系统开发，提升IC设计团队的工作效率；当前任职于一家混合信号设计CAD负责人职位。\
-积极探索自动化、高效率的工作方式。同时积极探索AI为日常工作提效。
+The site owner has previously worked at HiSilicon, managing HiSilicon's global IT/CAD infrastructure; held an IT/CAD position in the IC Design & Verification team at Tencent, and is interested in IT architecture and the application and optimization of cutting-edge technologies. Actively explores automated, high-efficiency work methods. Also actively explores AI to improve daily work efficiency.
 
-
-欢迎您投稿至www.icinfra.cn，微信联系交流。\
-部分博文会发布至 [thesre的csdn主页](https://blog.csdn.net/thesre)
+Welcome to submit articles to www.icinfra.cn, and contact us via WeChat for communication.\
+Some blog posts will be published on [thesre's CSDN homepage](https://blog.csdn.net/thesre).
