@@ -16,10 +16,10 @@ timezone:
 
 title: IC Infra # the main title
 
-tagline: 创建高效的IC基础架构 # it will display as the subtitle
+tagline: Focused on building and optimizing stable and efficient IC design infrastructure, offering in-depth insights into cutting-edge tools, workflows, and automation techniques. # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
-  A minimal, responsive and feature-rich Jekyll theme for technical writing.
+  A comprehensive platform dedicated to exploring and optimizing IT infrastructure for IC design, offering insights into cutting-edge tools, workflows, and automation techniques.
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
@@ -29,7 +29,7 @@ github:
   username: wanlinwang # change to your GitHub username
 
 twitter:
-  username: wanlinwang # change to your Twitter username
+  username: username # change to your Twitter username
 
 social:
   # Change to your full name.
