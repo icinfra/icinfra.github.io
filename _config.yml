@@ -16,7 +16,7 @@ timezone:
 
 title: IC Infra # the main title
 
-tagline: Focused on building and optimizing stable and efficient IC design infrastructure, offering in-depth insights into cutting-edge tools, workflows, and automation techniques. # it will display as the subtitle
+tagline: Focused on building and optimizing stable and efficient IC design infrastructure, offering in-depth insights into cutting-edge tools, workflows, and automation techniques. Feel free to contact me. # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   A comprehensive platform dedicated to exploring and optimizing IT infrastructure for IC design, offering insights into cutting-edge tools, workflows, and automation techniques.
