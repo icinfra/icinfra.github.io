@@ -44,13 +44,7 @@ javascript:(function(){
   const date = new Date().toISOString().slice(0, 10);
   const file = `${date}-my-title.md`;
 
-  const content = `---
-layout: post
-title: "Your post's title"
-date: ${date} 00:00:00 +0800
-categories: [blog]
-tags: [web]
----`
+  const content = `---\nlayout: post\ntitle: "在此输入标题"\ndate: ${date} 00:00:00 +0800\ncategories: [博客]\ntags: [jekyll, github]\n---\n\n写点什么吧...`;
 
   const url = `https://github.com/icinfra/icinfra.github.io/new/main/_posts?filename=${encodeURIComponent(file)}&value=${encodeURIComponent(content)}`;
   window.open(url, '_blank');
