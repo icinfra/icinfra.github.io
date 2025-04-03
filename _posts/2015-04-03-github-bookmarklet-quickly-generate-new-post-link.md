@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Github Bookmarklet Quickly Generate New Post Link
-date: 2025-04-03 00:00:00 +0800
+date: 2015-04-03 00:00:00 +0800
 categories: [blog]
 tags: [jekyll, github]
 ---
