@@ -28,4 +28,4 @@ Some blog posts will be published on [thesre's CSDN homepage](https://blog.csdn.
 Scan the avatar below to contact the site owner via WeChat.  
 请扫码头像通过微信联系站主。
 
-![WeChat QR Code](../assets/img/avatar.jpg)
+![WeChat QR Code](../assets/img/avatar.jpg){: style="max-width: 300px; display: block; margin: 0 auto;"}
