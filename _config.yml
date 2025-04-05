@@ -118,8 +118,8 @@ comments:
     issue_term: # < url | pathname | title | ...>
   # Giscus options › https://giscus.app
   giscus:
-    repo: icinfra/icinfra.github.io # <gh-username>/<repo>
-    repo_id: R_kgDOJCjOsg
+    repo: icinfra/icinfra-discussions # <gh-username>/<repo>
+    repo_id: R_kgDOOURp_w
     category: Q&A 
     category_id: q-a
     mapping: # optional, default to 'pathname'
