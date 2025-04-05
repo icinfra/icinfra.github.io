@@ -121,7 +121,7 @@ comments:
     repo: icinfra/icinfra-discussions # <gh-username>/<repo>
     repo_id: R_kgDOOURp_w
     category: Q&A 
-    category_id: q-a
+    category_id: DIC_kwDOOURp_84Coy9P
     mapping: # optional, default to 'pathname'
     strict: 1 # optional, default to '0'
     input_position: # optional, default to 'bottom'
