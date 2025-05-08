@@ -1,0 +1,707 @@
+<!doctype html><html lang="en" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.4.1" /><meta property="og:title" content="使用Python自动化运维ipset与iptables" /><meta property="og:locale" content="en" /><meta name="description" content="配置文件" /><meta property="og:description" content="配置文件" /><link rel="canonical" href="https://icinfra.cn/posts/operate-ipset-and-iptables-with-python/" /><meta property="og:url" content="https://icinfra.cn/posts/operate-ipset-and-iptables-with-python/" /><meta property="og:site_name" content="IC Infra" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2022-08-30T22:15:00+00:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="使用Python自动化运维ipset与iptables" /><meta name="twitter:site" content="@username" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-08-30T22:15:00+00:00","datePublished":"2022-08-30T22:15:00+00:00","description":"配置文件","headline":"使用Python自动化运维ipset与iptables","mainEntityOfPage":{"@type":"WebPage","@id":"https://icinfra.cn/posts/operate-ipset-and-iptables-with-python/"},"url":"https://icinfra.cn/posts/operate-ipset-and-iptables-with-python/"}</script><title>使用Python自动化运维ipset与iptables | IC Infra</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="IC Infra"><meta name="application-name" content="IC Infra"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.32.2/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css"> <script src="/assets/js/dist/theme.min.js"></script> <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.13/dayjs.min.js,npm/dayjs@1.11.13/locale/en.js,npm/dayjs@1.11.13/plugin/relativeTime.js,npm/dayjs@1.11.13/plugin/localizedFormat.js,npm/tocbot@4.32.2/dist/tocbot.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script defer src="/app.min.js?baseurl=&register=true" ></script><body><aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end"><header class="profile-wrapper"> <a href="/" id="avatar" class="rounded-circle"><img src="https://cdn.jsdelivr.net/gh/icinfra/icinfra-artifacts-0001@artifacts/img/avatar.jpg" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a> <a class="site-title d-block" href="/">IC Infra</a><p class="site-subtitle fst-italic mb-0">Focused on building and optimizing stable and efficient IC design infrastructure, offering in-depth insights into cutting-edge tools, workflows, and automation techniques. Feel free to contact me.</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class="nav"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tags"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/discussions/" class="nav-link"> <i class="fa-fw fas fa-comments"></i> <span>DISCUSSIONS</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle"></i> <span>ABOUT</span> </a></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"> <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle"> <i class="fas fa-adjust"></i> </button> <span class="icon-border"></span> <a href="https://github.com/wanlinwang" aria-label="github" target="_blank" rel="noopener noreferrer" > <i class="fab fa-github"></i> </a> <a href="javascript:location.href = 'mailto:' + ['wanlin.wang','foxmail.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></aside><div id="main-wrapper" class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id="topbar-wrapper" aria-label="Top Bar"><div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100" ><nav id="breadcrumb" aria-label="Breadcrumb"> <span> <a href="/">Home</a> </span> <span>使用Python自动化运维ipset与iptables</span></nav><button type="button" id="sidebar-trigger" class="btn btn-link"> <i class="fas fa-bars fa-fw"></i> </button><div id="topbar-title"> Post</div><button type="button" id="search-trigger" class="btn btn-link"> <i class="fas fa-search fa-fw"></i> </button> <search id="search" class="align-items-center ms-3 ms-lg-0"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..." > </search> <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">Cancel</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class="px-1" data-toc="true"><header><h1 data-toc-skip>使用Python自动化运维ipset与iptables</h1><div class="post-meta text-muted"> <span> Posted <time data-ts="1661897700" data-df="ll" data-bs-toggle="tooltip" data-bs-placement="bottom" > Aug 30, 2022 </time> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://github.com/wanlinwang">wanlinwang</a> </em> </span><div> <span class="readtime" data-bs-toggle="tooltip" data-bs-placement="bottom" title="1504 words" > <em>8 min</em> read</span></div></div></div></header><div id="toc-bar" class="d-flex align-items-center justify-content-between invisible"> <span class="label text-truncate">使用Python自动化运维ipset与iptables</span> <button type="button" class="toc-trigger btn me-1"> <i class="fa-solid fa-list-ul fa-fw"></i> </button></div><button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm"> <span class="label ps-2 pe-1">Contents</span> <i class="fa-solid fa-angle-right fa-fw"></i> </button> <dialog id="toc-popup" class="p-0"><div class="header d-flex flex-row align-items-center justify-content-between"><div class="label text-truncate py-2 ms-4">使用Python自动化运维ipset与iptables</div><button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75"> <i class="fas fa-close"></i> </button></div><div id="toc-popup-content" class="px-4 py-3 pb-4"></div></dialog><div class="content"><h2 id="配置文件"><span class="me-2">配置文件</span><a href="#配置文件" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><div class="language-yaml highlighter-rouge"><div class="code-header"> <span data-label-text="YAML"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+</pre><td class="rouge-code"><pre><span class="na">host-rules</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">normal_computing</span> 
+  <span class="na">conf</span><span class="pi">:</span> <span class="c1"># 正式员工使用的研发运算机规则</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">ip</span>
+    <span class="na">need_create_ipset</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">need_create_iptables</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">hosts</span><span class="pi">:</span> <span class="c1"># 主机列表</span>
+      <span class="pi">-</span> <span class="s">192.168.1.2</span>
+      <span class="pi">-</span> <span class="s">192.168.1.4</span>
+      <span class="pi">-</span> <span class="s">172.31.86.213</span>
+      <span class="pi">-</span> <span class="s">192.168.1.5</span>
+    <span class="na">input</span><span class="pi">:</span> <span class="c1"># INPUT方向规则</span>
+      <span class="pi">-</span> <span class="na">dport</span><span class="pi">:</span> <span class="s">22,5600</span>
+        <span class="na">peer</span><span class="pi">:</span> <span class="c1"># INPUT方向规则的来源</span>
+        <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">ipset</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">normal_computing</span>
+        <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">ipset</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">win_jump_server</span>
+        <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">ip</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">8.8.8.8</span>
+    <span class="na">output</span><span class="pi">:</span> <span class="c1"># OUTPUT方向规则</span>
+      <span class="pi">-</span> <span class="na">peer</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">ipset</span>
+            <span class="na">value</span><span class="pi">:</span> <span class="s">network_monitor_subnet</span>
+      <span class="pi">-</span> <span class="na">peer</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">ipset</span>
+            <span class="na">value</span><span class="pi">:</span> <span class="s">domain_names</span>
+      <span class="pi">-</span> <span class="na">peer</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">ipset</span>
+            <span class="na">value</span><span class="pi">:</span> <span class="s">normal_computing</span>
+      <span class="pi">-</span> <span class="na">peer</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">ipset</span>
+            <span class="na">value</span><span class="pi">:</span> <span class="s">outsourcing_computing</span>
+      <span class="pi">-</span> <span class="na">peer</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">ipset</span>
+            <span class="na">value</span><span class="pi">:</span> <span class="s">cfs</span>
+      <span class="pi">-</span> <span class="na">dport</span><span class="pi">:</span> <span class="m">22</span>
+        <span class="na">peer</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">ipset</span>
+            <span class="na">value</span><span class="pi">:</span> <span class="s">normal_computing</span>
+
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">network_monitor_subnet</span>
+  <span class="na">conf</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">ip,port</span>
+    <span class="na">need_create_ipset</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">need_create_iptables</span><span class="pi">:</span> <span class="kc">false</span>
+    <span class="na">hosts</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">192.168.100.1</span>
+        <span class="na">port</span><span class="pi">:</span> <span class="s">tcp:8888</span>
+
+           
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">outsourcing_computing</span>
+  <span class="na">conf</span><span class="pi">:</span> <span class="c1"># 外包员工使用的研发运算机规则</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">ip</span>
+    <span class="na">need_create_ipset</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">need_create_iptables</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">hosts</span><span class="pi">:</span> <span class="c1"># 主机列表</span>
+      <span class="pi">-</span> <span class="s">192.168.1.11</span>
+    <span class="na">input</span><span class="pi">:</span> <span class="c1"># INPUT方向规则</span>
+      <span class="pi">-</span> <span class="na">dport</span><span class="pi">:</span> <span class="s">22,5600</span>
+        <span class="na">peer</span><span class="pi">:</span> <span class="c1"># INPUT方向规则的来源</span>
+        <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">ipset</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">normal_computing</span>
+        <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">ipset</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">win_jump_server</span>
+
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">cadence_lic_hosts</span>
+  <span class="na">conf</span><span class="pi">:</span> <span class="c1"># c家lic</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">ip</span>
+    <span class="na">need_create_ipset</span><span class="pi">:</span> <span class="kc">false</span>
+    <span class="na">need_create_iptables</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">hosts</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">172.31.86.213</span>
+    <span class="na">input</span><span class="pi">:</span> <span class="c1"># INPUT方向规则</span>
+      <span class="pi">-</span> <span class="na">dport</span><span class="pi">:</span> <span class="s">3000,5280</span>
+        <span class="na">peer</span><span class="pi">:</span> <span class="c1"># INPUT方向规则的来源</span>
+        <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">ipset</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">normal_computing</span>
+        <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">ipset</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">outsourcing_computing</span>
+        <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">ipset</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">n_gate_subnets</span>
+
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">svn_hosts</span>
+  <span class="na">conf</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">ip</span>
+    <span class="na">need_create_ipset</span><span class="pi">:</span> <span class="kc">false</span>
+    <span class="na">need_create_iptables</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">hosts</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">192.168.1.2</span>
+    <span class="na">input</span><span class="pi">:</span> <span class="c1"># INPUT方向规则</span>
+      <span class="pi">-</span> <span class="na">dport</span><span class="pi">:</span> <span class="s">1690:1697,1699</span>
+        <span class="na">peer</span><span class="pi">:</span> <span class="c1"># INPUT方向规则的来源</span>
+        <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">ipset</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">normal_computing</span>
+      <span class="pi">-</span> <span class="na">dport</span><span class="pi">:</span> <span class="m">1698</span>
+        <span class="na">peer</span><span class="pi">:</span> <span class="c1"># INPUT方向规则的来源</span>
+        <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">ipset</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s">outsourcing_computing</span>
+
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">n_gate_subnets</span>
+  <span class="na">conf</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">net</span>
+    <span class="na">need_create_ipset</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">need_create_iptables</span><span class="pi">:</span> <span class="kc">false</span>
+    <span class="na">hosts</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">172.16.0.1/24</span>
+      <span class="pi">-</span> <span class="s">172.16.1.1/24</span>
+
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">win_jump_server</span>
+  <span class="na">conf</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">ip</span>
+    <span class="na">need_create_ipset</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">need_create_iptables</span><span class="pi">:</span> <span class="kc">false</span>
+    <span class="na">hosts</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">1.1.1.1</span>
+      <span class="pi">-</span> <span class="s">1.1.1.2</span>
+
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">jump_server</span>
+  <span class="na">conf</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">net</span>
+    <span class="na">need_create_ipset</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">need_create_iptables</span><span class="pi">:</span> <span class="kc">false</span>
+    <span class="na">hosts</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">2.2.2.0/24</span>
+      <span class="pi">-</span> <span class="s">2.2.3.0/24</span>
+
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">cfs</span>
+  <span class="na">conf</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">ip,port</span>
+    <span class="na">need_create_ipset</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">need_create_iptables</span><span class="pi">:</span> <span class="kc">false</span>
+    <span class="na">hosts</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">1.2.3.4</span>
+        <span class="na">port</span><span class="pi">:</span> <span class="s">tcp:111</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">1.2.3.4</span>
+        <span class="na">port</span><span class="pi">:</span> <span class="s">tcp:2049</span>
+
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">domain_names</span>
+  <span class="na">conf</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">dns,port</span>
+    <span class="na">need_create_ipset</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">need_create_iptables</span><span class="pi">:</span> <span class="kc">false</span>
+    <span class="na">hosts</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">mirrors.tencent.com</span>
+        <span class="na">port</span><span class="pi">:</span> <span class="s">tcp:80</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">mirrors.tecentyun.com</span>
+        <span class="na">port</span><span class="pi">:</span> <span class="s">tcp:443</span>
+</pre></table></code></div></div><h2 id="生成脚本"><span class="me-2">生成脚本</span><a href="#生成脚本" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><div class="language-python highlighter-rouge"><div class="code-header"> <span data-label-text="Python"><i class="fas fa-code fa-fw small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+</pre><td class="rouge-code"><pre><span class="sh">"""</span><span class="s">
+Author: wanlinwang
+Date: 24-Aug-2022 19:00-23:00
+Description: 自动化维护iptables与ipset
+</span><span class="sh">"""</span>
+
+<span class="kn">import</span> <span class="n">yaml</span>
+<span class="kn">import</span> <span class="n">tempfile</span>
+<span class="kn">from</span> <span class="n">netifaces</span> <span class="kn">import</span> <span class="n">interfaces</span><span class="p">,</span> <span class="n">ifaddresses</span><span class="p">,</span> <span class="n">AF_INET</span>
+<span class="kn">import</span> <span class="n">subprocess</span>
+<span class="kn">import</span> <span class="n">re</span>
+<span class="kn">import</span> <span class="n">filecmp</span>
+
+
+<span class="k">def</span> <span class="nf">ip4_addresses</span><span class="p">():</span>
+    <span class="n">ip_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">interface</span> <span class="ow">in</span> <span class="nf">interfaces</span><span class="p">():</span>
+        <span class="c1"># 有些接口没有IP，使用try跳过它。
+</span>        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="nf">ifaddresses</span><span class="p">(</span><span class="n">interface</span><span class="p">)[</span><span class="n">AF_INET</span><span class="p">]:</span>
+                <span class="n">ip</span><span class="o">=</span><span class="n">link</span><span class="p">[</span><span class="sh">'</span><span class="s">addr</span><span class="sh">'</span><span class="p">]</span>
+                <span class="c1">#去掉本地地址，去掉192.开头的私有地址。
+</span>                <span class="k">if</span> <span class="n">ip</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">'</span><span class="s">192.</span><span class="sh">'</span><span class="p">)</span> <span class="ow">or</span> <span class="n">ip</span> <span class="o">==</span> <span class="sh">'</span><span class="s">127.0.0.1</span><span class="sh">'</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">ip_list</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">ip_list</span>
+
+
+<span class="k">def</span> <span class="nf">dig_domainname_to_ips</span><span class="p">(</span><span class="n">domain_name</span><span class="p">):</span>
+    <span class="n">entries</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">([</span><span class="sh">'</span><span class="s">dig</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">+short</span><span class="sh">'</span><span class="p">,</span> <span class="n">domain_name</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">PIPE</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">entries</span><span class="p">.</span><span class="n">stdout</span><span class="p">.</span><span class="nf">decode</span><span class="p">(</span><span class="sh">'</span><span class="s">utf-8</span><span class="sh">'</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">check_if_ip</span><span class="p">(</span><span class="n">ip_str</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">re</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="sa">r</span><span class="sh">"</span><span class="s">^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$</span><span class="sh">"</span><span class="p">,</span> <span class="n">ip_str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+
+<span class="k">def</span> <span class="nf">create_ipset</span><span class="p">(</span><span class="n">set_name</span><span class="p">,</span> <span class="n">entry_list</span><span class="p">,</span> <span class="n">set_type</span><span class="p">,</span> <span class="n">write_file</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">
+    生成ipset配置文件，应用命令如下：
+            ipset restore -f ./ipset.conf --exist
+    </span><span class="sh">"""</span>
+    <span class="c1"># print('entry_list', entry_list)
+</span>    <span class="k">if</span> <span class="n">set_type</span> <span class="o">==</span> <span class="sh">'</span><span class="s">dns,port</span><span class="sh">'</span><span class="p">:</span>
+        <span class="n">set_type</span> <span class="o">=</span> <span class="sh">'</span><span class="s">ip,port</span><span class="sh">'</span>
+        <span class="n">rst_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entry_list</span><span class="p">:</span>
+            <span class="n">ip_list</span> <span class="o">=</span> <span class="nf">dig_domainname_to_ips</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">]).</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="se">\n</span><span class="sh">'</span><span class="p">)</span>
+            <span class="n">ip_list</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ip_list</span><span class="p">:</span>
+                <span class="c1"># 只添加是ip的条目
+</span>                <span class="k">if</span> <span class="nf">check_if_ip</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+                    <span class="n">rst_list</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">item</span> <span class="o">+</span> <span class="sh">"</span><span class="s">,</span><span class="sh">"</span> <span class="o">+</span> <span class="n">entry</span><span class="p">[</span><span class="sh">'</span><span class="s">port</span><span class="sh">'</span><span class="p">])</span>
+        <span class="n">entry_list</span> <span class="o">=</span> <span class="n">rst_list</span>
+    <span class="k">elif</span> <span class="n">set_type</span> <span class="o">==</span> <span class="sh">'</span><span class="s">ip,port</span><span class="sh">'</span><span class="p">:</span>
+        <span class="n">rst_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entry_list</span><span class="p">:</span>
+            <span class="n">rst_list</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">]</span> <span class="o">+</span> <span class="sh">"</span><span class="s">,</span><span class="sh">"</span> <span class="o">+</span> <span class="n">entry</span><span class="p">[</span><span class="sh">'</span><span class="s">port</span><span class="sh">'</span><span class="p">])</span>
+        <span class="n">entry_list</span> <span class="o">=</span> <span class="n">rst_list</span>
+
+
+    <span class="n">set_tmp_name</span> <span class="o">=</span> <span class="n">set_name</span> <span class="o">+</span> <span class="sh">"</span><span class="s">_tmp</span><span class="sh">"</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"""</span><span class="s">
+####################################################
+create  </span><span class="si">{</span><span class="n">set_name</span><span class="si">}</span><span class="s">     hash:</span><span class="si">{</span><span class="n">set_type</span><span class="si">}</span><span class="s"> family inet hashsize 1024 maxelem 65536
+create  </span><span class="si">{</span><span class="n">set_tmp_name</span><span class="si">}</span><span class="s"> hash:</span><span class="si">{</span><span class="n">set_type</span><span class="si">}</span><span class="s"> family inet hashsize 1024 maxelem 65536
+destroy </span><span class="si">{</span><span class="n">set_tmp_name</span><span class="si">}</span><span class="s">
+create  </span><span class="si">{</span><span class="n">set_tmp_name</span><span class="si">}</span><span class="s"> hash:</span><span class="si">{</span><span class="n">set_type</span><span class="si">}</span><span class="s"> family inet hashsize 1024 maxelem 65536</span><span class="se">\
+</span><span class="s">    </span><span class="sh">"""</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">write_file</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">entry_list</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">add </span><span class="si">{</span><span class="n">set_tmp_name</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="n">entry</span><span class="si">}</span><span class="sh">"</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">write_file</span><span class="p">)</span>
+
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"""</span><span class="se">\
+</span><span class="s">swap </span><span class="si">{</span><span class="n">set_tmp_name</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="n">set_name</span><span class="si">}</span><span class="s">
+destroy </span><span class="si">{</span><span class="n">set_tmp_name</span><span class="si">}</span><span class="s">
+####################################################
+    </span><span class="sh">"""</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">write_file</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">generate_iptables_entry</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span> <span class="n">ip_type</span><span class="p">,</span> <span class="n">ips</span><span class="p">,</span> <span class="n">ipset_dict</span><span class="p">,</span> <span class="n">ports</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">entry</span> <span class="o">=</span> <span class="p">[</span><span class="sh">'</span><span class="s">-A</span><span class="sh">'</span><span class="p">]</span>
+    <span class="n">match_set_arg</span> <span class="o">=</span> <span class="sh">''</span>
+    <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="sh">'</span><span class="s">input</span><span class="sh">'</span><span class="p">:</span>
+        <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">'</span><span class="s">INPUT</span><span class="sh">'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ip_type</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">'</span><span class="s">ipset</span><span class="sh">'</span><span class="p">):</span>
+            <span class="n">match_set_arg</span> <span class="o">=</span> <span class="sh">'</span><span class="s">src</span><span class="sh">'</span>
+    <span class="k">elif</span> <span class="n">direction</span> <span class="o">==</span> <span class="sh">'</span><span class="s">output</span><span class="sh">'</span><span class="p">:</span>
+        <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">'</span><span class="s">OUTPUT</span><span class="sh">'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ip_type</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">'</span><span class="s">ipset</span><span class="sh">'</span><span class="p">):</span>
+            <span class="n">match_set_arg</span> <span class="o">=</span> <span class="sh">'</span><span class="s">dst</span><span class="sh">'</span>
+            <span class="k">if</span> <span class="n">ipset_dict</span><span class="p">[</span><span class="n">ips</span><span class="p">]</span> <span class="o">==</span> <span class="sh">'</span><span class="s">ip,port</span><span class="sh">'</span><span class="p">:</span>
+                <span class="n">match_set_arg</span> <span class="o">=</span> <span class="sh">'</span><span class="s">dst,dst</span><span class="sh">'</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Error with </span><span class="si">{</span><span class="n">direction</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    
+    <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">-p tcp</span><span class="sh">'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ip_type</span> <span class="o">==</span> <span class="sh">'</span><span class="s">ip</span><span class="sh">'</span><span class="p">:</span>
+        <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">-s </span><span class="si">{</span><span class="n">ips</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">ip_type</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">'</span><span class="s">ipset</span><span class="sh">'</span><span class="p">):</span>
+        <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">-m set --match-set </span><span class="si">{</span><span class="n">ips</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="n">match_set_arg</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">Error with ip_type </span><span class="si">{</span><span class="n">ip_type</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+    <span class="c1"># if ip_type == 'ip':
+</span>    <span class="c1">#     entry.append(f'-s {ips}')
+</span>    <span class="c1"># elif ip_type.startswith('ipset'):
+</span>    <span class="c1">#     ip_type = ip_type.replace('ipset,')
+</span>    <span class="c1">#     if ip_type == 'ip':
+</span>    <span class="c1">#         entry.append(f'-m set --match-set {ips} {match_set_arg}')
+</span>    <span class="c1">#     elif ip_type == 'ip,port':
+</span>    <span class="c1">#         entry.append(f'-m set --match-set {ips} dst,dst')
+</span>    <span class="c1"># else:
+</span>    <span class="c1">#     print(f'Error with ip_type {ip_type}')
+</span>
+    <span class="k">if</span> <span class="n">ports</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ip_type</span> <span class="o">==</span> <span class="sh">'</span><span class="s">ipset,ip,port</span><span class="sh">'</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="sh">'</span><span class="s">Conflict with ipset</span><span class="sh">'</span>
+        <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">--dport </span><span class="si">{</span><span class="n">ports</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+    
+    <span class="n">entry</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">-j ACCEPT</span><span class="sh">'</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">"</span><span class="s">__main__</span><span class="sh">"</span><span class="p">:</span>
+    <span class="n">ipset_conf_tmp</span>    <span class="o">=</span> <span class="n">tempfile</span><span class="p">.</span><span class="nc">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="sh">'</span><span class="s">w+</span><span class="sh">'</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="sh">'</span><span class="s">ipset.conf_</span><span class="sh">'</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="sh">'</span><span class="s">./</span><span class="sh">'</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">iptables_conf_tmp</span> <span class="o">=</span> <span class="n">tempfile</span><span class="p">.</span><span class="nc">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="sh">'</span><span class="s">w+</span><span class="sh">'</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="sh">'</span><span class="s">iptables_</span><span class="sh">'</span><span class="p">,</span>   <span class="nb">dir</span><span class="o">=</span><span class="sh">'</span><span class="s">./</span><span class="sh">'</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">current_host_ips</span> <span class="o">=</span> <span class="nf">ip4_addresses</span><span class="p">()</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">current host ip</span><span class="sh">"</span><span class="p">,</span> <span class="n">current_host_ips</span><span class="p">)</span>
+
+    <span class="c1"># 将默认开通的iptables条目先写上。
+</span>
+    <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">./config.yml</span><span class="sh">"</span><span class="p">,</span> <span class="sh">'</span><span class="s">r</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">yml</span><span class="p">:</span>
+        <span class="n">conf</span> <span class="o">=</span> <span class="n">yaml</span><span class="p">.</span><span class="nf">safe_load</span><span class="p">(</span><span class="n">yml</span><span class="p">)</span>
+        <span class="c1"># print(json.dumps(conf,indent=2))
+</span>        <span class="c1"># print(conf['host-rules'])
+</span>        <span class="n">ipset_type_dict</span> <span class="o">=</span> <span class="nf">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">host_rule</span> <span class="ow">in</span> <span class="n">conf</span><span class="p">[</span><span class="sh">'</span><span class="s">host-rules</span><span class="sh">'</span><span class="p">]:</span>
+            <span class="c1"># print(json.dumps(host_rule, indent=2))
+</span>            <span class="n">host_rule_name</span> <span class="o">=</span> <span class="n">host_rule</span><span class="p">[</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">]</span>
+            <span class="n">host_rule_conf</span> <span class="o">=</span> <span class="n">host_rule</span><span class="p">[</span><span class="sh">'</span><span class="s">conf</span><span class="sh">'</span><span class="p">]</span>
+            <span class="n">host_rule_conf_type</span> <span class="o">=</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="sh">'</span><span class="s">type</span><span class="sh">'</span><span class="p">]</span>
+            <span class="c1"># 步骤一：首先完成ipset的创建。Done
+</span>            <span class="k">if</span> <span class="sh">'</span><span class="s">need_create_ipset</span><span class="sh">'</span> <span class="ow">in</span> <span class="n">host_rule_conf</span> <span class="ow">and</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="sh">'</span><span class="s">need_create_ipset</span><span class="sh">'</span><span class="p">]:</span>
+                <span class="nf">create_ipset</span><span class="p">(</span><span class="n">host_rule_name</span><span class="p">,</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="sh">'</span><span class="s">hosts</span><span class="sh">'</span><span class="p">],</span> <span class="n">host_rule_conf_type</span><span class="p">,</span> <span class="n">ipset_conf_tmp</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">host_rule_conf_type</span> <span class="o">==</span> <span class="sh">'</span><span class="s">dns,port</span><span class="sh">'</span><span class="p">:</span>
+                    <span class="n">host_rule_conf_type</span> <span class="o">=</span> <span class="sh">'</span><span class="s">ip,port</span><span class="sh">'</span>
+                <span class="n">ipset_type_dict</span><span class="p">[</span><span class="n">host_rule_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">host_rule_conf_type</span>
+            
+        <span class="k">for</span> <span class="n">host_rule</span> <span class="ow">in</span> <span class="n">conf</span><span class="p">[</span><span class="sh">'</span><span class="s">host-rules</span><span class="sh">'</span><span class="p">]:</span>
+            <span class="n">host_rule_name</span> <span class="o">=</span> <span class="n">host_rule</span><span class="p">[</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">]</span>
+            <span class="n">host_rule_conf</span> <span class="o">=</span> <span class="n">host_rule</span><span class="p">[</span><span class="sh">'</span><span class="s">conf</span><span class="sh">'</span><span class="p">]</span>
+            <span class="c1"># 步骤二：然后判断本机属于哪个rule下面，将对应的rule都生成一遍。TODO
+</span>            <span class="k">if</span> <span class="sh">'</span><span class="s">need_create_iptables</span><span class="sh">'</span> <span class="ow">in</span> <span class="n">host_rule_conf</span> <span class="ow">and</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="sh">'</span><span class="s">need_create_iptables</span><span class="sh">'</span><span class="p">]:</span>
+                
+                <span class="k">for</span> <span class="n">current_ip</span> <span class="ow">in</span> <span class="n">current_host_ips</span><span class="p">:</span>
+                    <span class="c1"># print(host_rule_conf)
+</span>                    <span class="c1"># print(host_rule_conf['hosts'])
+</span>                    <span class="k">if</span> <span class="sh">'</span><span class="s">hosts</span><span class="sh">'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">host_rule_conf</span><span class="p">:</span>
+                        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">hosts not in </span><span class="si">{</span><span class="n">host_rule_name</span><span class="si">}</span><span class="s">, please check.</span><span class="sh">'</span><span class="p">)</span>
+                        <span class="k">continue</span>
+                    <span class="k">if</span> <span class="n">current_ip</span> <span class="ow">in</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="sh">'</span><span class="s">hosts</span><span class="sh">'</span><span class="p">]:</span>
+                        <span class="c1"># 分析文件条目
+</span>                        <span class="c1"># 分析input的
+</span>                        <span class="k">for</span> <span class="n">direction</span> <span class="ow">in</span> <span class="p">[</span><span class="sh">'</span><span class="s">input</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">output</span><span class="sh">'</span><span class="p">]:</span>
+                            <span class="k">if</span> <span class="n">direction</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">host_rule_conf</span><span class="p">:</span>
+                                <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="si">{</span><span class="n">direction</span><span class="si">}</span><span class="s"> not in </span><span class="si">{</span><span class="n">host_rule_name</span><span class="si">}</span><span class="s">, please check.</span><span class="sh">'</span><span class="p">)</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">host_rule_conf</span><span class="p">[</span><span class="n">direction</span><span class="p">]:</span>
+                                    <span class="c1"># print('direction', d)
+</span>                                    <span class="n">dports</span> <span class="o">=</span> <span class="bp">None</span>
+                                    <span class="k">if</span> <span class="sh">'</span><span class="s">dport</span><span class="sh">'</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                                        <span class="n">dports</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="sh">'</span><span class="s">dport</span><span class="sh">'</span><span class="p">]</span>
+
+                                    <span class="k">if</span> <span class="sh">'</span><span class="s">peer</span><span class="sh">'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                                        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="si">{</span><span class="n">direction</span><span class="si">}</span><span class="s"> peer not in </span><span class="si">{</span><span class="n">host_rule_name</span><span class="si">}</span><span class="s">, please check.</span><span class="sh">'</span><span class="p">)</span>
+                                        <span class="k">continue</span>
+                                    <span class="k">else</span><span class="p">:</span>
+                                        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="sh">'</span><span class="s">peer</span><span class="sh">'</span><span class="p">]:</span>
+                                            <span class="n">ip_type</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="sh">'</span><span class="s">type</span><span class="sh">'</span><span class="p">]</span>
+                                            <span class="n">value</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="sh">'</span><span class="s">value</span><span class="sh">'</span><span class="p">]</span>
+                                            
+                                            <span class="c1"># 生成iptables INPUT条目
+</span>                                            <span class="c1"># print("=============")
+</span>                                            <span class="nf">print</span><span class="p">(</span><span class="nf">generate_iptables_entry</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span> <span class="n">ip_type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">ipset_type_dict</span><span class="p">,</span> <span class="n">dports</span><span class="p">),</span> <span class="nb">file</span><span class="o">=</span><span class="n">iptables_conf_tmp</span><span class="p">)</span>
+    
+            <span class="c1"># 步骤三：最后再将default的DROP规则写上。TODO
+</span>
+
+    <span class="c1"># 步骤四：生成好ipset.conf与iptables两个文件，与生产环境的文件做对比，
+</span>    <span class="c1"># 如有变则应用它，并将日志写到日志文件里。TODO
+</span>    <span class="n">ipset_conf_tmp</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+    <span class="n">iptables_conf_tmp</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">filecmp</span><span class="p">.</span><span class="nf">cmp</span><span class="p">(</span><span class="n">ipset_conf_tmp</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="sh">'</span><span class="s">ipset.conf</span><span class="sh">'</span><span class="p">):</span>
+        <span class="c1"># ipset.conf有更新，执行更新操作
+</span>        <span class="k">pass</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">filecmp</span><span class="p">.</span><span class="nf">cmp</span><span class="p">(</span><span class="n">iptables_conf_tmp</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="sh">'</span><span class="s">iptables</span><span class="sh">'</span><span class="p">):</span>
+        <span class="c1"># iptables文件有更新，执行更新操作
+</span>        <span class="k">pass</span>
+</pre></table></code></div></div></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw me-1"></i> <a href="/categories/python/">python</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw me-1"></i> <a href="/tags/post/" class="post-tag no-text-decoration" >post</a></div><div class=" post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2 " ><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper d-flex align-items-center"> <span class="share-label text-muted">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=%E4%BD%BF%E7%94%A8Python%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4ipset%E4%B8%8Eiptables%20-%20IC%20Infra&url=https%3A%2F%2Ficinfra.cn%2Fposts%2Foperate-ipset-and-iptables-with-python%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter"> <i class="fa-fw fa-brands fa-square-x-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=%E4%BD%BF%E7%94%A8Python%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4ipset%E4%B8%8Eiptables%20-%20IC%20Infra&u=https%3A%2F%2Ficinfra.cn%2Fposts%2Foperate-ipset-and-iptables-with-python%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Ficinfra.cn%2Fposts%2Foperate-ipset-and-iptables-with-python%2F&text=%E4%BD%BF%E7%94%A8Python%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4ipset%E4%B8%8Eiptables%20-%20IC%20Infra" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <button id="copy-link" aria-label="Copy link" class="btn small" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy link" data-title-succeed="Link copied successfully!" > <i class="fa-fw fas fa-link pe-none fs-6"></i> </button> </span></div></div><div class="payment-info mt-5 text-center"><h4>支持创作者</h4><p>如果本文帮助到你，可以通过以下收款码支持我：</p><a href="https://cdn.jsdelivr.net/gh/icinfra/icinfra-artifacts-0001@artifacts/img/qrcode.jpg" class="popup img-link img-fluid shimmer"><img src="https://cdn.jsdelivr.net/gh/icinfra/icinfra-artifacts-0001@artifacts/img/qrcode.jpg" alt="收款码" style="max-width: 300px;" loading="lazy"></a><p>感谢你的支持！</p></div></div></article><script src="https://cdn.jsdelivr.net/npm/mermaid@11.6.0/dist/mermaid.min.js"></script> <script> document.addEventListener('DOMContentLoaded', function() { mermaid.initialize({ startOnLoad: true, theme: "default" }); // 既支持 language-mermaid 也支持 mermaid 类 window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid, .mermaid')); }); </script></main><aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted"><div class="access"><section id="access-lastmod"><h2 class="panel-heading">Recently Updated</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"> <a href="/posts/why-desktop-tools-break-in-multi-user-hpc/">桌面工具在HPC/芯片研发中的“集体失效”：跨机器使用为何频繁报错？</a><li class="text-truncate lh-lg"> <a href="/posts/flexlm-diagnostics/">FLEXLM_DIAGNOSTICS 变量</a><li class="text-truncate lh-lg"> <a href="/posts/restore-typora-trial/">重置Typora试用</a><li class="text-truncate lh-lg"> <a href="/posts/dns-forwarding-microsoft-ad-ds-dnsmasq/">How to Configure DNS Forwarding with Microsoft AD DS and Dnsmasq</a><li class="text-truncate lh-lg"> <a href="/posts/use-pip-to-install-python-packages-across-versions/">使用pip下载适用于不同Python版本的pip包</a></ul></section><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="/tags/formatting/">formatting</a> <a class="post-tag btn btn-outline-primary" href="/tags/post/">post</a> <a class="post-tag btn btn-outline-primary" href="/tags/python/">python</a> <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a> <a class="post-tag btn btn-outline-primary" href="/tags/analog/">analog</a> <a class="post-tag btn btn-outline-primary" href="/tags/ipa/">ipa</a> <a class="post-tag btn btn-outline-primary" href="/tags/links/">links</a> <a class="post-tag btn btn-outline-primary" href="/tags/license/">license</a> <a class="post-tag btn btn-outline-primary" href="/tags/lsf/">lsf</a> <a class="post-tag btn btn-outline-primary" href="/tags/spack/">spack</a></div></section></div><div class="toc-border-cover z-3"></div><section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4"><h2 class="panel-heading ps-3 pb-2 mb-0">Contents</h2><nav id="toc"></nav></section></aside></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4"><aside id="related-posts" aria-labelledby="related-label"><h3 class="mb-4" id="related-label">Further Reading</h3><nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4"><article class="col"> <a href="/posts/meetings/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1663110900" data-df="ll" > Sep 13, 2022 </time><h4 class="pt-0 my-2">会议有感</h4><div class="text-muted"><p>会议有感 领导是帮助大家将事情做成的人，千万不要将领导看成是高人一等的角色，而是看成是可以求助的伙伴，要资源，要帮助，就说服领导，把事情做成。 我们做的事情很有意义，放长远来看，对社会、对公司、对个人都是很有意义的。当前的待遇都是临时的。大家可以将现在做的事，想成是为下一份工作简历，努力做好，充实简历。当然了，留在公司一直做下去也是最好的。 我们技术人要保持单纯，就事论事，会议上给大家提了...</p></div></div></a></article><article class="col"> <a href="/posts/it-purcurment-guide/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1662863834" data-df="ll" > Sep 11, 2022 </time><h4 class="pt-0 my-2">软件采购的一些总结</h4><div class="text-muted"><p>软件采购 大小公司在年末时会收集来年的各种预算，其中IT的无形资产，如软件也包括在内。那么软件采购，需要注意哪些点呢? 以采购MATLAB为例子: 需求厘清 业务反馈的需求，需要与软件供应商仔细核对，确保需求与供应匹配，如购买MATLAB，它涉及到的有MATLAB RUNTIME， MATLAB以及100多个Toolbox。如果是合作伙伴将写好的MATLAB程序编译好，提...</p></div></div></a></article><article class="col"> <a href="/posts/tracing-dd-commnd/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1662416100" data-df="ll" > Sep 5, 2022 </time><h4 class="pt-0 my-2">strace与perf trace</h4><div class="text-muted"><p>Strace strace是众所周知的系统调用追踪工具。由于它依赖于ptrace暂停应用来获取系统调用的相关信息，这导致在使用strace过程中非常差的性能。在strace过程中，每个系统调用会暂停两次：一次是进入系统调用、一次是离开系统调用。 perf trace perf trace使用trace points来收集系统调用信息，在tracing过程中，应用无需被暂停。 此外，per...</p></div></div></a></article></nav></aside><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"> <a href="/posts/get-permanent-mac-on-linux/" class="btn btn-outline-primary" aria-label="Older" ><p>Get permanent MAC Address</p></a> <a href="/posts/how-to-avoid-flexlm-license-server-being-shutdown-by-normal-users/" class="btn btn-outline-primary" aria-label="Newer" ><p>如何禁止普通用户关闭lmgrd?</p></a></nav><footer aria-label="Site Info" class=" d-flex flex-column justify-content-center text-muted flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3 " ><p>© <time>2025</time> <a href="https://github.com/wanlinwang">wanlinwang</a>. <span data-bs-toggle="tooltip" data-bs-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author." >Rights reserved.</span></p><p></p></footer></div></div><div id="search-result-wrapper" class="d-flex justify-content-center d-none"><div class="col-11 content"><div id="search-hints"><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="/tags/formatting/">formatting</a> <a class="post-tag btn btn-outline-primary" href="/tags/post/">post</a> <a class="post-tag btn btn-outline-primary" href="/tags/python/">python</a> <a class="post-tag btn btn-outline-primary" href="/tags/linux/">linux</a> <a class="post-tag btn btn-outline-primary" href="/tags/analog/">analog</a> <a class="post-tag btn btn-outline-primary" href="/tags/ipa/">ipa</a> <a class="post-tag btn btn-outline-primary" href="/tags/links/">links</a> <a class="post-tag btn btn-outline-primary" href="/tags/license/">license</a> <a class="post-tag btn btn-outline-primary" href="/tags/lsf/">lsf</a> <a class="post-tag btn btn-outline-primary" href="/tags/spack/">spack</a></div></section></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><aside aria-label="Scroll to Top"> <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow"> <i class="fas fa-angle-up"></i> </button></aside></div><div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div><aside id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-animation="true" data-bs-autohide="false" ><div class="toast-header"> <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close" ></button></div><div class="toast-body text-center pt-0"><p class="px-2 mb-3">A new version of content is available.</p><button type="button" class="btn btn-primary" aria-label="Update"> Update </button></div></aside><script> (function () { const themeMapper = Theme.getThemeMapper('light', 'dark_dimmed'); const initTheme = themeMapper[Theme.visualState]; let lang = 'en';if (lang.length > 2 && !lang.startsWith('zh')) { lang = lang.slice(0, 2); } let giscusAttributes = { src: 'https://giscus.app/client.js', 'data-repo': 'icinfra/icinfra-discussions', 'data-repo-id': 'R_kgDOOURp_w', 'data-category': 'Q&A', 'data-category-id': 'DIC_kwDOOURp_84Coy9P', 'data-mapping': 'pathname', 'data-strict' : '1', 'data-reactions-enabled': '1', 'data-emit-metadata': '0', 'data-theme': initTheme, 'data-input-position': 'bottom', 'data-lang': lang, 'data-loading': 'lazy', crossorigin: 'anonymous', async: '' }; let giscusNode = document.createElement('script'); Object.entries(giscusAttributes).forEach(([key, value]) => giscusNode.setAttribute(key, value) ); const $footer = document.querySelector('footer'); $footer.insertAdjacentElement("beforebegin", giscusNode); addEventListener('message', (event) => { if (event.source === window && event.data && event.data.id === Theme.ID) { const newTheme = themeMapper[Theme.visualState]; const message = { setConfig: { theme: newTheme } }; const giscus = document.getElementsByClassName('giscus-frame')[0].contentWindow; giscus.postMessage({ giscus: message }, 'https://giscus.app'); } }); })(); </script> <script> document.addEventListener('DOMContentLoaded', () => { SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<article class="px-1 px-sm-2 px-lg-4 px-xl-0"><header><h2><a href="{url}">{title}</a></h2><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div></header><p>{snippet}</p></article>', noResultsText: '<p class="mt-5">Oops! No results found.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); }); </script>
