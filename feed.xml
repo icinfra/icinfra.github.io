@@ -1,0 +1,147 @@
+
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>https://icinfra.cn/</id>
+  <title>IC Infra</title>
+  <subtitle>A comprehensive platform dedicated to exploring and optimizing IT infrastructure for IC design, offering insights into cutting-edge tools, workflows, and automation techniques.</subtitle>
+  <updated>2026-08-31T13:46:00+00:00</updated>
+  <author>
+    <name>wanlinwang</name>
+    <uri>https://icinfra.cn/</uri>
+  </author>
+  <link rel="self" type="application/atom+xml" href="https://icinfra.cn/feed.xml"/>
+  <link rel="alternate" type="text/html" hreflang="en"
+    href="https://icinfra.cn/"/>
+  <generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator>
+  <rights> © 2026 wanlinwang </rights>
+  <icon>/assets/img/favicons/favicon.ico</icon>
+  <logo>/assets/img/favicons/favicon-96x96.png</logo>
+
+
+  
+  <entry>
+    <title>参加 ChipAgents 在线研讨会后：AI Agent 如何进入芯片设计与验证流程</title>
+    <link href="https://icinfra.cn/posts/chipagents-webinar-notes/" rel="alternate" type="text/html" title="参加 ChipAgents 在线研讨会后：AI Agent 如何进入芯片设计与验证流程" />
+    <published>2026-08-31T13:30:00+00:00</published>
+  
+    <updated>2026-08-31T13:30:00+00:00</updated>
+  
+    <id>https://icinfra.cn/posts/chipagents-webinar-notes/</id>
+    <content type="text/html" src="https://icinfra.cn/posts/chipagents-webinar-notes/" />
+    <author>
+      <name>wanlinwang</name>
+    </author>
+
+  
+    
+    <category term="AI4EDA" />
+    
+    <category term="Semiconductor" />
+    
+  
+
+  <summary>参加 ChipAgents 在线研讨会后的技术笔记：梳理硬件原生 AI Agent、Spec-to-RTL、RCA、UVM、Formal、Coverage、PPA、模拟 IC 与企业部署，并补充相关芯片设计背景。</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>RHEL 8.10 FreeIPA（IdM）双节点高可用、离线备份与灾难恢复方案（审校版）</title>
+    <link href="https://icinfra.cn/posts/rhel-8-10-freeipa-ha-backup-restore.md/" rel="alternate" type="text/html" title="RHEL 8.10 FreeIPA（IdM）双节点高可用、离线备份与灾难恢复方案（审校版）" />
+    <published>2026-08-22T14:55:00+00:00</published>
+  
+    <updated>2026-08-22T14:55:00+00:00</updated>
+  
+    <id>https://icinfra.cn/posts/rhel-8-10-freeipa-ha-backup-restore.md/</id>
+    <content type="text/html" src="https://icinfra.cn/posts/rhel-8-10-freeipa-ha-backup-restore.md/" />
+    <author>
+      <name>wanlinwang</name>
+    </author>
+
+  
+    
+    <category term="icinfra" />
+    
+  
+
+  <summary>RHEL 8.10 FreeIPA（IdM）双节点高可用、离线备份与灾难恢复方案（审校版）</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Virtuoso ADE / Spectre 的仿真产物、波形与本地临时目录配置</title>
+    <link href="https://icinfra.cn/posts/virtuoso-spectre-storage-and-local-scratch/" rel="alternate" type="text/html" title="Virtuoso ADE / Spectre 的仿真产物、波形与本地临时目录配置" />
+    <published>2026-08-20T01:00:00+00:00</published>
+  
+    <updated>2026-08-20T01:00:00+00:00</updated>
+  
+    <id>https://icinfra.cn/posts/virtuoso-spectre-storage-and-local-scratch/</id>
+    <content type="text/html" src="https://icinfra.cn/posts/virtuoso-spectre-storage-and-local-scratch/" />
+    <author>
+      <name>wanlinwang</name>
+    </author>
+
+  
+    
+    <category term="EDA" />
+    
+    <category term="Cadence" />
+    
+  
+
+  <summary>本文整理 Virtuoso ADE 调用 Spectre 时几类容易混淆的存储位置，并说明如何把大型波形和临时文件放到合适的文件系统。内容依据 Cadence ASK 的产品文档与技术文章；部分链接需要 Cadence 客户账号登录后访问。     核心结论：projectDir、saveResDir 和 TMPDIR 控制的不是同一类数据。若主要问题是 transient 波形很大，应优先规划 PSF/PSFXL 结果目录；只修改 TMPDIR 不会自动迁移正式波形结果。   1. 三类路径分别控制什么                 路径或变量       主要用途       是否用于大型波形                       asimenv.startup/projectDir       ADE 默认仿真项目/运行目录的根位置       未另行指定结果目录时可能...</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Cadence 数字芯片全流程与 EDA 工具栈调研</title>
+    <link href="https://icinfra.cn/posts/cadence-digital-chip-full-flow-research/" rel="alternate" type="text/html" title="Cadence 数字芯片全流程与 EDA 工具栈调研" />
+    <published>2026-08-19T14:15:00+00:00</published>
+  
+    <updated>2026-08-19T14:15:00+00:00</updated>
+  
+    <id>https://icinfra.cn/posts/cadence-digital-chip-full-flow-research/</id>
+    <content type="text/html" src="https://icinfra.cn/posts/cadence-digital-chip-full-flow-research/" />
+    <author>
+      <name>wanlinwang</name>
+    </author>
+
+  
+    
+    <category term="icinfra" />
+    
+  
+
+  <summary>Cadence 数字芯片全流程与 EDA 工具栈调研</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Cadence Palladium &amp; Protium Compilation Flow</title>
+    <link href="https://icinfra.cn/posts/cadence-palladium-protium-compilation-flow/" rel="alternate" type="text/html" title="Cadence Palladium &amp;amp; Protium Compilation Flow" />
+    <published>2026-08-14T00:17:00+00:00</published>
+  
+    <updated>2026-08-14T00:17:00+00:00</updated>
+  
+    <id>https://icinfra.cn/posts/cadence-palladium-protium-compilation-flow/</id>
+    <content type="text/html" src="https://icinfra.cn/posts/cadence-palladium-protium-compilation-flow/" />
+    <author>
+      <name>wanlinwang</name>
+    </author>
+
+  
+    
+    <category term="icenv" />
+    
+  
+
+  <summary>Palladium Z3 and Protium X3 Standard Design Compile Flow</summary>
+
+  </entry>
+
+</feed>
+
+
