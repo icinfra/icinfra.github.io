@@ -1,0 +1,151 @@
+
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>https://icinfra.cn/</id>
+  <title>IC Infra</title>
+  <subtitle>A comprehensive platform dedicated to exploring and optimizing IT infrastructure for IC design, offering insights into cutting-edge tools, workflows, and automation techniques.</subtitle>
+  <updated>2026-11-01T13:45:06+00:00</updated>
+  <author>
+    <name>wanlinwang</name>
+    <uri>https://icinfra.cn/</uri>
+  </author>
+  <link rel="self" type="application/atom+xml" href="https://icinfra.cn/feed.xml"/>
+  <link rel="alternate" type="text/html" hreflang="en"
+    href="https://icinfra.cn/"/>
+  <generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator>
+  <rights> © 2026 wanlinwang </rights>
+  <icon>/assets/img/favicons/favicon.ico</icon>
+  <logo>/assets/img/favicons/favicon-96x96.png</logo>
+
+
+  
+  <entry>
+    <title>在 XFCE 与远程 VS Code 中使用搜狗输入法</title>
+    <link href="https://icinfra.cn/posts/sogou-fcitx-xfce-remote-vscode/" rel="alternate" type="text/html" title="在 XFCE 与远程 VS Code 中使用搜狗输入法" />
+    <published>2026-10-30T08:00:00+00:00</published>
+  
+    <updated>2026-10-30T08:00:00+00:00</updated>
+  
+    <id>https://icinfra.cn/posts/sogou-fcitx-xfce-remote-vscode/</id>
+    <content type="text/html" src="https://icinfra.cn/posts/sogou-fcitx-xfce-remote-vscode/" />
+    <author>
+      <name>wanlinwang</name>
+    </author>
+
+  
+    
+    <category term="Linux" />
+    
+    <category term="Input Method" />
+    
+  
+
+  <summary>前言  随着大模型在芯片设计行业应用越来广泛，中文（输入与显示）在研发内网使用中文越趋迫切。EDA行业群经常反馈ta们在研发内网部署的中文输入法，要么就是能用一阵子、失效一阵子，要么就是ssh过去之后中文输入失效，要么就是能输入但是中文显示为“?”，摸不着头脑干着急。  因此，博主下功夫记录在 XFCE 桌面中安装、调试、使用搜狗输入法，并从桌面终端通过 SSH 或 LSF 在远端启动 VS Code 时，让远端程序使用桌面输入法的方案。  环境与目标  示例环境如下：     172.31.0.122：ETX 桌面机，运行 XFCE、Fcitx 4 和搜狗输入法。   172.31.0.132：远端计算节点，在其上运行 VS Code。   用户家目录由 NFS 共享，两台机器看到的是同一份家目录。   桌面终端使用 tcsh 或 csh，通过 Environment Module...</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Linux 远程桌面与 SSH：让 Terminal 和 VS Code 支持中文输入</title>
+    <link href="https://icinfra.cn/posts/linux-ssh-vscode-chinese-input/" rel="alternate" type="text/html" title="Linux 远程桌面与 SSH：让 Terminal 和 VS Code 支持中文输入" />
+    <published>2026-10-30T02:00:00+00:00</published>
+  
+    <updated>2026-10-30T02:00:00+00:00</updated>
+  
+    <id>https://icinfra.cn/posts/linux-ssh-vscode-chinese-input/</id>
+    <content type="text/html" src="https://icinfra.cn/posts/linux-ssh-vscode-chinese-input/" />
+    <author>
+      <name>wanlinwang</name>
+    </author>
+
+  
+    
+    <category term="Linux" />
+    
+    <category term="SSH" />
+    
+  
+
+  <summary>在远程桌面中，中文输入可以分为两个问题：终端如何显示中文，以及 图形程序如何连接输入法。本文记录一次实际排查：从桌面节点打开 Terminal，再通过 SSH 连接计算节点，并在远程节点启动 VS Code。  环境和目标                 节点       用途                       172.31.0.122       Xfce 桌面，运行 Terminal 和桌面 IBus                 172.31.0.132       SSH 目标节点，运行远程 shell 和 VS Code           两台机器的用户家目录通过 NFS 共享。因此，在一台机器修改的 ~/.cshrc 和 ~/bin 脚本，在另一台机器也能看到；修改启动配置时必须考虑机器差异。  目标是：     在 122 的桌面 Terminal 输入、...</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>参加 ChipAgents 在线研讨会后：AI Agent 如何进入芯片设计与验证流程</title>
+    <link href="https://icinfra.cn/posts/chipagents-webinar-notes/" rel="alternate" type="text/html" title="参加 ChipAgents 在线研讨会后：AI Agent 如何进入芯片设计与验证流程" />
+    <published>2026-08-31T13:30:00+00:00</published>
+  
+    <updated>2026-08-31T13:30:00+00:00</updated>
+  
+    <id>https://icinfra.cn/posts/chipagents-webinar-notes/</id>
+    <content type="text/html" src="https://icinfra.cn/posts/chipagents-webinar-notes/" />
+    <author>
+      <name>wanlinwang</name>
+    </author>
+
+  
+    
+    <category term="AI4EDA" />
+    
+    <category term="Semiconductor" />
+    
+  
+
+  <summary>参加 ChipAgents 在线研讨会后的技术笔记：梳理硬件原生 AI Agent、Spec-to-RTL、RCA、UVM、Formal、Coverage、PPA、模拟 IC 与企业部署，并补充相关芯片设计背景。</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>RHEL 8.10 FreeIPA（IdM）双节点高可用、离线备份与灾难恢复方案（审校版）</title>
+    <link href="https://icinfra.cn/posts/rhel-8-10-freeipa-ha-backup-restore.md/" rel="alternate" type="text/html" title="RHEL 8.10 FreeIPA（IdM）双节点高可用、离线备份与灾难恢复方案（审校版）" />
+    <published>2026-08-22T14:55:00+00:00</published>
+  
+    <updated>2026-08-22T14:55:00+00:00</updated>
+  
+    <id>https://icinfra.cn/posts/rhel-8-10-freeipa-ha-backup-restore.md/</id>
+    <content type="text/html" src="https://icinfra.cn/posts/rhel-8-10-freeipa-ha-backup-restore.md/" />
+    <author>
+      <name>wanlinwang</name>
+    </author>
+
+  
+    
+    <category term="icinfra" />
+    
+  
+
+  <summary>RHEL 8.10 FreeIPA（IdM）双节点高可用、离线备份与灾难恢复方案（审校版）</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Virtuoso ADE / Spectre 的仿真产物、波形与本地临时目录配置</title>
+    <link href="https://icinfra.cn/posts/virtuoso-spectre-storage-and-local-scratch/" rel="alternate" type="text/html" title="Virtuoso ADE / Spectre 的仿真产物、波形与本地临时目录配置" />
+    <published>2026-08-20T01:00:00+00:00</published>
+  
+    <updated>2026-08-20T01:00:00+00:00</updated>
+  
+    <id>https://icinfra.cn/posts/virtuoso-spectre-storage-and-local-scratch/</id>
+    <content type="text/html" src="https://icinfra.cn/posts/virtuoso-spectre-storage-and-local-scratch/" />
+    <author>
+      <name>wanlinwang</name>
+    </author>
+
+  
+    
+    <category term="EDA" />
+    
+    <category term="Cadence" />
+    
+  
+
+  <summary>本文整理 Virtuoso ADE 调用 Spectre 时几类容易混淆的存储位置，并说明如何把大型波形和临时文件放到合适的文件系统。内容依据 Cadence ASK 的产品文档与技术文章；部分链接需要 Cadence 客户账号登录后访问。     核心结论：projectDir、saveResDir 和 TMPDIR 控制的不是同一类数据。若主要问题是 transient 波形很大，应优先规划 PSF/PSFXL 结果目录；只修改 TMPDIR 不会自动迁移正式波形结果。   1. 三类路径分别控制什么                 路径或变量       主要用途       是否用于大型波形                       asimenv.startup/projectDir       ADE 默认仿真项目/运行目录的根位置       未另行指定结果目录时可能...</summary>
+
+  </entry>
+
+</feed>
+
+
