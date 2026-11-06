@@ -1,0 +1,151 @@
+
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>https://icinfra.cn/</id>
+  <title>IC Infra</title>
+  <subtitle>A comprehensive platform dedicated to exploring and optimizing IT infrastructure for IC design, offering insights into cutting-edge tools, workflows, and automation techniques.</subtitle>
+  <updated>2026-11-06T07:33:10+00:00</updated>
+  <author>
+    <name>wanlinwang</name>
+    <uri>https://icinfra.cn/</uri>
+  </author>
+  <link rel="self" type="application/atom+xml" href="https://icinfra.cn/feed.xml"/>
+  <link rel="alternate" type="text/html" hreflang="en"
+    href="https://icinfra.cn/"/>
+  <generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator>
+  <rights> © 2026 wanlinwang </rights>
+  <icon>/assets/img/favicons/favicon.ico</icon>
+  <logo>/assets/img/favicons/favicon-96x96.png</logo>
+
+
+  
+  <entry>
+    <title>从官方 DEB 构建系统版搜狗输入法 RPM：Rocky Linux 8 与 Fcitx 4</title>
+    <link href="https://icinfra.cn/posts/sogoupinyin-deb-to-system-rpm-el8/" rel="alternate" type="text/html" title="从官方 DEB 构建系统版搜狗输入法 RPM：Rocky Linux 8 与 Fcitx 4" />
+    <published>2026-11-05T01:00:00+00:00</published>
+  
+    <updated>2026-11-05T01:00:00+00:00</updated>
+  
+    <id>https://icinfra.cn/posts/sogoupinyin-deb-to-system-rpm-el8/</id>
+    <content type="text/html" src="https://icinfra.cn/posts/sogoupinyin-deb-to-system-rpm-el8/" />
+    <author>
+      <name>wanlinwang</name>
+    </author>
+
+  
+    
+    <category term="Linux" />
+    
+    <category term="Input Method" />
+    
+  
+
+  <summary>本文记录如何将搜狗拼音官方 DEB 重新打包为安装到系统路径的 RPM，并在 Rocky Linux 8 的 XFCE/ETX 桌面中使用 Fcitx 4 和搜狗拼音。  这个方法几乎不需要为用户做定制，在操作系统安装好后可让用户自行使用系统fcitx机制进行切换输入法。建议IT Infra团队，在使用前先在一台 el8 测试后，确保没问题后再上量到生产环境。  这个包使用系统 Fcitx 和 Qt。程序安装到 /opt/sogoupinyin，Fcitx 插件及元数据安装到系统目录。普通用户可以执行 imsettings-switch fcitx 选择 Fcitx；新用户的 Fcitx profile 会根据系统元数据启用搜狗。已有用户如果明确关闭了搜狗，原选择会保留。     这是根据官方 DEB 制作的站点自用实验包，不是搜狗官方 RPM。本文针对 Rocky Linux 8....</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>在 ETX/XFCE 部署搜狗输入法：RPM 安装与一次性用户初始化</title>
+    <link href="https://icinfra.cn/posts/sogou-fcitx-xfce-remote-vscode/" rel="alternate" type="text/html" title="在 ETX/XFCE 部署搜狗输入法：RPM 安装与一次性用户初始化" />
+    <published>2026-10-30T08:00:00+00:00</published>
+  
+    <updated>2026-11-04T23:26:00+00:00</updated>
+  
+    <id>https://icinfra.cn/posts/sogou-fcitx-xfce-remote-vscode/</id>
+    <content type="text/html" src="https://icinfra.cn/posts/sogou-fcitx-xfce-remote-vscode/" />
+    <author>
+      <name>wanlinwang</name>
+    </author>
+
+  
+    
+    <category term="Linux" />
+    
+    <category term="Input Method" />
+    
+  
+
+  <summary>本文使用 Fcitx 4 + 搜狗拼音 4.2.1.145。管理员准备 RPM、系统依赖和 ETX Profile；每位普通用户在自己的桌面终端中执行一次：  bash /tools/OSS/sogou/4.2.1.145/bin/sogou-fcitx-init.sh   然后 Terminate 当前 ETX 桌面，再新建一个会话。后续启动同一家目录的 XFCE 桌面时，会自动启动 Fcitx 和搜狗。关闭 ETX 客户端窗口通常只是断开连接，不能代替终止并新建会话。  本方案使用普通 XFCE Terminal，不需要 Sogou modulefile、专用 terminal server，也不需要在 Xstart 中调用搜狗的 session init。新桌面的应用环境由 Xstart 统一设置；输入法由个人 XFCE 自动启动项启动。  本文的初始化命令针对下面准备的 -1...</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Linux 远程桌面与 SSH：让 Terminal 和 VS Code 支持中文输入</title>
+    <link href="https://icinfra.cn/posts/linux-ssh-vscode-chinese-input/" rel="alternate" type="text/html" title="Linux 远程桌面与 SSH：让 Terminal 和 VS Code 支持中文输入" />
+    <published>2026-10-30T02:00:00+00:00</published>
+  
+    <updated>2026-10-30T02:00:00+00:00</updated>
+  
+    <id>https://icinfra.cn/posts/linux-ssh-vscode-chinese-input/</id>
+    <content type="text/html" src="https://icinfra.cn/posts/linux-ssh-vscode-chinese-input/" />
+    <author>
+      <name>wanlinwang</name>
+    </author>
+
+  
+    
+    <category term="Linux" />
+    
+    <category term="SSH" />
+    
+  
+
+  <summary>在远程桌面中，中文输入可以分为两个问题：终端如何显示中文，以及 图形程序如何连接输入法。本文记录一次实际排查：从桌面节点打开 Terminal，再通过 SSH 连接计算节点，并在远程节点启动 VS Code。  环境和目标                 节点       用途                       172.31.0.122       Xfce 桌面，运行 Terminal 和桌面 IBus                 172.31.0.132       SSH 目标节点，运行远程 shell 和 VS Code           两台机器的用户家目录通过 NFS 共享。因此，在一台机器修改的 ~/.cshrc 和 ~/bin 脚本，在另一台机器也能看到；修改启动配置时必须考虑机器差异。  目标是：     在 122 的桌面 Terminal 输入、...</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>参加 ChipAgents 在线研讨会后：AI Agent 如何进入芯片设计与验证流程</title>
+    <link href="https://icinfra.cn/posts/chipagents-webinar-notes/" rel="alternate" type="text/html" title="参加 ChipAgents 在线研讨会后：AI Agent 如何进入芯片设计与验证流程" />
+    <published>2026-08-31T13:30:00+00:00</published>
+  
+    <updated>2026-08-31T13:30:00+00:00</updated>
+  
+    <id>https://icinfra.cn/posts/chipagents-webinar-notes/</id>
+    <content type="text/html" src="https://icinfra.cn/posts/chipagents-webinar-notes/" />
+    <author>
+      <name>wanlinwang</name>
+    </author>
+
+  
+    
+    <category term="AI4EDA" />
+    
+    <category term="Semiconductor" />
+    
+  
+
+  <summary>参加 ChipAgents 在线研讨会后的技术笔记：梳理硬件原生 AI Agent、Spec-to-RTL、RCA、UVM、Formal、Coverage、PPA、模拟 IC 与企业部署，并补充相关芯片设计背景。</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>RHEL 8.10 FreeIPA（IdM）双节点高可用、离线备份与灾难恢复方案（审校版）</title>
+    <link href="https://icinfra.cn/posts/rhel-8-10-freeipa-ha-backup-restore.md/" rel="alternate" type="text/html" title="RHEL 8.10 FreeIPA（IdM）双节点高可用、离线备份与灾难恢复方案（审校版）" />
+    <published>2026-08-22T14:55:00+00:00</published>
+  
+    <updated>2026-08-22T14:55:00+00:00</updated>
+  
+    <id>https://icinfra.cn/posts/rhel-8-10-freeipa-ha-backup-restore.md/</id>
+    <content type="text/html" src="https://icinfra.cn/posts/rhel-8-10-freeipa-ha-backup-restore.md/" />
+    <author>
+      <name>wanlinwang</name>
+    </author>
+
+  
+    
+    <category term="icinfra" />
+    
+  
+
+  <summary>RHEL 8.10 FreeIPA（IdM）双节点高可用、离线备份与灾难恢复方案（审校版）</summary>
+
+  </entry>
+
+</feed>
+
+
